@@ -36,15 +36,16 @@ def register():
 
         db_sess = db_session.create_session()
 
-        if db_sess.query(User).filter(User.email == form.email.data).first():
+        # Проверяем по имени пользователя
+        if db_sess.query(User).filter(User.name == form.name.data).first():
             return render_template('register.html',
                                  form=form,
-                                 message="Такой пользователь уже есть")
+                                 message="Пользователь с таким именем уже существует")
 
         user = User(
             name=form.name.data,
-            email=form.email.data,
-            about=form.about.data
+            # email больше не обязателен
+            about=""  # Поле about пустое
         )
         user.set_password(form.password.data)
 
@@ -59,19 +60,18 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
-        user = db_sess.query(User).filter(User.email == form.email.data).first()
+        # Ищем пользователя по имени, а не по email
+        user = db_sess.query(User).filter(User.name == form.name.data).first()
 
         if user and user.check_password(form.password.data):
-            login_user(user, remember=form.remember_me.data)
-            # ВОЗВРАЩАЕМ НА ПРЕДЫДУЩУЮ СТРАНИЦУ!
-            return redirect(request.referrer or "/")
+            login_user(user, remember=True)  # remember_me убрали
+            return redirect(request.referrer or "/go-to-trainer")  # Перенаправляем в тренажер
 
         return render_template('login.html',
                              form=form,
-                             message="Неправильный логин или пароль")
+                             message="Неправильное имя пользователя или пароль")
 
     return render_template('login.html', form=form)
-
 @app.route('/logout')
 @login_required
 def logout():
@@ -83,4 +83,4 @@ def go_to_trainer():
     return render_template('practic.html')
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8025, host='127.0.0.1')
+    app.run(debug=True, port=8028, host='127.0.0.1')
