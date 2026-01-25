@@ -1,5 +1,710 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<head/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Симулятор смартфона</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .phone-container {
+            width: 360px;
+            height: 720px;
+            background: #000;
+            border-radius: 40px;
+            padding: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+            border: 8px solid #222;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: #f0f0f0;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .status-bar {
+            height: 30px;
+            background: #000;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            font-size: 14px;
+        }
+
+        .time {
+            font-weight: bold;
+        }
+
+        .status-icons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .app-content {
+            height: calc(100% - 30px);
+            overflow-y: auto;
+            padding-bottom: 60px;
+        }
+
+        .header {
+            background: white;
+            padding: 20px 15px 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 20px;
+            color: #444;
+            margin: 15px 0 10px;
+            padding: 0 15px;
+        }
+
+        h3 {
+            font-size: 18px;
+            color: #666;
+            margin: 10px 0;
+            padding: 0 15px;
+        }
+
+        .section {
+            background: white;
+            margin: 15px;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .wifi-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .wifi-item:hover {
+            background: #f8f8f8;
+        }
+
+        .wifi-item:last-child {
+            border-bottom: none;
+        }
+
+        .wifi-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+        }
+
+        .signal-strength {
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #4CAF50;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        .button {
+            background: #007AFF;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .button:hover {
+            background: #0056CC;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        .keyboard {
+            background: #e0e0e0;
+            padding: 10px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: grid;
+            grid-template-rows: repeat(4, 1fr);
+            gap: 5px;
+        }
+
+        .keyboard-row {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+        }
+
+        .key {
+            flex: 1;
+            background: white;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 0;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .key:hover {
+            background: #f0f0f0;
+        }
+
+        .special-key {
+            background: #d0d0d0;
+            flex: 1.5;
+        }
+
+        .nav-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: #666;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .nav-item.active {
+            color: #007AFF;
+        }
+
+        .nav-item:hover {
+            background: #f0f0f0;
+        }
+
+        .nav-icon {
+            font-size: 20px;
+        }
+
+        .settings-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .settings-item:last-child {
+            border-bottom: none;
+        }
+
+        .settings-icon {
+            width: 24px;
+            text-align: center;
+            margin-right: 12px;
+            font-size: 18px;
+        }
+
+        .settings-text {
+            flex: 1;
+            font-size: 16px;
+        }
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            accent-color: #007AFF;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-container">
+        <div class="phone-screen">
+            <div class="status-bar">
+                <div class="time">14:30</div>
+                <div class="status-icons">
+                    <span>📶</span>
+                    <span>📱</span>
+                    <span>🔋</span>
+                </div>
+            </div>
+
+            <div class="app-content">
+                <!-- Экран Wi-Fi -->
+                <div id="wifi-screen" class="screen">
+                    <div class="header">
+                        <h1># Wi-Fi</h1>
+                        <h2>Ускорение сети</h2>
+                    </div>
+
+                    <div class="section">
+                        <div class="wifi-item">
+                            <div class="wifi-name">
+                                📶 <strong>Buba-5G [56]</strong>
+                            </div>
+                            <div class="signal-strength">56</div>
+                        </div>
+                        <div class="wifi-item" onclick="shareNetwork()">
+                            <div>Нажмите, чтобы поделиться сетью</div>
+                        </div>
+                    </div>
+
+                    <h3>Сохраненные сети</h3>
+
+                    <div class="section">
+                        <div class="wifi-item">
+                            <div class="wifi-name">
+                                ✅ <strong>Buba</strong>
+                            </div>
+                        </div>
+                        <div class="wifi-item" onclick="refreshNetworks()">
+                            <div>Обновить</div>
+                        </div>
+                    </div>
+
+                    <h3>Доступные сети</h3>
+
+                    <div class="section">
+                        <div class="wifi-item" onclick="connectToWifi('DIRECT-34-...rt Tank 510')">
+                            <div class="wifi-name">
+                                📶 <strong>DIRECT-34-...rt Tank 510 [56]</strong>
+                            </div>
+                            <div class="signal-strength">56</div>
+                        </div>
+                        <div class="wifi-item" onclick="connectToWifi('Beeline_2G_F32666')">
+                            <div class="wifi-name">
+                                📶 <strong>Beeline_2G_F32666</strong>
+                            </div>
+                            <button class="button" style="padding: 6px 12px; font-size: 14px;">Подключить</button>
+                        </div>
+                        <div class="wifi-item">
+                            <div class="wifi-name">
+                                📶 <strong>SMOLVAIO</strong>
+                            </div>
+                        </div>
+                        <div class="wifi-item">
+                            <div class="wifi-name">
+                                📶 <strong>-GaDz2-</strong>
+                            </div>
+                        </div>
+                        <div class="wifi-item">
+                            <div class="wifi-name">
+                                📶 <strong>Online337-5G [56]</strong>
+                            </div>
+                            <div class="signal-strength">56</div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="wifi-item">
+                            <div>Новая сеть Wi-Fi</div>
+                        </div>
+                        <div class="wifi-item">
+                            <div>Другие настройки</div>
+                        </div>
+                        <div class="wifi-item">
+                            <strong>Расширенные настройки</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Экран подключения к Wi-Fi -->
+                <div id="connect-screen" class="screen hidden">
+                    <div class="header">
+                        <h1>Ускорение сети</h1>
+                    </div>
+
+                    <div class="section">
+                        <div class="wifi-item">
+                            <div class="wifi-name">
+                                📶 <strong>Buba-5G [56]</strong>
+                            </div>
+                            <div class="signal-strength">56</div>
+                        </div>
+                        <div class="wifi-item">
+                            <div>Нажмите, чтобы поделиться сетью</div>
+                        </div>
+                    </div>
+
+                    <h3>Сохраненные сети</h3>
+
+                    <div class="section">
+                        <div style="padding: 15px;">
+                            <strong>Beeline_2G_F32666</strong>
+                            <input type="password" class="password-input" id="wifi-password" placeholder="Пароль">
+                            <div style="display: flex; gap: 10px; margin-top: 15px;">
+                                <button class="button" style="flex: 1;" onclick="showKeyboard()">Параметры</button>
+                                <button class="button" style="flex: 1;" onclick="connectWithPassword()">Подключить</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="keyboard" class="keyboard hidden">
+                        <div class="keyboard-row">
+                            <button class="key" onclick="addToPassword('1')">1</button>
+                            <button class="key" onclick="addToPassword('2')">2</button>
+                            <button class="key" onclick="addToPassword('3')">3</button>
+                            <button class="key" onclick="addToPassword('4')">4</button>
+                            <button class="key" onclick="addToPassword('5')">5</button>
+                            <button class="key" onclick="addToPassword('6')">6</button>
+                            <button class="key" onclick="addToPassword('7')">7</button>
+                            <button class="key" onclick="addToPassword('8')">8</button>
+                            <button class="key" onclick="addToPassword('9')">9</button>
+                            <button class="key" onclick="addToPassword('0')">0</button>
+                        </div>
+                        <div class="keyboard-row">
+                            <button class="key" onclick="addToPassword('й')">й</button>
+                            <button class="key" onclick="addToPassword('ц')">ц</button>
+                            <button class="key" onclick="addToPassword('у')">у</button>
+                            <button class="key" onclick="addToPassword('к')">к</button>
+                            <button class="key" onclick="addToPassword('е')">е</button>
+                            <button class="key" onclick="addToPassword('н')">н</button>
+                            <button class="key" onclick="addToPassword('г')">г</button>
+                            <button class="key" onclick="addToPassword('ш')">ш</button>
+                            <button class="key" onclick="addToPassword('щ')">щ</button>
+                            <button class="key" onclick="addToPassword('з')">з</button>
+                            <button class="key" onclick="addToPassword('х')">х</button>
+                        </div>
+                        <div class="keyboard-row">
+                            <button class="key special-key" onclick="toggleKeyboardLayout()">Рус</button>
+                            <button class="key" onclick="addToPassword('ф')">ф</button>
+                            <button class="key" onclick="addToPassword('ы')">ы</button>
+                            <button class="key" onclick="addToPassword('в')">в</button>
+                            <button class="key" onclick="addToPassword('а')">а</button>
+                            <button class="key" onclick="addToPassword('п')">п</button>
+                            <button class="key" onclick="addToPassword('р')">р</button>
+                            <button class="key" onclick="addToPassword('о')">о</button>
+                            <button class="key" onclick="addToPassword('л')">л</button>
+                            <button class="key" onclick="addToPassword('д')">д</button>
+                            <button class="key" onclick="addToPassword('ж')">ж</button>
+                            <button class="key" onclick="addToPassword('э')">э</button>
+                        </div>
+                        <div class="keyboard-row">
+                            <button class="key special-key" onclick="addToPassword('?')">?123</button>
+                            <button class="key" onclick="addToPassword('я')">я</button>
+                            <button class="key" onclick="addToPassword('ч')">ч</button>
+                            <button class="key" onclick="addToPassword('с')">с</button>
+                            <button class="key" onclick="addToPassword('м')">м</button>
+                            <button class="key" onclick="addToPassword('и')">и</button>
+                            <button class="key" onclick="addToPassword('т')">т</button>
+                            <button class="key" onclick="addToPassword('ь')">ь</button>
+                            <button class="key" onclick="addToPassword('б')">б</button>
+                            <button class="key" onclick="addToPassword('ю')">ю</button>
+                            <button class="key special-key" onclick="backspacePassword()">⌫</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Экран настроек -->
+                <div id="settings-screen" class="screen hidden">
+                    <div class="header">
+                        <h1>Настройки</h1>
+                    </div>
+
+                    <h2>О телефоне</h2>
+
+                    <div class="section">
+                        <div class="settings-item">
+                            <div style="display: flex; align-items: center;">
+                                <div class="settings-icon">🔄</div>
+                                <div class="settings-text">Обновление компонентов</div>
+                            </div>
+                            <input type="checkbox" class="checkbox">
+                        </div>
+                        <div class="settings-item">
+                            <div style="display: flex; align-items: center;">
+                                <div class="settings-icon">🛡️</div>
+                                <div class="settings-text">Состояние защиты</div>
+                            </div>
+                            <input type="checkbox" class="checkbox" checked>
+                        </div>
+                        <div class="settings-item" onclick="showScreen('wifi-screen')">
+                            <div style="display: flex; align-items: center;">
+                                <div class="settings-icon">📶</div>
+                                <div class="settings-text">Wi-Fi</div>
+                            </div>
+                        </div>
+                        <div class="settings-item">
+                            <div style="display: flex; align-items: center;">
+                                <div class="settings-icon">🎬</div>
+                                <div class="settings-text">Видео</div>
+                            </div>
+                        </div>
+                        <div class="settings-item">
+                            <div style="display: flex; align-items: center;">
+                                <div class="settings-icon">📱</div>
+                                <div class="settings-text">Bluetooth</div>
+                            </div>
+                        </div>
+                        <div class="settings-item">
+                            <div style="display: flex; align-items: center;">
+                                <div class="settings-icon">📶</div>
+                                <div class="settings-text">Мобильные сети</div>
+                            </div>
+                        </div>
+                        <div class="settings-item">
+                            <div style="display: flex; align-items: center;">
+                                <div class="settings-icon">🔑</div>
+                                <div class="settings-text">Вход</div>
+                            </div>
+                        </div>
+                        <div class="settings-item">
+                            <div style="display: flex; align-items: center;">
+                                <div class="settings-icon">📡</div>
+                                <div class="settings-text">Точка доступа Wi-Fi</div>
+                            </div>
+                            <div>Откл.</div>
+                        </div>
+                        <div class="settings-item">
+                            <div style="display: flex; align-items: center;">
+                                <div class="settings-icon">🔒</div>
+                                <div class="settings-text">VPN</div>
+                            </div>
+                        </div>
+                        <div class="settings-item">
+                            <div style="display: flex; align-items: center;">
+                                <div class="settings-icon">🔗</div>
+                                <div class="settings-text">Другие способы подключения</div>
+                            </div>
+                            <input type="checkbox" class="checkbox" checked>
+                        </div>
+                        <div class="settings-item">
+                            <div style="display: flex; align-items: center;">
+                                <div class="settings-icon">📱</div>
+                                <div class="settings-text">Блокировка экрана</div>
+                            </div>
+                        </div>
+                        <div class="settings-item">
+                            <div style="display: flex; align-items: center;">
+                                <div class="settings-icon">🔔</div>
+                                <div class="settings-text">Уведомления и строка состояния</div>
+                            </div>
+                        </div>
+                        <div class="settings-item">
+                            <div style="display: flex; align-items: center;">
+                                <div class="settings-icon">🏠</div>
+                                <div class="settings-text">Рабочий стол</div>
+                            </div>
+                        </div>
+                        <div class="settings-item">
+                            <div style="display: flex; align-items: center;">
+                                <div class="settings-icon">☀️</div>
+                                <div class="settings-text">Экран и яркость</div>
+                            </div>
+                            <input type="checkbox" class="checkbox" checked>
+                        </div>
+                    </div>
+
+                    <h3>Звук и вибрация</h3>
+                </div>
+            </div>
+
+            <!-- Навигационная панель -->
+            <div class="nav-bar">
+                <div class="nav-item" onclick="showScreen('wifi-screen')">
+                    <div class="nav-icon">📶</div>
+                    <div>Wi-Fi</div>
+                </div>
+                <div class="nav-item" onclick="showScreen('settings-screen')">
+                    <div class="nav-icon">⚙️</div>
+                    <div>Настройки</div>
+                </div>
+                <div class="nav-item">
+                    <div class="nav-icon">📞</div>
+                    <div>Контакты</div>
+                </div>
+                <div class="nav-item">
+                    <div class="nav-icon">📱</div>
+                    <div>Приложения</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentScreen = 'wifi-screen';
+        let keyboardVisible = false;
+
+        function showScreen(screenId) {
+            // Скрыть все экраны
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.add('hidden');
+            });
+
+            // Показать выбранный экран
+            document.getElementById(screenId).classList.remove('hidden');
+
+            // Скрыть клавиатуру при переключении экранов
+            document.getElementById('keyboard').classList.add('hidden');
+            keyboardVisible = false;
+
+            // Обновить активный пункт в навигации
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            currentScreen = screenId;
+        }
+
+        function shareNetwork() {
+            alert('Функция "Поделиться сетью" активирована');
+        }
+
+        function refreshNetworks() {
+            alert('Сканирование сетей Wi-Fi...');
+            // Здесь можно добавить логику обновления списка сетей
+        }
+
+        function connectToWifi(networkName) {
+            if (networkName === 'Beeline_2G_F32666') {
+                showScreen('connect-screen');
+            } else {
+                alert(`Подключение к сети "${networkName}"...`);
+                // Здесь можно добавить логику подключения к Wi-Fi
+            }
+        }
+
+        function showKeyboard() {
+            const keyboard = document.getElementById('keyboard');
+            keyboard.classList.toggle('hidden');
+            keyboardVisible = !keyboardVisible;
+        }
+
+        function addToPassword(char) {
+            const passwordInput = document.getElementById('wifi-password');
+            passwordInput.value += char;
+        }
+
+        function backspacePassword() {
+            const passwordInput = document.getElementById('wifi-password');
+            passwordInput.value = passwordInput.value.slice(0, -1);
+        }
+
+        function connectWithPassword() {
+            const password = document.getElementById('wifi-password').value;
+            if (password.length > 0) {
+                alert(`Подключение к Beeline_2G_F32666 с паролем: ${'*'.repeat(password.length)}`);
+                showScreen('wifi-screen');
+            } else {
+                alert('Введите пароль для подключения');
+            }
+        }
+
+        function toggleKeyboardLayout() {
+            alert('Переключение раскладки клавиатуры');
+            // Здесь можно добавить логику переключения раскладки
+        }
+
+        // Инициализация времени в статус-баре
+        function updateTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            document.querySelector('.time').textContent = `${hours}:${minutes}`;
+        }
+
+        setInterval(updateTime, 60000);
+        updateTime();
+
+        // Инициализация активного пункта навигации
+        document.querySelector('.nav-item').classList.add('active');
+    </script>
+</body>
 </html>
