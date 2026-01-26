@@ -4,10 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="91453b6c-3d32-4321-8ab8-06e2989024c3" name="Changes" comment="123">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/smartphone_basics.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/smartphone_basics.html" afterDir="false" />
     </list>
+=======
+    <list default="true" id="91453b6c-3d32-4321-8ab8-06e2989024c3" name="Changes" comment="123" />
+>>>>>>> Stashed changes
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
