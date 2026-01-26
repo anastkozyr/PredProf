@@ -72,6 +72,8 @@ def login():
                              message="Неправильное имя пользователя или пароль")
 
     return render_template('login.html', form=form)
+
+
 @app.route('/logout')
 @login_required
 def logout():
@@ -81,6 +83,24 @@ def logout():
 @app.route('/go-to-trainer')
 def go_to_trainer():
     return render_template('practic.html')
+
+@app.route('/smartphone_basics')
+def smartphone_basics():
+    return render_template('smartphone_basics.html')
+
+@app.route('/messenger_training')
+def messenger_training():
+    return render_template('messenger_training.html')
+
+@app.route('/public-services')
+def gosuslugi_training():
+    return render_template('public_services.html')
+
+@app.route('/online_shopping')
+def online_shopping():
+    return render_template('online_shopping.html')
+
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=8028, host='127.0.0.1')

@@ -1,10 +1,222 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Прямоугольники - Digital Navigator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #f0f9ff;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .site-title {
+            color: #2c698d;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1.5rem;
+        }
+
+        .account-info {
+            color: #2c698d;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .content-container {
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 40px;
+            background: #e6f7ff;
+            border-radius: 25px;
+            border: 1px solid #a8d5e5;
+        }
+
+        .page-title {
+            color: #1a4d6e;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .rectangle-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .rectangle {
+            flex: 1;
+            background: white;
+            border: 2px solid #a8d5e5;
+            border-radius: 15px;
+            padding: 25px;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .rectangle:hover {
+            border-color: #4a9bc7;
+            box-shadow: 0 5px 15px rgba(74, 155, 199, 0.1);
+        }
+
+        .rectangle-icon {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .rectangle-icon img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .rectangle-title {
+            color: #1a4d6e;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .rectangle-content {
+            color: #4a7b9d;
+            flex-grow: 1;
+            line-height: 1.5;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        .start-button {
+            background-color: #4a9bc7;
+            border: none;
+            color: white;
+            border-radius: 10px;
+            padding: 10px 25px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.2s ease;
+            margin-top: auto;
+        }
+
+        .start-button:hover {
+            background-color: #2c698d;
+            color: white;
+            text-decoration: none;
+        }
+
+        @media (max-width: 992px) {
+            .rectangle-container {
+                flex-wrap: wrap;
+            }
+
+            .rectangle {
+                flex: 0 0 calc(50% - 10px);
+                min-width: 200px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .rectangle {
+                flex: 0 0 100%;
+            }
+
+            .rectangle-container {
+                gap: 15px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg py-3">
+        <div class="container-fluid">
+            <a class="navbar-brand site-title" href="{{ url_for('start_page') }}">
+                Digital Navigator
+            </a>
+        </div>
+    </nav>
 
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <div class="content-container">
+                    <h2 class="page-title">Четыре информационных блока</h2>
+
+                    <div class="rectangle-container">
+                        <!-- Первый прямоугольник -->
+                        <div class="rectangle">
+                            <div class="rectangle-icon">
+                                <img src="https://static.vecteezy.com/system/resources/previews/003/720/498/large_2x/phone-icon-telephone-icon-symbol-for-app-and-messenger-vector.jpg" alt="Обучение">
+                            </div>
+                            <div class="rectangle-title">Основы смартфона</div>
+                            <div class="rectangle-content">
+                                Изучите основные функции смартфона: настройки, звонки, сообщения и многое другое
+                            </div>
+                            <a href="{{ url_for('smartphone_basics') }}" class="start-button">
+                                Начать обучение
+                            </a>
+                        </div>
+
+                        <!-- Второй прямоугольник -->
+                        <div class="rectangle">
+                            <div class="rectangle-icon">
+                                <img src="https://vorkuta.gosuslugi.ru/netcat_files/38/46/IlwnOob3_b8V56ug0ufBKQPFI6Di_pNsKHZUm7_yDwj0wSGwJVIhHVATvJ5AhTO56sg4PhSTOS7DvQ5swJRUSIh8.jpg" alt="Практика">
+                            </div>
+                            <div class="rectangle-title">Работа с мессенджером MAX</div>
+                            <div class="rectangle-content">
+                                Научитесь отправлять сообщения, создавать чаты и использовать все возможности мессенджера
+                            </div>
+                            <a href="{{ url_for('messenger_training') }}" class="start-button">
+                                Начать обучение
+                            </a>
+                        </div>
+
+                        <!-- Третий прямоугольник -->
+                        <div class="rectangle">
+                            <div class="rectangle-icon">
+                                <img src="https://pr6.zoon.ru/59cqwkDvtpVxkGkRv3uhtw/2548x2799,q90/f-MEOvrTclYLG7Y-SKUrKRSNsYn_6ErtB3CPSTnwbg3VAZ9vu9lGfH7A0_cwwKQLzbJV54_NvT5-wo_4mT65Xw" alt="Прогресс">
+                            </div>
+                            <div class="rectangle-title">Госуслуги</div>
+                            <div class="rectangle-content">
+                                Освойте портал Госуслуг: запись к врачу, оплата налогов, получение документов
+                            </div>
+                            <a href="{{ url_for('gosuslugi_training') }}" class="start-button">
+                                Начать обучение
+                            </a>
+                        </div>
+
+                        <!-- Четвертый прямоугольник -->
+                        <div class="rectangle">
+                            <div class="rectangle-icon">
+                                <img src="https://avatars.mds.yandex.net/get-altay/14761495/2a0000019986fd1d6f29abd1b1120eadedd2/orig" alt="Поддержка">
+                            </div>
+                            <div class="rectangle-title">Онлайн покупки</div>
+                            <div class="rectangle-content">
+                                Научитесь безопасно совершать покупки в интернете, сравнивать цены и выбирать товары
+                            </div>
+                            <a href="{{ url_for('online_shopping') }}" class="start-button">
+                                Начать обучение
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
