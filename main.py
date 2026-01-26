@@ -7,7 +7,7 @@ from forms.user import RegisterForm, LoginForm
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'vunned111vunned111'
 
-# Настраиваем Flask-Login
+
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
@@ -17,10 +17,9 @@ def load_user(user_id):
     db_sess = db_session.create_session()
     return db_sess.query(User).get(user_id)
 
-# Инициализируем БД
+
 db_session.global_init("db/users.db")
 
-# ============ МАРШРУТЫ ============
 @app.route('/')
 def start_page():
     return render_template('base.html')
@@ -36,7 +35,7 @@ def register():
 
         db_sess = db_session.create_session()
 
-        # Проверяем по имени пользователя
+
         if db_sess.query(User).filter(User.name == form.name.data).first():
             return render_template('register.html',
                                  form=form,
@@ -100,7 +99,9 @@ def gosuslugi_training():
 def online_shopping():
     return render_template('online_shopping.html')
 
-
+@app.route('/buttons')
+def buttons():
+    return render_template('buttons.html')
 
 if __name__ == '__main__':
     app.run(debug=True, port=8028, host='127.0.0.1')
