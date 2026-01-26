@@ -29,10 +29,6 @@ def start_page():
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
-        if form.password.data != form.password_again.data:
-            return render_template('register.html',
-                                 form=form,
-                                 message="Пароли не совпадают")
 
         db_sess = db_session.create_session()
 
@@ -45,7 +41,7 @@ def register():
         user = User(
             name=form.name.data,
             # email больше не обязателен
-            about=""  # Поле about пустое
+            about=form.level.data # Поле level
         )
         user.set_password(form.password.data)
 
