@@ -40,7 +40,7 @@ def register():
         user = User(
             name=form.name.data,
             # email больше не обязателен
-            about=form.level.data # Поле level
+            about=form.level.data # Поле level  
         )
         user.set_password(form.password.data)
 
