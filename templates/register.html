@@ -197,7 +197,12 @@
                             <!-- Используем поле RadioField из Flask формы -->
                             <div class="level-selection">
                                 {% for subfield in form.level %}
-                                <div class="level-option {{ subfield.data }}" onclick="selectLevel('{{ subfield.data }}')" id="{{ subfield.data }}-level">
+                                <div class="level-option {{ subfield.data }}"
+     onclick="document.querySelectorAll('.level-option').forEach(el => el.classList.remove('selected'));
+              this.classList.add('selected');
+              document.querySelector('input[value=\'{{ subfield.data }}\']').checked = true;"
+     id="{{ subfield.data }}-level">
+<!--                                <div class="level-option {{ subfield.data }}" onclick="selectLevel('{{ subfield.data }}')" id="{{ subfield.data }}-level">-->
                                     <div class="level-icon">
                                         {% if subfield.data == 'basic' %}
                                         <i class="bi bi-person"></i>
@@ -239,6 +244,16 @@
             </div>
         </div>
     </div>
+
+    <script>
+    // Автоматически выбираем "basic" при загрузке
+    document.addEventListener('DOMContentLoaded', function() {
+        const basicOption = document.getElementById('basic-level');
+        if (basicOption) {
+            basicOption.click();
+        }
+    });
+</script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
