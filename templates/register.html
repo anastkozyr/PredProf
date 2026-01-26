@@ -76,6 +76,73 @@
             color: #dc3545;
             border-radius: 12px;
         }
+
+        /* Стили для выбора уровня */
+        .level-selection {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .level-option {
+            flex: 1;
+            border: 2px solid #a8d5e5;
+            border-radius: 12px;
+            padding: 20px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .level-option:hover {
+            border-color: #4a9bc7;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(74, 155, 199, 0.1);
+        }
+
+        .level-option.selected {
+            border-color: #2c698d;
+            background-color: #e6f7ff;
+            box-shadow: 0 5px 15px rgba(44, 105, 141, 0.15);
+        }
+
+        .level-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #2c698d;
+        }
+
+        .level-title {
+            font-weight: 600;
+            color: #1a4d6e;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .level-description {
+            color: #4a7b9d;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .level-option.basic .level-icon {
+            color: #4CAF50;
+        }
+
+        .level-option.advanced .level-icon {
+            color: #ff9966;
+        }
+
+        .level-option.basic.selected {
+            border-color: #4CAF50;
+            background-color: #f0f9f0;
+        }
+
+        .level-option.advanced.selected {
+            border-color: #ff9966;
+            background-color: #fff5f0;
+        }
     </style>
 </head>
 <body>
@@ -125,17 +192,43 @@
                         </div>
 
                         <div class="mb-4">
-                            <label for="password_again" class="form-label">Повторите пароль</label>
-                            {{ form.password_again(class="form-control", id="password_again", placeholder="Повторите пароль") }}
-                            {% for error in form.password_again.errors %}
+                            <label for="level" class="form-label">Выберите уровень обучения</label>
+
+                            <!-- Используем поле RadioField из Flask формы -->
+                            <div class="level-selection">
+                                {% for subfield in form.level %}
+                                <div class="level-option {{ subfield.data }}" onclick="selectLevel('{{ subfield.data }}')" id="{{ subfield.data }}-level">
+                                    <div class="level-icon">
+                                        {% if subfield.data == 'basic' %}
+                                        <i class="bi bi-person"></i>
+                                        {% else %}
+                                        <i class="bi bi-person-gear"></i>
+                                        {% endif %}
+                                    </div>
+                                    <div class="level-title">
+                                        {{ subfield.label.text }}
+                                    </div>
+                                    <div class="level-description">
+                                        {% if subfield.data == 'basic' %}
+                                        Для начинающих.
+                                        {% else %}
+                                        Для опытных.
+                                        {% endif %}
+                                    </div>
+                                    {{ subfield(style="display: none;") }}
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            {% for error in form.level.errors %}
                                 <div class="text-danger small mt-1">{{ error }}</div>
                             {% endfor %}
                         </div>
 
                         <div class="d-grid gap-2">
-                            <a href="{{ url_for('go_to_trainer') }}" class="btn btn-primary-auth">
-                                Войти и перейти в тренажёр
-                            </a>
+                            <button type="submit" class="btn btn-primary-auth">
+                                <i class="bi bi-person-plus me-2"></i>Зарегистрироваться и перейти в тренажёр
+                            </button>
                         </div>
 
                         <div class="text-center mt-4">
