@@ -104,7 +104,7 @@ def gosuslugi_training():
 @app.route('/online_shopping')
 @login_required
 def online_shopping():
-    return render_template('online_shopping.html')
+    return render_template('online_shopping_basic.html')
 
 @app.route('/buttons')
 @login_required

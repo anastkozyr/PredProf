@@ -1,5 +1,1317 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<head/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тренинг: Покупка товаров в приложении Пятерочка</title>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e6f7ff 0%, #e6f7ff 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .training-container {
+            display: flex;
+            gap: 30px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .phone-wrapper {
+            flex: 1;
+            position: relative;
+        }
+
+        .phone-container {
+            width: 360px;
+            height: 720px;
+            background: #000;
+            border-radius: 40px;
+            padding: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+            border: 8px solid #222;
+            margin: 0 auto;
+        }
+
+        /* Кнопки телефона */
+        .phone-buttons {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .volume-up-btn {
+            position: absolute;
+            left: -35px;
+            top: 200px;
+            width: 30px;
+            height: 100px;
+            background: linear-gradient(to right, #333, #444);
+            border-radius: 8px 0 0 8px;
+            cursor: pointer;
+            pointer-events: all;
+            transition: background 0.2s;
+            z-index: 10;
+        }
+
+        .volume-up-btn:hover {
+            background: linear-gradient(to right, #444, #555);
+        }
+
+        .volume-down-btn {
+            position: absolute;
+            left: -35px;
+            top: 320px;
+            width: 30px;
+            height: 70px;
+            background: linear-gradient(to right, #333, #444);
+            border-radius: 8px 0 0 8px;
+            cursor: pointer;
+            pointer-events: all;
+            transition: background 0.2s;
+            z-index: 10;
+        }
+
+        .volume-down-btn:hover {
+            background: linear-gradient(to right, #444, #555);
+        }
+
+        .power-btn {
+            position: absolute;
+            right: -35px;
+            top: 200px;
+            width: 30px;
+            height: 80px;
+            background: linear-gradient(to left, #333, #444);
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+            pointer-events: all;
+            transition: background 0.2s;
+            z-index: 10;
+        }
+
+        .power-btn:hover {
+            background: linear-gradient(to left, #444, #555);
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: #f0f0f0;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .training-panel {
+            flex: 1;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            max-width: 500px;
+        }
+
+        .status-bar {
+            height: 30px;
+            background: #000;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            font-size: 14px;
+        }
+
+        .time {
+            font-weight: bold;
+        }
+
+        .status-icons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .app-content {
+            height: calc(100% - 30px);
+            overflow-y: auto;
+            padding-bottom: 60px;
+        }
+
+        .header {
+            background: white;
+            padding: 20px 15px 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 20px;
+            color: #444;
+            margin: 15px 0 10px;
+            padding: 0 15px;
+        }
+
+        h3 {
+            font-size: 18px;
+            color: #666;
+            margin: 10px 0;
+            padding: 0 15px;
+        }
+
+        .section {
+            background: white;
+            margin: 15px;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .wifi-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .wifi-item:hover {
+            background: #f8f8f8;
+        }
+
+        .wifi-item:last-child {
+            border-bottom: none;
+        }
+
+        .wifi-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+        }
+
+        .wifi-icon {
+            color: #4CAF50;
+            font-size: 20px;
+        }
+
+        .signal-strength {
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 26px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #4CAF50;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        .button {
+            background: #007AFF;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .button:hover {
+            background: #0056CC;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        .keyboard {
+            background: #e0e0e0;
+            padding: 10px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: grid;
+            grid-template-rows: repeat(4, 1fr);
+            gap: 5px;
+        }
+
+        .keyboard-row {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+        }
+
+        .key {
+            flex: 1;
+            background: white;
+            border: none;
+            border-radius: 5px;
+            padding: 12px 0;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .key:hover {
+            background: #f0f0f0;
+        }
+
+        .special-key {
+            background: #d0d0d0;
+            flex: 1.5;
+        }
+
+        .nav-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: #666;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .nav-item.active {
+            color: #007AFF;
+        }
+
+        .nav-item:hover {
+            background: #f0f0f0;
+        }
+
+        .nav-icon {
+            font-size: 20px;
+        }
+
+        .settings-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .settings-item:hover {
+            background: #f8f8f8;
+        }
+
+        .settings-item:last-child {
+            border-bottom: none;
+        }
+
+        .settings-icon {
+            width: 24px;
+            text-align: center;
+            margin-right: 12px;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .settings-text {
+            flex: 1;
+            font-size: 16px;
+        }
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            accent-color: #007AFF;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Тренинг стили */
+        .training-title {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .training-subtitle {
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .task-container {
+            flex: 1;
+            margin-bottom: 20px;
+        }
+
+        .task-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .task-number {
+            background: #007AFF;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .task-title {
+            font-size: 20px;
+            color: #333;
+        }
+
+        .task-description {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #007AFF;
+        }
+
+        .task-steps {
+            list-style-type: none;
+            margin-bottom: 20px;
+        }
+
+        .task-steps li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .task-steps li:last-child {
+            border-bottom: none;
+        }
+
+        .step-number {
+            background: #e9ecef;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #45a049);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .feedback {
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .feedback.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .feedback.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        .next-task-btn {
+            background: #007AFF;
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .next-task-btn:hover {
+            background: #0056CC;
+        }
+
+        .completion-screen {
+            text-align: center;
+            padding: 40px 20px;
+            display: none;
+        }
+
+        .completion-icon {
+            font-size: 60px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        .score-display {
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+            margin: 20px 0;
+        }
+
+        .restart-btn {
+            background: #007AFF;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 20px;
+        }
+
+        .restart-btn:hover {
+            background: #0056CC;
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            color: #007AFF;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background 0.2s;
+        }
+
+        .back-button:hover {
+            background: rgba(0, 122, 255, 0.1);
+        }
+
+        .status-icon {
+            font-size: 14px;
+        }
+
+        .check-icon {
+            color: #4CAF50;
+        }
+
+        .home-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .home-icon {
+            font-size: 60px;
+            color: #007AFF;
+            margin-bottom: 20px;
+        }
+
+        .home-title {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .home-subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            max-width: 300px;
+        }
+
+        .start-button {
+            background: #007AFF;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .start-button:hover {
+            background: #0056CC;
+        }
+
+        /* Уведомления */
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            z-index: 1000;
+            font-size: 14px;
+            animation: fadeInOut 2s ease-in-out;
+            display: none;
+        }
+
+        .img{
+            src: "/images/five/five_1/jpg";
+            width: 640px;
+            height: 480px;
+            alt: "Что-то не так";
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+            20% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            80% { opacity: 1; transform: translateX(-50%) translateY(0); }
+            100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="training-container">
+        <img class="img"</img>
+>
+
+        <div class="training-panel">
+            <h1 class="training-title"> Тренинг по поиску товаров</h1>
+            <p class="training-subtitle">Выполняйте задания на симуляторе телефона слева</p>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+
+            <!-- Задание 1 -->
+            <div id="task1" class="task-container">
+                <div class="task-header">
+                    <div class="task-number">1</div>
+                    <div class="task-title">Перейжите в каталог товаров</div>
+                </div>
+
+                <div class="task-description">
+                    <p>Ваша задача: перейти в каталог товаров.</p>
+                </div>
+
+                <ul class="task-steps">
+                    <li>
+                        <div class="step-number">1</div>
+                        <div>Вы сейчас находитесь на главной странице</div>
+                    </li>
+                    <li>
+                        <div class="step-number">2</div>
+                        <div>На панели управления найдите раздел "Каталог" </div>
+                    </li>
+                    <li>
+                        <div class="step-number">3</div>
+                        <div>Нажмите раздел "Каталог", чтобы открыть его</div>
+                    </li>
+                </ul>
+
+                <div id="feedback1" class="feedback"></div>
+            </div>
+
+            <!-- Задание 2 -->
+            <div id="task2" class="task-container hidden">
+                <div class="task-header">
+                    <div class="task-number">2</div>
+                    <div class="task-title">Найти товар</div>
+                </div>
+
+                <div class="task-description">
+                    <p>Найдите в каталоге товаров торт</p>
+                </div>
+
+                <ul class="task-steps">
+                    <li>
+                        <div class="step-number">1</div>
+                        <div>В поле "Поиск по товарам" введите "Хлеб"</div>
+                    </li>
+                    <li>
+                        <div class="step-number">2</div>
+                        <div>Добавьте любой хлеб в корзину, нажав кнопку "В корзину"</div>
+                    </li>
+                    <li>
+                        <div class="step-number">3</div>
+                        <div>Нажмите значок корзины, чтобы перейти в корзину</div>
+                    </li>
+                    <li>
+                        <div class="step-number">4</div>
+                        <div>Вернитесь, обратнов каталог, нажав крестик</div>
+                    </li>
+                </ul>
+
+                <div id="feedback2" class="feedback"></div>
+            </div>
+
+            <!-- Задание 3 -->
+            <div id="task3" class="task-container hidden">
+                <div class="task-header">
+                    <div class="task-number">3</div>
+                    <div class="task-title">Обновить список сетей</div>
+                </div>
+
+                <div class="task-description">
+                    <p>Обновите список доступных Wi-Fi сетей для поиска новых подключений.</p>
+                </div>
+
+                <ul class="task-steps">
+                    <li>
+                        <div class="step-number">1</div>
+                        <div>Вы находитесь в меню Wi-Fi</div>
+                    </li>
+                    <li>
+                        <div class="step-number">2</div>
+                        <div>Найдите пункт <i class="bi bi-arrow-clockwise"></i> "Обновить" в разделе "Сохраненные сети"</div>
+                    </li>
+                    <li>
+                        <div class="step-number">3</div>
+                        <div>Нажмите на "Обновить" для сканирования сетей</div>
+                    </li>
+                </ul>
+
+                <div id="feedback3" class="feedback"></div>
+            </div>
+
+            <!-- Задание 4 -->
+            <div id="task4" class="task-container hidden">
+                <div class="task-header">
+                    <div class="task-number">4</div>
+                    <div class="task-title">Включить другие способы подключения</div>
+                </div>
+
+                <div class="task-description">
+                    <p>Включите опцию "Другие способы подключения" в настройках.</p>
+                </div>
+
+                <ul class="task-steps">
+                    <li>
+                        <div class="step-number">1</div>
+                        <div>Вернитесь в настройки телефона (кнопка "Настройки" внизу)</div>
+                    </li>
+                    <li>
+                        <div class="step-number">2</div>
+                        <div>Найдите пункт "Другие способы подключения"</div>
+                    </li>
+                    <li>
+                        <div class="step-number">3</div>
+                        <div>Включите переключатель рядом с этим пунктом</div>
+                    </li>
+                </ul>
+
+                <div id="feedback4" class="feedback"></div>
+            </div>
+
+            <!-- Новое Задание 5: Работа с кнопками громкости -->
+            <div id="task5" class="task-container hidden">
+                <div class="task-header">
+                    <div class="task-number">5</div>
+                    <div class="task-title">Использование кнопок громкости</div>
+                </div>
+
+                <div class="task-description">
+                    <p>Научитесь пользоваться кнопками регулировки громкости на смартфоне.</p>
+                </div>
+
+                <ul class="task-steps">
+                    <li>
+                        <div class="step-number">1</div>
+                        <div>Найдите кнопку увеличения громкости на левой стороне телефона (длинная кнопка)</div>
+                    </li>
+                    <li>
+                        <div class="step-number">2</div>
+                        <div>Нажмите кнопку увеличения громкости 2 раза</div>
+                    </li>
+                    <li>
+                        <div class="step-number">3</div>
+                        <div>Найдите кнопку уменьшения громкости (короткая кнопка ниже)</div>
+                    </li>
+                    <li>
+                        <div class="step-number">4</div>
+                        <div>Нажмите кнопку уменьшения громкости 1 раз</div>
+                    </li>
+                </ul>
+
+                <div id="feedback5" class="feedback"></div>
+            </div>
+
+            <!-- Новое Задание 6: Использование кнопки питания -->
+            <div id="task6" class="task-container hidden">
+                <div class="task-header">
+                    <div class="task-number">6</div>
+                    <div class="task-title">Использование кнопки питания</div>
+                </div>
+
+                <div class="task-description">
+                    <p>Научитесь правильно использовать кнопку питания смартфона.</p>
+                </div>
+
+                <ul class="task-steps">
+                    <li>
+                        <div class="step-number">1</div>
+                        <div>Найдите кнопку питания на правой стороне телефона</div>
+                    </li>
+                    <li>
+                        <div class="step-number">2</div>
+                        <div>Нажмите кнопку питания 1 раз, чтобы заблокировать экран</div>
+                    </li>
+                    <li>
+                        <div class="step-number">3</div>
+                        <div>Снова нажмите кнопку питания, чтобы разблокировать экран</div>
+                    </li>
+                    <li>
+                        <div class="step-number">4</div>
+                        <div>Нажмите и удерживайте кнопку питания 3 секунды</div>
+                    </li>
+                </ul>
+
+                <div id="feedback6" class="feedback"></div>
+            </div>
+
+            <button id="next-task-btn" class="next-task-btn" onclick="nextTask()">
+                Следующее задание <i class="bi bi-arrow-right"></i>
+            </button>
+
+            <!-- Экран завершения -->
+            <div id="completion-screen" class="completion-screen">
+                <div class="completion-icon"><i class="bi bi-trophy-fill"></i></div>
+                <h2>Тренинг завершен!</h2>
+                <div class="score-display" id="final-score">0/6</div>
+                <p>Поздравляем! Вы успешно завершили тренинг по настройке Wi-Fi на смартфоне.</p>
+                <button class="restart-btn" onclick="restartTraining()">
+                    <i class="bi bi-arrow-repeat"></i> Начать заново
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Уведомление -->
+    <div id="notification" class="notification"></div>
+
+    <script>
+        // ====================
+        // Симулятор телефона
+        // ====================
+        let currentScreen = 'home-screen';
+        let keyboardVisible = false;
+        let volumeUpCount = 0;
+        let volumeDownCount = 0;
+        let powerPressCount = 0;
+        let screenLocked = false;
+
+        function showScreen(screenId) {
+            // Скрыть все экраны
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.add('hidden');
+            });
+
+            // Показать выбранный экран
+            document.getElementById(screenId).classList.remove('hidden');
+
+            // Скрыть клавиатуру при переключении экранов
+            document.getElementById('keyboard').classList.add('hidden');
+            keyboardVisible = false;
+
+            // Обновить активный пункт в навигации
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Активируем соответствующую иконку в навигации
+            if (screenId === 'home-screen') {
+                document.querySelector('.nav-item:nth-child(1)').classList.add('active');
+            } else if (screenId === 'settings-screen') {
+                document.querySelector('.nav-item:nth-child(2)').classList.add('active');
+            }
+
+            currentScreen = screenId;
+        }
+
+        function goToWifiSettings() {
+            showScreen('wifi-screen');
+            // Проверяем задание 1
+            if (currentTask === 1 && !tasksCompleted[1]) {
+                checkTask1();
+            }
+        }
+
+        function shareNetwork() {
+            showNotification('Функция "Поделиться сетью" активирована');
+        }
+
+        function refreshNetworks() {
+            showNotification('Сканирование сетей Wi-Fi...');
+            // Проверяем задание 3
+            if (currentTask === 3 && !tasksCompleted[3]) {
+                checkTask3();
+            }
+        }
+
+        function connectToWifi(networkName) {
+            if (networkName === 'Beeline_2G_F32666') {
+                showScreen('connect-screen');
+            } else {
+                showNotification(`Подключение к сети "${networkName}"...`);
+            }
+        }
+
+        function showKeyboard() {
+            const keyboard = document.getElementById('keyboard');
+            keyboard.classList.toggle('hidden');
+            keyboardVisible = !keyboardVisible;
+        }
+
+        function addToPassword(char) {
+            const passwordInput = document.getElementById('wifi-password');
+            passwordInput.value += char;
+        }
+
+        function backspacePassword() {
+            const passwordInput = document.getElementById('wifi-password');
+            passwordInput.value = passwordInput.value.slice(0, -1);
+        }
+
+        function connectWithPassword() {
+            const password = document.getElementById('wifi-password').value;
+            if (password.length > 0) {
+                if (password === '12345678' && currentTask === 2 && !tasksCompleted[2]) {
+                    checkTask2();
+                } else if (password !== '12345678') {
+                    showNotification('Неверный пароль! Попробуйте снова. Правильный пароль: 12345678');
+                } else {
+                    showNotification(`Подключение к Beeline_2G_F32666...`);
+                }
+            } else {
+                showNotification('Введите пароль для подключения');
+            }
+        }
+
+        function toggleKeyboardLayout() {
+            showNotification('Переключение раскладки клавиатуры');
+        }
+
+        // ====================
+        // Функции для кнопок телефона
+        // ====================
+
+        function pressVolumeUp() {
+            volumeUpCount++;
+            showNotification('Громкость увеличена');
+
+            // Проверяем задание 5
+            if (currentTask === 5 && !tasksCompleted[5]) {
+                if (volumeUpCount >= 2 && volumeDownCount >= 1) {
+                    checkTask5();
+                }
+            }
+
+            // Анимация нажатия
+            animateButtonPress('.volume-up-btn');
+        }
+
+        function pressVolumeDown() {
+            volumeDownCount++;
+            showNotification('Громкость уменьшена');
+
+            // Проверяем задание 5
+            if (currentTask === 5 && !tasksCompleted[5]) {
+                if (volumeUpCount >= 2 && volumeDownCount >= 1) {
+                    checkTask5();
+                }
+            }
+
+            // Анимация нажатия
+            animateButtonPress('.volume-down-btn');
+        }
+
+        function pressPowerButton() {
+            powerPressCount++;
+
+            if (screenLocked) {
+                // Разблокировка экрана
+                screenLocked = false;
+                showScreen(currentScreen);
+                showNotification('Экран разблокирован');
+
+                // Проверяем задание 6
+                if (currentTask === 6 && !tasksCompleted[6]) {
+                    if (powerPressCount >= 2) {
+                        // Ждем долгое нажатие
+                        setTimeout(() => {
+                            if (powerPressCount >= 3) {
+                                checkTask6();
+                            }
+                        }, 3000);
+                    }
+                }
+            } else {
+                // Блокировка экрана
+                screenLocked = true;
+                document.querySelectorAll('.screen').forEach(screen => {
+                    screen.classList.add('hidden');
+                });
+                showNotification('Экран заблокирован');
+
+                // Проверяем задание 6
+                if (currentTask === 6 && !tasksCompleted[6]) {
+                    // Уже проверим в следующем нажатии
+                }
+            }
+
+            // Анимация нажатия
+            animateButtonPress('.power-btn');
+        }
+
+        function animateButtonPress(selector) {
+            const btn = document.querySelector(selector);
+            btn.style.transform = 'scale(0.95)';
+            btn.style.opacity = '0.8';
+
+            setTimeout(() => {
+                btn.style.transform = '';
+                btn.style.opacity = '';
+            }, 200);
+        }
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.display = 'block';
+
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 2000);
+        }
+
+        // ====================
+        // Система тренинга
+        // ====================
+        let currentTask = 1;
+        let tasksCompleted = {
+            1: false,
+            2: false,
+            3: false,
+            4: false,
+            5: false,
+            6: false
+        };
+        let score = 0;
+
+        function showTask(taskNumber) {
+            // Скрыть все задания
+            for (let i = 1; i <= 6; i++) {
+                const taskElement = document.getElementById(`task${i}`);
+                if (taskElement) {
+                    taskElement.classList.add('hidden');
+                }
+            }
+
+            // Показать текущее задание
+            document.getElementById(`task${taskNumber}`).classList.remove('hidden');
+
+            // Обновить прогресс
+            updateProgress();
+
+            // Скрыть кнопку "Следующее задание"
+            document.getElementById('next-task-btn').style.display = 'none';
+
+            // Сбросить фидбек
+            document.getElementById(`feedback${taskNumber}`).className = 'feedback';
+            document.getElementById(`feedback${taskNumber}`).textContent = '';
+
+            // Сбросить счетчики для новых заданий
+            if (taskNumber === 5) {
+                volumeUpCount = 0;
+                volumeDownCount = 0;
+            } else if (taskNumber === 6) {
+                powerPressCount = 0;
+            }
+        }
+
+        function checkTask1() {
+            if (!tasksCompleted[1]) {
+                tasksCompleted[1] = true;
+                score++;
+                showFeedback(1, 'success', '✅ Отлично! Вы успешно перешли в настройки Wi-Fi.');
+                document.getElementById('next-task-btn').style.display = 'block';
+                updateProgress();
+            }
+        }
+
+        function checkTask2() {
+            if (!tasksCompleted[2]) {
+                tasksCompleted[2] = true;
+                score++;
+                showFeedback(2, 'success', '✅ Отлично! Вы успешно подключились к сети Beeline.');
+                document.getElementById('next-task-btn').style.display = 'block';
+                updateProgress();
+
+                // Вернуться на главный экран Wi-Fi
+                setTimeout(() => {
+                    showScreen('wifi-screen');
+                }, 1000);
+            }
+        }
+
+        function checkTask3() {
+            if (!tasksCompleted[3]) {
+                tasksCompleted[3] = true;
+                score++;
+                showFeedback(3, 'success', '✅ Отлично! Вы обновили список доступных сетей.');
+                document.getElementById('next-task-btn').style.display = 'block';
+                updateProgress();
+            }
+        }
+
+        function checkTask4() {
+            if (!tasksCompleted[4]) {
+                tasksCompleted[4] = true;
+                score++;
+                showFeedback(4, 'success', '✅ Отлично! Вы включили другие способы подключения.');
+                document.getElementById('next-task-btn').style.display = 'block';
+                updateProgress();
+            }
+        }
+
+        function checkTask5() {
+            if (!tasksCompleted[5] && volumeUpCount >= 2 && volumeDownCount >= 1) {
+                tasksCompleted[5] = true;
+                score++;
+                showFeedback(5, 'success', '✅ Отлично! Вы освоили использование кнопок громкости.');
+                document.getElementById('next-task-btn').style.display = 'block';
+                updateProgress();
+            }
+        }
+
+        function checkTask6() {
+            if (!tasksCompleted[6] && powerPressCount >= 3) {
+                tasksCompleted[6] = true;
+                score++;
+                showFeedback(6, 'success', '✅ Отлично! Вы освоили использование кнопки питания.');
+                document.getElementById('next-task-btn').style.display = 'block';
+                updateProgress();
+
+                // Завершить тренинг
+                setTimeout(() => {
+                    completeTraining();
+                }, 1500);
+            }
+        }
+
+        function showFeedback(taskNumber, type, message) {
+            const feedback = document.getElementById(`feedback${taskNumber}`);
+            feedback.className = `feedback ${type}`;
+            feedback.textContent = message;
+        }
+
+        function nextTask() {
+            if (currentTask < 6) {
+                currentTask++;
+                showTask(currentTask);
+
+                // Для задания 4 сразу показываем кнопку (так как переключатель уже включен)
+                if (currentTask === 4) {
+                    // Проверяем, включен ли уже переключатель
+                    const otherConnectionsCheckbox = document.querySelector('#settings-screen input[type="checkbox"]:checked');
+                    if (otherConnectionsCheckbox && otherConnectionsCheckbox.parentElement.previousElementSibling.textContent.includes('Другие способы подключения')) {
+                        setTimeout(() => {
+                            checkTask4();
+                        }, 500);
+                    }
+                }
+            } else {
+                completeTraining();
+            }
+        }
+
+        function updateProgress() {
+            const completedCount = Object.values(tasksCompleted).filter(Boolean).length;
+            const progress = (completedCount / 6) * 100;
+            document.getElementById('progress-fill').style.width = `${progress}%`;
+        }
+
+        function completeTraining() {
+            // Скрыть текущее задание
+            document.getElementById(`task${currentTask}`).classList.add('hidden');
+
+            // Показать экран завершения
+            document.getElementById('completion-screen').style.display = 'block';
+            document.getElementById('final-score').textContent = `${score}/6`;
+
+            // Скрыть кнопку "Следующее задание"
+            document.getElementById('next-task-btn').style.display = 'none';
+        }
+
+        function restartTraining() {
+            // Сбросить все значения
+            currentTask = 1;
+            tasksCompleted = {1: false, 2: false, 3: false, 4: false, 5: false, 6: false};
+            score = 0;
+            volumeUpCount = 0;
+            volumeDownCount = 0;
+            powerPressCount = 0;
+            screenLocked = false;
+
+            // Сбросить телефон
+            showScreen('settings-screen');
+            document.getElementById('wifi-password').value = '';
+
+            // Скрыть экран завершения
+            document.getElementById('completion-screen').style.display = 'none';
+
+            // Показать первое задание
+            showTask(1);
+            updateProgress();
+        }
+
+        // ====================
+        // Обработчики событий для проверки заданий
+        // ====================
+
+        // Обработчик для переключателя "Другие способы подключения"
+        document.addEventListener('click', function(e) {
+            if (e.target.type === 'checkbox') {
+                const label = e.target.parentElement.previousElementSibling;
+                if (label && label.textContent.includes('Другие способы подключения')) {
+                    if (e.target.checked && currentTask === 4 && !tasksCompleted[4]) {
+                        checkTask4();
+                    }
+                }
+            }
+        });
+
+        // ====================
+        // Инициализация
+        // ====================
+
+        // Инициализация времени в статус-баре
+        function updateTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            document.querySelector('.time').textContent = `${hours}:${minutes}`;
+        }
+
+        setInterval(updateTime, 60000);
+        updateTime();
+
+        // Показать первое задание при загрузке
+        showTask(1);
+        updateProgress();
+    </script>
+</body>
 </html>
