@@ -48,77 +48,26 @@
             margin: 0 auto;
         }
 
-        /* Кнопки телефона */
-        .phone-buttons {
+        /* Кнопки риложения */
+        .back-button {
+            background: transparent; /* Прозрачный фон */
+            border: 2px solid rgba(0, 0, 0, 0.7); /* Черная граница */
+            padding: 23px 25px; /* Внутренние отступы */
+            border-radius: 8px; /* Закругленные углы */
+            cursor: pointer; /* Курсор-указатель */
+            transition: all 0.3s ease; /* Плавные анимации */
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
+            top: 662px;    /* Отступ сверху */
+            left: 260px;   /* Отступ слева */
         }
 
-        .volume-up-btn {
-            position: absolute;
-            left: -35px;
-            top: 200px;
-            width: 30px;
-            height: 100px;
-            background: linear-gradient(to right, #333, #444);
-            border-radius: 8px 0 0 8px;
-            cursor: pointer;
-            pointer-events: all;
-            transition: background 0.2s;
-            z-index: 10;
+        .back-button:hover {
+            background: rgba(0, 200, 50, 0.1); /* Зеленый фон при наведении */
+            border-color: #00c832; /* Зеленая граница */
         }
 
-        .volume-up-btn:hover {
-            background: linear-gradient(to right, #444, #555);
-        }
-
-        .volume-down-btn {
-            position: absolute;
-            left: -35px;
-            top: 320px;
-            width: 30px;
-            height: 70px;
-            background: linear-gradient(to right, #333, #444);
-            border-radius: 8px 0 0 8px;
-            cursor: pointer;
-            pointer-events: all;
-            transition: background 0.2s;
-            z-index: 10;
-        }
-
-        .volume-down-btn:hover {
-            background: linear-gradient(to right, #444, #555);
-        }
-
-        .power-btn {
-            position: absolute;
-            right: -35px;
-            top: 200px;
-            width: 30px;
-            height: 80px;
-            background: linear-gradient(to left, #333, #444);
-            border-radius: 0 8px 8px 0;
-            cursor: pointer;
-            pointer-events: all;
-            transition: background 0.2s;
-            z-index: 10;
-        }
-
-        .power-btn:hover {
-            background: linear-gradient(to left, #444, #555);
-        }
-
-        .phone-screen {
-            width: 100%;
-            height: 100%;
-            background: #f0f0f0;
-            border-radius: 20px;
-            overflow: hidden;
-            position: relative;
+        .back-button:active {
+            transform: scale(0.98); /* Эффект нажатия */
         }
 
         .training-panel {
@@ -141,10 +90,6 @@
             align-items: center;
             padding: 0 15px;
             font-size: 14px;
-        }
-
-        .time {
-            font-weight: bold;
         }
 
         .status-icons {
@@ -190,36 +135,6 @@
             border-radius: 12px;
             padding: 15px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        .wifi-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 15px;
-            border-bottom: 1px solid #f0f0f0;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .wifi-item:hover {
-            background: #f8f8f8;
-        }
-
-        .wifi-item:last-child {
-            border-bottom: none;
-        }
-
-        .wifi-name {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 16px;
-        }
-
-        .wifi-icon {
-            color: #4CAF50;
-            font-size: 20px;
         }
 
         .signal-strength {
@@ -270,20 +185,6 @@
 
         input:checked + .slider:before {
             transform: translateX(24px);
-        }
-
-        .button {
-            background: #007AFF;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .button:hover {
@@ -372,37 +273,6 @@
 
         .nav-icon {
             font-size: 20px;
-        }
-
-        .settings-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 15px;
-            border-bottom: 1px solid #f0f0f0;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .settings-item:hover {
-            background: #f8f8f8;
-        }
-
-        .settings-item:last-child {
-            border-bottom: none;
-        }
-
-        .settings-icon {
-            width: 24px;
-            text-align: center;
-            margin-right: 12px;
-            font-size: 18px;
-            color: #666;
-        }
-
-        .settings-text {
-            flex: 1;
-            font-size: 16px;
         }
 
         .checkbox {
@@ -496,10 +366,10 @@
         }
 
         .progress-bar {
-            height: 8px;
+            height: 10px;
             background: #e9ecef;
             border-radius: 4px;
-            margin: 20px 0;
+            margin: 30px 0;
             overflow: hidden;
         }
 
@@ -567,37 +437,6 @@
             margin: 20px 0;
         }
 
-        .restart-btn {
-            background: #007AFF;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background 0.2s;
-            margin-top: 20px;
-        }
-
-        .restart-btn:hover {
-            background: #0056CC;
-        }
-
-        .back-button {
-            background: none;
-            border: none;
-            color: #007AFF;
-            font-size: 16px;
-            cursor: pointer;
-            padding: 5px 10px;
-            border-radius: 5px;
-            transition: background 0.2s;
-        }
-
-        .back-button:hover {
-            background: rgba(0, 122, 255, 0.1);
-        }
-
         .status-icon {
             font-size: 14px;
         }
@@ -634,24 +473,6 @@
             max-width: 300px;
         }
 
-        .start-button {
-            background: #007AFF;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 18px;
-            cursor: pointer;
-            transition: background 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .start-button:hover {
-            background: #0056CC;
-        }
-
         /* Уведомления */
         .notification {
             position: fixed;
@@ -668,11 +489,11 @@
             display: none;
         }
 
-        .img{
-            src: "/images/five/five_1/jpg";
-            width: 640px;
-            height: 480px;
-            alt: "Что-то не так";
+        .img {
+            width: 350px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
         @keyframes fadeInOut {
@@ -685,7 +506,8 @@
 </head>
 <body>
     <div class="training-container">
-        <img class="img"</img>
+        <img src="{{ url_for('images_files', filename='five/five_1.jpg') }}" alt="Приложение пятерочки" class="img">
+        <button type="button" class="back-button"></button>
 >
 
         <div class="training-panel">
@@ -700,7 +522,7 @@
             <div id="task1" class="task-container">
                 <div class="task-header">
                     <div class="task-number">1</div>
-                    <div class="task-title">Перейжите в каталог товаров</div>
+                    <div class="task-title">Каталог товаров</div>
                 </div>
 
                 <div class="task-description">
@@ -714,11 +536,11 @@
                     </li>
                     <li>
                         <div class="step-number">2</div>
-                        <div>На панели управления найдите раздел "Каталог" </div>
+                        <div>Внизу на панели управления найдите раздел "Каталог" </div>
                     </li>
                     <li>
                         <div class="step-number">3</div>
-                        <div>Нажмите раздел "Каталог", чтобы открыть его</div>
+                        <div>Нажмите на кнопку "Каталог", чтобы открыть его</div>
                     </li>
                 </ul>
 
@@ -729,11 +551,11 @@
             <div id="task2" class="task-container hidden">
                 <div class="task-header">
                     <div class="task-number">2</div>
-                    <div class="task-title">Найти товар</div>
+                    <div class="task-title">Добавить в корзину хлеб</div>
                 </div>
 
                 <div class="task-description">
-                    <p>Найдите в каталоге товаров торт</p>
+                    <p>Найдите в каталоге товаров хлеб</p>
                 </div>
 
                 <ul class="task-steps">
@@ -747,11 +569,7 @@
                     </li>
                     <li>
                         <div class="step-number">3</div>
-                        <div>Нажмите значок корзины, чтобы перейти в корзину</div>
-                    </li>
-                    <li>
-                        <div class="step-number">4</div>
-                        <div>Вернитесь, обратнов каталог, нажав крестик</div>
+                        <div>Вернитесь обратно в каталог, нажав на стрелочку рядом с полем поиска</div>
                     </li>
                 </ul>
 
@@ -762,25 +580,29 @@
             <div id="task3" class="task-container hidden">
                 <div class="task-header">
                     <div class="task-number">3</div>
-                    <div class="task-title">Обновить список сетей</div>
+                    <div class="task-title">Добавьте в корзину кашу</div>
                 </div>
 
                 <div class="task-description">
-                    <p>Обновите список доступных Wi-Fi сетей для поиска новых подключений.</p>
+                    <p>Найдите в каталоге готовой еды кашу и добавьте ее в корзину.</p>
                 </div>
 
                 <ul class="task-steps">
                     <li>
                         <div class="step-number">1</div>
-                        <div>Вы находитесь в меню Wi-Fi</div>
+                        <div>Вы находитесь в каталоге товаров</div>
                     </li>
                     <li>
                         <div class="step-number">2</div>
-                        <div>Найдите пункт <i class="bi bi-arrow-clockwise"></i> "Обновить" в разделе "Сохраненные сети"</div>
+                        <div>Найдите окно "Завтраки" в разделе "Готовая еда"</div>
                     </li>
                     <li>
                         <div class="step-number">3</div>
-                        <div>Нажмите на "Обновить" для сканирования сетей</div>
+                        <div>Нажмите на окно "Завтраки"</div>
+                    </li>
+                    <li>
+                        <div class="step-number">4</div>
+                        <div>Добавьте рисовую кашу в корзину, нажав на кнопку "В корзину"</div>
                     </li>
                 </ul>
 
@@ -791,110 +613,29 @@
             <div id="task4" class="task-container hidden">
                 <div class="task-header">
                     <div class="task-number">4</div>
-                    <div class="task-title">Включить другие способы подключения</div>
+                    <div class="task-title">Посмотреть корзину с товарами</div>
                 </div>
 
                 <div class="task-description">
-                    <p>Включите опцию "Другие способы подключения" в настройках.</p>
+                    <p>Зайдите в корзину.</p>
                 </div>
 
                 <ul class="task-steps">
                     <li>
                         <div class="step-number">1</div>
-                        <div>Вернитесь в настройки телефона (кнопка "Настройки" внизу)</div>
+                        <div>Зайдите в корзину (Красная кнопка с значком корзины и ценой покупки внизу)</div>
                     </li>
                     <li>
                         <div class="step-number">2</div>
-                        <div>Найдите пункт "Другие способы подключения"</div>
+                        <div>Проверьте, что в корзине находятся злеб и рисовая каша</div>
                     </li>
                     <li>
                         <div class="step-number">3</div>
-                        <div>Включите переключатель рядом с этим пунктом</div>
+                        <div>Вернитесь обратно в каталог товаров из корзины, нажав на крестик в левос верхнем углу экрана</div>
                     </li>
                 </ul>
 
                 <div id="feedback4" class="feedback"></div>
-            </div>
-
-            <!-- Новое Задание 5: Работа с кнопками громкости -->
-            <div id="task5" class="task-container hidden">
-                <div class="task-header">
-                    <div class="task-number">5</div>
-                    <div class="task-title">Использование кнопок громкости</div>
-                </div>
-
-                <div class="task-description">
-                    <p>Научитесь пользоваться кнопками регулировки громкости на смартфоне.</p>
-                </div>
-
-                <ul class="task-steps">
-                    <li>
-                        <div class="step-number">1</div>
-                        <div>Найдите кнопку увеличения громкости на левой стороне телефона (длинная кнопка)</div>
-                    </li>
-                    <li>
-                        <div class="step-number">2</div>
-                        <div>Нажмите кнопку увеличения громкости 2 раза</div>
-                    </li>
-                    <li>
-                        <div class="step-number">3</div>
-                        <div>Найдите кнопку уменьшения громкости (короткая кнопка ниже)</div>
-                    </li>
-                    <li>
-                        <div class="step-number">4</div>
-                        <div>Нажмите кнопку уменьшения громкости 1 раз</div>
-                    </li>
-                </ul>
-
-                <div id="feedback5" class="feedback"></div>
-            </div>
-
-            <!-- Новое Задание 6: Использование кнопки питания -->
-            <div id="task6" class="task-container hidden">
-                <div class="task-header">
-                    <div class="task-number">6</div>
-                    <div class="task-title">Использование кнопки питания</div>
-                </div>
-
-                <div class="task-description">
-                    <p>Научитесь правильно использовать кнопку питания смартфона.</p>
-                </div>
-
-                <ul class="task-steps">
-                    <li>
-                        <div class="step-number">1</div>
-                        <div>Найдите кнопку питания на правой стороне телефона</div>
-                    </li>
-                    <li>
-                        <div class="step-number">2</div>
-                        <div>Нажмите кнопку питания 1 раз, чтобы заблокировать экран</div>
-                    </li>
-                    <li>
-                        <div class="step-number">3</div>
-                        <div>Снова нажмите кнопку питания, чтобы разблокировать экран</div>
-                    </li>
-                    <li>
-                        <div class="step-number">4</div>
-                        <div>Нажмите и удерживайте кнопку питания 3 секунды</div>
-                    </li>
-                </ul>
-
-                <div id="feedback6" class="feedback"></div>
-            </div>
-
-            <button id="next-task-btn" class="next-task-btn" onclick="nextTask()">
-                Следующее задание <i class="bi bi-arrow-right"></i>
-            </button>
-
-            <!-- Экран завершения -->
-            <div id="completion-screen" class="completion-screen">
-                <div class="completion-icon"><i class="bi bi-trophy-fill"></i></div>
-                <h2>Тренинг завершен!</h2>
-                <div class="score-display" id="final-score">0/6</div>
-                <p>Поздравляем! Вы успешно завершили тренинг по настройке Wi-Fi на смартфоне.</p>
-                <button class="restart-btn" onclick="restartTraining()">
-                    <i class="bi bi-arrow-repeat"></i> Начать заново
-                </button>
             </div>
         </div>
     </div>

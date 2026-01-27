@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request  # ← добавили request!
+from flask import Flask, render_template, send_from_directory, redirect, request  # ← добавили request!
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from data import db_session
 from data.users import User
@@ -79,6 +79,10 @@ def login():
 def logout():
     logout_user()
     return redirect("/")
+
+@app.route('/images/<path:filename>')
+def images_files(filename):
+    return send_from_directory('images', filename)
 
 @app.route('/go-to-trainer')
 @login_required
