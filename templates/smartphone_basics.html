@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тренинг: Настройка Wi-Fi на смартфоне</title>
+    <title>
+        {% if user_level == 'basic' %}
+            Базовый тренинг: Основы работы со смартфоном
+        {% else %}
+            Расширенный тренинг: Работа со смартфоном и Wi-Fi
+        {% endif %}
+        - Digital Navigator
+    </title>
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
@@ -226,6 +233,10 @@
             color: #4CAF50;
             font-weight: bold;
             font-size: 14px;
+        }
+
+        .check-icon {
+            color: #4CAF50;
         }
 
         .toggle-switch {
@@ -583,29 +594,6 @@
             background: #0056CC;
         }
 
-        .back-button {
-            background: none;
-            border: none;
-            color: #007AFF;
-            font-size: 16px;
-            cursor: pointer;
-            padding: 5px 10px;
-            border-radius: 5px;
-            transition: background 0.2s;
-        }
-
-        .back-button:hover {
-            background: rgba(0, 122, 255, 0.1);
-        }
-
-        .status-icon {
-            font-size: 14px;
-        }
-
-        .check-icon {
-            color: #4CAF50;
-        }
-
         .home-screen {
             display: flex;
             flex-direction: column;
@@ -674,9 +662,36 @@
             80% { opacity: 1; transform: translateX(-50%) translateY(0); }
             100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
         }
+
+        /* Кнопка назад в тренажер */
+        .back-to-trainer {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: #007AFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .back-to-trainer:hover {
+            background: #0056CC;
+        }
     </style>
 </head>
 <body>
+    <!-- Кнопка назад в главный тренажер -->
+    <a href="{{ url_for('go_to_trainer') }}" class="back-to-trainer">
+        <i class="bi bi-arrow-left"></i> Назад в тренажер
+    </a>
+
     <div class="training-container">
         <div class="phone-wrapper">
             <!-- Кнопки телефона -->
@@ -703,13 +718,241 @@
                             <div class="home-screen">
                                 <i class="bi bi-phone home-icon"></i>
                                 <div class="home-title">Добро пожаловать!</div>
-                                <div class="home-subtitle">
-                                    Для начала тренинга по настройке Wi-Fi перейдите в настройки телефона
-                                </div>
-                                <button class="start-button" onclick="showScreen('settings-screen')">
-                                    <i class="bi bi-gear"></i> Перейти в настройки
-                                </button>
+                                {% if user_level == 'basic' %}
+                                    <div class="home-subtitle">
+                                        Базовый тренинг по работе со смартфоном
+                                    </div>
+                                    <button class="start-button" onclick="startBasicTraining()">
+                                        <i class="bi bi-play-circle"></i> Начать обучение
+                                    </button>
+                                {% else %}
+                                    <div class="home-subtitle">
+                                        Для начала тренинга по настройке Wi-Fi перейдите в настройки телефона
+                                    </div>
+                                    <button class="start-button" onclick="startAdvancedTraining()">
+                                        <i class="bi bi-gear"></i> Перейти в настройки
+                                    </button>
+                                {% endif %}
                             </div>
+                        </div>
+
+                        <!-- Экраны для BASIC тренинга -->
+                        {% if user_level == 'basic' %}
+                        <!-- Экран включения телефона -->
+                        <div id="basic-task1-screen" class="screen hidden">
+                            <div class="home-screen">
+                                <div class="task-number" style="margin-bottom: 20px;">1</div>
+                                <div class="home-title">Включение телефона</div>
+                                <div class="home-subtitle">
+                                    Нажмите и удерживайте кнопку питания 3 секунды
+                                </div>
+                                <div style="text-align: left; width: 100%; padding: 20px;">
+                                    <h3>Инструкция:</h3>
+                                    <p>Кнопка питания находится на правой стороне телефона</p>
+                                    <p style="color: #666; font-size: 14px; margin-top: 10px;">
+                                        <i class="bi bi-info-circle"></i> Нажмите и удерживайте кнопку питания справа
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Экран выключения телефона -->
+                        <div id="basic-task2-screen" class="screen hidden">
+                            <div class="home-screen">
+                                <div class="task-number" style="margin-bottom: 20px;">2</div>
+                                <div class="home-title">Выключение телефона</div>
+                                <div class="home-subtitle">
+                                    Нажмите и удерживайте кнопку питания 3 секунды
+                                </div>
+                                <div style="text-align: left; width: 100%; padding: 20px;">
+                                    <h3>Инструкция:</h3>
+                                    <p>Кнопка питания находится на правой стороне телефона</p>
+                                    <p style="color: #666; font-size: 14px; margin-top: 10px;">
+                                        <i class="bi bi-info-circle"></i> Нажмите и удерживайте кнопку питания справа
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Экран регулировки громкости -->
+                        <div id="basic-task3-screen" class="screen hidden">
+                            <div class="home-screen">
+                                <div class="task-number" style="margin-bottom: 20px;">3</div>
+                                <div class="home-title">Регулировка громкости</div>
+                                <div class="home-subtitle">
+                                    Увеличьте и уменьшите громкость
+                                </div>
+                                <div style="text-align: left; width: 100%; padding: 20px;">
+                                    <h3>Инструкция:</h3>
+                                    <p>1. Увеличьте громкость (верхняя кнопка слева)</p>
+                                    <p>2. Уменьшите громкость (нижняя кнопка слева)</p>
+                                    <p style="color: #666; font-size: 14px; margin-top: 10px;">
+                                        <i class="bi bi-info-circle"></i> Используйте кнопки громкости слева от телефона
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <!-- Экраны для ADVANCED тренинга -->
+                        {% if user_level == 'advanced' %}
+                        <!-- Экран включения телефона -->
+                        <div id="advanced-task1-screen" class="screen hidden">
+                            <div class="home-screen">
+                                <div class="task-number" style="margin-bottom: 20px;">1</div>
+                                <div class="home-title">Включение телефона</div>
+                                <div class="home-subtitle">
+                                    Нажмите и удерживайте кнопку питания 3 секунды
+                                </div>
+                                <div style="text-align: left; width: 100%; padding: 20px;">
+                                    <h3>Инструкция:</h3>
+                                    <p>Кнопка питания находится на правой стороне телефона</p>
+                                    <p style="color: #666; font-size: 14px; margin-top: 10px;">
+                                        <i class="bi bi-info-circle"></i> Нажмите и удерживайте кнопку питания справа
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Экран выключения телефона -->
+                        <div id="advanced-task2-screen" class="screen hidden">
+                            <div class="home-screen">
+                                <div class="task-number" style="margin-bottom: 20px;">2</div>
+                                <div class="home-title">Выключение телефона</div>
+                                <div class="home-subtitle">
+                                    Нажмите и удерживайте кнопку питания 3 секунды
+                                </div>
+                                <div style="text-align: left; width: 100%; padding: 20px;">
+                                    <h3>Инструкция:</h3>
+                                    <p>Кнопка питания находится на правой стороне телефона</p>
+                                    <p style="color: #666; font-size: 14px; margin-top: 10px;">
+                                        <i class="bi bi-info-circle"></i> Нажмите и удерживайте кнопку питания справа
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Экран регулировки громкости -->
+                        <div id="advanced-task3-screen" class="screen hidden">
+                            <div class="home-screen">
+                                <div class="task-number" style="margin-bottom: 20px;">3</div>
+                                <div class="home-title">Регулировка громкости</div>
+                                <div class="home-subtitle">
+                                    Увеличьте и уменьшите громкость
+                                </div>
+                                <div style="text-align: left; width: 100%; padding: 20px;">
+                                    <h3>Инструкция:</h3>
+                                    <p>1. Увеличьте громкость (верхняя кнопка слева)</p>
+                                    <p>2. Уменьшите громкость (нижняя кнопка слева)</p>
+                                    <p style="color: #666; font-size: 14px; margin-top: 10px;">
+                                        <i class="bi bi-info-circle"></i> Используйте кнопки громкости слева от телефона
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Экран настроек (для Wi-Fi) -->
+                        <div id="settings-screen" class="screen hidden">
+                            <div class="header">
+                                <h1><i class="bi bi-gear"></i> Настройки</h1>
+                            </div>
+
+                            <h2>О телефоне</h2>
+
+                            <div class="section">
+                                <div class="settings-item">
+                                    <div style="display: flex; align-items: center;">
+                                        <div class="settings-icon"><i class="bi bi-arrow-clockwise"></i></div>
+                                        <div class="settings-text">Обновление компонентов</div>
+                                    </div>
+                                    <input type="checkbox" class="checkbox">
+                                </div>
+                                <div class="settings-item">
+                                    <div style="display: flex; align-items: center;">
+                                        <div class="settings-icon"><i class="bi bi-shield-check"></i></div>
+                                        <div class="settings-text">Состояние защиты</div>
+                                    </div>
+                                    <input type="checkbox" class="checkbox" checked>
+                                </div>
+                                <div class="settings-item" onclick="goToWifiSettings()">
+                                    <div style="display: flex; align-items: center;">
+                                        <div class="settings-icon"><i class="bi bi-wifi"></i></div>
+                                        <div class="settings-text">Wi-Fi</div>
+                                    </div>
+                                    <div style="color: #666;"><i class="bi bi-chevron-right"></i></div>
+                                </div>
+                                <div class="settings-item">
+                                    <div style="display: flex; align-items: center;">
+                                        <div class="settings-icon"><i class="bi bi-camera-video"></i></div>
+                                        <div class="settings-text">Видео</div>
+                                    </div>
+                                </div>
+                                <div class="settings-item">
+                                    <div style="display: flex; align-items: center;">
+                                        <div class="settings-icon"><i class="bi bi-bluetooth"></i></div>
+                                        <div class="settings-text">Bluetooth</div>
+                                    </div>
+                                </div>
+                                <div class="settings-item">
+                                    <div style="display: flex; align-items: center;">
+                                        <div class="settings-icon"><i class="bi bi-phone"></i></div>
+                                        <div class="settings-text">Мобильные сети</div>
+                                    </div>
+                                </div>
+                                <div class="settings-item">
+                                    <div style="display: flex; align-items: center;">
+                                        <div class="settings-icon"><i class="bi bi-key"></i></div>
+                                        <div class="settings-text">Вход</div>
+                                    </div>
+                                </div>
+                                <div class="settings-item">
+                                    <div style="display: flex; align-items: center;">
+                                        <div class="settings-icon"><i class="bi bi-broadcast"></i></div>
+                                        <div class="settings-text">Точка доступа Wi-Fi</div>
+                                    </div>
+                                    <div>Откл.</div>
+                                </div>
+                                <div class="settings-item">
+                                    <div style="display: flex; align-items: center;">
+                                        <div class="settings-icon"><i class="bi bi-shield-lock"></i></div>
+                                        <div class="settings-text">VPN</div>
+                                    </div>
+                                </div>
+                                <div class="settings-item" id="other-connections-item">
+                                    <div style="display: flex; align-items: center;">
+                                        <div class="settings-icon"><i class="bi bi-link"></i></div>
+                                        <div class="settings-text">Другие способы подключения</div>
+                                    </div>
+                                    <input type="checkbox" class="checkbox" checked>
+                                </div>
+                                <div class="settings-item">
+                                    <div style="display: flex; align-items: center;">
+                                        <div class="settings-icon"><i class="bi bi-lock"></i></div>
+                                        <div class="settings-text">Блокировка экрана</div>
+                                    </div>
+                                </div>
+                                <div class="settings-item">
+                                    <div style="display: flex; align-items: center;">
+                                        <div class="settings-icon"><i class="bi bi-bell"></i></div>
+                                        <div class="settings-text">Уведомления и строка состояния</div>
+                                    </div>
+                                </div>
+                                <div class="settings-item">
+                                    <div style="display: flex; align-items: center;">
+                                        <div class="settings-icon"><i class="bi bi-house"></i></div>
+                                        <div class="settings-text">Рабочий стол</div>
+                                    </div>
+                                </div>
+                                <div class="settings-item">
+                                    <div style="display: flex; align-items: center;">
+                                        <div class="settings-icon"><i class="bi bi-brightness-high"></i></div>
+                                        <div class="settings-text">Экран и яркость</div>
+                                    </div>
+                                    <input type="checkbox" class="checkbox" checked>
+                                </div>
+                            </div>
+
+                            <h3><i class="bi bi-volume-up"></i> Звук и вибрация</h3>
                         </div>
 
                         <!-- Экран Wi-Fi -->
@@ -874,320 +1117,255 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Экран настроек -->
-                        <div id="settings-screen" class="screen hidden">
-                            <div class="header">
-                                <h1><i class="bi bi-gear"></i> Настройки</h1>
-                            </div>
-
-                            <h2>О телефоне</h2>
-
-                            <div class="section">
-                                <div class="settings-item">
-                                    <div style="display: flex; align-items: center;">
-                                        <div class="settings-icon"><i class="bi bi-arrow-clockwise"></i></div>
-                                        <div class="settings-text">Обновление компонентов</div>
-                                    </div>
-                                    <input type="checkbox" class="checkbox">
-                                </div>
-                                <div class="settings-item">
-                                    <div style="display: flex; align-items: center;">
-                                        <div class="settings-icon"><i class="bi bi-shield-check"></i></div>
-                                        <div class="settings-text">Состояние защиты</div>
-                                    </div>
-                                    <input type="checkbox" class="checkbox" checked>
-                                </div>
-                                <div class="settings-item" onclick="goToWifiSettings()">
-                                    <div style="display: flex; align-items: center;">
-                                        <div class="settings-icon"><i class="bi bi-wifi"></i></div>
-                                        <div class="settings-text">Wi-Fi</div>
-                                    </div>
-                                    <div style="color: #666;"><i class="bi bi-chevron-right"></i></div>
-                                </div>
-                                <div class="settings-item">
-                                    <div style="display: flex; align-items: center;">
-                                        <div class="settings-icon"><i class="bi bi-camera-video"></i></div>
-                                        <div class="settings-text">Видео</div>
-                                    </div>
-                                </div>
-                                <div class="settings-item">
-                                    <div style="display: flex; align-items: center;">
-                                        <div class="settings-icon"><i class="bi bi-bluetooth"></i></div>
-                                        <div class="settings-text">Bluetooth</div>
-                                    </div>
-                                </div>
-                                <div class="settings-item">
-                                    <div style="display: flex; align-items: center;">
-                                        <div class="settings-icon"><i class="bi bi-phone"></i></div>
-                                        <div class="settings-text">Мобильные сети</div>
-                                    </div>
-                                </div>
-                                <div class="settings-item">
-                                    <div style="display: flex; align-items: center;">
-                                        <div class="settings-icon"><i class="bi bi-key"></i></div>
-                                        <div class="settings-text">Вход</div>
-                                    </div>
-                                </div>
-                                <div class="settings-item">
-                                    <div style="display: flex; align-items: center;">
-                                        <div class="settings-icon"><i class="bi bi-broadcast"></i></div>
-                                        <div class="settings-text">Точка доступа Wi-Fi</div>
-                                    </div>
-                                    <div>Откл.</div>
-                                </div>
-                                <div class="settings-item">
-                                    <div style="display: flex; align-items: center;">
-                                        <div class="settings-icon"><i class="bi bi-shield-lock"></i></div>
-                                        <div class="settings-text">VPN</div>
-                                    </div>
-                                </div>
-                                <div class="settings-item" id="other-connections-item">
-                                    <div style="display: flex; align-items: center;">
-                                        <div class="settings-icon"><i class="bi bi-link"></i></div>
-                                        <div class="settings-text">Другие способы подключения</div>
-                                    </div>
-                                    <input type="checkbox" class="checkbox" checked>
-                                </div>
-                                <div class="settings-item">
-                                    <div style="display: flex; align-items: center;">
-                                        <div class="settings-icon"><i class="bi bi-lock"></i></div>
-                                        <div class="settings-text">Блокировка экрана</div>
-                                    </div>
-                                </div>
-                                <div class="settings-item">
-                                    <div style="display: flex; align-items: center;">
-                                        <div class="settings-icon"><i class="bi bi-bell"></i></div>
-                                        <div class="settings-text">Уведомления и строка состояния</div>
-                                    </div>
-                                </div>
-                                <div class="settings-item">
-                                    <div style="display: flex; align-items: center;">
-                                        <div class="settings-icon"><i class="bi bi-house"></i></div>
-                                        <div class="settings-text">Рабочий стол</div>
-                                    </div>
-                                </div>
-                                <div class="settings-item">
-                                    <div style="display: flex; align-items: center;">
-                                        <div class="settings-icon"><i class="bi bi-brightness-high"></i></div>
-                                        <div class="settings-text">Экран и яркость</div>
-                                    </div>
-                                    <input type="checkbox" class="checkbox" checked>
-                                </div>
-                            </div>
-
-                            <h3><i class="bi bi-volume-up"></i> Звук и вибрация</h3>
-                        </div>
+                        {% endif %}
                     </div>
 
                     <!-- Навигационная панель -->
                     <div class="nav-bar">
-                        <div class="nav-item" onclick="showScreen('home-screen')">
+                        <div class="nav-item active" onclick="goToHomeScreen()">
                             <div class="nav-icon"><i class="bi bi-house"></i></div>
                             <div>Главная</div>
                         </div>
-                        <div class="nav-item active" onclick="showScreen('settings-screen')">
+                        {% if user_level == 'advanced' %}
+                        <div class="nav-item" onclick="showScreen('settings-screen')">
                             <div class="nav-icon"><i class="bi bi-gear"></i></div>
                             <div>Настройки</div>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="training-panel">
-            <h1 class="training-title"><i class="bi bi-phone"></i> Тренинг по настройке Wi-Fi</h1>
-            <p class="training-subtitle">Выполняйте задания на симуляторе телефона слева</p>
+            <h1 class="training-title">
+                <i class="bi bi-phone"></i>
+                {% if user_level == 'basic' %}
+                    Базовый тренинг: Основы работы со смартфоном
+                {% else %}
+                    Расширенный тренинг: Работа со смартфоном и Wi-Fi
+                {% endif %}
+            </h1>
+
+            <p class="training-subtitle">
+                {% if user_level == 'basic' %}
+                    Освойте базовые функции смартфона
+                {% else %}
+                    Выполняйте задания на симуляторе телефона слева
+                {% endif %}
+            </p>
 
             <div class="progress-bar">
                 <div class="progress-fill" id="progress-fill"></div>
             </div>
 
-            <!-- Задание 1 -->
-            <div id="task1" class="task-container">
-                <div class="task-header">
-                    <div class="task-number">1</div>
-                    <div class="task-title">Перейти в настройки Wi-Fi</div>
+            <!-- ТРЕНИНГ ДЛЯ BASIC УРОВНЯ (3 задания) -->
+            {% if user_level == 'basic' %}
+                <!-- Задание 1: Включение смартфона -->
+                <div id="task1" class="task-container">
+                    <div class="task-header">
+                        <div class="task-number">1</div>
+                        <div class="task-title">Включение смартфона</div>
+                    </div>
+
+                    <div class="task-description">
+                        <p>Научитесь включать ваш смартфон с помощью кнопки питания.</p>
+                    </div>
+
+                    <ul class="task-steps">
+                        <li>
+                            <div class="step-number">1</div>
+                            <div>Найдите кнопку питания на правой стороне телефона</div>
+                        </li>
+                        <li>
+                            <div class="step-number">2</div>
+                            <div>Нажмите и удерживайте кнопку питания 3 секунды</div>
+                        </li>
+                        <li>
+                            <div class="step-number">3</div>
+                            <div>Экран должен загореться</div>
+                        </li>
+                    </ul>
+
+                    <div id="feedback1" class="feedback"></div>
                 </div>
 
-                <div class="task-description">
-                    <p>Ваша задача: найти и открыть раздел настроек Wi-Fi на смартфоне.</p>
+                <!-- Задание 2: Выключение смартфона -->
+                <div id="task2" class="task-container hidden">
+                    <div class="task-header">
+                        <div class="task-number">2</div>
+                        <div class="task-title">Выключение смартфона</div>
+                    </div>
+
+                    <div class="task-description">
+                        <p>Научитесь выключать ваш смартфон с помощью кнопки питания.</p>
+                    </div>
+
+                    <ul class="task-steps">
+                        <li>
+                            <div class="step-number">1</div>
+                            <div>Найдите кнопку питания на правой стороне телефона</div>
+                        </li>
+                        <li>
+                            <div class="step-number">2</div>
+                            <div>Нажмите и удерживайте кнопку питания 3 секунды</div>
+                        </li>
+                        <li>
+                            <div class="step-number">3</div>
+                            <div>Экран должен погаснуть</div>
+                        </li>
+                    </ul>
+
+                    <div id="feedback2" class="feedback"></div>
                 </div>
 
-                <ul class="task-steps">
-                    <li>
-                        <div class="step-number">1</div>
-                        <div>На телефоне сейчас открыт экран "Настройки"</div>
-                    </li>
-                    <li>
-                        <div class="step-number">2</div>
-                        <div>В разделе "О телефоне" найдите пункт <i class="bi bi-wifi"></i> "Wi-Fi"</div>
-                    </li>
-                    <li>
-                        <div class="step-number">3</div>
-                        <div>Нажмите на пункт "Wi-Fi" чтобы открыть его</div>
-                    </li>
-                </ul>
+                <!-- Задание 3: Регулировка громкости -->
+                <div id="task3" class="task-container hidden">
+                    <div class="task-header">
+                        <div class="task-number">3</div>
+                        <div class="task-title">Регулировка громкости</div>
+                    </div>
 
-                <div id="feedback1" class="feedback"></div>
-            </div>
+                    <div class="task-description">
+                        <p>Научитесь регулировать громкость звука на смартфоне.</p>
+                    </div>
 
-            <!-- Задание 2 -->
-            <div id="task2" class="task-container hidden">
-                <div class="task-header">
-                    <div class="task-number">2</div>
-                    <div class="task-title">Подключиться к Wi-Fi сети</div>
+                    <ul class="task-steps">
+                        <li>
+                            <div class="step-number">1</div>
+                            <div>Найдите кнопки громкости на левой стороне телефона</div>
+                        </li>
+                        <li>
+                            <div class="step-number">2</div>
+                            <div>Нажмите кнопку "+" для увеличения громкости</div>
+                        </li>
+                        <li>
+                            <div class="step-number">3</div>
+                            <div>Нажмите кнопку "-" для уменьшения громкости</div>
+                        </li>
+                    </ul>
+
+                    <div id="feedback3" class="feedback"></div>
                 </div>
 
-                <div class="task-description">
-                    <p>Подключитесь к сети Beeline_2G_F32666. Пароль: <strong>12345678</strong></p>
+            <!-- ТРЕНИНГ ДЛЯ ADVANCED УРОВНЯ (4 задания) -->
+            {% else %}
+                <!-- Задание 1: Включение смартфона -->
+                <div id="task1" class="task-container">
+                    <div class="task-header">
+                        <div class="task-number">1</div>
+                        <div class="task-title">Включение смартфона</div>
+                    </div>
+
+                    <div class="task-description">
+                        <p>Научитесь включать ваш смартфон с помощью кнопки питания.</p>
+                    </div>
+
+                    <ul class="task-steps">
+                        <li>
+                            <div class="step-number">1</div>
+                            <div>Найдите кнопку питания на правой стороне телефона</div>
+                        </li>
+                        <li>
+                            <div class="step-number">2</div>
+                            <div>Нажмите и удерживайте кнопку питания 3 секунды</div>
+                        </li>
+                        <li>
+                            <div class="step-number">3</div>
+                            <div>Экран должен загореться</div>
+                        </li>
+                    </ul>
+
+                    <div id="feedback1" class="feedback"></div>
                 </div>
 
-                <ul class="task-steps">
-                    <li>
-                        <div class="step-number">1</div>
-                        <div>В списке доступных сетей найдите "Beeline_2G_F32666"</div>
-                    </li>
-                    <li>
-                        <div class="step-number">2</div>
-                        <div>Нажмите на кнопку <i class="bi bi-plug"></i> "Подключить" рядом с этой сетью</div>
-                    </li>
-                    <li>
-                        <div class="step-number">3</div>
-                        <div>Введите пароль: <strong>12345678</strong></div>
-                    </li>
-                    <li>
-                        <div class="step-number">4</div>
-                        <div>Нажмите кнопку "Подключить"</div>
-                    </li>
-                </ul>
+                <!-- Задание 2: Выключение смартфона -->
+                <div id="task2" class="task-container hidden">
+                    <div class="task-header">
+                        <div class="task-number">2</div>
+                        <div class="task-title">Выключение смартфона</div>
+                    </div>
 
-                <div id="feedback2" class="feedback"></div>
-            </div>
+                    <div class="task-description">
+                        <p>Научитесь выключать ваш смартфон с помощью кнопки питания.</p>
+                    </div>
 
-            <!-- Задание 3 -->
-            <div id="task3" class="task-container hidden">
-                <div class="task-header">
-                    <div class="task-number">3</div>
-                    <div class="task-title">Обновить список сетей</div>
+                    <ul class="task-steps">
+                        <li>
+                            <div class="step-number">1</div>
+                            <div>Найдите кнопку питания на правой стороне телефона</div>
+                        </li>
+                        <li>
+                            <div class="step-number">2</div>
+                            <div>Нажмите и удерживайте кнопку питания 3 секунды</div>
+                        </li>
+                        <li>
+                            <div class="step-number">3</div>
+                            <div>Экран должен погаснуть</div>
+                        </li>
+                    </ul>
+
+                    <div id="feedback2" class="feedback"></div>
                 </div>
 
-                <div class="task-description">
-                    <p>Обновите список доступных Wi-Fi сетей для поиска новых подключений.</p>
+                <!-- Задание 3: Регулировка громкости -->
+                <div id="task3" class="task-container hidden">
+                    <div class="task-header">
+                        <div class="task-number">3</div>
+                        <div class="task-title">Регулировка громкости</div>
+                    </div>
+
+                    <div class="task-description">
+                        <p>Научитесь регулировать громкость звука на смартфоне.</p>
+                    </div>
+
+                    <ul class="task-steps">
+                        <li>
+                            <div class="step-number">1</div>
+                            <div>Найдите кнопки громкости на левой стороне телефона</div>
+                        </li>
+                        <li>
+                            <div class="step-number">2</div>
+                            <div>Нажмите кнопку "+" для увеличения громкости</div>
+                        </li>
+                        <li>
+                            <div class="step-number">3</div>
+                            <div>Нажмите кнопку "-" для уменьшения громкости</div>
+                        </li>
+                    </ul>
+
+                    <div id="feedback3" class="feedback"></div>
                 </div>
 
-                <ul class="task-steps">
-                    <li>
-                        <div class="step-number">1</div>
-                        <div>Вы находитесь в меню Wi-Fi</div>
-                    </li>
-                    <li>
-                        <div class="step-number">2</div>
-                        <div>Найдите пункт <i class="bi bi-arrow-clockwise"></i> "Обновить" в разделе "Сохраненные сети"</div>
-                    </li>
-                    <li>
-                        <div class="step-number">3</div>
-                        <div>Нажмите на "Обновить" для сканирования сетей</div>
-                    </li>
-                </ul>
+                <!-- Задание 4: Подключение к Wi-Fi -->
+                <div id="task4" class="task-container hidden">
+                    <div class="task-header">
+                        <div class="task-number">4</div>
+                        <div class="task-title">Подключение к Wi-Fi</div>
+                    </div>
 
-                <div id="feedback3" class="feedback"></div>
-            </div>
+                    <div class="task-description">
+                        <p>Подключитесь к сети Beeline_2G_F32666. Пароль: <strong>12345678</strong></p>
+                    </div>
 
-            <!-- Задание 4 -->
-            <div id="task4" class="task-container hidden">
-                <div class="task-header">
-                    <div class="task-number">4</div>
-                    <div class="task-title">Включить другие способы подключения</div>
+                    <ul class="task-steps">
+                        <li>
+                            <div class="step-number">1</div>
+                            <div>На телефоне сейчас открыт экран "Настройки"</div>
+                        </li>
+                        <li>
+                            <div class="step-number">2</div>
+                            <div>В разделе "О телефоне" найдите пункт <i class="bi bi-wifi"></i> "Wi-Fi"</div>
+                        </li>
+                        <li>
+                            <div class="step-number">3</div>
+                            <div>Нажмите на пункт "Wi-Fi" чтобы открыть его</div>
+                        </li>
+                    </ul>
+
+                    <div id="feedback4" class="feedback"></div>
                 </div>
-
-                <div class="task-description">
-                    <p>Включите опцию "Другие способы подключения" в настройках.</p>
-                </div>
-
-                <ul class="task-steps">
-                    <li>
-                        <div class="step-number">1</div>
-                        <div>Вернитесь в настройки телефона (кнопка "Настройки" внизу)</div>
-                    </li>
-                    <li>
-                        <div class="step-number">2</div>
-                        <div>Найдите пункт "Другие способы подключения"</div>
-                    </li>
-                    <li>
-                        <div class="step-number">3</div>
-                        <div>Включите переключатель рядом с этим пунктом</div>
-                    </li>
-                </ul>
-
-                <div id="feedback4" class="feedback"></div>
-            </div>
-
-            <!-- Новое Задание 5: Работа с кнопками громкости -->
-            <div id="task5" class="task-container hidden">
-                <div class="task-header">
-                    <div class="task-number">5</div>
-                    <div class="task-title">Использование кнопок громкости</div>
-                </div>
-
-                <div class="task-description">
-                    <p>Научитесь пользоваться кнопками регулировки громкости на смартфоне.</p>
-                </div>
-
-                <ul class="task-steps">
-                    <li>
-                        <div class="step-number">1</div>
-                        <div>Найдите кнопку увеличения громкости на левой стороне телефона (длинная кнопка)</div>
-                    </li>
-                    <li>
-                        <div class="step-number">2</div>
-                        <div>Нажмите кнопку увеличения громкости 2 раза</div>
-                    </li>
-                    <li>
-                        <div class="step-number">3</div>
-                        <div>Найдите кнопку уменьшения громкости (короткая кнопка ниже)</div>
-                    </li>
-                    <li>
-                        <div class="step-number">4</div>
-                        <div>Нажмите кнопку уменьшения громкости 1 раз</div>
-                    </li>
-                </ul>
-
-                <div id="feedback5" class="feedback"></div>
-            </div>
-
-            <!-- Новое Задание 6: Использование кнопки питания -->
-            <div id="task6" class="task-container hidden">
-                <div class="task-header">
-                    <div class="task-number">6</div>
-                    <div class="task-title">Использование кнопки питания</div>
-                </div>
-
-                <div class="task-description">
-                    <p>Научитесь правильно использовать кнопку питания смартфона.</p>
-                </div>
-
-                <ul class="task-steps">
-                    <li>
-                        <div class="step-number">1</div>
-                        <div>Найдите кнопку питания на правой стороне телефона</div>
-                    </li>
-                    <li>
-                        <div class="step-number">2</div>
-                        <div>Нажмите кнопку питания 1 раз, чтобы заблокировать экран</div>
-                    </li>
-                    <li>
-                        <div class="step-number">3</div>
-                        <div>Снова нажмите кнопку питания, чтобы разблокировать экран</div>
-                    </li>
-                    <li>
-                        <div class="step-number">4</div>
-                        <div>Нажмите и удерживайте кнопку питания 3 секунды</div>
-                    </li>
-                </ul>
-
-                <div id="feedback6" class="feedback"></div>
-            </div>
+            {% endif %}
 
             <button id="next-task-btn" class="next-task-btn" onclick="nextTask()">
                 Следующее задание <i class="bi bi-arrow-right"></i>
@@ -1197,11 +1375,16 @@
             <div id="completion-screen" class="completion-screen">
                 <div class="completion-icon"><i class="bi bi-trophy-fill"></i></div>
                 <h2>Тренинг завершен!</h2>
-                <div class="score-display" id="final-score">0/6</div>
-                <p>Поздравляем! Вы успешно завершили тренинг по настройке Wi-Fi на смартфоне.</p>
+                <div class="score-display" id="final-score">
+                    {% if user_level == 'basic' %}0/3{% else %}0/4{% endif %}
+                </div>
+                <p>Поздравляем! Вы успешно завершили тренинг.</p>
                 <button class="restart-btn" onclick="restartTraining()">
                     <i class="bi bi-arrow-repeat"></i> Начать заново
                 </button>
+                <a href="{{ url_for('go_to_trainer') }}" class="restart-btn" style="background: #6c757d; margin-top: 10px;">
+                    <i class="bi bi-house"></i> Вернуться в тренажер
+                </a>
             </div>
         </div>
     </div>
@@ -1210,8 +1393,11 @@
     <div id="notification" class="notification"></div>
 
     <script>
+        // Получаем уровень пользователя из шаблона
+        const userLevel = "{{ user_level }}";
+
         // ====================
-        // Симулятор телефона
+        // Симулятор телефона - ОБЩИЕ ФУНКЦИИ
         // ====================
         let currentScreen = 'home-screen';
         let keyboardVisible = false;
@@ -1219,6 +1405,21 @@
         let volumeDownCount = 0;
         let powerPressCount = 0;
         let screenLocked = false;
+        let powerHoldTimer = null;
+
+        function startBasicTraining() {
+            showScreen('basic-task1-screen');
+            showTask(1);
+        }
+
+        function startAdvancedTraining() {
+            showScreen('settings-screen');
+            showTask(1);
+        }
+
+        function goToHomeScreen() {
+            showScreen('home-screen');
+        }
 
         function showScreen(screenId) {
             // Скрыть все экраны
@@ -1230,8 +1431,10 @@
             document.getElementById(screenId).classList.remove('hidden');
 
             // Скрыть клавиатуру при переключении экранов
-            document.getElementById('keyboard').classList.add('hidden');
-            keyboardVisible = false;
+            if (document.getElementById('keyboard')) {
+                document.getElementById('keyboard').classList.add('hidden');
+                keyboardVisible = false;
+            }
 
             // Обновить активный пункт в навигации
             document.querySelectorAll('.nav-item').forEach(item => {
@@ -1239,7 +1442,7 @@
             });
 
             // Активируем соответствующую иконку в навигации
-            if (screenId === 'home-screen') {
+            if (screenId === 'home-screen' || screenId.includes('basic-task') || screenId.includes('advanced-task')) {
                 document.querySelector('.nav-item:nth-child(1)').classList.add('active');
             } else if (screenId === 'settings-screen') {
                 document.querySelector('.nav-item:nth-child(2)').classList.add('active');
@@ -1248,11 +1451,13 @@
             currentScreen = screenId;
         }
 
+        // Функции для Wi-Fi (только для advanced)
+        {% if user_level == 'advanced' %}
         function goToWifiSettings() {
             showScreen('wifi-screen');
-            // Проверяем задание 1
-            if (currentTask === 1 && !tasksCompleted[1]) {
-                checkTask1();
+            // Проверяем задание 4
+            if (currentTask === 4 && !tasksCompleted[4]) {
+                checkTask4();
             }
         }
 
@@ -1262,10 +1467,6 @@
 
         function refreshNetworks() {
             showNotification('Сканирование сетей Wi-Fi...');
-            // Проверяем задание 3
-            if (currentTask === 3 && !tasksCompleted[3]) {
-                checkTask3();
-            }
         }
 
         function connectToWifi(networkName) {
@@ -1295,12 +1496,13 @@
         function connectWithPassword() {
             const password = document.getElementById('wifi-password').value;
             if (password.length > 0) {
-                if (password === '12345678' && currentTask === 2 && !tasksCompleted[2]) {
-                    checkTask2();
-                } else if (password !== '12345678') {
-                    showNotification('Неверный пароль! Попробуйте снова. Правильный пароль: 12345678');
+                if (password === '12345678') {
+                    showNotification('Подключение к Beeline_2G_F32666... Успешно!');
+                    setTimeout(() => {
+                        showScreen('wifi-screen');
+                    }, 1000);
                 } else {
-                    showNotification(`Подключение к Beeline_2G_F32666...`);
+                    showNotification('Неверный пароль! Попробуйте снова. Правильный пароль: 12345678');
                 }
             } else {
                 showNotification('Введите пароль для подключения');
@@ -1310,6 +1512,7 @@
         function toggleKeyboardLayout() {
             showNotification('Переключение раскладки клавиатуры');
         }
+        {% endif %}
 
         // ====================
         // Функции для кнопок телефона
@@ -1319,10 +1522,14 @@
             volumeUpCount++;
             showNotification('Громкость увеличена');
 
-            // Проверяем задание 5
-            if (currentTask === 5 && !tasksCompleted[5]) {
-                if (volumeUpCount >= 2 && volumeDownCount >= 1) {
-                    checkTask5();
+            // Проверяем задания в зависимости от уровня и текущего задания
+            if (userLevel === 'basic' && currentTask === 3 && !tasksCompleted[3]) {
+                if (volumeUpCount >= 1 && volumeDownCount >= 1) {
+                    checkBasicTask3();
+                }
+            } else if (userLevel === 'advanced' && currentTask === 3 && !tasksCompleted[3]) {
+                if (volumeUpCount >= 1 && volumeDownCount >= 1) {
+                    checkAdvancedTask3();
                 }
             }
 
@@ -1334,10 +1541,14 @@
             volumeDownCount++;
             showNotification('Громкость уменьшена');
 
-            // Проверяем задание 5
-            if (currentTask === 5 && !tasksCompleted[5]) {
-                if (volumeUpCount >= 2 && volumeDownCount >= 1) {
-                    checkTask5();
+            // Проверяем задания в зависимости от уровня и текущего задания
+            if (userLevel === 'basic' && currentTask === 3 && !tasksCompleted[3]) {
+                if (volumeUpCount >= 1 && volumeDownCount >= 1) {
+                    checkBasicTask3();
+                }
+            } else if (userLevel === 'advanced' && currentTask === 3 && !tasksCompleted[3]) {
+                if (volumeUpCount >= 1 && volumeDownCount >= 1) {
+                    checkAdvancedTask3();
                 }
             }
 
@@ -1353,35 +1564,61 @@
                 screenLocked = false;
                 showScreen(currentScreen);
                 showNotification('Экран разблокирован');
-
-                // Проверяем задание 6
-                if (currentTask === 6 && !tasksCompleted[6]) {
-                    if (powerPressCount >= 2) {
-                        // Ждем долгое нажатие
-                        setTimeout(() => {
-                            if (powerPressCount >= 3) {
-                                checkTask6();
-                            }
-                        }, 3000);
-                    }
-                }
             } else {
-                // Блокировка экрана
-                screenLocked = true;
-                document.querySelectorAll('.screen').forEach(screen => {
-                    screen.classList.add('hidden');
-                });
-                showNotification('Экран заблокирован');
-
-                // Проверяем задание 6
-                if (currentTask === 6 && !tasksCompleted[6]) {
-                    // Уже проверим в следующем нажатии
-                }
+                // Запускаем таймер для отслеживания долгого нажатия
+                powerHoldTimer = setTimeout(() => {
+                    // Долгое нажатие (3 секунды)
+                    if (userLevel === 'basic') {
+                        if (currentTask === 1 && !tasksCompleted[1]) {
+                            // Включение телефона для basic
+                            checkBasicTask1();
+                            showNotification('Телефон включен');
+                        } else if (currentTask === 2 && !tasksCompleted[2]) {
+                            // Выключение телефона для basic
+                            checkBasicTask2();
+                            showNotification('Телефон выключен');
+                        }
+                    } else if (userLevel === 'advanced') {
+                        if (currentTask === 1 && !tasksCompleted[1]) {
+                            // Включение телефона для advanced
+                            checkAdvancedTask1();
+                            showNotification('Телефон включен');
+                        } else if (currentTask === 2 && !tasksCompleted[2]) {
+                            // Выключение телефона для advanced
+                            checkAdvancedTask2();
+                            showNotification('Телефон выключен');
+                        }
+                    }
+                    powerPressCount = 0;
+                }, 3000);
             }
 
             // Анимация нажатия
             animateButtonPress('.power-btn');
         }
+
+        function releasePowerButton() {
+            if (powerHoldTimer) {
+                clearTimeout(powerHoldTimer);
+                powerHoldTimer = null;
+            }
+
+            // Короткое нажатие
+            if (powerPressCount === 1 && !screenLocked) {
+                screenLocked = true;
+                document.querySelectorAll('.screen').forEach(screen => {
+                    screen.classList.add('hidden');
+                });
+                showNotification('Экран заблокирован');
+            }
+
+            powerPressCount = 0;
+        }
+
+        // Добавляем обработчики для имитации нажатия/отпускания
+        document.querySelector('.power-btn').addEventListener('mousedown', pressPowerButton);
+        document.querySelector('.power-btn').addEventListener('mouseup', releasePowerButton);
+        document.querySelector('.power-btn').addEventListener('mouseleave', releasePowerButton);
 
         function animateButtonPress(selector) {
             const btn = document.querySelector(selector);
@@ -1408,19 +1645,20 @@
         // Система тренинга
         // ====================
         let currentTask = 1;
-        let tasksCompleted = {
-            1: false,
-            2: false,
-            3: false,
-            4: false,
-            5: false,
-            6: false
-        };
+        let totalTasks = userLevel === 'basic' ? 3 : 4;
+        let tasksCompleted = {};
         let score = 0;
+
+        // Инициализация tasksCompleted в зависимости от уровня
+        if (userLevel === 'basic') {
+            tasksCompleted = {1: false, 2: false, 3: false};
+        } else {
+            tasksCompleted = {1: false, 2: false, 3: false, 4: false};
+        }
 
         function showTask(taskNumber) {
             // Скрыть все задания
-            for (let i = 1; i <= 6; i++) {
+            for (let i = 1; i <= totalTasks; i++) {
                 const taskElement = document.getElementById(`task${i}`);
                 if (taskElement) {
                     taskElement.classList.add('hidden');
@@ -1440,45 +1678,99 @@
             document.getElementById(`feedback${taskNumber}`).className = 'feedback';
             document.getElementById(`feedback${taskNumber}`).textContent = '';
 
-            // Сбросить счетчики для новых заданий
-            if (taskNumber === 5) {
-                volumeUpCount = 0;
-                volumeDownCount = 0;
-            } else if (taskNumber === 6) {
-                powerPressCount = 0;
+            // Сбросить счетчики и показать соответствующий экран на телефоне
+            volumeUpCount = 0;
+            volumeDownCount = 0;
+            powerPressCount = 0;
+            screenLocked = false;
+
+            if (userLevel === 'basic') {
+                switch(taskNumber) {
+                    case 1:
+                        showScreen('basic-task1-screen');
+                        break;
+                    case 2:
+                        showScreen('basic-task2-screen');
+                        break;
+                    case 3:
+                        showScreen('basic-task3-screen');
+                        break;
+                }
+            } else {
+                switch(taskNumber) {
+                    case 1:
+                        showScreen('advanced-task1-screen');
+                        break;
+                    case 2:
+                        showScreen('advanced-task2-screen');
+                        break;
+                    case 3:
+                        showScreen('advanced-task3-screen');
+                        break;
+                    case 4:
+                        showScreen('settings-screen');
+                        break;
+                }
             }
         }
 
-        function checkTask1() {
+        // Функции проверки заданий для BASIC уровня
+        function checkBasicTask1() {
             if (!tasksCompleted[1]) {
                 tasksCompleted[1] = true;
                 score++;
-                showFeedback(1, 'success', '✅ Отлично! Вы успешно перешли в настройки Wi-Fi.');
+                showFeedback(1, 'success', '✅ Отлично! Вы успешно включили смартфон.');
                 document.getElementById('next-task-btn').style.display = 'block';
                 updateProgress();
             }
         }
 
-        function checkTask2() {
+        function checkBasicTask2() {
             if (!tasksCompleted[2]) {
                 tasksCompleted[2] = true;
                 score++;
-                showFeedback(2, 'success', '✅ Отлично! Вы успешно подключились к сети Beeline.');
+                showFeedback(2, 'success', '✅ Отлично! Вы успешно выключили смартфон.');
                 document.getElementById('next-task-btn').style.display = 'block';
                 updateProgress();
-
-                // Вернуться на главный экран Wi-Fi
-                setTimeout(() => {
-                    showScreen('wifi-screen');
-                }, 1000);
             }
         }
 
-        function checkTask3() {
+        function checkBasicTask3() {
             if (!tasksCompleted[3]) {
                 tasksCompleted[3] = true;
                 score++;
-                showFeedback(3, 'success', '✅ Отлично! Вы обновили список доступных сетей.');
+                showFeedback(3, 'success', '✅ Отлично! Вы освоили регулировку громкости.');
+                document.getElementById('next-task-btn').style.display = 'block';
+                updateProgress();
+            }
+        }
+
+        // Функции проверки заданий для ADVANCED уровня
+        function checkAdvancedTask1() {
+            if (!tasksCompleted[1]) {
+                tasksCompleted[1] = true;
+                score++;
+                showFeedback(1, 'success', '✅ Отлично! Вы успешно включили смартфон.');
+                document.getElementById('next-task-btn').style.display = 'block';
+                updateProgress();
+            }
+        }
+
+        function checkAdvancedTask2() {
+            if (!tasksCompleted[2]) {
+                tasksCompleted[2] = true;
+                score++;
+                showFeedback(2, 'success', '✅ Отлично! Вы успешно выключили смартфон.');
+                document.getElementById('next-task-btn').style.display = 'block';
+                updateProgress();
+            }
+        }
+
+        function checkAdvancedTask3() {
+            if (!tasksCompleted[3]) {
+                tasksCompleted[3] = true;
+                score++;
+                showFeedback(3, 'success', '✅ Отлично! Вы освоили регулировку громкости.');
                 document.getElementById('next-task-btn').style.display = 'block';
                 updateProgress();
             }
@@ -1488,34 +1780,9 @@
             if (!tasksCompleted[4]) {
                 tasksCompleted[4] = true;
                 score++;
-                showFeedback(4, 'success', '✅ Отлично! Вы включили другие способы подключения.');
+                showFeedback(4, 'success', '✅ Отлично! Вы успешно перешли в настройки Wi-Fi.');
                 document.getElementById('next-task-btn').style.display = 'block';
                 updateProgress();
-            }
-        }
-
-        function checkTask5() {
-            if (!tasksCompleted[5] && volumeUpCount >= 2 && volumeDownCount >= 1) {
-                tasksCompleted[5] = true;
-                score++;
-                showFeedback(5, 'success', '✅ Отлично! Вы освоили использование кнопок громкости.');
-                document.getElementById('next-task-btn').style.display = 'block';
-                updateProgress();
-            }
-        }
-
-        function checkTask6() {
-            if (!tasksCompleted[6] && powerPressCount >= 3) {
-                tasksCompleted[6] = true;
-                score++;
-                showFeedback(6, 'success', '✅ Отлично! Вы освоили использование кнопки питания.');
-                document.getElementById('next-task-btn').style.display = 'block';
-                updateProgress();
-
-                // Завершить тренинг
-                setTimeout(() => {
-                    completeTraining();
-                }, 1500);
             }
         }
 
@@ -1526,20 +1793,9 @@
         }
 
         function nextTask() {
-            if (currentTask < 6) {
+            if (currentTask < totalTasks) {
                 currentTask++;
                 showTask(currentTask);
-
-                // Для задания 4 сразу показываем кнопку (так как переключатель уже включен)
-                if (currentTask === 4) {
-                    // Проверяем, включен ли уже переключатель
-                    const otherConnectionsCheckbox = document.querySelector('#settings-screen input[type="checkbox"]:checked');
-                    if (otherConnectionsCheckbox && otherConnectionsCheckbox.parentElement.previousElementSibling.textContent.includes('Другие способы подключения')) {
-                        setTimeout(() => {
-                            checkTask4();
-                        }, 500);
-                    }
-                }
             } else {
                 completeTraining();
             }
@@ -1547,7 +1803,7 @@
 
         function updateProgress() {
             const completedCount = Object.values(tasksCompleted).filter(Boolean).length;
-            const progress = (completedCount / 6) * 100;
+            const progress = (completedCount / totalTasks) * 100;
             document.getElementById('progress-fill').style.width = `${progress}%`;
         }
 
@@ -1557,16 +1813,25 @@
 
             // Показать экран завершения
             document.getElementById('completion-screen').style.display = 'block';
-            document.getElementById('final-score').textContent = `${score}/6`;
+            document.getElementById('final-score').textContent = `${score}/${totalTasks}`;
 
             // Скрыть кнопку "Следующее задание"
             document.getElementById('next-task-btn').style.display = 'none';
+
+            // Показать главный экран на телефоне
+            showScreen('home-screen');
         }
 
         function restartTraining() {
             // Сбросить все значения
             currentTask = 1;
-            tasksCompleted = {1: false, 2: false, 3: false, 4: false, 5: false, 6: false};
+            if (userLevel === 'basic') {
+                tasksCompleted = {1: false, 2: false, 3: false};
+                totalTasks = 3;
+            } else {
+                tasksCompleted = {1: false, 2: false, 3: false, 4: false};
+                totalTasks = 4;
+            }
             score = 0;
             volumeUpCount = 0;
             volumeDownCount = 0;
@@ -1574,8 +1839,14 @@
             screenLocked = false;
 
             // Сбросить телефон
-            showScreen('settings-screen');
-            document.getElementById('wifi-password').value = '';
+            showScreen('home-screen');
+
+            // Сбросить Wi-Fi поля
+            if (userLevel === 'advanced') {
+                if (document.getElementById('wifi-password')) {
+                    document.getElementById('wifi-password').value = '';
+                }
+            }
 
             // Скрыть экран завершения
             document.getElementById('completion-screen').style.display = 'none';
@@ -1584,22 +1855,6 @@
             showTask(1);
             updateProgress();
         }
-
-        // ====================
-        // Обработчики событий для проверки заданий
-        // ====================
-
-        // Обработчик для переключателя "Другие способы подключения"
-        document.addEventListener('click', function(e) {
-            if (e.target.type === 'checkbox') {
-                const label = e.target.parentElement.previousElementSibling;
-                if (label && label.textContent.includes('Другие способы подключения')) {
-                    if (e.target.checked && currentTask === 4 && !tasksCompleted[4]) {
-                        checkTask4();
-                    }
-                }
-            }
-        });
 
         // ====================
         // Инициализация
@@ -1616,9 +1871,8 @@
         setInterval(updateTime, 60000);
         updateTime();
 
-        // Показать первое задание при загрузке
-        showTask(1);
-        updateProgress();
+        // При загрузке показываем главный экран
+        showScreen('home-screen');
     </script>
 </body>
 </html>
