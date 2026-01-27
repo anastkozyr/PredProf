@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация - Digital Navigator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f9ff;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .site-title {
+            color: #2c698d;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1.5rem;
+        }
+
+        .auth-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 40px;
+            background: #e6f7ff;
+            border-radius: 25px;
+            border: 1px solid #a8d5e5;
+        }
+
+        .auth-title {
+            color: #1a4d6e;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-label {
+            color: #2c698d;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            border: 2px solid #a8d5e5;
+            border-radius: 12px;
+            padding: 12px 15px;
+            background-color: white;
+        }
+
+        .btn-primary-auth {
+            background-color: #4a9bc7;
+            border: none;
+            border-radius: 20px;
+            padding: 14px 30px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: white;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .text-muted {
+            color: #4a7b9d !important;
+        }
+
+        .link-secondary {
+            color: #4a9bc7;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .alert-danger {
+            background-color: rgba(220, 53, 69, 0.1);
+            border-color: rgba(220, 53, 69, 0.3);
+            color: #dc3545;
+            border-radius: 12px;
+        }
+
+        /* Стили для выбора уровня */
+        .level-selection {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .level-option {
+            flex: 1;
+            border: 2px solid #a8d5e5;
+            border-radius: 12px;
+            padding: 20px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .level-option:hover {
+            border-color: #4a9bc7;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(74, 155, 199, 0.1);
+        }
+
+        .level-option.selected {
+            border-color: #2c698d;
+            background-color: #e6f7ff;
+            box-shadow: 0 5px 15px rgba(44, 105, 141, 0.15);
+        }
+
+        .level-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #2c698d;
+        }
+
+        .level-title {
+            font-weight: 600;
+            color: #1a4d6e;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .level-description {
+            color: #4a7b9d;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .level-option.basic .level-icon {
+            color: #4CAF50;
+        }
+
+        .level-option.advanced .level-icon {
+            color: #ff9966;
+        }
+
+        .level-option.basic.selected {
+            border-color: #4CAF50;
+            background-color: #f0f9f0;
+        }
+
+        .level-option.advanced.selected {
+            border-color: #ff9966;
+            background-color: #fff5f0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg py-3">
+        <div class="container-fluid">
+            <a class="navbar-brand site-title" href="{{ url_for('start_page') }}">
+                Digital Navigator
+            </a>
+            <div class="nav-buttons">
+                <a class="btn btn-login me-2" href="{{ url_for('login') }}" style="background-color: #a8d5e5; color: #1a4d6e; border: none; border-radius: 20px; padding: 8px 20px;">
+                    <i class="bi bi-box-arrow-in-right me-1"></i>Войти
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="auth-container">
+                    <h2 class="auth-title">Создание аккаунта</h2>
+
+                    {% if message %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endif %}
+
+                    <form method="POST" action="{{ url_for('register') }}">
+                        {{ form.hidden_tag() }}
+
+                        <div class="mb-4">
+                            <label for="name" class="form-label">Имя пользователя</label>
+                            {{ form.name(class="form-control", id="name", placeholder="Придумайте имя") }}
+                            {% for error in form.name.errors %}
+                                <div class="text-danger small mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="password" class="form-label">Пароль</label>
+                            {{ form.password(class="form-control", id="password", placeholder="Введите пароль") }}
+                            {% for error in form.password.errors %}
+                                <div class="text-danger small mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="level" class="form-label">Выберите уровень обучения</label>
+
+                            <!-- Используем поле RadioField из Flask формы -->
+                            <div class="level-selection">
+                                {% for subfield in form.level %}
+                                <div class="level-option {{ subfield.data }}"
+     onclick="document.querySelectorAll('.level-option').forEach(el => el.classList.remove('selected'));
+              this.classList.add('selected');
+              document.querySelector('input[value=\'{{ subfield.data }}\']').checked = true;"
+     id="{{ subfield.data }}-level">
+<!--                                <div class="level-option {{ subfield.data }}" onclick="selectLevel('{{ subfield.data }}')" id="{{ subfield.data }}-level">-->
+                                    <div class="level-icon">
+                                        {% if subfield.data == 'basic' %}
+                                        <i class="bi bi-person"></i>
+                                        {% else %}
+                                        <i class="bi bi-person-gear"></i>
+                                        {% endif %}
+                                    </div>
+                                    <div class="level-title">
+                                        {{ subfield.label.text }}
+                                    </div>
+                                    <div class="level-description">
+                                        {% if subfield.data == 'basic' %}
+                                        Для начинающих.
+                                        {% else %}
+                                        Для опытных.
+                                        {% endif %}
+                                    </div>
+                                    {{ subfield(style="display: none;") }}
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            {% for error in form.level.errors %}
+                                <div class="text-danger small mt-1">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary-auth">
+                                <i class="bi bi-person-plus me-2"></i>Зарегистрироваться и перейти в тренажёр
+                            </button>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <p class="text-muted">Уже есть аккаунт? <a href="{{ url_for('login') }}" class="link-secondary">Войдите здесь</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Автоматически выбираем "basic" при загрузке
+    document.addEventListener('DOMContentLoaded', function() {
+        const basicOption = document.getElementById('basic-level');
+        if (basicOption) {
+            basicOption.click();
+        }
+    });
+</script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
