@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request  # ← добавили request!
+from flask import Flask, render_template, send_from_directory, redirect, request  # ← добавили request!
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from data import db_session
 from data.users import User
@@ -80,6 +80,10 @@ def logout():
     logout_user()
     return redirect("/")
 
+@app.route('/images/<path:filename>')
+def images_files(filename):
+    return send_from_directory('images', filename)
+
 @app.route('/go-to-trainer')
 @login_required
 def go_to_trainer():
@@ -101,10 +105,18 @@ def messenger_training():
 def gosuslugi_training():
     return render_template('public_services.html')
 
+
+@app.route('/teory_smartphone-services')
+@login_required
+def teory_smartphone():
+    return render_template('teory_smartphone.html')
+
+
+
 @app.route('/online_shopping')
 @login_required
 def online_shopping():
-    return render_template('online_shopping.html')
+    return render_template('online_shopping_basic.html')
 
 @app.route('/buttons')
 @login_required
