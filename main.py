@@ -105,6 +105,14 @@ def messenger_training():
 def gosuslugi_training():
     return render_template('public_services.html')
 
+
+@app.route('/teory_smartphone-services')
+@login_required
+def teory_smartphone():
+    return render_template('teory_smartphone.html')
+
+
+
 @app.route('/online_shopping')
 @login_required
 def online_shopping():
