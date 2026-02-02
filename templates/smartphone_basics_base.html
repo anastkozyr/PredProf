@@ -533,12 +533,10 @@
                     <p style="font-size: 24px; color: #666; margin-bottom: 30px;">
                         Поздравляем! Вы успешно освоили работу с кнопками телефона
                     </p>
-                    <button class="next-btn" onclick="restartTraining()" style="background: linear-gradient(135deg, #6c757d, #495057);">
-                        <i class="bi bi-arrow-repeat"></i> НАЧАТЬ ЗАНОВО
-                    </button>
-                    <button class="trainer-btn">
-                        <i class="bi bi-arrow-right-circle"></i> ПЕРЕЙТИ НА ГЛАВНУЮ СТРАНИЦУ
-                    </button>
+
+                   <a href="{{ url_for('go_to_trainer') }}" class="trainer-btn">
+                        <i class="bi bi-arrow-right-circle"></i> НА ГЛАВНУЮ СТРАНИЦУ
+                    </a>
                 </div>
             </div>
         </div>
