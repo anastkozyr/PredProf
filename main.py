@@ -1,4 +1,5 @@
-from flask import Flask, render_template, send_from_directory, redirect, request  # ← добавили request!
+from flask import Flask, render_template, send_from_directory, redirect, request, flash, session, \
+    url_for  # ← добавили request!
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from data import db_session
 from data.users import User
@@ -130,11 +131,11 @@ def buttons():
     return render_template('buttons.html', user_level=user_level)
 
 
-
 @app.route('/account')
 @login_required
 def account():
     return render_template('account.html')
+
 
 
 if __name__ == '__main__':
