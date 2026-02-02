@@ -387,9 +387,8 @@
             border: 2px solid #eee;
         }
 
-        /* Большая кнопка помощи */
         .help-btn-big {
-            background: linear-gradient(135deg, #7ea7cc);
+            background: linear-gradient(135deg, #7ea7cc, #3a86ff);
             color: white;
             border: none;
             padding: 25px 40px;
@@ -404,13 +403,11 @@
             font-size: 22px;
             font-weight: bold;
             transition: all 0.3s;
-
         }
 
         .help-btn-big:hover {
             transform: translateY(-5px);
-            
-            background: linear-gradient(135deg, #B0C4DE, #B0C4DE);
+            background: linear-gradient(135deg, #2c698d, #3a86ff);
         }
 
         .help-btn-big i {
@@ -423,7 +420,7 @@
             border-radius: 15px;
             margin-top: 25px;
             display: none;
-            border: 3px solid #ff6b6b;
+            border: 3px solid #007AFF;
             font-size: 20px;
             line-height: 1.8;
         }
@@ -825,7 +822,7 @@
                         <p><strong>Пароль:</strong> 12345678</p>
                     </div>
                     <button class="help-btn-big" onclick="toggleHelp(1)">
-                         ПОМОЩЬ
+                        <i class="bi bi-question-circle"></i> КАК ЭТО СДЕЛАТЬ?
                     </button>
                     <div id="help1" class="help-content-big">
                         <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
