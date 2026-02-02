@@ -82,8 +82,8 @@
 
         .clickable-area {
             position: absolute;
-            background: rgba(255, 46, 46, 0.2);
-            border: 3px solid #ff2e2e;
+            background: rgba(255, 255, 255, 0.2);
+            border: 3px solid #000000;
             border-radius: 15px;
             pointer-events: all;
             cursor: pointer;
@@ -99,19 +99,19 @@
         }
 
         .clickable-area:hover {
-            background: rgba(255, 46, 46, 0.4);
+            background: rgba(0, 255, 0, 0.4);
             transform: scale(1.05);
         }
 
         .clickable-area.active {
             animation: pulse 1.5s infinite;
-            box-shadow: 0 0 20px rgba(255, 46, 46, 0.5);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
 
         @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(255, 46, 46, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(255, 46, 46, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 46, 46, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(0, 0, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
         }
 
         /* Модальное окно для ввода */
@@ -238,11 +238,11 @@
 
         .task.active {
             display: block;
-            border-left: 4px solid #ff2e2e;
+            border-left: 4px solid #007AFF;
         }
 
         .task-number {
-            background: #ff2e2e;
+            background: #007AFF;
             color: white;
             width: 36px;
             height: 36px;
@@ -265,20 +265,34 @@
             margin-bottom: 15px;
         }
 
-        .help-btn {
-            background: #6c757d;
+        /* Большая кнопка помощи */
+        .help-btn-big {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
+            padding: 25px 40px;
+            border-radius: 15px;
             cursor: pointer;
-            display: inline-flex;
+            margin-top: 20px;
+            display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            gap: 15px;
+            width: 100%;
+            font-size: 22px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
         }
 
-        .help-btn:hover {
-            background: #5a6268;
+        .help-btn-big:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(255, 107, 107, 0.4);
+            background: linear-gradient(135deg, #ff5252, #ff7b7b);
+        }
+
+        .help-btn-big i {
+            font-size: 28px;
         }
 
         .help-content {
@@ -287,7 +301,7 @@
             border-radius: 8px;
             margin-top: 15px;
             display: none;
-            border-left: 3px solid #ff2e2e;
+            border-left: 3px solid #007AFF;
         }
 
         .help-content.active {
@@ -295,7 +309,7 @@
         }
 
         .next-btn {
-            background: #ff2e2e;
+            background: linear-gradient(135deg, #28a745, #20c997);
             color: white;
             border: none;
             padding: 15px 30px;
@@ -313,7 +327,8 @@
         }
 
         .next-btn:hover {
-            background: #e52525;
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(40, 167, 69, 0.4);
         }
 
         .complete-screen {
@@ -413,27 +428,6 @@
             }
         }
 
-        /* Подсказка */
-        .hint {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 46, 46, 0.9);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-weight: bold;
-            z-index: 100;
-            text-align: center;
-            display: none;
-        }
-
-        .hint.active {
-            display: block;
-            animation: fadeInOut 3s ease-in-out;
-        }
-
         @keyframes fadeInOut {
             0%, 100% { opacity: 0; }
             10%, 90% { opacity: 1; }
@@ -508,43 +502,42 @@
                     <div class="task-description">
                         <p>На главном экране приложения "Пятерочка" нажмите на кнопку "Каталог".</p>
                     </div>
-                    <button class="help-btn" onclick="toggleHelp(1)">
+                    <button class="help-btn-big" onclick="toggleHelp(1)">
                         <i class="bi bi-question-circle"></i> Помощь
                     </button>
                     <div id="help1" class="help-content">
                         <p><strong>Как выполнить:</strong></p>
                         <p>1. Посмотрите на экран телефона справа</p>
-                        <p>2. Найдите зеленую кнопку "Каталог"</p>
+                        <p>2. На панели внизу экрана найдите кнопку "Каталог"</p>
                         <p>3. Нажмите на эту кнопку</p>
-                        <p><em>Если кнопка не нажимается, проверьте что курсор превращается в указатель при наведении</em></p>
                     </div>
                 </div>
 
                 <div id="task2" class="task">
                     <div class="task-number">2</div>
-                    <h2 class="task-title">Найти и добавить хлеб</h2>
+                    <h2 class="task-title">Положить хлеб в корзину</h2>
                     <div class="task-description">
                         <p>В каталоге найдите хлеб через поиск и добавьте его в корзину.</p>
                     </div>
-                    <button class="help-btn" onclick="toggleHelp(2)">
+                    <button class="help-btn-big" onclick="toggleHelp(2)">
                         <i class="bi bi-question-circle"></i> Помощь
                     </button>
                     <div id="help2" class="help-content">
                         <p><strong>Как выполнить:</strong></p>
                         <p>1. В каталоге найдите строку поиска</p>
                         <p>2. Введите "Хлеб"</p>
-                        <p>3. Нажмите на иконку поиска</p>
+                        <p>3. Нажмите Enter</p>
                         <p>4. Выберите хлеб и нажмите "В корзину"</p>
                     </div>
                 </div>
 
                 <div id="task3" class="task">
                     <div class="task-number">3</div>
-                    <h2 class="task-title">Найти и добавить кашу</h2>
+                    <h2 class="task-title">Положить кашу в корзину</h2>
                     <div class="task-description">
-                        <p>Вернитесь в каталог, найдите категорию "Завтраки" и добавьте кашу.</p>
+                        <p>Вернитесь в каталог и добавьте кашу из категории "Завтраки" в корзину.</p>
                     </div>
-                    <button class="help-btn" onclick="toggleHelp(3)">
+                    <button class="help-btn-big" onclick="toggleHelp(3)">
                         <i class="bi bi-question-circle"></i> Помощь
                     </button>
                     <div id="help3" class="help-content">
@@ -562,7 +555,7 @@
                     <div class="task-description">
                         <p>Перейдите в корзину и проверьте добавленные товары.</p>
                     </div>
-                    <button class="help-btn" onclick="toggleHelp(4)">
+                    <button class="help-btn-big" onclick="toggleHelp(4)">
                         <i class="bi bi-question-circle"></i> Помощь
                     </button>
                     <div id="help4" class="help-content">
@@ -609,76 +602,111 @@
         // Координаты кликабельных областей (примерные)
         const screenConfigs = {
             'five_1.jpg': {
-                hint: 'Нажмите на зеленую кнопку "Каталог" внизу',
                 areas: [
                     {
                         id: 'catalog-btn',
-                        name: 'Каталог',
+                        name: '',
                         // Пробуем разные координаты - начнем с большой области
-                        top: '650px',     // Внизу экрана
-                        left: '100px',    // Слева
-                        width: '200px',   // Ширина
-                        height: '80px',   // Высота
+                        top: '89%',     // Внизу экрана
+                        left: '27%',    // Слева
+                        width: '18%',   // Ширина
+                        height: '8%',   // Высота
                         action: 'openCatalog'
                     }
                 ]
             },
             'five_catalog.jpg': {
-                hint: 'Нажмите на поле поиска вверху',
                 areas: [
                     {
                         id: 'search-input',
-                        name: 'Поиск',
-                        top: '120px',
-                        left: '40px',
-                        width: '280px',
-                        height: '50px',
-                        action: 'showSearchModal'
+                        name: '',
+                        top: '15%',
+                        left: '3%',
+                        width: '81%',
+                        height: '6%',
+                        action: 'showSearch'
                     }
                 ]
             },
             'five_search.jpg': {
-                hint: 'Нажмите на хлеб чтобы добавить в корзину',
+                areas: [
+                    {
+                        id: 'bread-input',
+                        name: '',
+                        top: '1.5%',
+                        left: '10%',
+                        width: '80%',
+                        height: '6%',
+                        action: 'findBread'
+                    }
+                ]
+            },
+            'bread.jpg': {
                 areas: [
                     {
                         id: 'bread-item',
-                        name: 'Хлеб',
-                        top: '200px',
-                        left: '30px',
-                        width: '300px',
-                        height: '100px',
+                        name: '',
+                        top: '62%',
+                        left: '35%',
+                        width: '30%',
+                        height: '5%',
                         action: 'addBread'
                     }
                 ]
             },
-            'five_breakfast.jpg': {
-                hint: 'Нажмите на рисовую кашу',
+            'bread_in_basket.jpg': {
                 areas: [
                     {
-                        id: 'porridge-item',
-                        name: 'Каша',
-                        top: '200px',
-                        left: '30px',
-                        width: '300px',
-                        height: '100px',
+                        id: 'cancel-btn',
+                        name: '',
+                        top: '1.5%',
+                        left: '76%',
+                        width: '10%',
+                        height: '5%',
+                        action: 'cancel_find_bread'
+                    }
+                ]
+            },
+            'catalog_food.jpg': {
+                areas: [
+                    {
+                        id: 'breakfast-btn',
+                        name: '',
+                        top: '18%',
+                        left: '34%',
+                        width: '33%',
+                        height: '16%',
+                        action: 'openBreakfast'
+                    }
+                ]
+            },
+            'breakfast.jpg': {
+                areas: [
+                    {
+                        id: 'add-btn',
+                        name: '',
+                        top: '40%',
+                        left: '50%',
+                        width: '50%',
+                        height: '5%',
                         action: 'addPorridge'
                     }
                 ]
             },
-            'five_cart.jpg': {
-                hint: 'Нажмите на кнопку корзины',
+            'pice_porridge_in_basket.jpg': {
                 areas: [
                     {
-                        id: 'cart-btn',
-                        name: 'Корзина',
-                        top: '650px',
-                        left: '120px',
-                        width: '150px',
-                        height: '50px',
-                        action: 'checkCart'
+                        id: 'basket-btn',
+                        name: '',
+                        top: '83%',
+                        left: '67%',
+                        width: '32%',
+                        height: '5%',
+                        action: 'watchBasket'
                     }
                 ]
             }
+
         };
 
         // Загрузка данных пользователя
@@ -715,10 +743,6 @@
                 `<img src="{{ url_for('images_files', filename='five/') }}${imageName}" alt="Экран приложения"
                       onload="initClickableAreas()">`;
 
-            // Показываем подсказку
-            if (config && config.hint) {
-                setTimeout(() => showHint(config.hint), 500);
-            }
         }
 
         // Инициализация кликабельных областей после загрузки изображения
@@ -748,9 +772,6 @@
                     document.getElementById('interactiveOverlay').appendChild(clickableArea);
                 });
             }
-
-            // Показываем координаты для отладки
-            updateDebugInfo();
         }
 
         // Обработка клика по области
@@ -766,16 +787,37 @@
                     showNotification('Каталог открыт! Теперь найдите поле поиска.');
                     break;
 
+                case 'showSearch':
+                    loadScreen('five_search.jpg');
+                    break;
+
                 case 'showSearchModal':
+                    loadScreen('five_search.jpg');
                     showModal('Поиск товара', 'searchProduct', 'Введите название товара:');
                     break;
 
+                case 'findBread':
+                    loadScreen('bread.jpg');
+                    break;
+
                 case 'addBread':
-                    showModal('Добавление хлеба', 'confirmAddBread', 'Введите количество хлеба:');
+                    loadScreen('bread_in_basket.jpg');
+                    break;
+
+                case 'cancel_find_bread':
+                    loadScreen('catalog_food.jpg');
+                    break;
+
+                case 'openBreakfast':
+                    loadScreen('breakfast.jpg');
                     break;
 
                 case 'addPorridge':
-                    showModal('Добавление каши', 'confirmAddPorridge', 'Введите количество каши:');
+                    loadScreen('pice_porridge_in_basket.jpg');
+                    break;
+
+                case 'watchBasket':
+                    loadScreen('fool_basket.jpg');
                     break;
 
                 case 'checkCart':
@@ -826,9 +868,6 @@
                     if (inputValue.toLowerCase() === 'хлеб') {
                         closeModal();
                         loadScreen('five_search.jpg');
-                        showNotification('Найден хлеб! Нажмите на него чтобы добавить в корзину.');
-                    } else {
-                        showNotification('Для выполнения задания введите "Хлеб"');
                     }
                     break;
 
@@ -845,7 +884,6 @@
                         // Возвращаемся в каталог для следующего задания
                         setTimeout(() => {
                             loadScreen('five_catalog.jpg');
-                            showHint('Теперь найдите категорию "Завтраки"');
                         }, 1500);
                     }
                     break;
@@ -859,32 +897,9 @@
                             completeTask(3);
                         }
                         showNotification(`Добавлено ${porridgeQty} каш(и) в корзину!`);
-
-                        // Показываем подсказку про корзину
-                        setTimeout(() => {
-                            showHint('Теперь откройте корзину чтобы проверить товары');
-                        }, 1000);
                     }
                     break;
             }
-        }
-
-        // Показать подсказку
-        function showHint(message) {
-            const hintElement = document.getElementById('hint');
-            hintElement.textContent = message;
-            hintElement.classList.add('active');
-
-            setTimeout(() => {
-                hintElement.classList.remove('active');
-            }, 3000);
-        }
-
-        // Обновить отладочную информацию
-        function updateDebugInfo() {
-            const debugElement = document.getElementById('coordinatesDebug');
-            const areas = screenConfigs[currentImage]?.areas || [];
-            debugElement.innerHTML = `Экран: ${currentImage}<br>Областей: ${areas.length}`;
         }
 
         // Сохранение прогресса
@@ -943,14 +958,11 @@
                 switch(currentTask) {
                     case 2:
                         loadScreen('five_catalog.jpg');
-                        showHint('Введите "Хлеб" в поле поиска');
                         break;
                     case 3:
                         loadScreen('five_catalog.jpg');
-                        showHint('Найдите категорию "Завтраки"');
                         break;
                     case 4:
-                        showHint('Откройте корзину чтобы проверить товары');
                         break;
                 }
             }
@@ -1006,14 +1018,6 @@
             if (e.key === 'Enter') {
                 confirmAction();
             }
-        });
-
-        // Для отладки: показывать координаты при клике
-        document.getElementById('interactiveOverlay').addEventListener('click', function(e) {
-            const rect = this.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            console.log(`Клик в координатах: x=${x}, y=${y}`);
         });
     </script>
 </body>
