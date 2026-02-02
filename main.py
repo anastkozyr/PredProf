@@ -117,7 +117,6 @@ def teory_smartphone():
     return render_template('teory_smartphone.html')
 
 
-
 @app.route('/online_shopping')
 @login_required
 def online_shopping():
