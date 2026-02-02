@@ -485,13 +485,21 @@
 
             <!-- Кнопки действий -->
             <div class="button-container">
-                <a href="#" class="trainer-btn" onclick="startTraining()">
+                {%if user_level == 'basic' %}
+                <a href="{{ url_for('smartphone_basics_base') }}" class="trainer-btn" onclick="startTraining()">
                     <i class="bi bi-play-circle"></i> Начать практический тренинг
                 </a>
-
                 <a href="{{ url_for('go_to_trainer') }}" class="trainer-btn back-btn">
                     <i class="bi bi-house"></i> Вернуться на главную
                 </a>
+                {%else%}
+                <a href="{{ url_for('smartphone_basics_base') }}" class="trainer-btn" onclick="startTraining()">
+                    <i class="bi bi-play-circle"></i> Начать практический тренинг
+                </a>
+                <a href="{{ url_for('go_to_trainer') }}" class="trainer-btn back-btn">
+                    <i class="bi bi-house"></i> Вернуться на главную
+                </a>
+                {% endif %}
             </div>
         </div>
     </div>
