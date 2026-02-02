@@ -219,4 +219,31 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+<header style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
+    <div class="user-account" style="position: relative;">
+        <button onclick="goToAccount()" style="
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #007AFF, #00b4ff);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 122, 255, 0.3);
+            transition: all 0.3s;
+        ">
+            <i class="bi bi-person"></i>
+        </button>
+
+    </div>
+</header>
+<script>
+    function goToAccount() {
+        window.location.href = 'account.html';
+    }
+</script>
 </html>
