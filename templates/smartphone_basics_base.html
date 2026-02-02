@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тренинг: Кнопки телефона</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .training-container {
+            display: flex;
+            gap: 30px;
+            max-width: 1000px;
+            width: 100%;
+            align-items: center;
+        }
+
+        /* Телефон */
+        .phone-container {
+            flex: 1;
+            max-width: 360px;
+            position: relative;
+        }
+
+        .phone {
+            width: 360px;
+            height: 720px;
+            background: #000;
+            border-radius: 40px;
+            padding: 20px;
+            box-shadow: 0 25px 75px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+            border: 12px solid #333;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Кнопки телефона */
+        .phone-buttons {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .volume-up {
+            position: absolute;
+            left: -25px;
+            top: 140px;
+            width: 18px;
+            height: 90px;
+            background: #444;
+            border-radius: 10px 0 0 10px;
+            cursor: pointer;
+            pointer-events: all;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .volume-down {
+            position: absolute;
+            left: -25px;
+            top: 250px;
+            width: 18px;
+            height: 70px;
+            background: #444;
+            border-radius: 10px 0 0 10px;
+            cursor: pointer;
+            pointer-events: all;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .power-btn {
+            position: absolute;
+            right: -25px;
+            top: 140px;
+            width: 18px;
+            height: 80px;
+            background: #444;
+            border-radius: 0 10px 10px 0;
+            cursor: pointer;
+            pointer-events: all;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .volume-up:hover, .volume-down:hover, .power-btn:hover {
+            background: #007AFF;
+            transform: scale(1.1);
+        }
+
+        /* Экран телефона */
+        .screen {
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        /* Черный экран */
+        .black-screen {
+            background: #000 !important;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .black-screen .icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        .black-screen .message {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .black-screen .instruction {
+            font-size: 18px;
+            color: #999;
+            max-width: 250px;
+        }
+
+        /* Главный экран */
+        .home-screen {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px;
+            height: 100%;
+        }
+
+        .home-screen .icon {
+            font-size: 80px;
+            color: #007AFF;
+            margin-bottom: 20px;
+        }
+
+        .home-screen .title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .home-screen .subtitle {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+            max-width: 280px;
+        }
+
+        .home-screen .instructions {
+            background: #f0f8ff;
+            padding: 20px;
+            border-radius: 15px;
+            max-width: 280px;
+            margin-top: 20px;
+        }
+
+        .home-screen .instructions h3 {
+            color: #007AFF;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .home-screen .instructions p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #555;
+        }
+
+        /* Тренинг панель */
+        .training-panel {
+            flex: 1;
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 25px 75px rgba(0,0,0,0.2);
+            max-width: 500px;
+        }
+
+        .training-title {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .training-subtitle {
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+
+        .progress-bar {
+            height: 12px;
+            background: #eee;
+            border-radius: 6px;
+            margin: 30px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #007AFF, #00b4ff);
+            width: 0%;
+            transition: width 0.5s;
+        }
+
+        /* Задания */
+        .task-container {
+            display: none;
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 20px;
+            border: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .task-container.active {
+            display: block;
+            border-color: #007AFF;
+            box-shadow: 0 5px 20px rgba(0, 122, 255, 0.1);
+        }
+
+        .task-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .task-number {
+            background: #007AFF;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        .task-title {
+            font-size: 28px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .task-description {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            font-size: 20px;
+            line-height: 1.6;
+            border: 2px solid #eee;
+        }
+
+        .task-description strong {
+            color: #007AFF;
+        }
+
+        .task-steps {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .task-steps li {
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 18px;
+        }
+
+        .task-steps li:last-child {
+            border-bottom: none;
+        }
+
+        .step-number {
+            background: #e9ecef;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        /* Кнопка помощи */
+        .help-btn-big {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            color: white;
+            border: none;
+            padding: 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            width: 100%;
+            font-size: 20px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+        }
+
+        .help-btn-big:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(255, 107, 107, 0.4);
+            background: linear-gradient(135deg, #ff5252, #ff7b7b);
+        }
+
+        .help-btn-big i {
+            font-size: 24px;
+        }
+
+        .help-content {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 15px;
+            display: none;
+            border: 3px solid #ff6b6b;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        .help-content.active {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Кнопка следующего задания */
+        .next-btn {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            border: none;
+            padding: 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 30px;
+            display: none;
+            width: 100%;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+        }
+
+        .next-btn.active {
+            display: block;
+        }
+
+        .next-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(40, 167, 69, 0.4);
+        }
+
+        /* Экран завершения */
+        .completion-screen {
+            text-align: center;
+            padding: 40px;
+            display: none;
+        }
+
+        .completion-screen.active {
+            display: block;
+        }
+
+        .completion-icon {
+            font-size: 80px;
+            color: #28a745;
+            margin-bottom: 30px;
+        }
+
+        .score-display {
+            font-size: 60px;
+            font-weight: bold;
+            color: #333;
+            margin: 30px 0;
+        }
+
+        /* Уведомления */
+        .notification {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 30px;
+            z-index: 1000;
+            display: none;
+            font-size: 18px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 900px) {
+            .training-container {
+                flex-direction: column;
+            }
+
+            .phone-container {
+                margin-bottom: 30px;
+            }
+
+            .phone {
+                transform: scale(0.9);
+            }
+
+            .training-panel {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .phone {
+                transform: scale(0.8);
+            }
+
+            .training-panel {
+                padding: 25px;
+            }
+
+            .task-title {
+                font-size: 24px;
+            }
+
+            .task-description {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="training-container">
+        <!-- Телефон -->
+        <div class="phone-container">
+            <div class="phone">
+                <div class="phone-buttons">
+                    <div class="volume-up" onclick="pressVolumeUp()"></div>
+                    <div class="volume-down" onclick="pressVolumeDown()"></div>
+                    <div class="power-btn" onclick="pressPowerButton()"></div>
+                </div>
+
+                <div class="phone-screen">
+                    <!-- Главный экран -->
+                    <div id="home-screen" class="screen active">
+                        <div class="home-screen">
+                            <i class="bi bi-phone icon"></i>
+                            <h2 class="title">Тренинг по кнопкам телефона</h2>
+                            <p class="subtitle">Используйте кнопки на боковой стороне телефона для выполнения заданий</p>
+
+                            <div class="instructions">
+                                <h3><i class="bi bi-info-circle"></i> Где находятся кнопки:</h3>
+                                <p>• <strong>Левая сторона:</strong> кнопки громкости</p>
+                                <p>• <strong>Правая сторона:</strong> кнопка питания</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Черный экран -->
+                    <div id="black-screen" class="screen black-screen">
+                        <i class="bi bi-power icon"></i>
+                        <div class="message">Телефон выключен</div>
+                        <div class="instruction">Нажмите кнопку питания, чтобы включить телефон</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Панель тренинга -->
+        <div class="training-panel">
+            <h1 class="training-title">Тренинг: Кнопки телефона</h1>
+            <p class="training-subtitle">Выполните 3 простых задания с кнопками</p>
+
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+
+            <!-- Задание 1 -->
+            <div id="task1" class="task-container active">
+                <div class="task-header">
+                    <div class="task-number">1</div>
+                    <div class="task-title">Увеличение громкости</div>
+                </div>
+
+                <div class="task-description">
+                    <p><strong>Задача:</strong> Нажмите <strong>3 раза</strong> на кнопку увеличения громкости</p>
+                    <p style="margin-top: 10px; color: #666; font-size: 18px;">
+                        Прогресс: <strong id="volume-up-count">0</strong> из 3 нажатий
+                    </p>
+                </div>
+
+                <button class="help-btn-big" onclick="toggleHelp(1)">
+                    <i class="bi bi-question-circle"></i> КАК ЭТО СДЕЛАТЬ?
+                </button>
+
+                <div id="help1" class="help-content">
+                    <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
+                    <div style="padding: 10px 15px; margin: 10px 0; border-left: 4px solid #007AFF; background: #f0f8ff;">
+                        1. Найдите <strong>левую сторону</strong> телефона
+                    </div>
+                    <div style="padding: 10px 15px; margin: 10px 0; border-left: 4px solid #007AFF; background: #f0f8ff;">
+                        2. Найдите <strong>верхнюю кнопку</strong> (увеличение громкости)
+                    </div>
+                    <div style="padding: 10px 15px; margin: 10px 0; border-left: 4px solid #007AFF; background: #f0f8ff;">
+                        3. Нажмите на эту кнопку <strong>3 раза</strong>
+                    </div>
+                    <p style="margin-top: 20px; color: #007AFF; font-weight: bold;">
+                        <i class="bi bi-lightbulb"></i> Кнопка находится слева от черного телефона
+                    </p>
+                </div>
+            </div>
+
+            <!-- Задание 2 -->
+            <div id="task2" class="task-container">
+                <div class="task-header">
+                    <div class="task-number">2</div>
+                    <div class="task-title">Уменьшение громкости</div>
+                </div>
+
+                <div class="task-description">
+                    <p><strong>Задача:</strong> Нажмите <strong>2 раза</strong> на кнопку уменьшения громкости</p>
+                    <p style="margin-top: 10px; color: #666; font-size: 18px;">
+                        Прогресс: <strong id="volume-down-count">0</strong> из 2 нажатий
+                    </p>
+                </div>
+
+                <button class="help-btn-big" onclick="toggleHelp(2)">
+                    <i class="bi bi-question-circle"></i> КАК ЭТО СДЕЛАТЬ?
+                </button>
+
+                <div id="help2" class="help-content">
+                    <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
+                    <div style="padding: 10px 15px; margin: 10px 0; border-left: 4px solid #007AFF; background: #f0f8ff;">
+                        1. Найдите <strong>левую сторону</strong> телефона
+                    </div>
+                    <div style="padding: 10px 15px; margin: 10px 0; border-left: 4px solid #007AFF; background: #f0f8ff;">
+                        2. Найдите <strong>нижнюю кнопку</strong> (уменьшение громкости)
+                    </div>
+                    <div style="padding: 10px 15px; margin: 10px 0; border-left: 4px solid #007AFF; background: #f0f8ff;">
+                        3. Нажмите на эту кнопку <strong>2 раза</strong>
+                    </div>
+                    <p style="margin-top: 20px; color: #007AFF; font-weight: bold;">
+                        <i class="bi bi-lightbulb"></i> Это кнопка ниже кнопки увеличения громкости
+                    </p>
+                </div>
+            </div>
+
+            <!-- Задание 3 -->
+            <div id="task3" class="task-container">
+                <div class="task-header">
+                    <div class="task-number">3</div>
+                    <div class="task-title">Выключение телефона</div>
+                </div>
+
+                <div class="task-description">
+                    <p><strong>Задача:</strong> Нажмите кнопку питания, чтобы выключить телефон</p>
+                    <p style="margin-top: 10px; color: #666; font-size: 18px;">
+                        Статус: <strong id="power-status">Телефон включен</strong>
+                    </p>
+                </div>
+
+                <button class="help-btn-big" onclick="toggleHelp(3)">
+                    <i class="bi bi-question-circle"></i> КАК ЭТО СДЕЛАТЬ?
+                </button>
+
+                <div id="help3" class="help-content">
+                    <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
+                    <div style="padding: 10px 15px; margin: 10px 0; border-left: 4px solid #007AFF; background: #f0f8ff;">
+                        1. Найдите <strong>правую сторону</strong> телефона
+                    </div>
+                    <div style="padding: 10px 15px; margin: 10px 0; border-left: 4px solid #007AFF; background: #f0f8ff;">
+                        2. Найдите <strong>кнопку питания</strong> (обычно единственная кнопка справа)
+                    </div>
+                    <div style="padding: 10px 15px; margin: 10px 0; border-left: 4px solid #007AFF; background: #f0f8ff;">
+                        3. Нажмите на кнопку питания <strong>1 раз</strong>
+                    </div>
+                    <p style="margin-top: 20px; color: #007AFF; font-weight: bold;">
+                        <i class="bi bi-lightbulb"></i> После нажатия экран станет черным - это означает, что телефон выключен
+                    </p>
+                </div>
+            </div>
+
+            <!-- Кнопка следующего задания -->
+            <button id="next-btn" class="next-btn" onclick="nextTask()">
+                СЛЕДУЮЩЕЕ ЗАДАНИЕ <i class="bi bi-arrow-right"></i>
+            </button>
+
+            <!-- Экран завершения -->
+            <div id="completion-screen" class="completion-screen">
+                <div class="completion-icon">
+                    <i class="bi bi-trophy-fill"></i>
+                </div>
+                <h2 style="font-size: 36px; margin-bottom: 20px;">ТРЕНИНГ ЗАВЕРШЕН!</h2>
+                <div class="score-display" id="final-score">3/3</div>
+                <p style="font-size: 24px; color: #666; margin-bottom: 30px;">
+                    Отлично! Вы освоили основные кнопки телефона
+                </p>
+                <button class="next-btn" onclick="restartTraining()" style="background: linear-gradient(135deg, #6c757d, #495057);">
+                    <i class="bi bi-arrow-repeat"></i> НАЧАТЬ ЗАНОВО
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Уведомление -->
+    <div id="notification" class="notification"></div>
+
+    <script>
+        // ====================
+        // Переменные тренинга
+        // ====================
+        let currentTask = 1;
+        let tasksCompleted = {
+            1: false,
+            2: false,
+            3: false
+        };
+        let score = 0;
+
+        // Счетчики для кнопок
+        let volumeUpCount = 0;
+        let volumeDownCount = 0;
+        let screenLocked = false;
+
+        // ====================
+        // Функции для кнопок телефона
+        // ====================
+
+        function pressVolumeUp() {
+            volumeUpCount++;
+            updateVolumeUpDisplay();
+            showNotification('Громкость увеличена!');
+
+            // Анимация нажатия
+            animateButtonPress('.volume-up');
+
+            // Проверка задания 1
+            if (currentTask === 1 && !tasksCompleted[1]) {
+                if (volumeUpCount >= 3) {
+                    completeTask(1);
+                }
+            }
+        }
+
+        function pressVolumeDown() {
+            volumeDownCount++;
+            updateVolumeDownDisplay();
+            showNotification('Громкость уменьшена!');
+
+            // Анимация нажатия
+            animateButtonPress('.volume-down');
+
+            // Проверка задания 2
+            if (currentTask === 2 && !tasksCompleted[2]) {
+                if (volumeDownCount >= 2) {
+                    completeTask(2);
+                }
+            }
+        }
+
+        function pressPowerButton() {
+            if (screenLocked) {
+                // Включение телефона
+                screenLocked = false;
+                showScreen('home-screen');
+                showNotification('Телефон включен!');
+                document.getElementById('power-status').textContent = 'Телефон включен';
+                document.getElementById('power-status').style.color = '#28a745';
+            } else {
+                // Выключение телефона
+                screenLocked = true;
+                showScreen('black-screen');
+                showNotification('Телефон выключен!');
+                document.getElementById('power-status').textContent = 'Телефон выключен';
+                document.getElementById('power-status').style.color = '#dc3545';
+
+                // Проверка задания 3
+                if (currentTask === 3 && !tasksCompleted[3]) {
+                    completeTask(3);
+                }
+            }
+
+            // Анимация нажатия
+            animateButtonPress('.power-btn');
+        }
+
+        function animateButtonPress(selector) {
+            const btn = document.querySelector(selector);
+            if (!btn) return;
+
+            btn.style.transform = 'scale(0.9)';
+            btn.style.opacity = '0.8';
+
+            setTimeout(() => {
+                btn.style.transform = '';
+                btn.style.opacity = '';
+            }, 200);
+        }
+
+        // ====================
+        // Обновление отображения
+        // ====================
+
+        function updateVolumeUpDisplay() {
+            const display = document.getElementById('volume-up-count');
+            if (display) {
+                display.textContent = volumeUpCount;
+                display.style.color = volumeUpCount >= 3 ? '#28a745' : '#007AFF';
+                display.style.fontSize = volumeUpCount >= 3 ? '24px' : '20px';
+            }
+        }
+
+        function updateVolumeDownDisplay() {
+            const display = document.getElementById('volume-down-count');
+            if (display) {
+                display.textContent = volumeDownCount;
+                display.style.color = volumeDownCount >= 2 ? '#28a745' : '#007AFF';
+                display.style.fontSize = volumeDownCount >= 2 ? '24px' : '20px';
+            }
+        }
+
+        // ====================
+        // Управление экранами
+        // ====================
+
+        function showScreen(screenId) {
+            // Скрыть все экраны
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+
+            // Показать выбранный экран
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        // ====================
+        // Система тренинга
+        // ====================
+
+        function showTask(taskNumber) {
+            // Скрыть все задания
+            for (let i = 1; i <= 3; i++) {
+                const taskElement = document.getElementById(`task${i}`);
+                if (taskElement) {
+                    taskElement.classList.remove('active');
+                }
+            }
+
+            // Показать текущее задание
+            const currentTaskElement = document.getElementById(`task${taskNumber}`);
+            if (currentTaskElement) {
+                currentTaskElement.classList.add('active');
+            }
+
+            // Скрыть все подсказки
+            document.querySelectorAll('.help-content').forEach(help => {
+                help.classList.remove('active');
+            });
+
+            // Скрыть кнопку "Следующее задание"
+            document.getElementById('next-btn').classList.remove('active');
+
+            // Обновить прогресс
+            updateProgress();
+        }
+
+        function completeTask(taskNumber) {
+            if (!tasksCompleted[taskNumber]) {
+                tasksCompleted[taskNumber] = true;
+                score++;
+
+                // Показать уведомление
+                const taskNames = {
+                    1: 'Увеличение громкости',
+                    2: 'Уменьшение громкости',
+                    3: 'Выключение телефона'
+                };
+                showNotification(`✅ Задание "${taskNames[taskNumber]}" выполнено!`);
+
+                // Показать кнопку следующего задания
+                document.getElementById('next-btn').classList.add('active');
+
+                // Обновить прогресс
+                updateProgress();
+
+                // Если это последнее задание, завершить тренинг
+                if (taskNumber === 3) {
+                    setTimeout(() => {
+                        completeTraining();
+                    }, 1500);
+                }
+            }
+        }
+
+        function nextTask() {
+            if (currentTask < 3) {
+                currentTask++;
+
+                // Сбросить счетчики для нового задания
+                if (currentTask === 2) {
+                    volumeDownCount = 0;
+                    updateVolumeDownDisplay();
+                } else if (currentTask === 3) {
+                    // Для задания 3 ничего не сбрасываем
+                }
+
+                // Показать новое задание
+                showTask(currentTask);
+
+                // Показать подсказку
+                if (currentTask === 2) {
+                    showNotification('Задание 2: Используйте кнопку уменьшения громкости');
+                } else if (currentTask === 3) {
+                    showNotification('Задание 3: Используйте кнопку питания для выключения');
+                }
+            }
+        }
+
+        function updateProgress() {
+            const completedCount = Object.values(tasksCompleted).filter(Boolean).length;
+            const progress = (completedCount / 3) * 100;
+            document.getElementById('progress-fill').style.width = `${progress}%`;
+        }
+
+        function completeTraining() {
+            // Скрыть текущее задание
+            document.getElementById(`task${currentTask}`).classList.remove('active');
+
+            // Скрыть кнопку "Следующее задание"
+            document.getElementById('next-btn').classList.remove('active');
+
+            // Показать экран завершения
+            document.getElementById('completion-screen').classList.add('active');
+            document.getElementById('final-score').textContent = `${score}/3`;
+        }
+
+        function restartTraining() {
+            // Сбросить все значения
+            currentTask = 1;
+            tasksCompleted = {1: false, 2: false, 3: false};
+            score = 0;
+            volumeUpCount = 0;
+            volumeDownCount = 0;
+            screenLocked = false;
+
+            // Сбросить отображение
+            updateVolumeUpDisplay();
+            updateVolumeDownDisplay();
+            document.getElementById('power-status').textContent = 'Телефон включен';
+            document.getElementById('power-status').style.color = '#28a745';
+
+            // Сбросить телефон
+            showScreen('home-screen');
+
+            // Скрыть экран завершения
+            document.getElementById('completion-screen').classList.remove('active');
+
+            // Скрыть все подсказки
+            document.querySelectorAll('.help-content').forEach(help => {
+                help.classList.remove('active');
+            });
+
+            // Показать первое задание
+            showTask(1);
+
+            // Обновить прогресс
+            updateProgress();
+
+            // Показать уведомление
+            showNotification('Тренинг начат заново. Удачи!');
+        }
+
+        // ====================
+        // Вспомогательные функции
+        // ====================
+
+        function toggleHelp(taskNumber) {
+            const help = document.getElementById(`help${taskNumber}`);
+            help.classList.toggle('active');
+        }
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.display = 'block';
+
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 2000);
+        }
+
+        // ====================
+        // Инициализация
+        // ====================
+
+        // Инициализация при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            showTask(1);
+            updateProgress();
+            updateVolumeUpDisplay();
+            updateVolumeDownDisplay();
+        });
+    </script>
+</body>
+</html>
