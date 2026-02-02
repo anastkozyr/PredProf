@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Navigator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f9ff;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .hero-section {
+            background: #e6f7ff;
+            border-radius: 25px;
+            border: 1px solid #a8d5e5;
+        }
+
+        .site-title {
+            color: #2c698d;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1.5rem;
+        }
+
+        .main-title {
+            color: #1a4d6e;
+            font-weight: 800;
+        }
+
+        .description {
+            color: #4a7b9d;
+            line-height: 1.6;
+        }
+
+        .btn-login {
+            background-color: #a8d5e5;
+            border: none;
+            color: #1a4d6e;
+            border-radius: 20px;
+            padding: 8px 20px;
+        }
+
+        .btn-register {
+            background-color: #4a9bc7;
+            border: none;
+            color: white;
+            border-radius: 20px;
+            padding: 8px 20px;
+        }
+
+        .trainer-btn {
+            background-color: #2c698d;
+            border: none;
+            color: white;
+            border-radius: 25px;
+            padding: 18px 45px;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-top: 40px;
+            width: auto;
+            min-width: 280px;
+        }
+
+        .trainer-btn i {
+            font-size: 1.6rem;
+            margin-left: 10px;
+        }
+
+        .container-fluid {
+            max-width: 1200px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg py-3">
+        <div class="container-fluid">
+            <a class="navbar-brand site-title" href="{{ url_for('start_page') }}">
+                Digital Navigator
+            </a>
+            <div class="nav-buttons">
+                <a class="btn btn-login me-2" href="{{ url_for('login') }}">
+                    <i class="bi bi-box-arrow-in-right me-1"></i>Войти
+                </a>
+                <a class="btn btn-register" href="{{ url_for('register') }}">
+                    <i class="bi bi-person-plus me-1"></i>Зарегистрироваться
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid mt-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
+                <div class="hero-section p-5 text-center">
+                    <h1 class="main-title display-3 mb-4">
+                        Добро пожаловать в Digital Navigator
+                    </h1>
+                    <p class="description fs-5 mb-0">
+                        «Интерактивная платформа для освоения
+                        цифровой грамотности»
+                        В современном мире цифровые технологии стали неотъемлемой
+                        частью повседневной жизни. Однако многие люди, особенно старшего
+                        поколения или начинающие пользователи, сталкиваются с трудностями
+                        при использовании смартфонов, компьютеров, популярных сайтов
+                        , сервисов и мессенджеров.
+                        Digital Navigator - веб-платформа создана специально для решения этой проблемы,
+                        она обеспечивает безопасную среду для практического обучения через
+                        симуляции реальных интерфейсов.
+                    </p>
+                </div>
+                <div class="button-container">
+                    <a href="{{ url_for('login') }}" class="btn trainer-btn">
+                        Перейти в тренажёр <i class="bi bi-arrow-right-circle"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
