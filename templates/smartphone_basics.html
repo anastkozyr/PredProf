@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тренинг: Настройка Wi-Fi на смартфоне</title>
-    <!-- Bootstrap Icons -->
+    <title>Тренинг: Настройка Wi-Fi и скачивание приложений</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         * {
@@ -17,35 +16,43 @@
         body {
             background: linear-gradient(135deg, #e6f7ff 0%, #e6f7ff 100%);
             min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: row;
+            gap: 40px;
+        }
+
+        /* Телефон */
+        .phone-section {
+            flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
         }
 
-        .training-container {
-            display: flex;
-            gap: 30px;
-            max-width: 1200px;
+        .phone {
+            width: 380px;
+            height: 760px;
+            background: #111;
+            border-radius: 45px;
+            padding: 25px;
+            border: 12px solid #333;
+            position: relative;
+            box-shadow: 0 25px 75px rgba(0,0,0,0.5);
+        }
+
+        .phone-screen {
             width: 100%;
-        }
-
-        .phone-wrapper {
-            flex: 1;
-            position: relative;
-        }
-
-        .phone-container {
-            width: 360px;
-            height: 720px;
-            background: #000;
-            border-radius: 40px;
-            padding: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            position: relative;
+            height: 100%;
+            background: white;
+            border-radius: 25px;
             overflow: hidden;
-            border: 8px solid #222;
-            margin: 0 auto;
+            position: relative;
         }
 
         /* Кнопки телефона */
@@ -58,283 +65,76 @@
             pointer-events: none;
         }
 
-        .volume-up-btn {
+        .volume-up {
             position: absolute;
-            left: -35px;
-            top: 200px;
-            width: 30px;
-            height: 100px;
-            background: linear-gradient(to right, #333, #444);
-            border-radius: 8px 0 0 8px;
+            left: -25px;
+            top: 140px;
+            width: 18px;
+            height: 90px;
+            background: #444;
+            border-radius: 10px 0 0 10px;
             cursor: pointer;
             pointer-events: all;
-            transition: background 0.2s;
-            z-index: 10;
+            transition: all 0.2s;
         }
 
-        .volume-up-btn:hover {
-            background: linear-gradient(to right, #444, #555);
-        }
-
-        .volume-down-btn {
+        .volume-down {
             position: absolute;
-            left: -35px;
-            top: 320px;
-            width: 30px;
+            left: -25px;
+            top: 250px;
+            width: 18px;
             height: 70px;
-            background: linear-gradient(to right, #333, #444);
-            border-radius: 8px 0 0 8px;
+            background: #444;
+            border-radius: 10px 0 0 10px;
             cursor: pointer;
             pointer-events: all;
-            transition: background 0.2s;
-            z-index: 10;
-        }
-
-        .volume-down-btn:hover {
-            background: linear-gradient(to right, #444, #555);
+            transition: all 0.2s;
         }
 
         .power-btn {
             position: absolute;
-            right: -35px;
-            top: 200px;
-            width: 30px;
+            right: -25px;
+            top: 140px;
+            width: 18px;
             height: 80px;
-            background: linear-gradient(to left, #333, #444);
-            border-radius: 0 8px 8px 0;
+            background: #444;
+            border-radius: 0 10px 10px 0;
             cursor: pointer;
             pointer-events: all;
-            transition: background 0.2s;
-            z-index: 10;
+            transition: all 0.2s;
         }
 
-        .power-btn:hover {
-            background: linear-gradient(to left, #444, #555);
+        .volume-up:hover, .volume-down:hover, .power-btn:hover {
+            background: #007AFF;
         }
 
-        .phone-screen {
+        /* Экран телефона */
+        .screen {
             width: 100%;
             height: 100%;
-            background: #f0f0f0;
-            border-radius: 20px;
-            overflow: hidden;
-            position: relative;
+            display: none;
         }
 
-        .training-panel {
-            flex: 1;
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-            display: flex;
-            flex-direction: column;
-            max-width: 500px;
+        .screen.active {
+            display: block;
         }
 
         .status-bar {
-            height: 30px;
-            background: #000;
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 15px;
-            font-size: 14px;
-        }
-
-        .time {
-            font-weight: bold;
-        }
-
-        .status-icons {
-            display: flex;
-            gap: 8px;
-        }
-
-        .app-content {
-            height: calc(100% - 30px);
-            overflow-y: auto;
-            padding-bottom: 60px;
-        }
-
-        .header {
-            background: white;
-            padding: 20px 15px 10px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        h1 {
-            font-size: 24px;
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        h2 {
-            font-size: 20px;
-            color: #444;
-            margin: 15px 0 10px;
-            padding: 0 15px;
-        }
-
-        h3 {
-            font-size: 18px;
-            color: #666;
-            margin: 10px 0;
-            padding: 0 15px;
-        }
-
-        .section {
-            background: white;
-            margin: 15px;
-            border-radius: 12px;
-            padding: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        .wifi-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 15px;
-            border-bottom: 1px solid #f0f0f0;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .wifi-item:hover {
-            background: #f8f8f8;
-        }
-
-        .wifi-item:last-child {
-            border-bottom: none;
-        }
-
-        .wifi-name {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 16px;
-        }
-
-        .wifi-icon {
-            color: #4CAF50;
-            font-size: 20px;
-        }
-
-        .signal-strength {
-            color: #4CAF50;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .toggle-switch {
-            position: relative;
-            width: 50px;
-            height: 26px;
-        }
-
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 34px;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 18px;
-            width: 18px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-
-        input:checked + .slider {
-            background-color: #4CAF50;
-        }
-
-        input:checked + .slider:before {
-            transform: translateX(24px);
-        }
-
-        .button {
+            height: 40px;
             background: #007AFF;
             color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .button:hover {
-            background: #0056CC;
-        }
-
-        .password-input {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            margin: 10px 0;
-        }
-
-        .keyboard {
-            background: #e0e0e0;
-            padding: 10px;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            display: grid;
-            grid-template-rows: repeat(4, 1fr);
-            gap: 5px;
-        }
-
-        .keyboard-row {
             display: flex;
-            gap: 5px;
-            justify-content: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            align-items: center;
+            font-size: 16px;
+            font-weight: 600;
         }
 
-        .key {
-            flex: 1;
-            background: white;
-            border: none;
-            border-radius: 5px;
-            padding: 12px 0;
-            font-size: 18px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .key:hover {
-            background: #f0f0f0;
-        }
-
-        .special-key {
-            background: #d0d0d0;
-            flex: 1.5;
+        .content {
+            height: calc(100% - 100px);
+            overflow-y: auto;
+            padding-bottom: 60px;
         }
 
         .nav-bar {
@@ -342,866 +142,790 @@
             bottom: 0;
             left: 0;
             right: 0;
-            height: 60px;
+            height: 80px;
             background: white;
             display: flex;
             justify-content: space-around;
             align-items: center;
-            border-top: 1px solid #e0e0e0;
+            border-top: 2px solid #eee;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
         }
 
         .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4px;
             color: #666;
             cursor: pointer;
-            padding: 10px;
-            border-radius: 8px;
-            transition: background 0.2s;
+            padding: 15px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .nav-item i {
+            font-size: 24px;
+            margin-bottom: 5px;
         }
 
         .nav-item.active {
             color: #007AFF;
+            transform: translateY(-5px);
         }
 
         .nav-item:hover {
-            background: #f0f0f0;
+            color: #007AFF;
         }
 
-        .nav-icon {
-            font-size: 20px;
+        /* Стили для интерфейса */
+        .wifi-list, .settings-list {
+            padding: 20px;
         }
 
-        .settings-item {
+        .wifi-item, .settings-item {
+            padding: 18px;
+            border-bottom: 2px solid #eee;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 15px;
-            border-bottom: 1px solid #f0f0f0;
             cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .settings-item:hover {
-            background: #f8f8f8;
-        }
-
-        .settings-item:last-child {
-            border-bottom: none;
-        }
-
-        .settings-icon {
-            width: 24px;
-            text-align: center;
-            margin-right: 12px;
             font-size: 18px;
-            color: #666;
+            font-weight: 500;
+            transition: all 0.2s;
         }
 
-        .settings-text {
-            flex: 1;
+        .wifi-item:hover, .settings-item:hover {
+            background: #f0f8ff;
+            transform: translateX(5px);
+        }
+
+        .connect-btn {
+            background: #007AFF;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            cursor: pointer;
             font-size: 16px;
+            font-weight: 600;
+            transition: all 0.2s;
         }
 
-        .checkbox {
-            width: 20px;
-            height: 20px;
-            accent-color: #007AFF;
+        .connect-btn:hover {
+            background: #0056cc;
+            transform: scale(1.05);
         }
 
-        .hidden {
-            display: none;
+        .password-input {
+            width: 100%;
+            padding: 18px;
+            margin: 15px 0;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            font-size: 18px;
         }
 
-        /* Тренинг стили */
-        .training-title {
-            color: #333;
-            font-size: 28px;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        .training-subtitle {
-            color: #666;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .task-container {
-            flex: 1;
-            margin-bottom: 20px;
-        }
-
-        .task-header {
+        /* Магазин приложений */
+        .store-header {
             display: flex;
             align-items: center;
-            gap: 10px;
+            padding: 15px 20px;
+            background: white;
+            border-bottom: 2px solid #eee;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .back-btn {
+            font-size: 24px;
+            color: #007AFF;
+            cursor: pointer;
+            margin-right: 15px;
+            padding: 10px;
+        }
+
+        .search-container {
+            flex: 1;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #007AFF;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #007AFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .app-image {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .app-content {
+            padding: 20px;
+        }
+
+        .download-btn-big {
+            display: block;
+            width: 90%;
+            margin: 30px auto;
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 25px;
+            border-radius: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+            transition: all 0.3s;
+        }
+
+        .download-btn-big:hover {
+            background: #218838;
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(40, 167, 69, 0.4);
+        }
+
+        /* Тренинг панель */
+        .training-section {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .training-panel {
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 25px 75px rgba(0,0,0,0.2);
+            height: 100%;
+        }
+
+        .training-title {
+            font-size: 32px;
+            color: #333;
             margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            height: 12px;
+            background: #eee;
+            border-radius: 6px;
+            margin: 30px 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #007AFF, #00b4ff);
+            width: 0%;
+            transition: width 0.5s;
+        }
+
+        .task {
+            margin-bottom: 40px;
+            display: none;
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 30px;
+        }
+
+        .task.active {
+            display: block;
+            border: 3px solid #007AFF;
+            box-shadow: 0 5px 20px rgba(0, 122, 255, 0.1);
         }
 
         .task-number {
             background: #007AFF;
             color: white;
-            width: 36px;
-            height: 36px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 24px;
         }
 
         .task-title {
-            font-size: 20px;
+            font-size: 28px;
             color: #333;
+            margin-bottom: 20px;
+            font-weight: bold;
         }
 
         .task-description {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border-left: 4px solid #007AFF;
-        }
-
-        .task-steps {
-            list-style-type: none;
-            margin-bottom: 20px;
-        }
-
-        .task-steps li {
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .task-steps li:last-child {
-            border-bottom: none;
-        }
-
-        .step-number {
-            background: #e9ecef;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .progress-bar {
-            height: 8px;
-            background: #e9ecef;
-            border-radius: 4px;
-            margin: 20px 0;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #4CAF50, #45a049);
-            width: 0%;
-            transition: width 0.5s ease;
-        }
-
-        .feedback {
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 20px;
-            display: none;
-        }
-
-        .feedback.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-            display: block;
-        }
-
-        .feedback.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-            display: block;
-        }
-
-        .next-task-btn {
-            background: #007AFF;
-            color: white;
-            border: none;
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background 0.2s;
-            margin-top: 20px;
-            display: none;
-        }
-
-        .next-task-btn:hover {
-            background: #0056CC;
-        }
-
-        .completion-screen {
-            text-align: center;
-            padding: 40px 20px;
-            display: none;
-        }
-
-        .completion-icon {
-            font-size: 60px;
-            color: #4CAF50;
-            margin-bottom: 20px;
-        }
-
-        .score-display {
-            font-size: 48px;
-            font-weight: bold;
-            color: #333;
-            margin: 20px 0;
-        }
-
-        .restart-btn {
-            background: #007AFF;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background 0.2s;
-            margin-top: 20px;
-        }
-
-        .restart-btn:hover {
-            background: #0056CC;
-        }
-
-        .back-button {
-            background: none;
-            border: none;
-            color: #007AFF;
-            font-size: 16px;
-            cursor: pointer;
-            padding: 5px 10px;
-            border-radius: 5px;
-            transition: background 0.2s;
-        }
-
-        .back-button:hover {
-            background: rgba(0, 122, 255, 0.1);
-        }
-
-        .status-icon {
-            font-size: 14px;
-        }
-
-        .check-icon {
-            color: #4CAF50;
-        }
-
-        .home-screen {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .home-icon {
-            font-size: 60px;
-            color: #007AFF;
-            margin-bottom: 20px;
-        }
-
-        .home-title {
-            font-size: 24px;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .home-subtitle {
-            color: #666;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
             margin-bottom: 30px;
-            max-width: 300px;
+            font-size: 20px;
+            line-height: 1.6;
+            border: 2px solid #eee;
         }
 
-        .start-button {
-            background: #007AFF;
+        /* Большая кнопка помощи */
+        .help-btn-big {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
             color: white;
             border: none;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 18px;
+            padding: 25px 40px;
+            border-radius: 15px;
             cursor: pointer;
-            transition: background 0.2s;
+            margin-top: 20px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
+            gap: 15px;
+            width: 100%;
+            font-size: 22px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
         }
 
-        .start-button:hover {
-            background: #0056CC;
+        .help-btn-big:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(255, 107, 107, 0.4);
+            background: linear-gradient(135deg, #ff5252, #ff7b7b);
+        }
+
+        .help-btn-big i {
+            font-size: 28px;
+        }
+
+        .help-content-big {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 25px;
+            display: none;
+            border: 3px solid #ff6b6b;
+            font-size: 20px;
+            line-height: 1.8;
+        }
+
+        .help-content-big.active {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .help-step {
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 4px solid #007AFF;
+            padding: 10px 15px;
+        }
+
+        .next-btn {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            border: none;
+            padding: 25px 50px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 30px;
+            display: none;
+            width: 100%;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+        }
+
+        .next-btn.active {
+            display: block;
+        }
+
+        .next-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(40, 167, 69, 0.4);
+        }
+
+        .complete-screen {
+            text-align: center;
+            display: none;
+            padding: 40px;
+        }
+
+        .complete-screen.active {
+            display: block;
+        }
+
+        .complete-icon {
+            font-size: 80px;
+            color: #28a745;
+            margin-bottom: 30px;
+        }
+
+        .score {
+            font-size: 60px;
+            font-weight: bold;
+            color: #333;
+            margin: 30px 0;
         }
 
         /* Уведомления */
         .notification {
             position: fixed;
-            top: 20px;
+            top: 30px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0,0,0,0.9);
             color: white;
-            padding: 12px 24px;
-            border-radius: 25px;
+            padding: 20px 40px;
+            border-radius: 30px;
             z-index: 1000;
-            font-size: 14px;
-            animation: fadeInOut 2s ease-in-out;
             display: none;
+            font-size: 18px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
-        @keyframes fadeInOut {
-            0% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
-            20% { opacity: 1; transform: translateX(-50%) translateY(0); }
-            80% { opacity: 1; transform: translateX(-50%) translateY(0); }
-            100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+        .trainer-btn {
+            background: linear-gradient(135deg, #2c698d, #3a86ff);
+            border: none;
+            color: white;
+            border-radius: 25px;
+            padding: 25px 50px;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 40px;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(44, 105, 141, 0.3);
+        }
+
+        .trainer-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(44, 105, 141, 0.4);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 1200px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+                gap: 30px;
+            }
+
+            .phone {
+                transform: scale(0.9);
+            }
+
+            .training-section {
+                max-width: 100%;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .phone {
+                transform: scale(0.8);
+            }
+
+            .training-panel {
+                padding: 25px;
+            }
+
+            .task-title {
+                font-size: 24px;
+            }
+
+            .task-description {
+                font-size: 18px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="training-container">
-        <div class="phone-wrapper">
-            <!-- Кнопки телефона -->
-            <div class="phone-buttons">
-                <div class="volume-up-btn" onclick="pressVolumeUp()" title="Увеличить громкость"></div>
-                <div class="volume-down-btn" onclick="pressVolumeDown()" title="Уменьшить громкость"></div>
-                <div class="power-btn" onclick="pressPowerButton()" title="Кнопка питания"></div>
-            </div>
+    <div class="container">
+        <!-- Телефон -->
+        <div class="phone-section">
+            <div class="phone">
+                <div class="phone-buttons">
+                    <div class="volume-up" onclick="pressVolumeUp()"></div>
+                    <div class="volume-down" onclick="pressVolumeDown()"></div>
+                    <div class="power-btn" onclick="pressPower()"></div>
+                </div>
 
-            <div class="phone-container">
                 <div class="phone-screen">
-                    <div class="status-bar">
-                        <div class="time">14:30</div>
-                        <div class="status-icons">
-                            <i class="bi bi-wifi status-icon"></i>
-                            <i class="bi bi-phone status-icon"></i>
-                            <i class="bi bi-battery-full status-icon"></i>
+                    <!-- Главный экран -->
+                    <div id="home-screen" class="screen active">
+                        <div class="status-bar">
+                            <div class="time">14:30</div>
+                            <div class="icons">
+                                <i class="bi bi-wifi"></i>
+                                <i class="bi bi-battery-full"></i>
+                            </div>
                         </div>
-                    </div>
+                        <div class="content" style="display: flex; align-items: center; justify-content: center;">
+                            <div style="text-align: center; padding: 30px;">
 
-                    <div class="app-content">
-                        <!-- Главный экран -->
-                        <div id="home-screen" class="screen">
-                            <div class="home-screen">
-                                <i class="bi bi-phone home-icon"></i>
-                                <div class="home-title">Добро пожаловать!</div>
-                                <div class="home-subtitle">
-                                    Для начала тренинга по настройке Wi-Fi перейдите в настройки телефона
-                                </div>
-                                <button class="start-button" onclick="showScreen('settings-screen')">
-                                    <i class="bi bi-gear"></i> Перейти в настройки
+                                <h2 style="font-size: 32px; margin-bottom: 20px;">Добро пожаловать!</h2>
+                                <button onclick="showScreen('settings')" style="background: #007AFF; color: white; border: none; padding: 20px 40px; border-radius: 15px; cursor: pointer; font-size: 22px; font-weight: bold; margin: 10px; display: block; width: 100%;">
+                                    <i class="bi bi-gear"></i> Настройки Wi-Fi
+                                </button>
+                                <button onclick="showScreen('appstore')" style="background: #28a745; color: white; border: none; padding: 20px 40px; border-radius: 15px; cursor: pointer; font-size: 22px; font-weight: bold; margin: 10px; display: block; width: 100%;">
+                                    <i class="bi bi-download"></i> Скачать приложение
                                 </button>
                             </div>
                         </div>
-
-                        <!-- Экран Wi-Fi -->
-                        <div id="wifi-screen" class="screen hidden">
-                            <div class="header">
-                                <h1><i class="bi bi-wifi"></i> Wi-Fi</h1>
+                        <div class="nav-bar">
+                            <div class="nav-item active" onclick="showScreen('home')">
+                                <i class="bi bi-house"></i>
+                                <div>Главная</div>
                             </div>
-
-                            <div class="section">
-                                <div class="wifi-item">
-                                    <div class="wifi-name">
-                                        <i class="bi bi-wifi wifi-icon"></i>
-                                        <strong>Home-5G</strong>
-                                    </div>
-                                </div>
-                                <div class="wifi-item" onclick="shareNetwork()">
-                                    <div><i class="bi bi-share"></i> Нажмите, чтобы поделиться сетью</div>
-                                </div>
+                            <div class="nav-item" onclick="showScreen('settings')">
+                                <i class="bi bi-gear"></i>
+                                <div>Настройки</div>
                             </div>
-
-                            <h3>Сохраненные сети</h3>
-
-                            <div class="section">
-                                <div class="wifi-item">
-                                    <div class="wifi-name">
-                                        <i class="bi bi-check-circle-fill check-icon"></i>
-                                        <strong>Home</strong>
-                                    </div>
-                                </div>
-                                <div class="wifi-item" onclick="refreshNetworks()">
-                                    <div><i class="bi bi-arrow-clockwise"></i> Обновить</div>
-                                </div>
+                            <div class="nav-item" onclick="showScreen('appstore')">
+                                <i class="bi bi-download"></i>
+                                <div>Магазин</div>
                             </div>
-
-                            <h3>Доступные сети</h3>
-
-                            <div class="section">
-                                <div class="wifi-item" onclick="connectToWifi('DIRECT-34-...rt Tank 510')">
-                                    <div class="wifi-name">
-                                        <i class="bi bi-wifi wifi-icon"></i>
-                                        <strong>DIRECT-34-...rt Tank 510 [56]</strong>
-                                    </div>
-                                </div>
-                                <div class="wifi-item" onclick="connectToWifi('Beeline_2G_F32666')">
-                                    <div class="wifi-name">
-                                        <i class="bi bi-wifi wifi-icon"></i>
-                                        <strong>Beeline_2G_F32666</strong>
-                                    </div>
-                                    <button class="button" style="padding: 6px 12px; font-size: 14px;">
-                                        <i class="bi bi-plug"></i> Подключить
-                                    </button>
-                                </div>
-                                <div class="wifi-item">
-                                    <div class="wifi-name">
-                                        <i class="bi bi-wifi wifi-icon"></i>
-                                        <strong>SMOLVAIO</strong>
-                                    </div>
-                                </div>
-                                <div class="wifi-item">
-                                    <div class="wifi-name">
-                                        <i class="bi bi-wifi wifi-icon"></i>
-                                        <strong>-GaDz2-</strong>
-                                    </div>
-                                </div>
-                                <div class="wifi-item">
-                                    <div class="wifi-name">
-                                        <i class="bi bi-wifi wifi-icon"></i>
-                                        <strong>Online337-5G [56]</strong>
-                                    </div>
-                                    <div class="signal-strength">56</div>
-                                </div>
-                            </div>
-
-                            <div class="section">
-                                <div class="wifi-item">
-                                    <div><i class="bi bi-plus-circle"></i> Новая сеть Wi-Fi</div>
-                                </div>
-                                <div class="wifi-item">
-                                    <div><i class="bi bi-gear"></i> Другие настройки</div>
-                                </div>
-                                <div class="wifi-item">
-                                    <strong><i class="bi bi-sliders"></i> Расширенные настройки</strong>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Экран подключения к Wi-Fi -->
-                        <div id="connect-screen" class="screen hidden">
-                            <div class="header">
-                                <h1><i class="bi bi-wifi"></i> Подключение к Wi-Fi</h1>
-                            </div>
-
-                            <div class="section">
-                                <div style="padding: 15px;">
-                                    <strong>Beeline_2G_F32666</strong>
-                                    <input type="password" class="password-input" id="wifi-password" placeholder="Пароль">
-                                    <div style="display: flex; gap: 10px; margin-top: 15px;">
-                                        <button class="button" style="flex: 1;" onclick="showKeyboard()">
-                                            <i class="bi bi-gear"></i> Параметры
-                                        </button>
-                                        <button class="button" style="flex: 1;" onclick="connectWithPassword()">
-                                            <i class="bi bi-plug"></i> Подключить
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div id="keyboard" class="keyboard hidden">
-                                <div class="keyboard-row">
-                                    <button class="key" onclick="addToPassword('1')">1</button>
-                                    <button class="key" onclick="addToPassword('2')">2</button>
-                                    <button class="key" onclick="addToPassword('3')">3</button>
-                                    <button class="key" onclick="addToPassword('4')">4</button>
-                                    <button class="key" onclick="addToPassword('5')">5</button>
-                                    <button class="key" onclick="addToPassword('6')">6</button>
-                                    <button class="key" onclick="addToPassword('7')">7</button>
-                                    <button class="key" onclick="addToPassword('8')">8</button>
-                                    <button class="key" onclick="addToPassword('9')">9</button>
-                                    <button class="key" onclick="addToPassword('0')">0</button>
-                                </div>
-                                <div class="keyboard-row">
-                                    <button class="key" onclick="addToPassword('й')">й</button>
-                                    <button class="key" onclick="addToPassword('ц')">ц</button>
-                                    <button class="key" onclick="addToPassword('у')">у</button>
-                                    <button class="key" onclick="addToPassword('к')">к</button>
-                                    <button class="key" onclick="addToPassword('е')">е</button>
-                                    <button class="key" onclick="addToPassword('н')">н</button>
-                                    <button class="key" onclick="addToPassword('г')">г</button>
-                                    <button class="key" onclick="addToPassword('ш')">ш</button>
-                                    <button class="key" onclick="addToPassword('щ')">щ</button>
-                                    <button class="key" onclick="addToPassword('з')">з</button>
-                                    <button class="key" onclick="addToPassword('х')">х</button>
-                                </div>
-                                <div class="keyboard-row">
-                                    <button class="key special-key" onclick="toggleKeyboardLayout()">Рус</button>
-                                    <button class="key" onclick="addToPassword('ф')">ф</button>
-                                    <button class="key" onclick="addToPassword('ы')">ы</button>
-                                    <button class="key" onclick="addToPassword('в')">в</button>
-                                    <button class="key" onclick="addToPassword('а')">а</button>
-                                    <button class="key" onclick="addToPassword('п')">п</button>
-                                    <button class="key" onclick="addToPassword('р')">р</button>
-                                    <button class="key" onclick="addToPassword('о')">о</button>
-                                    <button class="key" onclick="addToPassword('л')">л</button>
-                                    <button class="key" onclick="addToPassword('д')">д</button>
-                                    <button class="key" onclick="addToPassword('ж')">ж</button>
-                                    <button class="key" onclick="addToPassword('э')">э</button>
-                                </div>
-                                <div class="keyboard-row">
-                                    <button class="key special-key" onclick="addToPassword('?')">?123</button>
-                                    <button class="key" onclick="addToPassword('я')">я</button>
-                                    <button class="key" onclick="addToPassword('ч')">ч</button>
-                                    <button class="key" onclick="addToPassword('с')">с</button>
-                                    <button class="key" onclick="addToPassword('м')">м</button>
-                                    <button class="key" onclick="addToPassword('и')">и</button>
-                                    <button class="key" onclick="addToPassword('т')">т</button>
-                                    <button class="key" onclick="addToPassword('ь')">ь</button>
-                                    <button class="key" onclick="addToPassword('б')">б</button>
-                                    <button class="key" onclick="addToPassword('ю')">ю</button>
-                                    <button class="key special-key" onclick="backspacePassword()">
-                                        <i class="bi bi-backspace"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Экран настроек -->
-                        <div id="settings-screen" class="screen hidden">
-                            <div class="header">
-                                <h1><i class="bi bi-gear"></i> Настройки</h1>
-                            </div>
-
-                            <h2>О телефоне</h2>
-
-                            <div class="section">
-                                <div class="settings-item">
-                                    <div style="display: flex; align-items: center;">
-                                        <div class="settings-icon"><i class="bi bi-arrow-clockwise"></i></div>
-                                        <div class="settings-text">Обновление компонентов</div>
-                                    </div>
-                                    <input type="checkbox" class="checkbox">
-                                </div>
-                                <div class="settings-item">
-                                    <div style="display: flex; align-items: center;">
-                                        <div class="settings-icon"><i class="bi bi-shield-check"></i></div>
-                                        <div class="settings-text">Состояние защиты</div>
-                                    </div>
-                                    <input type="checkbox" class="checkbox" checked>
-                                </div>
-                                <div class="settings-item" onclick="goToWifiSettings()">
-                                    <div style="display: flex; align-items: center;">
-                                        <div class="settings-icon"><i class="bi bi-wifi"></i></div>
-                                        <div class="settings-text">Wi-Fi</div>
-                                    </div>
-                                    <div style="color: #666;"><i class="bi bi-chevron-right"></i></div>
-                                </div>
-                                <div class="settings-item">
-                                    <div style="display: flex; align-items: center;">
-                                        <div class="settings-icon"><i class="bi bi-camera-video"></i></div>
-                                        <div class="settings-text">Видео</div>
-                                    </div>
-                                </div>
-                                <div class="settings-item">
-                                    <div style="display: flex; align-items: center;">
-                                        <div class="settings-icon"><i class="bi bi-bluetooth"></i></div>
-                                        <div class="settings-text">Bluetooth</div>
-                                    </div>
-                                </div>
-                                <div class="settings-item">
-                                    <div style="display: flex; align-items: center;">
-                                        <div class="settings-icon"><i class="bi bi-phone"></i></div>
-                                        <div class="settings-text">Мобильные сети</div>
-                                    </div>
-                                </div>
-                                <div class="settings-item">
-                                    <div style="display: flex; align-items: center;">
-                                        <div class="settings-icon"><i class="bi bi-key"></i></div>
-                                        <div class="settings-text">Вход</div>
-                                    </div>
-                                </div>
-                                <div class="settings-item">
-                                    <div style="display: flex; align-items: center;">
-                                        <div class="settings-icon"><i class="bi bi-broadcast"></i></div>
-                                        <div class="settings-text">Точка доступа Wi-Fi</div>
-                                    </div>
-                                    <div>Откл.</div>
-                                </div>
-                                <div class="settings-item">
-                                    <div style="display: flex; align-items: center;">
-                                        <div class="settings-icon"><i class="bi bi-shield-lock"></i></div>
-                                        <div class="settings-text">VPN</div>
-                                    </div>
-                                </div>
-                                <div class="settings-item" id="other-connections-item">
-                                    <div style="display: flex; align-items: center;">
-                                        <div class="settings-icon"><i class="bi bi-link"></i></div>
-                                        <div class="settings-text">Другие способы подключения</div>
-                                    </div>
-                                    <input type="checkbox" class="checkbox" checked>
-                                </div>
-                                <div class="settings-item">
-                                    <div style="display: flex; align-items: center;">
-                                        <div class="settings-icon"><i class="bi bi-lock"></i></div>
-                                        <div class="settings-text">Блокировка экрана</div>
-                                    </div>
-                                </div>
-                                <div class="settings-item">
-                                    <div style="display: flex; align-items: center;">
-                                        <div class="settings-icon"><i class="bi bi-bell"></i></div>
-                                        <div class="settings-text">Уведомления и строка состояния</div>
-                                    </div>
-                                </div>
-                                <div class="settings-item">
-                                    <div style="display: flex; align-items: center;">
-                                        <div class="settings-icon"><i class="bi bi-house"></i></div>
-                                        <div class="settings-text">Рабочий стол</div>
-                                    </div>
-                                </div>
-                                <div class="settings-item">
-                                    <div style="display: flex; align-items: center;">
-                                        <div class="settings-icon"><i class="bi bi-brightness-high"></i></div>
-                                        <div class="settings-text">Экран и яркость</div>
-                                    </div>
-                                    <input type="checkbox" class="checkbox" checked>
-                                </div>
-                            </div>
-
-                            <h3><i class="bi bi-volume-up"></i> Звук и вибрация</h3>
                         </div>
                     </div>
 
-                    <!-- Навигационная панель -->
-                    <div class="nav-bar">
-                        <div class="nav-item" onclick="showScreen('home-screen')">
-                            <div class="nav-icon"><i class="bi bi-house"></i></div>
-                            <div>Главная</div>
+                    <!-- Настройки Wi-Fi -->
+                    <div id="settings-screen" class="screen">
+                        <div class="status-bar">
+                            <div class="time">14:30</div>
+                            <div class="icons">
+                                <i class="bi bi-arrow-left" onclick="showScreen('home')" style="cursor: pointer;"></i>
+                            </div>
                         </div>
-                        <div class="nav-item active" onclick="showScreen('settings-screen')">
-                            <div class="nav-icon"><i class="bi bi-gear"></i></div>
-                            <div>Настройки</div>
+                        <div class="content">
+                            <h2 style="padding: 25px; font-size: 28px;"><i class="bi bi-wifi"></i> Настройки Wi-Fi</h2>
+                            <div class="wifi-list">
+
+                                <div class="wifi-item" onclick="refreshWifi()">
+                                    <div><i class="bi bi-arrow-clockwise"></i> Обновить список</div>
+                                </div>
+                                <div class="wifi-item">
+                                    <div>Home-5G  </div>
+                                    <button class="connect-btn">Подключить</button>
+                                </div>
+                                <div class="wifi-item" onclick="connectToWifi()">
+                                    <div>Beeline_2G    </div>
+                                    <button class="connect-btn">Подключить</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="nav-bar">
+                            <div class="nav-item" onclick="showScreen('home')">
+                                <i class="bi bi-house"></i>
+                                <div>Главная</div>
+                            </div>
+                            <div class="nav-item active" onclick="showScreen('settings')">
+                                <i class="bi bi-gear"></i>
+                                <div>Настройки</div>
+                            </div>
+                            <div class="nav-item" onclick="showScreen('appstore')">
+                                <i class="bi bi-download"></i>
+                                <div>Магазин</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Подключение к Wi-Fi -->
+                    <div id="connect-screen" class="screen">
+                        <div class="status-bar">
+                            <div class="time">14:30</div>
+                            <div class="icons">
+                                <i class="bi bi-arrow-left" onclick="showScreen('settings')" style="cursor: pointer;"></i>
+                            </div>
+                        </div>
+                        <div class="content" style="padding: 30px;">
+                            <h2 style="font-size: 28px; margin-bottom: 20px;">Подключение к Wi-Fi</h2>
+                            <p style="font-size: 22px; margin-bottom: 20px;"><strong>Сеть: Beeline_2G</strong></p>
+                            <input type="password" class="password-input" id="wifi-password" placeholder="Введите пароль">
+                            <button class="connect-btn" onclick="connectWifi()" style="width: 100%; padding: 20px; font-size: 22px;">
+                                Подключиться
+                            </button>
+                            <p style="margin-top: 20px; color: #666; font-size: 18px; text-align: center;">
+                                Подсказка: пароль 12345678
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Магазин приложений -->
+                    <div id="appstore-screen" class="screen">
+                        <div class="status-bar">
+                            <div class="time">14:30</div>
+                        </div>
+                        <div class="store-header">
+                            <i class="bi bi-arrow-left back-btn" onclick="showScreen('home')"></i>
+                            <div class="search-container">
+                                <input type="text" class="search-input" id="search-input" placeholder="Поиск приложений"
+                                       onkeypress="if(event.key === 'Enter') searchApp()">
+                                <button class="search-btn" onclick="searchApp()">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="content" style="text-align: center; padding: 30px;">
+                            <i class="bi bi-search" style="font-size: 60px; color: #007AFF; margin-bottom: 20px;"></i>
+                            <h2 style="font-size: 28px; margin-bottom: 20px;">Поиск приложений</h2>
+                            <p style="font-size: 22px; color: #666; margin-bottom: 30px;">
+                                Введите "Telegram" в поле поиска выше и нажмите кнопку поиска
+                            </p>
+                            <div style="background: #f0f8ff; padding: 20px; border-radius: 15px; margin-top: 20px;">
+                                <p style="font-size: 20px; color: #007AFF; font-weight: bold;">
+                                    <i class="bi bi-lightbulb"></i> Совет: Введите "Telegram" для выполнения задания
+                                </p>
+                            </div>
+                        </div>
+                        <div class="nav-bar">
+                            <div class="nav-item" onclick="showScreen('home')">
+                                <i class="bi bi-house"></i>
+                                <div>Главная</div>
+                            </div>
+                            <div class="nav-item" onclick="showScreen('settings')">
+                                <i class="bi bi-gear"></i>
+                                <div>Настройки</div>
+                            </div>
+                            <div class="nav-item active" onclick="showScreen('appstore')">
+                                <i class="bi bi-download"></i>
+                                <div>Магазин</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Результаты поиска Telegram -->
+                    <div id="search-result-screen" class="screen">
+                        <div class="status-bar">
+                            <div class="time">14:30</div>
+                            <div class="icons">
+                                <i class="bi bi-arrow-left" onclick="showScreen('appstore')" style="cursor: pointer;"></i>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <div style="padding: 25px;">
+                                <h2 style="font-size: 28px; margin-bottom: 20px;">
+                                    <i class="bi bi-search"></i> Результаты поиска: "Telegram"
+                                </h2>
+
+                                <!-- Приложение Telegram -->
+                                <div style="background: white; border-radius: 20px; padding: 25px; margin-bottom: 25px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); border: 2px solid #007AFF;">
+                                    <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                                        <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #0088cc, #00aced); border-radius: 15px; display: flex; align-items: center; justify-content: center; margin-right: 20px;">
+                                            <i class="bi bi-send" style="font-size: 35px; color: white;"></i>
+                                        </div>
+                                        <div>
+                                            <h3 style="font-size: 26px; font-weight: bold; margin: 0;">Telegram</h3>
+                                            <p style="color: #666; font-size: 18px; margin: 5px 0;">Telegram FZ-LLC</p>
+                                            <div style="display: flex; align-items: center; margin-top: 10px;">
+                                                <i class="bi bi-star-fill" style="color: #ffc107;"></i>
+                                                <span style="margin-left: 5px; font-weight: bold;">4,3 ★</span>
+                                                <span style="margin-left: 15px; color: #666;">2 млн+ скачиваний</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <p style="font-size: 20px; line-height: 1.6; color: #555; margin-bottom: 25px;">
+                                        <strong>Быстрый и безопасный мессенджер</strong><br>
+                                        • Мгновенная отправка сообщений<br>
+                                        • Групповые чаты до 200 000 человек<br>
+                                        • Безопасное шифрование<br>
+                                        • Бесплатные звонки
+                                    </p>
+
+                                    <button class="download-btn-big" id="telegram-download-btn" onclick="downloadTelegram()">
+                                        <i class="bi bi-download"></i> СКАЧАТЬ TELEGRAM
+                                    </button>
+                                </div>
+
+                                <!-- Другие приложения (для реалистичности) -->
+                                <div style="background: #f8f9fa; border-radius: 15px; padding: 20px; margin-top: 20px;">
+                                    <p style="font-size: 18px; color: #666; text-align: center;">
+                                        <i class="bi bi-info-circle"></i> Также найдено: Telegram Web, Telegram Plus, Telegram X
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="nav-bar">
+                            <div class="nav-item" onclick="showScreen('home')">
+                                <i class="bi bi-house"></i>
+                                <div>Главная</div>
+                            </div>
+                            <div class="nav-item" onclick="showScreen('settings')">
+                                <i class="bi bi-gear"></i>
+                                <div>Настройки</div>
+                            </div>
+                            <div class="nav-item" onclick="showScreen('appstore')">
+                                <i class="bi bi-download"></i>
+                                <div>Магазин</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Черный экран блокировки -->
+                    <div id="black-screen" class="screen black-screen">
+                        <div style="text-align: center;">
+                            <i class="bi bi-phone" style="font-size: 60px; margin-bottom: 20px;"></i>
+                            <p style="font-size: 24px;">Телефон заблокирован</p>
+                            <p style="font-size: 18px; margin-top: 10px;">Нажмите кнопку питания для разблокировки</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="training-panel">
-            <h1 class="training-title"><i class="bi bi-phone"></i> Тренинг по настройке Wi-Fi</h1>
-            <p class="training-subtitle">Выполняйте задания на симуляторе телефона слева</p>
+        <!-- Панель тренинга -->
+        <div class="training-section">
+            <div class="training-panel">
+                <h1 class="training-title"> Тренинг по работе со смартфоном</h1>
 
-            <div class="progress-bar">
-                <div class="progress-fill" id="progress-fill"></div>
-            </div>
+                <div class="progress-bar">
+                    <div class="progress" id="progress"></div>
+                </div>
 
-            <!-- Задание 1 -->
-            <div id="task1" class="task-container">
-                <div class="task-header">
+                <!-- Задание 1: Wi-Fi -->
+                <div id="task1" class="task active">
                     <div class="task-number">1</div>
-                    <div class="task-title">Перейти в настройки Wi-Fi</div>
+                    <h2 class="task-title">Подключиться к Wi-Fi сети</h2>
+                    <div class="task-description">
+                        <p><strong>Задача:</strong> Подключите телефон к Wi-Fi сети <strong>Beeline_2G</strong></p>
+                        <p><strong>Пароль:</strong> 12345678</p>
+                    </div>
+                    <button class="help-btn-big" onclick="toggleHelp(1)">
+                        <i class="bi bi-question-circle"></i> КАК ЭТО СДЕЛАТЬ?
+                    </button>
+                    <div id="help1" class="help-content-big">
+                        <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
+                        <div class="help-step">1. На главном экране нажмите кнопку <strong>"Настройки Wi-Fi"</strong></div>
+                        <div class="help-step">2. Найдите сеть <strong>"Beeline_2G"</strong> в списке</div>
+                        <div class="help-step">3. Нажмите кнопку <strong>"Подключить"</strong> рядом с сетью</div>
+                        <div class="help-step">4. Введите пароль: <strong>12345678</strong></div>
+                        <div class="help-step">5. Нажмите <strong>"Подключиться"</strong></div>
+                        <p style="margin-top: 20px; color: #007AFF; font-weight: bold;">
+                            <i class="bi bi-lightbulb"></i> После успешного подключения задание будет выполнено автоматически
+                        </p>
+                    </div>
                 </div>
 
-                <div class="task-description">
-                    <p>Ваша задача: найти и открыть раздел настроек Wi-Fi на смартфоне.</p>
-                </div>
-
-                <ul class="task-steps">
-                    <li>
-                        <div class="step-number">1</div>
-                        <div>На телефоне сейчас открыт экран "Настройки"</div>
-                    </li>
-                    <li>
-                        <div class="step-number">2</div>
-                        <div>В разделе "О телефоне" найдите пункт <i class="bi bi-wifi"></i> "Wi-Fi"</div>
-                    </li>
-                    <li>
-                        <div class="step-number">3</div>
-                        <div>Нажмите на пункт "Wi-Fi" чтобы открыть его</div>
-                    </li>
-                </ul>
-
-                <div id="feedback1" class="feedback"></div>
-            </div>
-
-            <!-- Задание 2 -->
-            <div id="task2" class="task-container hidden">
-                <div class="task-header">
+                <!-- Задание 2: Кнопки громкости -->
+                <div id="task2" class="task">
                     <div class="task-number">2</div>
-                    <div class="task-title">Подключиться к Wi-Fi сети</div>
+                    <h2 class="task-title">Использовать кнопки громкости</h2>
+                    <div class="task-description">
+                        <p><strong>Задача:</strong> Нажмите 2 раза на кнопку увеличения громкости и 1 раз на кнопку уменьшения громкости</p>
+                    </div>
+                    <button class="help-btn-big" onclick="toggleHelp(2)">
+                        <i class="bi bi-question-circle"></i> КАК ЭТО СДЕЛАТЬ?
+                    </button>
+                    <div id="help2" class="help-content-big">
+                        <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
+                        <div class="help-step">1. Найдите кнопки на <strong>левой стороне</strong> телефона</div>
+                        <div class="help-step">2. <strong>Верхняя кнопка</strong> - увеличение громкости</div>
+                        <div class="help-step">3. <strong>Нижняя кнопка</strong> - уменьшение громкости</div>
+                        <div class="help-step">4. Нажмите <strong>верхнюю кнопку 2 раза</strong></div>
+                        <div class="help-step">5. Нажмите <strong>нижнюю кнопку 1 раз</strong></div>
+                        <p style="margin-top: 20px; color: #007AFF; font-weight: bold;">
+                            <i class="bi bi-lightbulb"></i> Кнопки находятся сбоку от черного телефона
+                        </p>
+                    </div>
                 </div>
 
-                <div class="task-description">
-                    <p>Подключитесь к сети Beeline_2G_F32666. Пароль: <strong>12345678</strong></p>
-                </div>
-
-                <ul class="task-steps">
-                    <li>
-                        <div class="step-number">1</div>
-                        <div>В списке доступных сетей найдите "Beeline_2G_F32666"</div>
-                    </li>
-                    <li>
-                        <div class="step-number">2</div>
-                        <div>Нажмите на кнопку <i class="bi bi-plug"></i> "Подключить" рядом с этой сетью</div>
-                    </li>
-                    <li>
-                        <div class="step-number">3</div>
-                        <div>Введите пароль: <strong>12345678</strong></div>
-                    </li>
-                    <li>
-                        <div class="step-number">4</div>
-                        <div>Нажмите кнопку "Подключить"</div>
-                    </li>
-                </ul>
-
-                <div id="feedback2" class="feedback"></div>
-            </div>
-
-            <!-- Задание 3 -->
-            <div id="task3" class="task-container hidden">
-                <div class="task-header">
+                <!-- Задание 3: Кнопка питания -->
+                <div id="task3" class="task">
                     <div class="task-number">3</div>
-                    <div class="task-title">Обновить список сетей</div>
+                    <h2 class="task-title">Использовать кнопку питания</h2>
+                    <div class="task-description">
+                        <p><strong>Задача:</strong> Выключите и включите телефон с помощью кнопки питания</p>
+                    </div>
+                    <button class="help-btn-big" onclick="toggleHelp(3)">
+                        <i class="bi bi-question-circle"></i> КАК ЭТО СДЕЛАТЬ?
+                    </button>
+                    <div id="help3" class="help-content-big">
+                        <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
+                        <div class="help-step">1. Найдите кнопку на <strong>правой стороне</strong> телефона</div>
+                        <div class="help-step">2. Нажмите кнопку питания <strong>1 раз</strong> - телефон заблокируется</div>
+                        <div class="help-step">3. Нажмите кнопку питания <strong>еще 1 раз</strong> - телефон разблокируется</div>
+                        <p style="margin-top: 20px; color: #007AFF; font-weight: bold;">
+                            <i class="bi bi-lightbulb"></i> Нужно сделать 2 нажатия: первое блокирует, второе разблокирует
+                        </p>
+                    </div>
                 </div>
 
-                <div class="task-description">
-                    <p>Обновите список доступных Wi-Fi сетей для поиска новых подключений.</p>
-                </div>
-
-                <ul class="task-steps">
-                    <li>
-                        <div class="step-number">1</div>
-                        <div>Вы находитесь в меню Wi-Fi</div>
-                    </li>
-                    <li>
-                        <div class="step-number">2</div>
-                        <div>Найдите пункт <i class="bi bi-arrow-clockwise"></i> "Обновить" в разделе "Сохраненные сети"</div>
-                    </li>
-                    <li>
-                        <div class="step-number">3</div>
-                        <div>Нажмите на "Обновить" для сканирования сетей</div>
-                    </li>
-                </ul>
-
-                <div id="feedback3" class="feedback"></div>
-            </div>
-
-            <!-- Задание 4 -->
-            <div id="task4" class="task-container hidden">
-                <div class="task-header">
+                <!-- Задание 4: Скачать Telegram -->
+                <div id="task4" class="task">
                     <div class="task-number">4</div>
-                    <div class="task-title">Включить другие способы подключения</div>
+                    <h2 class="task-title">Скачать приложение Telegram</h2>
+                    <div class="task-description">
+                        <p><strong>Задача:</strong> Найдите и скачайте приложение Telegram через магазин приложений</p>
+                    </div>
+                    <button class="help-btn-big" onclick="toggleHelp(4)">
+                        <i class="bi bi-question-circle"></i> КАК ЭТО СДЕЛАТЬ?
+                    </button>
+                    <div id="help4" class="help-content-big">
+                        <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
+                        <div class="help-step">1. На главном экране нажмите <strong>"Скачать приложение"</strong></div>
+                        <div class="help-step">2. В поле поиска введите <strong>"Telegram"</strong></div>
+                        <div class="help-step">3. Нажмите кнопку <strong>поиска</strong> или клавишу Enter</div>
+                        <div class="help-step">4. В результатах поиска найдите <strong>приложение Telegram</strong></div>
+                        <div class="help-step">5. Нажмите большую зеленую кнопку <strong>"СКАЧАТЬ TELEGRAM"</strong></div>
+                        <p style="margin-top: 20px; color: #28a745; font-weight: bold;">
+                            <i class="bi bi-lightbulb"></i> Просто введите "Telegram" в поиске и нажмите скачать!
+                        </p>
+                    </div>
                 </div>
 
-                <div class="task-description">
-                    <p>Включите опцию "Другие способы подключения" в настройках.</p>
-                </div>
-
-                <ul class="task-steps">
-                    <li>
-                        <div class="step-number">1</div>
-                        <div>Вернитесь в настройки телефона (кнопка "Настройки" внизу)</div>
-                    </li>
-                    <li>
-                        <div class="step-number">2</div>
-                        <div>Найдите пункт "Другие способы подключения"</div>
-                    </li>
-                    <li>
-                        <div class="step-number">3</div>
-                        <div>Включите переключатель рядом с этим пунктом</div>
-                    </li>
-                </ul>
-
-                <div id="feedback4" class="feedback"></div>
-            </div>
-
-            <!-- Новое Задание 5: Работа с кнопками громкости -->
-            <div id="task5" class="task-container hidden">
-                <div class="task-header">
-                    <div class="task-number">5</div>
-                    <div class="task-title">Использование кнопок громкости</div>
-                </div>
-
-                <div class="task-description">
-                    <p>Научитесь пользоваться кнопками регулировки громкости на смартфоне.</p>
-                </div>
-
-                <ul class="task-steps">
-                    <li>
-                        <div class="step-number">1</div>
-                        <div>Найдите кнопку увеличения громкости на левой стороне телефона (длинная кнопка)</div>
-                    </li>
-                    <li>
-                        <div class="step-number">2</div>
-                        <div>Нажмите кнопку увеличения громкости 2 раза</div>
-                    </li>
-                    <li>
-                        <div class="step-number">3</div>
-                        <div>Найдите кнопку уменьшения громкости (короткая кнопка ниже)</div>
-                    </li>
-                    <li>
-                        <div class="step-number">4</div>
-                        <div>Нажмите кнопку уменьшения громкости 1 раз</div>
-                    </li>
-                </ul>
-
-                <div id="feedback5" class="feedback"></div>
-            </div>
-
-            <!-- Новое Задание 6: Использование кнопки питания -->
-            <div id="task6" class="task-container hidden">
-                <div class="task-header">
-                    <div class="task-number">6</div>
-                    <div class="task-title">Использование кнопки питания</div>
-                </div>
-
-                <div class="task-description">
-                    <p>Научитесь правильно использовать кнопку питания смартфона.</p>
-                </div>
-
-                <ul class="task-steps">
-                    <li>
-                        <div class="step-number">1</div>
-                        <div>Найдите кнопку питания на правой стороне телефона</div>
-                    </li>
-                    <li>
-                        <div class="step-number">2</div>
-                        <div>Нажмите кнопку питания 1 раз, чтобы заблокировать экран</div>
-                    </li>
-                    <li>
-                        <div class="step-number">3</div>
-                        <div>Снова нажмите кнопку питания, чтобы разблокировать экран</div>
-                    </li>
-                    <li>
-                        <div class="step-number">4</div>
-                        <div>Нажмите и удерживайте кнопку питания 3 секунды</div>
-                    </li>
-                </ul>
-
-                <div id="feedback6" class="feedback"></div>
-            </div>
-
-            <button id="next-task-btn" class="next-task-btn" onclick="nextTask()">
-                Следующее задание <i class="bi bi-arrow-right"></i>
-            </button>
-
-            <!-- Экран завершения -->
-            <div id="completion-screen" class="completion-screen">
-                <div class="completion-icon"><i class="bi bi-trophy-fill"></i></div>
-                <h2>Тренинг завершен!</h2>
-                <div class="score-display" id="final-score">0/6</div>
-                <p>Поздравляем! Вы успешно завершили тренинг по настройке Wi-Fi на смартфоне.</p>
-                <button class="restart-btn" onclick="restartTraining()">
-                    <i class="bi bi-arrow-repeat"></i> Начать заново
+                <button id="next-btn" class="next-btn" onclick="nextTask()">
+                    СЛЕДУЮЩЕЕ ЗАДАНИЕ <i class="bi bi-arrow-right"></i>
                 </button>
+
+                <!-- Экран завершения -->
+                <div id="complete-screen" class="complete-screen">
+                    <div class="complete-icon"><i class="bi bi-trophy-fill"></i></div>
+                    <h2 style="font-size: 36px; margin-bottom: 20px;">ТРЕНИНГ ЗАВЕРШЕН!</h2>
+                    <div class="score" id="score">4/4</div>
+                    <p style="font-size: 24px; color: #666; margin-bottom: 30px;">
+                        Поздравляем! Вы успешно освоили базовые навыки работы со смартфоном
+                    </p>
+                    <button class="next-btn" onclick="restartTraining()" style="background: linear-gradient(135deg, #6c757d, #495057);">
+                        <i class="bi bi-arrow-repeat"></i> НАЧАТЬ ЗАНОВО
+                    </button>
+                    <button class="trainer-btn">
+                        <i class="bi bi-arrow-right-circle"></i> ПЕРЕЙТИ НА ГЛАВНУЮ СТРАНИЦУ
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -1210,190 +934,221 @@
     <div id="notification" class="notification"></div>
 
     <script>
-        // ====================
-        // Симулятор телефона
-        // ====================
-        let currentScreen = 'home-screen';
-        let keyboardVisible = false;
+        // Переменные
+        let currentTask = 1;
+        let tasksCompleted = 0;
+        let screenLocked = false;
         let volumeUpCount = 0;
         let volumeDownCount = 0;
-        let powerPressCount = 0;
-        let screenLocked = false;
+        let powerCount = 0;
+        const totalTasks = 4;
 
-        function showScreen(screenId) {
+        // Показать экран телефона
+        function showScreen(screen) {
             // Скрыть все экраны
-            document.querySelectorAll('.screen').forEach(screen => {
-                screen.classList.add('hidden');
+            document.querySelectorAll('.screen').forEach(s => {
+                s.classList.remove('active');
             });
 
-            // Показать выбранный экран
-            document.getElementById(screenId).classList.remove('hidden');
+            // Показать нужный экран
+            document.getElementById(screen + '-screen').classList.add('active');
 
-            // Скрыть клавиатуру при переключении экранов
-            document.getElementById('keyboard').classList.add('hidden');
-            keyboardVisible = false;
+            // Обновить активные вкладки в навбаре
+            updateNavBar(screen);
 
-            // Обновить активный пункт в навигации
+            // Проверить задание 1 (подключение к Wi-Fi)
+            if (screen === 'wifi' && currentTask === 1) {
+                showNotification('Откройте настройки Wi-Fi и подключитесь к сети');
+            }
+
+            // Проверить задание 4 (открытие магазина)
+            if (screen === 'appstore' && currentTask === 4) {
+                showNotification('Введите "Telegram" в поле поиска и нажмите поиск');
+            }
+        }
+
+        // Обновить навигационную панель
+        function updateNavBar(activeScreen) {
             document.querySelectorAll('.nav-item').forEach(item => {
                 item.classList.remove('active');
             });
 
-            // Активируем соответствующую иконку в навигации
-            if (screenId === 'home-screen') {
+            if (activeScreen === 'home') {
                 document.querySelector('.nav-item:nth-child(1)').classList.add('active');
-            } else if (screenId === 'settings-screen') {
+            } else if (activeScreen === 'settings') {
                 document.querySelector('.nav-item:nth-child(2)').classList.add('active');
-            }
-
-            currentScreen = screenId;
-        }
-
-        function goToWifiSettings() {
-            showScreen('wifi-screen');
-            // Проверяем задание 1
-            if (currentTask === 1 && !tasksCompleted[1]) {
-                checkTask1();
+            } else if (activeScreen === 'appstore') {
+                document.querySelector('.nav-item:nth-child(3)').classList.add('active');
             }
         }
 
-        function shareNetwork() {
-            showNotification('Функция "Поделиться сетью" активирована');
-        }
+        // Поиск приложения
+        function searchApp() {
+            const searchInput = document.getElementById('search-input');
+            const query = searchInput.value.trim().toLowerCase();
 
-        function refreshNetworks() {
-            showNotification('Сканирование сетей Wi-Fi...');
-            // Проверяем задание 3
-            if (currentTask === 3 && !tasksCompleted[3]) {
-                checkTask3();
-            }
-        }
+            if (query === 'telegram') {
+                showScreen('search-result');
+                showNotification('Найдено приложение Telegram. Нажмите кнопку "Скачать"');
 
-        function connectToWifi(networkName) {
-            if (networkName === 'Beeline_2G_F32666') {
-                showScreen('connect-screen');
-            } else {
-                showNotification(`Подключение к сети "${networkName}"...`);
-            }
-        }
-
-        function showKeyboard() {
-            const keyboard = document.getElementById('keyboard');
-            keyboard.classList.toggle('hidden');
-            keyboardVisible = !keyboardVisible;
-        }
-
-        function addToPassword(char) {
-            const passwordInput = document.getElementById('wifi-password');
-            passwordInput.value += char;
-        }
-
-        function backspacePassword() {
-            const passwordInput = document.getElementById('wifi-password');
-            passwordInput.value = passwordInput.value.slice(0, -1);
-        }
-
-        function connectWithPassword() {
-            const password = document.getElementById('wifi-password').value;
-            if (password.length > 0) {
-                if (password === '12345678' && currentTask === 2 && !tasksCompleted[2]) {
-                    checkTask2();
-                } else if (password !== '12345678') {
-                    showNotification('Неверный пароль! Попробуйте снова. Правильный пароль: 12345678');
-                } else {
-                    showNotification(`Подключение к Beeline_2G_F32666...`);
+                // Проверить задание 4
+                if (currentTask === 4) {
+                    // Не завершаем задание сразу, нужно еще нажать скачать
+                    showNotification('Теперь нажмите большую зеленую кнопку "Скачать"');
                 }
+            } else if (query === '') {
+                showNotification('Введите название приложения для поиска');
             } else {
-                showNotification('Введите пароль для подключения');
+                showNotification('Введите "Telegram" для выполнения задания');
+                searchInput.value = 'Telegram';
             }
         }
 
-        function toggleKeyboardLayout() {
-            showNotification('Переключение раскладки клавиатуры');
+        // Скачать Telegram
+        function downloadTelegram() {
+            if (currentTask === 4) {
+                completeTask(4);
+                showNotification('Telegram успешно скачивается!');
+                document.getElementById('telegram-download-btn').innerHTML = '<i class="bi bi-check-circle"></i> СКАЧИВАНИЕ НАЧАТО';
+                document.getElementById('telegram-download-btn').style.background = '#6c757d';
+                document.getElementById('telegram-download-btn').disabled = true;
+            }
         }
 
-        // ====================
-        // Функции для кнопок телефона
-        // ====================
+        // Обновить Wi-Fi
+        function refreshWifi() {
+            showNotification('Сканирование Wi-Fi сетей...');
+        }
 
+        // Подключиться к Wi-Fi
+        function connectToWifi() {
+            showScreen('connect');
+        }
+
+        // Подключить Wi-Fi с паролем
+        function connectWifi() {
+            const password = document.getElementById('wifi-password').value;
+            if (password === '12345678' && currentTask === 1) {
+                completeTask(1);
+                showNotification('Wi-Fi подключен успешно!');
+                setTimeout(() => {
+                    showScreen('home');
+                }, 1500);
+            } else {
+                showNotification('Неверный пароль! Попробуйте: 12345678');
+            }
+        }
+
+        // Кнопки телефона
         function pressVolumeUp() {
             volumeUpCount++;
             showNotification('Громкость увеличена');
 
-            // Проверяем задание 5
-            if (currentTask === 5 && !tasksCompleted[5]) {
-                if (volumeUpCount >= 2 && volumeDownCount >= 1) {
-                    checkTask5();
-                }
+            if (currentTask === 2 && volumeUpCount >= 2 && volumeDownCount >= 1) {
+                completeTask(2);
             }
-
-            // Анимация нажатия
-            animateButtonPress('.volume-up-btn');
         }
 
         function pressVolumeDown() {
             volumeDownCount++;
             showNotification('Громкость уменьшена');
 
-            // Проверяем задание 5
-            if (currentTask === 5 && !tasksCompleted[5]) {
-                if (volumeUpCount >= 2 && volumeDownCount >= 1) {
-                    checkTask5();
-                }
+            if (currentTask === 2 && volumeUpCount >= 2 && volumeDownCount >= 1) {
+                completeTask(2);
             }
-
-            // Анимация нажатия
-            animateButtonPress('.volume-down-btn');
         }
 
-        function pressPowerButton() {
-            powerPressCount++;
+        function pressPower() {
+            powerCount++;
 
             if (screenLocked) {
-                // Разблокировка экрана
+                // Разблокировать
                 screenLocked = false;
-                showScreen(currentScreen);
+                showScreen('home');
                 showNotification('Экран разблокирован');
 
-                // Проверяем задание 6
-                if (currentTask === 6 && !tasksCompleted[6]) {
-                    if (powerPressCount >= 2) {
-                        // Ждем долгое нажатие
-                        setTimeout(() => {
-                            if (powerPressCount >= 3) {
-                                checkTask6();
-                            }
-                        }, 3000);
-                    }
+                if (currentTask === 3 && powerCount >= 2) {
+                    completeTask(3);
                 }
             } else {
-                // Блокировка экрана
+                // Заблокировать
                 screenLocked = true;
-                document.querySelectorAll('.screen').forEach(screen => {
-                    screen.classList.add('hidden');
-                });
+                showScreen('black');
                 showNotification('Экран заблокирован');
+            }
+        }
 
-                // Проверяем задание 6
-                if (currentTask === 6 && !tasksCompleted[6]) {
-                    // Уже проверим в следующем нажатии
-                }
+        // Завершить задание
+        function completeTask(taskNum) {
+            tasksCompleted++;
+            updateProgress();
+
+            document.getElementById('next-btn').classList.add('active');
+            showNotification('Задание ' + taskNum + ' выполнено! Нажмите "Следующее задание"');
+
+            // Если все задания выполнены
+            if (tasksCompleted === totalTasks) {
+                setTimeout(() => {
+                    document.getElementById('complete-screen').classList.add('active');
+                    document.getElementById('task' + currentTask).classList.remove('active');
+                    document.getElementById('next-btn').classList.remove('active');
+                    document.getElementById('score').textContent = totalTasks + '/' + totalTasks;
+                }, 1000);
+            }
+        }
+
+        // Следующее задание
+        function nextTask() {
+            // Скрыть текущее задание
+            document.getElementById('task' + currentTask).classList.remove('active');
+
+            // Скрыть кнопку
+            document.getElementById('next-btn').classList.remove('active');
+
+            // Скрыть все подсказки
+            document.querySelectorAll('.help-content-big').forEach(help => {
+                help.classList.remove('active');
+            });
+
+            // Перейти к следующему заданию
+            currentTask++;
+
+            // Сбросить счетчики для кнопок
+            if (currentTask === 2) {
+                volumeUpCount = 0;
+                volumeDownCount = 0;
+            } else if (currentTask === 3) {
+                powerCount = 0;
             }
 
-            // Анимация нажатия
-            animateButtonPress('.power-btn');
+            // Показать новое задание
+            if (currentTask <= totalTasks) {
+                document.getElementById('task' + currentTask).classList.add('active');
+
+                // Показать подсказку для нового задания
+                if (currentTask === 2) {
+                    showNotification('Задание 2: Используйте кнопки громкости на левой стороне телефона');
+                } else if (currentTask === 3) {
+                    showNotification('Задание 3: Используйте кнопку питания на правой стороне телефона');
+                } else if (currentTask === 4) {
+                    showNotification('Задание 4: Скачайте Telegram через магазин приложений');
+                }
+            }
         }
 
-        function animateButtonPress(selector) {
-            const btn = document.querySelector(selector);
-            btn.style.transform = 'scale(0.95)';
-            btn.style.opacity = '0.8';
-
-            setTimeout(() => {
-                btn.style.transform = '';
-                btn.style.opacity = '';
-            }, 200);
+        // Обновить прогресс
+        function updateProgress() {
+            const progress = (tasksCompleted / totalTasks) * 100;
+            document.getElementById('progress').style.width = progress + '%';
         }
 
+        // Показать/скрыть помощь
+        function toggleHelp(taskNum) {
+            const help = document.getElementById('help' + taskNum);
+            help.classList.toggle('active');
+        }
+
+        // Показать уведомление
         function showNotification(message) {
             const notification = document.getElementById('notification');
             notification.textContent = message;
@@ -1401,224 +1156,77 @@
 
             setTimeout(() => {
                 notification.style.display = 'none';
-            }, 2000);
+            }, 3000);
         }
 
-        // ====================
-        // Система тренинга
-        // ====================
-        let currentTask = 1;
-        let tasksCompleted = {
-            1: false,
-            2: false,
-            3: false,
-            4: false,
-            5: false,
-            6: false
-        };
-        let score = 0;
+        // Начать заново
+        function restartTraining() {
+            currentTask = 1;
+            tasksCompleted = 0;
+            screenLocked = false;
+            volumeUpCount = 0;
+            volumeDownCount = 0;
+            powerCount = 0;
 
-        function showTask(taskNumber) {
-            // Скрыть все задания
-            for (let i = 1; i <= 6; i++) {
-                const taskElement = document.getElementById(`task${i}`);
-                if (taskElement) {
-                    taskElement.classList.add('hidden');
-                }
+            // Скрыть экран завершения
+            document.getElementById('complete-screen').classList.remove('active');
+
+            // Показать первое задание
+            document.querySelectorAll('.task').forEach(task => {
+                task.classList.remove('active');
+            });
+            document.getElementById('task1').classList.add('active');
+
+            // Скрыть кнопку
+            document.getElementById('next-btn').classList.remove('active');
+
+            // Скрыть все подсказки
+            document.querySelectorAll('.help-content-big').forEach(help => {
+                help.classList.remove('active');
+            });
+
+            // Сбросить телефон
+            showScreen('home');
+
+            // Сбросить кнопку скачивания
+            const downloadBtn = document.getElementById('telegram-download-btn');
+            if (downloadBtn) {
+                downloadBtn.innerHTML = '<i class="bi bi-download"></i> СКАЧАТЬ TELEGRAM';
+                downloadBtn.style.background = '#28a745';
+                downloadBtn.disabled = false;
             }
-
-            // Показать текущее задание
-            document.getElementById(`task${taskNumber}`).classList.remove('hidden');
 
             // Обновить прогресс
             updateProgress();
 
-            // Скрыть кнопку "Следующее задание"
-            document.getElementById('next-task-btn').style.display = 'none';
-
-            // Сбросить фидбек
-            document.getElementById(`feedback${taskNumber}`).className = 'feedback';
-            document.getElementById(`feedback${taskNumber}`).textContent = '';
-
-            // Сбросить счетчики для новых заданий
-            if (taskNumber === 5) {
-                volumeUpCount = 0;
-                volumeDownCount = 0;
-            } else if (taskNumber === 6) {
-                powerPressCount = 0;
-            }
+            showNotification('Тренинг начат заново. Удачи!');
         }
 
-        function checkTask1() {
-            if (!tasksCompleted[1]) {
-                tasksCompleted[1] = true;
-                score++;
-                showFeedback(1, 'success', '✅ Отлично! Вы успешно перешли в настройки Wi-Fi.');
-                document.getElementById('next-task-btn').style.display = 'block';
-                updateProgress();
-            }
+        // Обновлять время
+        function updateTime() {
+            const now = new Date();
+            const time = now.getHours().toString().padStart(2, '0') + ':' +
+                         now.getMinutes().toString().padStart(2, '0');
+            document.querySelectorAll('.time').forEach(el => {
+                el.textContent = time;
+            });
         }
 
-        function checkTask2() {
-            if (!tasksCompleted[2]) {
-                tasksCompleted[2] = true;
-                score++;
-                showFeedback(2, 'success', '✅ Отлично! Вы успешно подключились к сети Beeline.');
-                document.getElementById('next-task-btn').style.display = 'block';
-                updateProgress();
-
-                // Вернуться на главный экран Wi-Fi
-                setTimeout(() => {
-                    showScreen('wifi-screen');
-                }, 1000);
-            }
-        }
-
-        function checkTask3() {
-            if (!tasksCompleted[3]) {
-                tasksCompleted[3] = true;
-                score++;
-                showFeedback(3, 'success', '✅ Отлично! Вы обновили список доступных сетей.');
-                document.getElementById('next-task-btn').style.display = 'block';
-                updateProgress();
-            }
-        }
-
-        function checkTask4() {
-            if (!tasksCompleted[4]) {
-                tasksCompleted[4] = true;
-                score++;
-                showFeedback(4, 'success', '✅ Отлично! Вы включили другие способы подключения.');
-                document.getElementById('next-task-btn').style.display = 'block';
-                updateProgress();
-            }
-        }
-
-        function checkTask5() {
-            if (!tasksCompleted[5] && volumeUpCount >= 2 && volumeDownCount >= 1) {
-                tasksCompleted[5] = true;
-                score++;
-                showFeedback(5, 'success', '✅ Отлично! Вы освоили использование кнопок громкости.');
-                document.getElementById('next-task-btn').style.display = 'block';
-                updateProgress();
-            }
-        }
-
-        function checkTask6() {
-            if (!tasksCompleted[6] && powerPressCount >= 3) {
-                tasksCompleted[6] = true;
-                score++;
-                showFeedback(6, 'success', '✅ Отлично! Вы освоили использование кнопки питания.');
-                document.getElementById('next-task-btn').style.display = 'block';
-                updateProgress();
-
-                // Завершить тренинг
-                setTimeout(() => {
-                    completeTraining();
-                }, 1500);
-            }
-        }
-
-        function showFeedback(taskNumber, type, message) {
-            const feedback = document.getElementById(`feedback${taskNumber}`);
-            feedback.className = `feedback ${type}`;
-            feedback.textContent = message;
-        }
-
-        function nextTask() {
-            if (currentTask < 6) {
-                currentTask++;
-                showTask(currentTask);
-
-                // Для задания 4 сразу показываем кнопку (так как переключатель уже включен)
-                if (currentTask === 4) {
-                    // Проверяем, включен ли уже переключатель
-                    const otherConnectionsCheckbox = document.querySelector('#settings-screen input[type="checkbox"]:checked');
-                    if (otherConnectionsCheckbox && otherConnectionsCheckbox.parentElement.previousElementSibling.textContent.includes('Другие способы подключения')) {
-                        setTimeout(() => {
-                            checkTask4();
-                        }, 500);
+        // Поддержка Enter в поле поиска
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search-input');
+            if (searchInput) {
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        searchApp();
                     }
-                }
-            } else {
-                completeTraining();
-            }
-        }
-
-        function updateProgress() {
-            const completedCount = Object.values(tasksCompleted).filter(Boolean).length;
-            const progress = (completedCount / 6) * 100;
-            document.getElementById('progress-fill').style.width = `${progress}%`;
-        }
-
-        function completeTraining() {
-            // Скрыть текущее задание
-            document.getElementById(`task${currentTask}`).classList.add('hidden');
-
-            // Показать экран завершения
-            document.getElementById('completion-screen').style.display = 'block';
-            document.getElementById('final-score').textContent = `${score}/6`;
-
-            // Скрыть кнопку "Следующее задание"
-            document.getElementById('next-task-btn').style.display = 'none';
-        }
-
-        function restartTraining() {
-            // Сбросить все значения
-            currentTask = 1;
-            tasksCompleted = {1: false, 2: false, 3: false, 4: false, 5: false, 6: false};
-            score = 0;
-            volumeUpCount = 0;
-            volumeDownCount = 0;
-            powerPressCount = 0;
-            screenLocked = false;
-
-            // Сбросить телефон
-            showScreen('settings-screen');
-            document.getElementById('wifi-password').value = '';
-
-            // Скрыть экран завершения
-            document.getElementById('completion-screen').style.display = 'none';
-
-            // Показать первое задание
-            showTask(1);
-            updateProgress();
-        }
-
-        // ====================
-        // Обработчики событий для проверки заданий
-        // ====================
-
-        // Обработчик для переключателя "Другие способы подключения"
-        document.addEventListener('click', function(e) {
-            if (e.target.type === 'checkbox') {
-                const label = e.target.parentElement.previousElementSibling;
-                if (label && label.textContent.includes('Другие способы подключения')) {
-                    if (e.target.checked && currentTask === 4 && !tasksCompleted[4]) {
-                        checkTask4();
-                    }
-                }
+                });
             }
         });
 
-        // ====================
-        // Инициализация
-        // ====================
-
-        // Инициализация времени в статус-баре
-        function updateTime() {
-            const now = new Date();
-            const hours = now.getHours().toString().padStart(2, '0');
-            const minutes = now.getMinutes().toString().padStart(2, '0');
-            document.querySelector('.time').textContent = `${hours}:${minutes}`;
-        }
-
-        setInterval(updateTime, 60000);
+        // Запустить
         updateTime();
-
-        // Показать первое задание при загрузке
-        showTask(1);
-        updateProgress();
+        setInterval(updateTime, 60000);
     </script>
 </body>
 </html>
