@@ -94,6 +94,11 @@ def go_to_trainer():
 def smartphone_basics():
     user_level = current_user.level
     return render_template('smartphone_basics.html', user_level=user_level)
+@app.route('/smartphone_basics_base')
+@login_required
+def smartphone_basics_base():
+    user_level = current_user.level
+    return render_template('smartphone_basics_base.html', user_level=user_level)
 
 @app.route('/messenger_training')
 @login_required
