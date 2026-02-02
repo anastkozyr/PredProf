@@ -45,6 +45,97 @@
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
 
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Кнопки телефона */
+        .phone-buttons {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .volume-up {
+            position: absolute;
+            left: -20px;
+            top: 120px;
+            width: 15px;
+            height: 80px;
+            background: #333;
+            border-radius: 8px 0 0 8px;
+            cursor: pointer;
+            pointer-events: all;
+        }
+
+        .volume-down {
+            position: absolute;
+            left: -20px;
+            top: 220px;
+            width: 15px;
+            height: 60px;
+            background: #333;
+            border-radius: 8px 0 0 8px;
+            cursor: pointer;
+            pointer-events: all;
+        }
+
+        .power-btn {
+            position: absolute;
+            right: -20px;
+            top: 120px;
+            width: 15px;
+            height: 70px;
+            background: #333;
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+            pointer-events: all;
+        }
+
+        .volume-up:hover, .volume-down:hover, .power-btn:hover {
+            background: #444;
+        }
+
+        /* Экран телефона */
+        .button-catalog {
+            background: transparent; /* Прозрачный фон */
+            border: 2px solid rgba(0, 0, 0, 0.7); /* Черная граница */
+            padding: 23px 25px; /* Внутренние отступы */
+            border-radius: 8px; /* Закругленные углы */
+            cursor: pointer; /* Курсор-указатель */
+            transition: all 0.3s ease; /* Плавные анимации */
+            position: absolute;
+            top: 700px;    /* Отступ сверху */
+            left: 400px;  /* Отступ слева */
+        }
+
+        .button-catalog:hover {
+            background: rgba(0, 200, 50, 0.1); /* Зеленый фон принаведении */
+            border-color: #00c832; /* Зеленая граница */
+        }
+
+        .button-catalog:active {
+        transform: scale(0.98); /* Эффект нажатия */
+        }
+
+        .screen {
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
         .status-bar {
             height: 30px;
             background: black;
@@ -84,31 +175,75 @@
             padding: 10px;
         }
 
-        .button-catalog {
-            background: transparent; /* Прозрачный фон */
-            border: 2px solid rgba(0, 0, 0, 0.7); /* Черная граница */
-            padding: 23px 25px; /* Внутренние отступы */
-            border-radius: 8px; /* Закругленные углы */
-            cursor: pointer; /* Курсор-указатель */
-            transition: all 0.3s ease; /* Плавные анимации */
-            position: absolute;
-            top: 700px;    /* Отступ сверху */
-            left: 400px;   /* Отступ слева */
+        .nav-item.active {
+            color: #007AFF;
         }
 
-        .button-catalog:hover {
-            background: rgba(0, 200, 50, 0.1); /* Зеленый фон при наведении */
-            border-color: #00c832; /* Зеленая граница */
+        .wifi-list {
+            padding: 15px;
         }
 
-        .button-catalog:active {
-            transform: scale(0.98); /* Эффект нажатия */
+        .wifi-item {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .wifi-item:hover {
+            background: #f5f5f5;
+        }
+
+        .connect-btn {
+            background: #007AFF;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .connect-screen {
+            padding: 20px;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .settings-list {
+            padding: 15px;
+        }
+
+        .settings-item {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        /* Черный экран блокировки */
+        .black-screen {
+            background: black !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
         }
 
         /* Тренинг панель */
         .training-section {
             flex: 1;
-            max-width: 500px;
+            max-width: 800px;
         }
 
         .training-panel {
@@ -116,6 +251,7 @@
             border-radius: 20px;
             padding: 30px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            margin: 0px 180px;
         }
 
         .training-title {
@@ -295,334 +431,313 @@
             width: auto;
             min-width: 280px;
         }
-
         .img {
             width: 350px;
             height: auto;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);}
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Телефон -->
-        <div class="phone-section">
-            <img src="{{ url_for('images_files', filename='five/five_1.jpg') }}" alt="Приложение пятерочки" class="img">
-            <button type="button" class="button-catalog" onclick="showScreen('{{ url_for('images_files', filename='five/five_catalog.jpg') }}')"></button>
-        </div>
-        <div class="training-section">
-            <div class="training-panel">
-                <h1 class="training-title"> Тренинг по поиску товаров</h1>
+<div class="container">
+    <!-- Телефон -->
+    <div class="phone-section">
+        <img id="phone-img" src="{{ url_for('images_files', filename='five/five_1.jpg') }}" alt="Приложение пятерочки" class="img">
+        <button type="button" class="button-catalog" onclick="document.getElementById('phone-img').src='{{ url_for('images_files', filename='five/five_catalog.jpg') }}'"></button>
+        <input type="password" class="password-input" id="wifi-password" placeholder="Пароль">
 
-                <div class="progress-bar">
-                    <div class="progress" id="progress"></div>
-                </div>
+    <div class="training-section">
+        <div class="training-panel">
+            <h1 class="training-title"><i class="bi bi-phone"></i> Тренинг по пользованию приложением "Пятерочка"</h1>
 
-                <div id="task1" class="task active">
-                    <div class="task-number">1</div>
-                    <h2 class="task-title">Перейти в каталог товаров</h2>
-                    <div class="task-description">
-                        <p>Откройте каталог товаров в приложении "Пятерочка".</p>
-                        <button class="help-btn" onclick="toggleHelp(1)">
-                            <i class="bi bi-question-circle"></i> Помощь
-                        </button>
-                        <div id="help1" class="help-content">
-                            <p><strong>Как выполнить:</strong></p>
-                            <p>1. Вы сейчас находитесь на главной странице</p>
-                            <p>2. Внизу на панели управления найдите раздел "Каталог"</p>
-                            <p>3. Нажмите на кнопку "Каталог", чтобы открыть его</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
 
-                <div id="task2" class="task">
-                    <div class="task-number">2</div>
-                    <h2 class="task-title">Подключиться к Wi-Fi сети</h2>
-                    <div class="task-description">
-                        <p>Подключитесь к сети Beeline_2G_F32666. Пароль: 12345678</p>
-                        <button class="help-btn" onclick="toggleHelp(2)">
-                            <i class="bi bi-question-circle"></i> Помощь
-                        </button>
-                        <div id="help2" class="help-content">
-                            <p><strong>Как выполнить:</strong></p>
-                            <p>1. В списке Wi-Fi сетей найдите "Beeline_2G_F32666"</p>
-                            <p>2. Нажмите кнопку "Подключить" рядом с этой сетью</p>
-                            <p>3. Введите пароль: <strong>12345678</strong></p>
-                            <p>4. Нажмите "Подключить"</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="task3" class="task">
-                    <div class="task-number">3</div>
-                    <h2 class="task-title">Обновить список сетей</h2>
-                    <div class="task-description">
-                        <p>Обновите список доступных Wi-Fi сетей.</p>
-                        <button class="help-btn" onclick="toggleHelp(3)">
-                            <i class="bi bi-question-circle"></i> Помощь
-                        </button>
-                        <div id="help3" class="help-content">
-                            <p><strong>Как выполнить:</strong></p>
-                            <p>1. Находясь в меню Wi-Fi</p>
-                            <p>2. Найдите пункт "Обновить" (иконка ↻)</p>
-                            <p>3. Нажмите на "Обновить"</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="task4" class="task">
-                    <div class="task-number">4</div>
-                    <h2 class="task-title">Кнопки громкости</h2>
-                    <div class="task-description">
-                        <p>Используйте кнопки громкости на телефоне. Нажмите 2 раза на кнопку увеличения громкости и 1 раз на кнопку уменьшения громкости</p>
-                        <button class="help-btn" onclick="toggleHelp(4)">
-                            <i class="bi bi-question-circle"></i> Помощь
-                        </button>
-                        <div id="help4" class="help-content">
-                            <p><strong>Как выполнить:</strong></p>
-                            <p>1. Найдите кнопки на левой стороне телефона</p>
-                            <p>2. Нажмите верхнюю кнопку 2 раза (увеличение громкости)</p>
-                            <p>3. Нажмите нижнюю кнопку 1 раз (уменьшение громкости)</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="task5" class="task">
-                    <div class="task-number">5</div>
-                    <h2 class="task-title">Кнопка питания</h2>
-                    <div class="task-description">
-                        <p>Используйте кнопку питания телефона(выключите и включите телефон).</p>
-                        <button class="help-btn" onclick="toggleHelp(5)">
-                            <i class="bi bi-question-circle"></i> Помощь
-                        </button>
-                        <div id="help5" class="help-content">
-                            <p><strong>Как выполнить:</strong></p>
-                            <p>1. Найдите кнопку питания на правой стороне телефона</p>
-                            <p>2. Нажмите 1 раз - заблокировать экран</p>
-                            <p>3. Нажмите еще раз - разблокировать экран</p>
-
-                        </div>
-                    </div>
-                </div>
-
-                <button id="next-btn" class="next-btn" onclick="nextTask()">
-                    Следующее задание <i class="bi bi-arrow-right"></i>
-                </button>
-
-                <div id="complete-screen" class="complete-screen">
-                    <div class="complete-icon"><i class="bi bi-trophy-fill"></i></div>
-                    <h2>Тренинг завершен!</h2>
-                    <div class="score" id="score">0/5</div>
-                    <p>Поздравляем! Вы успешно завершили тренинг.</p>
-                    <button class="next-btn" onclick="restartTraining()">
-                        <i class="bi bi-arrow-repeat"></i> Начать заново
+            <div id="task1" class="task active">
+                <div class="task-number">1</div>
+                <h2 class="task-title">Перейти в каталог товаров</h2>
+                <div class="task-description">
+                    <p>Откройте каталог товаров в приложении "Пятерочка".</p>
+                    <button class="help-btn" onclick="toggleHelp(1)">
+                        <i class="bi bi-question-circle"></i> Помощь
                     </button>
-                    <div class="button-container">
+                    <div id="help1" class="help-content">
+                        <p><strong>Как выполнить:</strong></p>
+                        <p>1. Найдите раздел "Каталог" внизу на панели управления</p>
+                        <p>2. Нажтине на кнопнк "Каталог, чтобы перейти в каталог товаров</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="task2" class="task">
+                <div class="task-number">2</div>
+                <h2 class="task-title">Добавить в корзину хлеб</h2>
+                <div class="task-description">
+                    <p>Найдите в каталоге товаров хлеб</p>
+                    <button class="help-btn" onclick="toggleHelp(2)">
+                        <i class="bi bi-question-circle"></i> Помощь
+                    </button>
+                    <div id="help2" class="help-content">
+                        <p><strong>Как выполнить:</strong></p>
+                        <p>1. В поле "Поиск по товарам" введите "Хлеб"</p>
+                        <p>2. Добавьте любой хлеб в корзину, нажав кнопку "В корзину"</p>
+                        <p>3. Вернитесь обратно в каталог, нажав на стрелочку рядом с полем поиска</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="task3" class="task">
+                <div class="task-number">3</div>
+                <h2 class="task-title">Добавьте в корзину кашу</h2>
+                <div class="task-description">
+                    <p>Найдите в каталоге готовой еды кашу и добавьте ее в корзину.</p>
+                    <button class="help-btn" onclick="toggleHelp(3)">
+                        <i class="bi bi-question-circle"></i> Помощь
+                    </button>
+                    <div id="help3" class="help-content">
+                        <p><strong>Как выполнить:</strong></p>
+                        <p>1. Вы находитесь в каталоге товаров</p>
+                        <p>2. Найдите окно "Завтраки" в разделе "Готовая еда"</p>
+                        <p>3. Нажмите на окно "Завтраки"</p>
+                        <p>4. Добавьте рисовую кашу в корзину, нажав на кнопку "В корзину"</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="task4" class="task">
+                <div class="task-number">4</div>
+                <h2 class="task-title">Посмотреть корзину с товарами</h2>
+                <div class="task-description">
+                    <p>Зайдите в корзину.</p>
+                    <button class="help-btn" onclick="toggleHelp(4)">
+                        <i class="bi bi-question-circle"></i> Помощь
+                    </button>
+                    <div id="help4" class="help-content">
+                        <p><strong>Как выполнить:</strong></p>
+                        <p>1. Зайдите в корзину (Красная кнопка с значком корзины и ценой покупки внизу)</p>
+                        <p>2. Проверьте, что в корзине находятся злеб и рисовая каша</p>
+                        <p>3. Вернитесь обратно в каталог товаров из корзины, нажав на крестик в левос верхнем углу экрана</p>
+                    </div>
+                </div>
+            </div>
+
+            <button id="next-btn" class="next-btn" onclick="nextTask()">
+                Следующее задание <i class="bi bi-arrow-right"></i>
+            </button>
+
+            <div id="complete-screen" class="complete-screen">
+                <div class="complete-icon"><i class="bi bi-trophy-fill"></i></div>
+                <h2>Тренинг завершен!</h2>
+                <div class="score" id="score">0/5</div>
+                <p>Поздравляем! Вы успешно завершили тренинг.</p>
+                <button class="next-btn" onclick="restartTraining()">
+                    <i class="bi bi-arrow-repeat"></i> Начать заново
+                </button>
+                <div class="button-container">
                     <a href="{{ url_for('go_to_trainer') }}" class="btn trainer-btn">
                         Перейти на главную страницу <i class="bi bi-arrow-right-circle"></i>
                     </a>
                 </div>
-                </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Уведомление -->
-    <div id="notification" class="notification"></div>
+<!-- Уведомление -->
+<div id="notification" class="notification"></div>
 
-    <script>
-        // Переменные
-        let currentTask = 1;
-        let tasksCompleted = 0;
-        let screenLocked = false;
-        let volumeUpCount = 0;
-        let volumeDownCount = 0;
-        let powerCount = 0;
+<script>
+    // Переменные
+    let currentTask = 1;
+    let tasksCompleted = 0;
+    let screenLocked = false;
+    let volumeUpCount = 0;
+    let volumeDownCount = 0;
+    let powerCount = 0;
 
-        // Показать экран телефона
-        function showScreen(screen) {
-            // Скрыть все экраны
-            document.querySelectorAll('.screen').forEach(s => {
-                s.classList.remove('active');
-            });
+    // Показать экран телефона
+    function showScreen(screen) {
+        // Скрыть все экраны
+        document.querySelectorAll('.screen').forEach(s => {
+            s.classList.remove('active');
+        });
 
-            // Показать нужный экран
-            document.getElementById(screen + '-screen').classList.add('active');
+        // Показать нужный экран
+        document.getElementById(screen + '-screen').classList.add('active');
 
-            // Проверить задание 1
-            if (screen === 'wifi' && currentTask === 1) {
-                completeTask(1);
+        // Проверить задание 1
+        if (screen === 'wifi' && currentTask === 1) {
+            completeTask(1);
+        }
+    }
+
+    // Обновить Wi-Fi
+    function refreshWifi() {
+        showNotification('Сканирование сетей...');
+        if (currentTask === 3) {
+            completeTask(3);
+        }
+    }
+
+    // Подключиться к Wi-Fi
+    function connectToWifi() {
+        showScreen('connect');
+    }
+
+    // Подключить Wi-Fi с паролем
+    function connectWifi() {
+        const password = document.getElementById('wifi-password').value;
+        if (password === '12345678' && currentTask === 2) {
+            completeTask(2);
+            showNotification('Подключение успешно!');
+            showScreen('wifi');
+        } else {
+            showNotification('Неверный пароль! Попробуйте: 12345678');
+        }
+    }
+
+    // Кнопки телефона
+    function pressVolumeUp() {
+        volumeUpCount++;
+        showNotification('Громкость увеличена');
+
+        if (currentTask === 4 && volumeUpCount >= 2 && volumeDownCount >= 1) {
+            completeTask(4);
+        }
+    }
+
+    function pressVolumeDown() {
+        volumeDownCount++;
+        showNotification('Громкость уменьшена');
+
+        if (currentTask === 4 && volumeUpCount >= 2 && volumeDownCount >= 1) {
+            completeTask(4);
+        }
+    }
+
+    function pressPower() {
+        powerCount++;
+
+        if (screenLocked) {
+            // Разблокировать
+            screenLocked = false;
+            showScreen('home');
+            showNotification('Экран разблокирован');
+
+            if (currentTask === 5 && powerCount >= 2) {
+                completeTask(5);
             }
+        } else {
+            // Заблокировать
+            screenLocked = true;
+            showScreen('black');
+            showNotification('Экран заблокирован');
         }
+    }
 
-        // Обновить Wi-Fi
-        function refreshWifi() {
-            showNotification('Сканирование сетей...');
-            if (currentTask === 3) {
-                completeTask(3);
-            }
-        }
+    // Завершить задание
+    function completeTask(taskNum) {
+        tasksCompleted++;
+        updateProgress();
 
-        // Подключиться к Wi-Fi
-        function connectToWifi() {
-            showScreen('connect');
-        }
+        document.getElementById('next-btn').classList.add('active');
 
-        // Подключить Wi-Fi с паролем
-        function connectWifi() {
-            const password = document.getElementById('wifi-password').value;
-            if (password === '12345678' && currentTask === 2) {
-                completeTask(2);
-                showNotification('Подключение успешно!');
-                showScreen('wifi');
-            } else {
-                showNotification('Неверный пароль! Попробуйте: 12345678');
-            }
-        }
-
-        // Кнопки телефона
-        function pressVolumeUp() {
-            volumeUpCount++;
-            showNotification('Громкость увеличена');
-
-            if (currentTask === 4 && volumeUpCount >= 2 && volumeDownCount >= 1) {
-                completeTask(4);
-            }
-        }
-
-        function pressVolumeDown() {
-            volumeDownCount++;
-            showNotification('Громкость уменьшена');
-
-            if (currentTask === 4 && volumeUpCount >= 2 && volumeDownCount >= 1) {
-                completeTask(4);
-            }
-        }
-
-        function pressPower() {
-            powerCount++;
-
-            if (screenLocked) {
-                // Разблокировать
-                screenLocked = false;
-                showScreen('home');
-                showNotification('Экран разблокирован');
-
-                if (currentTask === 5 && powerCount >= 2) {
-                    completeTask(5);
-                }
-            } else {
-                // Заблокировать
-                screenLocked = true;
-                showScreen('black');
-                showNotification('Экран заблокирован');
-            }
-        }
-
-        // Завершить задание
-        function completeTask(taskNum) {
-            tasksCompleted++;
-            updateProgress();
-
-            document.getElementById('next-btn').classList.add('active');
-
-            // Если все задания выполнены
-            if (tasksCompleted === 5) {
-                document.getElementById('complete-screen').classList.add('active');
-                document.getElementById('task5').classList.remove('active');
-                document.getElementById('next-btn').classList.remove('active');
-                document.getElementById('score').textContent = '5/5';
-            }
-        }
-
-        // Следующее задание
-        function nextTask() {
-            // Скрыть текущее задание
-            document.getElementById('task' + currentTask).classList.remove('active');
-
-            // Скрыть кнопку
+        // Если все задания выполнены
+        if (tasksCompleted === 5) {
+            document.getElementById('complete-screen').classList.add('active');
+            document.getElementById('task5').classList.remove('active');
             document.getElementById('next-btn').classList.remove('active');
-
-            // Перейти к следующему заданию
-            currentTask++;
-
-            // Показать новое задание
-            if (currentTask <= 5) {
-                document.getElementById('task' + currentTask).classList.add('active');
-            }
+            document.getElementById('score').textContent = '5/5';
         }
+    }
+
+    // Следующее задание
+    function nextTask() {
+        // Скрыть текущее задание
+        document.getElementById('task' + currentTask).classList.remove('active');
+
+        // Скрыть кнопку
+        document.getElementById('next-btn').classList.remove('active');
+
+        // Перейти к следующему заданию
+        currentTask++;
+
+        // Показать новое задание
+        if (currentTask <= 5) {
+            document.getElementById('task' + currentTask).classList.add('active');
+        }
+    }
+
+    // Обновить прогресс
+    function updateProgress() {
+        const progress = (tasksCompleted / 5) * 100;
+        document.getElementById('progress').style.width = progress + '%';
+    }
+
+    // Показать/скрыть помощь
+    function toggleHelp(taskNum) {
+        const help = document.getElementById('help' + taskNum);
+        help.classList.toggle('active');
+    }
+
+    // Показать уведомление
+    function showNotification(message) {
+        const notification = document.getElementById('notification');
+        notification.textContent = message;
+        notification.style.display = 'block';
+
+        setTimeout(() => {
+            notification.style.display = 'none';
+        }, 2000);
+    }
+
+    // Начать заново
+    function restartTraining() {
+        currentTask = 1;
+        tasksCompleted = 0;
+        screenLocked = false;
+        volumeUpCount = 0;
+        volumeDownCount = 0;
+        powerCount = 0;
+
+        // Скрыть экран завершения
+        document.getElementById('complete-screen').classList.remove('active');
+
+        // Показать первое задание
+        document.querySelectorAll('.task').forEach(task => {
+            task.classList.remove('active');
+        });
+        document.getElementById('task1').classList.add('active');
+
+        // Скрыть кнопку
+        document.getElementById('next-btn').classList.remove('active');
+
+        // Скрыть все подсказки
+        document.querySelectorAll('.help-content').forEach(help => {
+            help.classList.remove('active');
+        });
+
+        // Сбросить телефон
+        showScreen('home');
 
         // Обновить прогресс
-        function updateProgress() {
-            const progress = (tasksCompleted / 5) * 100;
-            document.getElementById('progress').style.width = progress + '%';
-        }
+        updateProgress();
+    }
 
-        // Показать/скрыть помощь
-        function toggleHelp(taskNum) {
-            const help = document.getElementById('help' + taskNum);
-            help.classList.toggle('active');
-        }
+    // Обновлять время
+    function updateTime() {
+        const now = new Date();
+        const time = now.getHours().toString().padStart(2, '0') + ':' +
+                     now.getMinutes().toString().padStart(2, '0');
+        document.querySelectorAll('.time').forEach(el => {
+            el.textContent = time;
+        });
+    }
 
-        // Показать уведомление
-        function showNotification(message) {
-            const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.style.display = 'block';
-
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 2000);
-        }
-
-        // Начать заново
-        function restartTraining() {
-            currentTask = 1;
-            tasksCompleted = 0;
-            screenLocked = false;
-            volumeUpCount = 0;
-            volumeDownCount = 0;
-            powerCount = 0;
-
-            // Скрыть экран завершения
-            document.getElementById('complete-screen').classList.remove('active');
-
-            // Показать первое задание
-            document.querySelectorAll('.task').forEach(task => {
-                task.classList.remove('active');
-            });
-            document.getElementById('task1').classList.add('active');
-
-            // Скрыть кнопку
-            document.getElementById('next-btn').classList.remove('active');
-
-            // Скрыть все подсказки
-            document.querySelectorAll('.help-content').forEach(help => {
-                help.classList.remove('active');
-            });
-
-            // Сбросить телефон
-            showScreen('home');
-
-            // Обновить прогресс
-            updateProgress();
-        }
-
-        // Обновлять время
-        function updateTime() {
-            const now = new Date();
-            const time = now.getHours().toString().padStart(2, '0') + ':' +
-                         now.getMinutes().toString().padStart(2, '0');
-            document.querySelectorAll('.time').forEach(el => {
-                el.textContent = time;
-            });
-        }
-
-        // Запустить
-        updateTime();
-        setInterval(updateTime, 60000);
-    </script>
+    // Запустить
+    updateTime();
+    setInterval(updateTime, 60000);
+</script>
 </body>
 </html>
