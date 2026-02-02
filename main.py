@@ -126,7 +126,8 @@ def online_shopping():
 @app.route('/buttons')
 @login_required
 def buttons():
-    return render_template('buttons.html')
+    user_level = current_user.level
+    return render_template('buttons.html', user_level=user_level)
 
 if __name__ == '__main__':
     app.run(debug=True, port=8028, host='127.0.0.1')

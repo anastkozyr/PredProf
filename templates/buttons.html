@@ -234,9 +234,15 @@
                         реальные задания, настраивайте функции и учитесь на практике.
                         Лучший способ закрепить знания.
                     </p>
+                    {% if user_level == 'basic' %}
                     <a href="{{ url_for('smartphone_basics_base') }}" class="choice-button">
                         <i class="bi bi-joystick me-2"></i>Начать практику
                     </a>
+                    {% else %}
+                    <a href="{{ url_for('smartphone_basics') }}" class="choice-button">
+                        <i class="bi bi-joystick me-2"></i>Начать практику
+                    </a>
+                    {% endif %}
                 </div>
             </div>
 
