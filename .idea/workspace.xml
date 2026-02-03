@@ -4,17 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5423f298-9750-4c02-8302-b1b3867beef4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/images/max/contacts.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/max/empty_chat.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/max/final.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/max/gallery.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/max/hello_sticker.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/max/hello_text.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/max/send_photo.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/max/start_page.jpeg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/PredProf.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PredProf.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="5423f298-9750-4c02-8302-b1b3867beef4" name="Changes" comment="max_1">
+      <change afterPath="$PROJECT_DIR$/static/js/max_training.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/messenger_training.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/messenger_training.html" afterDir="false" />
     </list>
@@ -72,6 +63,15 @@
       <option name="presentableId" value="Default" />
       <updated>1769501853572</updated>
     </task>
+    <task id="LOCAL-00001" summary="max_1">
+      <option name="closed" value="true" />
+      <created>1770106294615</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1770106294615</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -84,5 +84,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="max_1" />
+    <option name="LAST_COMMIT_MESSAGE" value="max_1" />
   </component>
 </project>
