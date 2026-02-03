@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_from_directory, redirect, request  # ← добавили request!
+from flask import Flask, render_template, send_from_directory, redirect, request, jsonify  # ← добавили request!
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from data import db_session
 from data.users import User
@@ -94,11 +94,21 @@ def go_to_trainer():
 def smartphone_basics():
     user_level = current_user.level
     return render_template('smartphone_basics.html', user_level=user_level)
-@app.route('/smartphone_basics_base')
+@app.route('/smartphone_basics_base', methods=['POST'])
 @login_required
 def smartphone_basics_base():
-    user_level = current_user.level
-    return render_template('smartphone_basics_base.html', user_level=user_level)
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).filter(User.id == current_user.id).first()
+    print('was', user.progress_basic)
+    user.progress_basic = "1" + user.progress_basic[1:]
+    print('now', user.progress_basic)
+    db_sess.commit()
+    return jsonify({"status": "ok"})
+
+@app.route('/smartphone_basics_base', methods=['GET'])
+@login_required
+def smartphone_basics_base_page():
+    return render_template('smartphone_basics_base.html')
 
 @app.route('/messenger_training')
 @login_required
@@ -128,6 +138,10 @@ def online_shopping():
 def buttons():
     user_level = current_user.level
     return render_template('buttons.html', user_level=user_level)
+@app.route('/account')
+@login_required
+def account():
+    return render_template('account.html')
 
 if __name__ == '__main__':
     app.run(debug=True, port=8028, host='127.0.0.1')
