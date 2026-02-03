@@ -1075,6 +1075,13 @@
             }
         }
 
+        function completeTraining() {
+            if (tasksCompleted === totalTasks) {
+            // Перенаправить на страницу обновления прогресса
+               fetch("/smartphone_basics", {method: "POST"});
+            }
+        }
+
         // Завершить задание
         function completeTask(taskNum) {
             tasksCompleted++;
@@ -1085,6 +1092,7 @@
 
             // Если все задания выполнены
             if (tasksCompleted === totalTasks) {
+                completeTraining();
                 setTimeout(() => {
                     document.getElementById('complete-screen').classList.add('active');
                     document.getElementById('task' + currentTask).classList.remove('active');

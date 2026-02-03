@@ -13,6 +13,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
+
 @login_manager.user_loader
 def load_user(user_id):
     db_sess = db_session.create_session()
@@ -21,9 +22,11 @@ def load_user(user_id):
     finally:
         db_sess.close()
 
+
 @app.route('/')
 def start_page():
     return render_template('base.html')
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -34,13 +37,13 @@ def register():
         try:
             if db_sess.query(User).filter(User.name == form.name.data).first():
                 return render_template('register.html',
-                                     form=form,
-                                     message="Пользователь с таким именем уже существует")
+                                       form=form,
+                                       message="Пользователь с таким именем уже существует")
 
             user = User(
                 name=form.name.data,
                 # email больше не обязателен
-                level=form.level.data # Поле level
+                level=form.level.data  # Поле level
             )
             user.set_password(form.password.data)
 
@@ -51,6 +54,7 @@ def register():
             db_sess.close()
 
     return render_template('register.html', form=form)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -67,7 +71,7 @@ def login():
 
             return render_template('login.html',
                                    message="Неправильное имя пользователя или пароль",
-                                    form=form)
+                                   form=form)
         finally:
             db_sess.close()
 
@@ -80,40 +84,55 @@ def logout():
     logout_user()
     return redirect("/")
 
+
 @app.route('/images/<path:filename>')
 def images_files(filename):
     return send_from_directory('images', filename)
+
 
 @app.route('/go-to-trainer')
 @login_required
 def go_to_trainer():
     return render_template('practic.html')
 
-@app.route('/smartphone_basics')
+
+@app.route('/smartphone_basics', methods=['POST'])
 @login_required
 def smartphone_basics():
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).filter(User.id == current_user.id).first()
+    user.progress_advanced = "1" + user.progress_basic[1:]
+    db_sess.commit()
+    return jsonify({"status": "ok"})
+
+@app.route('/smartphone_basics', methods=['GET'])
+@login_required
+def smartphone_basics_page():
     user_level = current_user.level
     return render_template('smartphone_basics.html', user_level=user_level)
+
+
 @app.route('/smartphone_basics_base', methods=['POST'])
 @login_required
 def smartphone_basics_base():
     db_sess = db_session.create_session()
     user = db_sess.query(User).filter(User.id == current_user.id).first()
-    print('was', user.progress_basic)
     user.progress_basic = "1" + user.progress_basic[1:]
-    print('now', user.progress_basic)
     db_sess.commit()
     return jsonify({"status": "ok"})
+
 
 @app.route('/smartphone_basics_base', methods=['GET'])
 @login_required
 def smartphone_basics_base_page():
     return render_template('smartphone_basics_base.html')
 
+
 @app.route('/messenger_training')
 @login_required
 def messenger_training():
     return render_template('messenger_training.html')
+
 
 @app.route('/public-services')
 @login_required
@@ -127,21 +146,61 @@ def teory_smartphone():
     return render_template('teory_smartphone.html')
 
 
-
-@app.route('/online_shopping')
+@app.route('/online_shopping_basic', methods=['POST'])
 @login_required
-def online_shopping():
+def online_shopping_basic():
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).filter(User.id == current_user.id).first()
+    user.progress_basic = user.progress_basic[:3] + "1"
+    db_sess.commit()
+    return jsonify({"status": "ok"})
+
+@app.route('/online_shopping_basic', methods=['GET'])
+@login_required
+def online_shopping_basic_page():
     return render_template('online_shopping_basic.html')
+
+# @app.route('/online_shopping', methods=['POST'])
+# @login_required
+# def online_shopping_page():
+#     return render_template('online_shopping.html')
+#
+# @app.route('/online_shopping', methods=['GET'])
+# @login_required
+# def online_shopping_page():
+#     return render_template('online_shopping.html')
+
 
 @app.route('/buttons')
 @login_required
 def buttons():
     user_level = current_user.level
     return render_template('buttons.html', user_level=user_level)
+
+
 @app.route('/account')
 @login_required
 def account():
-    return render_template('account.html')
+    name = current_user.name
+    level = current_user.level
+    created_date = current_user.created_date
+    formatted_date = created_date.strftime('%d.%m.%Y')
+    if level == 'basic':
+        first = int(current_user.progress_basic[0])
+        second = int(current_user.progress_basic[1])
+        third = int(current_user.progress_basic[2])
+        fourth = int(current_user.progress_basic[3])
+        levelrus = "Базовый"
+    else:
+        first = int(current_user.progress_advanced[0])
+        second = int(current_user.progress_advanced[1])
+        third = int(current_user.progress_advanced[2])
+        fourth = int(current_user.progress_advanced[3])
+        levelrus = "Продвинутый"
+    progress = str((first + second + third + fourth) * 25) + '%'
+    return render_template('account.html',
+                           name=name, level=levelrus, first=first, second=second, third=third, fourth=fourth,
+                           created_date=formatted_date, progress=progress)
 
 if __name__ == '__main__':
     app.run(debug=True, port=8028, host='127.0.0.1')

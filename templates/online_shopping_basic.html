@@ -982,6 +982,13 @@
             }
         }
 
+        function completeTraining() {
+            if (tasksCompleted === totalTasks) {
+            // Перенаправить на страницу обновления прогресса
+               fetch("/online_shopping_basic", {method: "POST"});
+            }
+        }
+
         // Завершить задание - УПРОЩЕННАЯ ВЕРСИЯ
         async function completeTask(taskNum) {
             // Проверяем, что это текущее задание
@@ -1001,6 +1008,7 @@
 
             // Если все задания выполнены
             if (tasksCompleted === totalTasks) {
+                completeTraining();
                 setTimeout(() => {
                     document.getElementById('complete-screen').classList.add('active');
                     document.getElementById('task' + currentTask).classList.remove('active');

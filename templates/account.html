@@ -394,7 +394,7 @@
                 <div class="avatar-large">
                     <i class="bi bi-person"></i>
                 </div>
-                <h2 class="user-name">User</h2>
+                <h2 class="user-name">{{ name }}</h2>
 
                 <div class="row mt-4">
                     <div class="col-md-4">
@@ -402,7 +402,7 @@
                             <i class="bi bi-person-badge"></i>
                             <div>
                                 <div class="fw-bold" style="color: #1a4d6e;">Уровень обучения</div>
-                                <div>Базовый/Продвинутый</div>
+                                <div>{{ level }}</div>
                             </div>
                         </div>
                     </div>
@@ -412,7 +412,7 @@
                             <i class="bi bi-calendar-check"></i>
                             <div>
                                 <div class="fw-bold" style="color: #1a4d6e;">Дата регистрации</div>
-                                <div>нужно указать</div>
+                                <div>{{ created_date }}</div>
                             </div>
                         </div>
                     </div>
@@ -437,28 +437,28 @@
             <div class="row mb-5">
                 <div class="col-md-3 col-sm-6 mb-4">
                     <div class="stat-card">
-                        <div class="stat-number">нужно указать</div>
-                        <div class="stat-label">Курсы пройдено</div>
+                        <div class="stat-number">{{ first + second + third + fourth }}</div>
+                        <div class="stat-label">Курсов пройдено</div>
                     </div>
                 </div>
 
                 <div class="col-md-3 col-sm-6 mb-4">
                     <div class="stat-card">
-                        <div class="stat-number">нужно указать</div>
-                        <div class="stat-label">Заданий выполнено</div>
+                        <div class="stat-number">{{ first * 6 + second * 20 + third * 20 + fourth * 15 }}</div>
+                        <div class="stat-label">Заданий выполнено(поменять!!!)</div>
                     </div>
                 </div>
 
                 <div class="col-md-3 col-sm-6 mb-4">
                     <div class="stat-card">
-                        <div class="stat-number">нужно указать%</div>
+                        <div class="stat-number">{{ progress }}</div>
                         <div class="stat-label">Общий прогресс</div>
                     </div>
                 </div>
 
                 <div class="col-md-3 col-sm-6 mb-4">
                     <div class="stat-card">
-                        <div class="stat-number">2</div>
+                        <div class="stat-number">2 поменять!!</div>
                         <div class="stat-label">Медалей получено</div>
                     </div>
                 </div>
@@ -478,13 +478,13 @@
                                 <i class="bi bi-phone text-primary" style="color: #2c698d;"></i>
                                 Основы смартфона
                             </div>
-                            <div class="course-percent">0%</div>
+                            <div class="course-percent">{{ first * 100 }}%</div>
                         </div>
                         <div class="progress">
                             <div class="progress-bar" style="width: 0%"></div>
                         </div>
                         <div class="text-end text-muted">
-                            0/6 заданий
+                            {{ first * 6 }}/6 заданий
                         </div>
                     </div>
                 </div>
@@ -496,13 +496,13 @@
                                 <i class="bi bi-chat-dots text-primary" style="color: #2c698d;"></i>
                                 Мессенджер
                             </div>
-                            <div class="course-percent">0%</div>
+                            <div class="course-percent">{{ second * 100 }}%</div>
                         </div>
                         <div class="progress">
                             <div class="progress-bar" style="width: 0%"></div>
                         </div>
                         <div class="text-end text-muted">
-                            0/20 заданий
+                            {{ second * 20 }}/20 заданий
                         </div>
                     </div>
                 </div>
@@ -514,13 +514,13 @@
                                 <i class="bi bi-bank text-primary" style="color: #2c698d;"></i>
                                 Госуслуги
                             </div>
-                            <div class="course-percent">0%</div>
+                            <div class="course-percent">{{ third * 100 }}%</div>
                         </div>
                         <div class="progress">
                             <div class="progress-bar" style="width: 00%"></div>
                         </div>
                         <div class="text-end text-muted">
-                            0/20 заданий
+                            {{ third * 20 }}/20 заданий
                         </div>
                     </div>
                 </div>
@@ -532,13 +532,13 @@
                                 <i class="bi bi-cart text-primary" style="color: #2c698d;"></i>
                                 Онлайн покупки
                             </div>
-                            <div class="course-percent">0%</div>
+                            <div class="course-percent">{{ fourth * 100 }}%</div>
                         </div>
                         <div class="progress">
                             <div class="progress-bar" style="width: 0%"></div>
                         </div>
                         <div class="text-end text-muted">
-                            0/15 заданий
+                            {{ fourth * 15 }}/15 заданий
                         </div>
                     </div>
                 </div>
