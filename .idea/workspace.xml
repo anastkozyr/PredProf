@@ -4,15 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5423f298-9750-4c02-8302-b1b3867beef4" name="Changes" comment="5467890-">
+    <list default="true" id="5423f298-9750-4c02-8302-b1b3867beef4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/images/max/contacts.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/max/empty_chat.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/max/final.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/max/gallery.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/max/hello_sticker.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/max/hello_text.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/max/send_photo.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/max/start_page.jpeg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/PredProf.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PredProf.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/five/bread.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/images/five/bread.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/five/five_1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/images/five/five_1.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/five/five_catalog.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/images/five/five_catalog.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/five/fool_basket.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/images/five/fool_basket.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/online_shopping_basic.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/online_shopping_basic.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/messenger_training.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/messenger_training.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,20 +24,13 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;voroninav12&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/anastkozyr/PredProf.git",
-    "accountId": "65cdfd9c-4b48-4949-863c-36fbd57ee783"
-  }
-}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -45,57 +42,28 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Python.main.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "natasha",
-    "last_opened_file_path": "C:/Users/leono/Documents/GitHub/PredProf/images/five",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+    "git-widget-placeholder": "ulyana",
+    "last_opened_file_path": "/Users/ulanasuhova/PycharmProjects/PredProf/images/max"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\leono\Documents\GitHub\PredProf\images\five" />
+      <recent name="$PROJECT_DIR$/images/max" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/templates" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="PredProf" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.main" />
-      </list>
-    </recent_temporary>
-  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-d9fa9deec7cb-d902c0275401-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-252.23892.515" />
+        <option value="bundled-python-sdk-50da183f06c8-d3b881c8e49f-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-233.13135.95" />
       </set>
     </attachedChunks>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="5423f298-9750-4c02-8302-b1b3867beef4" name="Changes" comment="" />
@@ -104,19 +72,17 @@
       <option name="presentableId" value="Default" />
       <updated>1769501853572</updated>
     </task>
-    <task id="LOCAL-00001" summary="5467890-">
-      <option name="closed" value="true" />
-      <created>1770024401346</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1770024401346</updated>
-    </task>
-    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="5467890-" />
-    <option name="LAST_COMMIT_MESSAGE" value="5467890-" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
