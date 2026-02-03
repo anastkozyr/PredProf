@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мой профиль - Digital Navigator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #f0f9ff;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .account-container {
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(44, 105, 141, 0.1);
+            padding: 40px;
+            margin-top: 30px;
+            border: 1px solid #a8d5e5;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .profile-card {
+            background: #e6f7ff;
+            border-radius: 20px;
+            padding: 30px;
+            border: 2px solid #a8d5e5;
+            margin-bottom: 30px;
+        }
+
+        .avatar-large {
+            width: 120px;
+            height: 120px;
+            background: #4a9bc7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+            margin: 0 auto 20px;
+            border: 4px solid white;
+            box-shadow: 0 5px 15px rgba(74, 155, 199, 0.3);
+        }
+
+        .user-name {
+            color: #1a4d6e;
+            font-weight: 700;
+            font-size: 2rem;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .user-detail {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #4a7b9d;
+            margin-bottom: 10px;
+        }
+
+        .user-detail i {
+            color: #2c698d;
+            font-size: 20px;
+        }
+
+        .section-title {
+            color: #1a4d6e;
+            font-weight: 700;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #a8d5e5;
+        }
+
+        .stat-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            border: 2px solid #e0f0ff;
+            height: 100%;
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            border-color: #a8d5e5;
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c698d;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #4a7b9d;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .progress-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            border: 2px solid #e0f0ff;
+            margin-bottom: 15px;
+        }
+
+        .course-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .course-title {
+            color: #1a4d6e;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .course-percent {
+            color: #2c698d;
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+
+        .progress {
+            height: 10px;
+            background-color: #e0f0ff;
+            border-radius: 5px;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            background-color: #4a9bc7;
+            border-radius: 5px;
+        }
+
+        /* Стили для медалек (только иконки) */
+        .medals-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .medal-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 90px;
+            position: relative;
+        }
+
+        .medal-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .medal-icon.earned {
+            background: linear-gradient(135deg, #ffd166 0%, #ffb700 100%);
+            box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .medal-icon.not-earned {
+            background: linear-gradient(135deg, #e0f0ff 0%, #c8e0ff 100%);
+            box-shadow: 0 3px 10px rgba(44, 105, 141, 0.1);
+            opacity: 0.4;
+        }
+
+        .medal-icon i {
+            font-size: 32px;
+            color: white;
+        }
+
+        .medal-icon.earned i {
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .medal-icon.not-earned i {
+            color: #a8d5e5;
+        }
+
+        .medal-name {
+            color: #1a4d6e;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 3px;
+            min-height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .medal-status {
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        .medal-status.earned {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .medal-status.not-earned {
+            background-color: #f8f9fa;
+            color: #6c757d;
+        }
+
+        .medal-number {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #2c698d;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .medal-icon.earned .medal-number {
+            background: #ff9800;
+        }
+
+        .medal-tooltip {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .medal-tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+
+        .medal-item:hover .medal-tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .btn-back {
+            background-color: #a8d5e5;
+            border: none;
+            color: #1a4d6e;
+            border-radius: 20px;
+            padding: 10px 25px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-back:hover {
+            background-color: #92c8dc;
+            color: #1a4d6e;
+        }
+
+        .btn-continue {
+            background-color: #4a9bc7;
+            border: none;
+            color: white;
+            border-radius: 20px;
+            padding: 12px 30px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-continue:hover {
+            background-color: #3a8bb7;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .account-container {
+                padding: 20px;
+                margin-top: 15px;
+            }
+
+            .avatar-large {
+                width: 100px;
+                height: 100px;
+                font-size: 40px;
+            }
+
+            .user-name {
+                font-size: 1.5rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .medals-container {
+                gap: 15px;
+            }
+
+            .medal-item {
+                width: 80px;
+            }
+
+            .medal-icon {
+                width: 60px;
+                height: 60px;
+            }
+
+            .medal-icon i {
+                font-size: 28px;
+            }
+
+            .medal-name {
+                font-size: 0.8rem;
+                min-height: 30px;
+            }
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+            }
+            to {
+                box-shadow: 0 5px 20px rgba(255, 193, 7, 0.5), 0 0 25px rgba(255, 193, 7, 0.2);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Навигация -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <a href="{{ url_for('go_to_trainer') }}" class="btn-back">
+                <i class="bi bi-arrow-left"></i> Назад к тренажёру
+            </a>
+            <h1 class="text-center mb-0" style="color: #2c698d; font-weight: 700;">
+                <i class="bi bi-person-circle me-2"></i>Мой профиль
+            </h1>
+            <div style="width: 100px;"></div> <!-- Для выравнивания -->
+        </div>
+
+        <!-- Основной контент -->
+        <div class="account-container">
+            <!-- Профиль пользователя -->
+            <div class="profile-card">
+                <div class="avatar-large">
+                    <i class="bi bi-person"></i>
+                </div>
+                <h2 class="user-name">User</h2>
+
+                <div class="row mt-4">
+                    <div class="col-md-4">
+                        <div class="user-detail">
+                            <i class="bi bi-person-badge"></i>
+                            <div>
+                                <div class="fw-bold" style="color: #1a4d6e;">Уровень обучения</div>
+                                <div>Базовый/Продвинутый</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="user-detail">
+                            <i class="bi bi-calendar-check"></i>
+                            <div>
+                                <div class="fw-bold" style="color: #1a4d6e;">Дата регистрации</div>
+                                <div>нужно указать</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="user-detail">
+                            <i class="bi bi-award-fill"></i>
+                            <div>
+                                <div class="fw-bold" style="color: #1a4d6e;">Медалей получено</div>
+                                <div>2 из 8</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            <!-- Статистика -->
+            <h3 class="section-title">
+                <i class="bi bi-bar-chart me-2"></i>Статистика обучения
+            </h3>
+
+            <div class="row mb-5">
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <div class="stat-card">
+                        <div class="stat-number">нужно указать</div>
+                        <div class="stat-label">Курсы пройдено</div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <div class="stat-card">
+                        <div class="stat-number">нужно указать</div>
+                        <div class="stat-label">Заданий выполнено</div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <div class="stat-card">
+                        <div class="stat-number">нужно указать%</div>
+                        <div class="stat-label">Общий прогресс</div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <div class="stat-card">
+                        <div class="stat-number">2</div>
+                        <div class="stat-label">Медалей получено</div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Прогресс по курсам -->
+            <h3 class="section-title">
+                <i class="bi bi-graph-up me-2"></i>Прогресс по курсам
+            </h3>
+
+            <div class="row mb-5">
+                <div class="col-lg-6 mb-4">
+                    <div class="progress-card">
+                        <div class="course-header">
+                            <div class="course-title">
+                                <i class="bi bi-phone text-primary" style="color: #2c698d;"></i>
+                                Основы смартфона
+                            </div>
+                            <div class="course-percent">0%</div>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 0%"></div>
+                        </div>
+                        <div class="text-end text-muted">
+                            0/6 заданий
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mb-4">
+                    <div class="progress-card">
+                        <div class="course-header">
+                            <div class="course-title">
+                                <i class="bi bi-chat-dots text-primary" style="color: #2c698d;"></i>
+                                Мессенджер
+                            </div>
+                            <div class="course-percent">0%</div>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 0%"></div>
+                        </div>
+                        <div class="text-end text-muted">
+                            0/20 заданий
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mb-4">
+                    <div class="progress-card">
+                        <div class="course-header">
+                            <div class="course-title">
+                                <i class="bi bi-bank text-primary" style="color: #2c698d;"></i>
+                                Госуслуги
+                            </div>
+                            <div class="course-percent">0%</div>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 00%"></div>
+                        </div>
+                        <div class="text-end text-muted">
+                            0/20 заданий
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mb-4">
+                    <div class="progress-card">
+                        <div class="course-header">
+                            <div class="course-title">
+                                <i class="bi bi-cart text-primary" style="color: #2c698d;"></i>
+                                Онлайн покупки
+                            </div>
+                            <div class="course-percent">0%</div>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 0%"></div>
+                        </div>
+                        <div class="text-end text-muted">
+                            0/15 заданий
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <h3 class="section-title">
+                <i class="bi bi-trophy me-2"></i>Мои медали
+            </h3>
+
+            <div class="medals-container">
+
+                <div class="medal-item">
+                    <span class="medal-number">1</span>
+                    <div class="medal-icon earned">
+                        <i class="bi bi-award-fill"></i>
+                    </div>
+                    <div class="medal-name">Первый шаг</div>
+                    <span class="medal-status earned">Получено</span>
+                    <div class="medal-tooltip">
+                        <strong>Первый шаг</strong><br>
+                        Завершил свой первый курс обучения
+                    </div>
+                </div>
+
+
+            <!-- Кнопки действий -->
+            <div class="d-flex flex-column flex-md-row justify-content-center gap-3">
+                <a href="{{ url_for('go_to_trainer') }}" class="btn-continue">
+                    <i class="bi bi-play-circle"></i> Продолжить обучение
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Анимация появления медалек
+        document.addEventListener('DOMContentLoaded', function() {
+            const medals = document.querySelectorAll('.medal-item');
+
+            medals.forEach((medal, index) => {
+                medal.style.opacity = '0';
+                medal.style.transform = 'translateY(20px)';
+                medal.style.transition = 'all 0.5s ease';
+
+                setTimeout(() => {
+                    medal.style.opacity = '1';
+                    medal.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+
+            // Анимация для полученных медалей
+            const earnedMedals = document.querySelectorAll('.medal-icon.earned');
+            earnedMedals.forEach((medal, index) => {
+                setTimeout(() => {
+                    medal.style.transform = 'scale(1.1)';
+                    setTimeout(() => {
+                        medal.style.transform = 'scale(1)';
+                    }, 300);
+                }, 1000 + index * 200);
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
