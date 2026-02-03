@@ -641,12 +641,12 @@
                     }
                 ]
             },
-            'bread.jpg': {
+            'bread2.jpg': {
                 areas: [
                     {
                         id: 'bread-item',
                         name: '',
-                        top: '62%',
+                        top: '69%',
                         left: '35%',
                         width: '30%',
                         height: '5%',
@@ -654,7 +654,7 @@
                     }
                 ]
             },
-            'bread_in_basket.jpg': {
+            'bread2_in_basket.jpg': {
                 areas: [
                     {
                         id: 'cancel-btn',
@@ -667,12 +667,12 @@
                     }
                 ]
             },
-            'catalog_food.jpg': {
+            'catalog_food2.jpg': {
                 areas: [
                     {
                         id: 'breakfast-btn',
                         name: '',
-                        top: '18%',
+                        top: '17%',
                         left: '34%',
                         width: '33%',
                         height: '16%',
@@ -680,12 +680,12 @@
                     }
                 ]
             },
-            'breakfast.jpg': {
+            'breakfast2.jpg': {
                 areas: [
                     {
                         id: 'add-btn',
                         name: '',
-                        top: '40%',
+                        top: '40.5%',
                         left: '50%',
                         width: '50%',
                         height: '5%',
@@ -693,16 +693,81 @@
                     }
                 ]
             },
-            'pice_porridge_in_basket.jpg': {
+            'pice_porridge_in_basket2.jpg': {
                 areas: [
                     {
                         id: 'basket-btn',
                         name: '',
-                        top: '83%',
+                        top: '85%',
                         left: '67%',
                         width: '32%',
                         height: '5%',
                         action: 'watchBasket'
+                    }
+                ]
+            },
+            'fool_basket2.jpg': {
+                areas: [
+                    {
+                        id: 'address-btn',
+                        name: '',
+                        top: '11.5%',
+                        left: '9%',
+                        width: '80%',
+                        height: '5%',
+                        action: 'chooseAddress'
+                    }
+                ]
+            },
+            'delivery_shop.jpg': {
+                areas: [
+                    {
+                        id: 'choose-btn',
+                        name: '',
+                        top: '2%',
+                        left: '2%',
+                        width: '47%',
+                        height: '7%',
+                        action: 'chooseDelivery'
+                    }
+                ]
+            },
+            'delivery_address.jpg': {
+                areas: [
+                    {
+                        id: 'input_address-btn',
+                        name: '',
+                        top: '72%',
+                        left: '1%',
+                        width: '98%',
+                        height: '6%',
+                        action: 'readyAddress'
+                    }
+                ]
+            },
+            'ready_address.jpg': {
+                areas: [
+                    {
+                        id: 'ready_address-btn',
+                        name: '',
+                        top: '82%',
+                        left: '1%',
+                        width: '99%',
+                        height: '7%',
+                        action: 'Add'
+                    }
+                ]
+            },
+            'ready_order.jpg': {
+                areas: [
+                    {
+                        id: 'add_order-btn',
+                        name: '',
+                        top: '79.7%',
+                        left: '9%',
+                        width: '89%',
+                        height: '7%',
+                        action: 'Add'
                     }
                 ]
             }
@@ -797,27 +862,44 @@
                     break;
 
                 case 'findBread':
-                    loadScreen('bread.jpg');
+                    loadScreen('bread2.jpg');
                     break;
 
                 case 'addBread':
-                    loadScreen('bread_in_basket.jpg');
+                    loadScreen('bread2_in_basket.jpg');
                     break;
 
                 case 'cancel_find_bread':
-                    loadScreen('catalog_food.jpg');
+                    loadScreen('catalog_food2.jpg');
                     break;
 
                 case 'openBreakfast':
-                    loadScreen('breakfast.jpg');
+                    loadScreen('breakfast2.jpg');
                     break;
 
                 case 'addPorridge':
-                    loadScreen('pice_porridge_in_basket.jpg');
+                    loadScreen('pice_porridge_in_basket2.jpg');
                     break;
 
                 case 'watchBasket':
-                    loadScreen('fool_basket.jpg');
+                    loadScreen('fool_basket2.jpg');
+                    break;
+
+                case 'chooseAddress':
+                    loadScreen('delivery_shop.jpg');
+                    break;
+                    chooseDelivery
+
+                case 'chooseDelivery':
+                    loadScreen('delivery_address.jpg');
+                    break;
+
+                case 'readyAddress':
+                    loadScreen('ready_address.jpg');
+                    break;
+
+                case 'Add':
+                    loadScreen('ready_order.jpg');
                     break;
 
                 case 'checkCart':

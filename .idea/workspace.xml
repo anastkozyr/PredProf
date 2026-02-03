@@ -4,14 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5423f298-9750-4c02-8302-b1b3867beef4" name="Changes" comment="5467890-">
-      <change beforePath="$PROJECT_DIR$/.idea/PredProf.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PredProf.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="5423f298-9750-4c02-8302-b1b3867beef4" name="Changes" comment="почти норм базовая пятерочка">
+      <change afterPath="$PROJECT_DIR$/images/five/bread2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/five/bread2_in_basket.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/five/breakfast2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/five/catalog_food2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/five/delivery_address.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/five/delivery_shop.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/five/fool_basket2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/five/pice_porridge_in_basket2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/five/ready_address.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/images/five/ready_order.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/five/bread.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/images/five/bread.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/five/five_1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/images/five/five_1.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/five/five_catalog.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/images/five/five_catalog.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/images/five/fool_basket.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/images/five/fool_basket.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/online_shopping.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/online_shopping_pro.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/online_shopping_basic.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/online_shopping_basic.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -112,11 +118,20 @@
       <option name="project" value="LOCAL" />
       <updated>1770024401346</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="почти норм базовая пятерочка">
+      <option name="closed" value="true" />
+      <created>1770068452778</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1770068452780</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="5467890-" />
-    <option name="LAST_COMMIT_MESSAGE" value="5467890-" />
+    <MESSAGE value="почти норм базовая пятерочка" />
+    <option name="LAST_COMMIT_MESSAGE" value="почти норм базовая пятерочка" />
   </component>
 </project>
