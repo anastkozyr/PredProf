@@ -14,7 +14,7 @@
     }
 
     body {
-        background: linear-gradient(135deg, #e6f2ff 0%, #f0e6ff 100%);
+        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
         min-height: 100vh;
         padding: 20px;
     }
@@ -38,12 +38,12 @@
     .phone-frame {
         width: 380px;
         height: 760px;
-        background: linear-gradient(135deg, #2c3e50 0%, #1a1a2e 100%);
+        background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
         border-radius: 40px;
         padding: 20px;
-        border: 10px solid #1a1a2e;
+        border: 10px solid #4b5563;
         position: relative;
-        box-shadow: 0 25px 75px rgba(44, 62, 80, 0.4);
+        box-shadow: 0 25px 75px rgba(75, 85, 99, 0.2);
     }
 
     .phone-screen {
@@ -82,8 +82,8 @@
 
     .clickable-area {
         position: absolute;
-        background: rgba(94, 114, 228, 0.2);
-        border: 3px solid #5e72e4;
+        background: rgba(139, 92, 246, 0.2);
+        border: 3px solid #8b5cf6;
         border-radius: 15px;
         pointer-events: all;
         cursor: pointer;
@@ -99,21 +99,21 @@
     }
 
     .clickable-area:hover {
-        background: rgba(94, 114, 228, 0.6);
+        background: rgba(139, 92, 246, 0.4);
         transform: scale(1.05);
-        border-color: #825ee4;
+        border-color: #7c3aed;
     }
 
     .clickable-area.active {
         animation: pulse 1.5s infinite;
-        box-shadow: 0 0 20px rgba(94, 114, 228, 0.5);
-        border-color: #825ee4;
+        box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+        border-color: #7c3aed;
     }
 
     @keyframes pulse {
-        0% { box-shadow: 0 0 0 0 rgba(94, 114, 228, 0.7); }
-        70% { box-shadow: 0 0 0 15px rgba(94, 114, 228, 0); }
-        100% { box-shadow: 0 0 0 0 rgba(94, 114, 228, 0); }
+        0% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.5); }
+        70% { box-shadow: 0 0 0 15px rgba(139, 92, 246, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
     }
 
     /* Модальное окно для ввода */
@@ -123,7 +123,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(44, 62, 80, 0.9);
+        background: rgba(75, 85, 99, 0.9);
         display: none;
         align-items: center;
         justify-content: center;
@@ -135,39 +135,39 @@
     }
 
     .modal-content {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: white;
         padding: 30px;
         border-radius: 20px;
         width: 80%;
         max-width: 300px;
         text-align: center;
-        box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
-        color: white;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        color: #374151;
+        border: 1px solid #e5e7eb;
     }
 
     .modal-title {
         font-size: 20px;
         margin-bottom: 20px;
-        color: white;
-        text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        color: #374151;
     }
 
     .input-field {
         width: 100%;
         padding: 15px;
         margin: 10px 0;
-        background: rgba(255, 255, 255, 0.9);
-        border: 2px solid #667eea;
+        background: white;
+        border: 2px solid #d1d5db;
         border-radius: 10px;
         font-size: 16px;
         outline: none;
         text-align: center;
-        color: #333;
+        color: #374151;
     }
 
     .input-field:focus {
-        border-color: #764ba2;
-        box-shadow: 0 0 10px rgba(118, 75, 162, 0.5);
+        border-color: #8b5cf6;
+        box-shadow: 0 0 10px rgba(139, 92, 246, 0.2);
     }
 
     .modal-btn {
@@ -183,23 +183,23 @@
     }
 
     .modal-btn.primary {
-        background: linear-gradient(135deg, #4f6af5 0%, #825ee4 100%);
+        background: #8b5cf6;
         color: white;
     }
 
     .modal-btn.primary:hover {
-        background: linear-gradient(135deg, #3a56f4 0%, #7048e0 100%);
+        background: #7c3aed;
         transform: translateY(-2px);
     }
 
     .modal-btn.secondary {
-        background: rgba(255, 255, 255, 0.2);
-        color: white;
-        border: 2px solid rgba(255, 255, 255, 0.3);
+        background: #f3f4f6;
+        color: #374151;
+        border: 2px solid #d1d5db;
     }
 
     .modal-btn.secondary:hover {
-        background: rgba(255, 255, 255, 0.3);
+        background: #e5e7eb;
     }
 
     /* Панель тренинга */
@@ -209,24 +209,24 @@
     }
 
     .training-panel {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: white;
         border-radius: 20px;
         padding: 30px;
-        box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
-        color: white;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.05);
+        color: #374151;
+        border: 1px solid #e5e7eb;
     }
 
     .training-title {
         font-size: 24px;
-        color: white;
+        color: #374151;
         margin-bottom: 10px;
         text-align: center;
-        text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
     }
 
     .progress-bar {
         height: 8px;
-        background: rgba(255, 255, 255, 0.2);
+        background: #f3f4f6;
         border-radius: 4px;
         margin: 20px 0;
         overflow: hidden;
@@ -234,7 +234,7 @@
 
     .progress {
         height: 100%;
-        background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
+        background: linear-gradient(90deg, #8b5cf6 0%, #a78bfa 100%);
         width: 0%;
         transition: width 0.5s;
     }
@@ -242,21 +242,20 @@
     .task {
         margin-bottom: 30px;
         display: none;
-        background: rgba(255, 255, 255, 0.1);
+        background: #f9fafb;
         padding: 20px;
         border-radius: 10px;
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid #e5e7eb;
     }
 
     .task.active {
         display: block;
-        border-left: 4px solid #4facfe;
-        background: rgba(255, 255, 255, 0.15);
+        border-left: 4px solid #8b5cf6;
+        background: #faf5ff;
     }
 
     .task-number {
-        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        background: #8b5cf6;
         color: white;
         width: 36px;
         height: 36px;
@@ -266,24 +265,23 @@
         justify-content: center;
         font-weight: bold;
         margin-bottom: 15px;
-        box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+        box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
     }
 
     .task-title {
         font-size: 20px;
-        color: white;
+        color: #374151;
         margin-bottom: 10px;
-        text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
     }
 
     .task-description {
-        color: rgba(255, 255, 255, 0.9);
+        color: #6b7280;
         margin-bottom: 15px;
     }
 
     /* Большая кнопка помощи */
     .help-btn-big {
-        background: linear-gradient(135deg, #5e72e4 0%, #825ee4 100%);
+        background: #8b5cf6;
         color: white;
         border: none;
         padding: 25px 40px;
@@ -298,13 +296,13 @@
         font-size: 22px;
         font-weight: bold;
         transition: all 0.3s;
-        box-shadow: 0 8px 25px rgba(94, 114, 228, 0.3);
+        box-shadow: 0 8px 25px rgba(139, 92, 246, 0.2);
     }
 
     .help-btn-big:hover {
         transform: translateY(-5px);
-        box-shadow: 0 12px 30px rgba(94, 114, 228, 0.4);
-        background: linear-gradient(135deg, #4f6af5 0%, #7048e0 100%);
+        box-shadow: 0 12px 30px rgba(139, 92, 246, 0.3);
+        background: #7c3aed;
     }
 
     .help-btn-big i {
@@ -312,14 +310,14 @@
     }
 
     .help-content {
-        background: rgba(255, 255, 255, 0.15);
+        background: #f9fafb;
         padding: 15px;
         border-radius: 8px;
         margin-top: 15px;
         display: none;
-        border-left: 3px solid #4facfe;
-        color: white;
-        backdrop-filter: blur(5px);
+        border-left: 3px solid #8b5cf6;
+        color: #374151;
+        border: 1px solid #e5e7eb;
     }
 
     .help-content.active {
@@ -327,7 +325,7 @@
     }
 
     .next-btn {
-        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        background: #8b5cf6;
         color: white;
         border: none;
         padding: 15px 30px;
@@ -339,7 +337,7 @@
         width: 100%;
         font-weight: bold;
         transition: all 0.3s;
-        box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+        box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
     }
 
     .next-btn.active {
@@ -348,14 +346,17 @@
 
     .next-btn:hover {
         transform: translateY(-5px);
-        box-shadow: 0 12px 30px rgba(79, 172, 254, 0.4);
-        background: linear-gradient(135deg, #3a9cfc 0%, #00d4fe 100%);
+        box-shadow: 0 12px 30px rgba(139, 92, 246, 0.3);
+        background: #7c3aed;
     }
 
     .complete-screen {
         text-align: center;
         display: none;
         padding: 30px;
+        background: white;
+        border-radius: 15px;
+        border: 1px solid #e5e7eb;
     }
 
     .complete-screen.active {
@@ -364,18 +365,17 @@
 
     .complete-icon {
         font-size: 60px;
-        color: #4facfe;
+        color: #8b5cf6;
         margin-bottom: 20px;
-        text-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+        text-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
     }
 
     .score {
         font-size: 48px;
         font-weight: bold;
-        color: white;
+        color: #374151;
         margin: 20px 0;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        background: linear-gradient(135deg, #4facfe 0%, #825ee4 100%);
+        background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -387,20 +387,20 @@
         top: 20px;
         left: 50%;
         transform: translateX(-50%);
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #8b5cf6;
         color: white;
         padding: 15px 30px;
         border-radius: 25px;
         z-index: 1000;
         display: none;
         font-weight: bold;
-        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
         backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
     }
 
     .trainer-btn {
-        background: linear-gradient(135deg, #825ee4 0%, #764ba2 100%);
+        background: #8b5cf6;
         border: none;
         color: white;
         border-radius: 25px;
@@ -414,28 +414,27 @@
         display: inline-block;
         text-align: center;
         transition: all 0.3s;
-        box-shadow: 0 4px 15px rgba(130, 94, 228, 0.3);
+        box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
     }
 
     .trainer-btn:hover {
-        background: linear-gradient(135deg, #7048e0 0%, #5a3c82 100%);
+        background: #7c3aed;
         transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(130, 94, 228, 0.4);
+        box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
     }
 
     .user-status {
         position: fixed;
         top: 20px;
         right: 20px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: white;
         padding: 10px 20px;
         border-radius: 10px;
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         font-size: 14px;
         display: none;
-        color: white;
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #374151;
+        border: 1px solid #e5e7eb;
     }
 
     .user-status.active {
@@ -475,7 +474,7 @@
         position: absolute;
         top: 10px;
         left: 10px;
-        background: rgba(44, 62, 80, 0.9);
+        background: rgba(75, 85, 99, 0.9);
         color: white;
         padding: 5px 10px;
         border-radius: 5px;
@@ -487,22 +486,20 @@
 
     /* Дополнительные стили для улучшения читаемости */
     .help-content p {
-        color: rgba(255, 255, 255, 0.9);
+        color: #6b7280;
         margin-bottom: 10px;
     }
 
     .help-content strong {
-        color: white;
+        color: #374151;
     }
 
     .training-panel h1 {
-        color: white;
-        text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        color: #374151;
     }
 
     .training-panel h2 {
-        color: white;
-        text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        color: #374151;
     }
 </style>
 </head>
@@ -549,7 +546,7 @@
         <!-- Панель тренинга -->
         <div class="training-section">
             <div class="training-panel">
-                <h1 class="training-title"><i class="bi bi-cart-check"></i> Тренинг: Использование мессенджера "MAX"</h1>
+                <h1 class="training-title"><i class="bi bi-chat-dots"></i> Тренинг: Использование мессенджера "MAX"</h1>
 
                 <div class="progress-bar">
                     <div class="progress" id="progress"></div>
@@ -602,7 +599,7 @@
                         <p><strong>Как выполнить:</strong></p>
                         <p>1. Нажмите на "скрепку" внизу экрана</p>
                         <p>2. Найдите нужное фото и нажмите на него</p>
-                        <p>3. В открывшемся при нажатии окне нажмите кнопку отправки(телеграмма внизу экрана)</p>
+                        <p>3. В открывшемся при нажатии окне нажмите кнопку отправки (телеграмма внизу экрана)</p>
                     </div>
                 </div>
 
@@ -613,9 +610,9 @@
                 <div id="complete-screen" class="complete-screen">
                     <div class="complete-icon"><i class="bi bi-trophy-fill"></i></div>
                     <h2>Тренинг завершен!</h2>
-                    <div class="score" id="score">0/4</div>
+                    <div class="score" id="score">0/3</div>
                     <p>Вы успешно научились пользоваться мессенджером MAX!</p>
-                    <button class="next-btn" onclick="restartTraining()" style="background: #6c757d;">
+                    <button class="next-btn" onclick="restartTraining()" style="background: #6b7280;">
                         <i class="bi bi-arrow-repeat"></i> Начать заново
                     </button>
                     <a href="{{ url_for('go_to_trainer') }}" class="trainer-btn">
