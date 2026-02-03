@@ -1,5 +1,4 @@
-from flask import Flask, render_template, send_from_directory, redirect, request, flash, session, \
-    url_for  # ← добавили request!
+from flask import Flask, render_template, send_from_directory, redirect, request, flash, session, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from data import db_session
 from data.users import User
@@ -62,13 +61,12 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         db_sess = db_session.create_session()
-        # Ищем пользователя по имени, а не по email
         try:
             user = db_sess.query(User).filter(User.name == form.name.data).first()
 
             if user and user.check_password(form.password.data):
-                login_user(user, remember=True)  # remember_me убрали
-                return redirect("/go-to-trainer")  # Перенаправляем в тренажер
+                login_user(user, remember=True)
+                return redirect("/go-to-trainer")
 
             return render_template('login.html',
                                    message="Неправильное имя пользователя или пароль",
@@ -146,8 +144,6 @@ def buttons():
 @login_required
 def account():
     return render_template('account.html')
-
-
 
 
 if __name__ == '__main__':

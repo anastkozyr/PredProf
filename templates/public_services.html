@@ -27,7 +27,7 @@
             gap: 30px;
         }
 
-        /* Телефон */
+        /* Контейнер для телефона */
         .phone-section {
             flex: 1;
             display: flex;
@@ -35,9 +35,16 @@
             position: relative;
         }
 
-        .img {
+        .phone-container {
+            position: relative;
             width: 350px;
-            height: auto;
+            height: 640px;
+        }
+
+        .phone-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
@@ -50,41 +57,46 @@
             font-size: 16px;
             font-weight: 500;
             font-family: inherit;
+            z-index: 10;
         }
 
-        /* Кнопка ВОЙТИ - верхняя кнопка */
+        /* Кнопка ВОЙТИ */
         .button-login {
             background: #007bff;
             border: none;
             padding: 12px 150px;
             border-radius: 12px;
             color: white;
-            top: 630px;
-            left: 5px;
+            top: 82%; /* 630/640 = 0.984 */
+            left: 1.4%; /* 5/350 = 0.014 */
+            right: 1.4%;
             box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
+            transform: translateY(-50%);
         }
 
         .button-login:hover {
             background: #0056b3;
-            transform: translateY(-2px);
+            transform: translateY(-52%);
             box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
         }
 
         .button-login:active {
             background: #004085;
-            transform: translateY(0);
+            transform: translateY(-50%);
             box-shadow: 0 1px 2px rgba(0, 123, 255, 0.2);
         }
 
-        /* Кнопка ЗАРЕГИСТРИРОВАТЬСЯ - нижняя кнопка */
+        /* Кнопка ЗАРЕГИСТРИРОВАТЬСЯ */
         .button-login2 {
             background: transparent;
             border: 2px solid #007bff;
             padding: 12px 90px;
             border-radius: 10px;
             color: #007bff;
-            top: 680px;
-            left: 7px;
+            top: 90%; /* 680/640 = 1.0625 */
+            left: 2%; /* 7/350 = 0.02 */
+            right: 2%;
+            transform: translateY(-50%);
         }
 
         .button-login2:hover {
@@ -94,7 +106,7 @@
         }
 
         .button-login2:active {
-            transform: scale(0.98);
+            transform: translateY(-50%) scale(0.98);
             background: #0056b3;
             border-color: #0056b3;
         }
@@ -105,23 +117,32 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 350px;
-            height: 640px;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
         }
 
         .form-input {
             position: absolute;
-            width: 270px;
             padding: 10px;
             border: 2px solid #007bff;
             border-radius: 8px;
             font-size: 14px;
             background: white;
+            width: 77%; /* 270/350 = 0.771 */
+            left: 11.4%; /* 40/350 = 0.114 */
+        }
+
+        #phone-input {
+            top: 50%; /* 320/640 = 0.5 */
+        }
+
+        #password-input {
+            top: 59.4%; /* 380/640 = 0.594 */
         }
 
         .form-btn {
             position: absolute;
-            width: 270px;
             padding: 12px;
             background: #007bff;
             border: none;
@@ -131,10 +152,115 @@
             font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
+            width: 77%; /* 270/350 = 0.771 */
+            left: 11.4%; /* 40/350 = 0.114 */
+            top: 70.3%; /* 450/640 = 0.703 */
         }
 
         .form-btn:hover {
             background: #0056b3;
+        }
+
+        /* Кликабельные области */
+        .clickable-area {
+            position: absolute;
+            background: rgba(0, 123, 255, 0.3);
+            border: 3px solid #007bff;
+            border-radius: 10px;
+            pointer-events: all;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .clickable-area:hover {
+            background: rgba(0, 123, 255, 0.6);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 123, 255, 0.8);
+        }
+
+        .clickable-area.active {
+            animation: pulse 1.5s infinite;
+            box-shadow: 0 0 20px rgba(0, 123, 255, 0.8);
+        }
+
+        /* Координаты кнопок в процентах от размеров изображения */
+        /* im4 - Мои услуги */
+        #clickable-area-im4 {
+            top: 90.06%; /* 250/640 = 0.3906 */
+            left: 27.57%; /* 30/350 = 0.0857 */
+            width: 12.29%; /* 120/350 = 0.3429 */
+            height: 6.25%; /* 40/640 = 0.0625 */
+        }
+
+        /* im5 - Подробнее (широкая кнопка) */
+        #clickable-area-im5 {
+            top: 25.25%; /* 200/640 = 0.3125 */
+            left: 11.43%; /* 40/350 = 0.1143 */
+            width: 80.43%; /* 180/350 = 0.5143 */
+            height: 8.47%; /* 35/640 = 0.0547 */
+        }
+
+        /* im6 - Назад */
+        #clickable-area-im6 {
+            top: 46.88%; /* 300/640 = 0.4688 */
+            left: 17.14%; /* 60/350 = 0.1714 */
+            width: 34.29%; /* 120/350 = 0.3429 */
+            height: 6.25%; /* 40/640 = 0.0625 */
+        }
+
+        /* im7 - Запись к врачу */
+        #clickable-area-im7 {
+            top: 28.13%; /* 180/640 = 0.2813 */
+            left: 14.29%; /* 50/350 = 0.1429 */
+            width: 42.86%; /* 150/350 = 0.4286 */
+            height: 7.03%; /* 45/640 = 0.0703 */
+        }
+
+        /* im8 - Выбор врача */
+        #clickable-area-im8 {
+            top: 34.38%; /* 220/640 = 0.3438 */
+            left: 17.14%; /* 60/350 = 0.1714 */
+            width: 40%; /* 140/350 = 0.4 */
+            height: 6.25%; /* 40/640 = 0.0625 */
+        }
+
+        /* im9 - Выбор времени */
+        #clickable-area-im9 {
+            top: 43.75%; /* 280/640 = 0.4375 */
+            left: 11.43%; /* 40/350 = 0.1143 */
+            width: 45.71%; /* 160/350 = 0.4571 */
+            height: 5.47%; /* 35/640 = 0.0547 */
+        }
+
+        /* im10 - Подтверждение записи */
+        #clickable-area-im10 {
+            top: 54.69%; /* 350/640 = 0.5469 */
+            left: 14.29%; /* 50/350 = 0.1429 */
+            width: 48.57%; /* 170/350 = 0.4857 */
+            height: 7.03%; /* 45/640 = 0.0703 */
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 25px rgba(0, 123, 255, 1);
+                transform: scale(1.05);
+            }
+            100% {
+                box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+                transform: scale(1);
+            }
         }
 
         /* Скрыть элементы */
@@ -295,6 +421,16 @@
         }
 
         /* Адаптивность */
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 95%;
+            }
+
+            .training-panel {
+                margin: 0px 50px;
+            }
+        }
+
         @media (max-width: 992px) {
             .container {
                 flex-direction: column;
@@ -302,21 +438,69 @@
             }
 
             .training-panel {
-                margin: 0;
+                margin: 20px 0;
+            }
+
+            .phone-container {
+                width: 300px;
+                height: 548px;
             }
         }
 
-        @media (max-width: 576px) {
+        @media (max-width: 768px) {
+            .phone-container {
+                width: 280px;
+                height: 512px;
+            }
+
             .training-panel {
                 padding: 20px;
             }
 
-            .img {
-                width: 300px;
+            .button-login, .button-login2 {
+                font-size: 14px;
+                padding: 10px;
             }
 
-            .button-login, .button-login2 {
-                transform: scale(0.9);
+            .button-login {
+                padding-left: 100px;
+                padding-right: 100px;
+            }
+
+            .button-login2 {
+                padding-left: 60px;
+                padding-right: 60px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            body {
+                padding: 10px;
+            }
+
+            .phone-container {
+                width: 250px;
+                height: 457px;
+            }
+
+            .training-panel {
+                padding: 15px;
+            }
+
+            .training-title {
+                font-size: 20px;
+            }
+
+            .button-login {
+                padding-left: 70px;
+                padding-right: 70px;
+                font-size: 13px;
+            }
+
+            .button-login2 {
+                padding-left: 40px;
+                padding-right: 40px;
+                font-size: 13px;
             }
         }
 
@@ -339,37 +523,43 @@
 <div class="container">
     <!-- Телефон -->
     <div class="phone-section">
-        <img id="phone-img" src="{{ url_for('images_files', filename='gosuslugi/im1.jpg') }}" alt="Приложение госуслуги" class="img">
+        <div class="phone-container">
+            <img id="phone-img" src="{{ url_for('images_files', filename='gosuslugi/im1.jpg') }}" alt="Приложение госуслуги" class="phone-img">
 
-        <!-- Поля ввода для второго экрана (скрыты изначально) -->
-        <div id="login-form" class="login-form-overlay">
-            <input type="text" id="phone-input" class="form-input" placeholder="Телефон или СНИЛС"
-                   style="top: 320px; left: 40px;">
+            <!-- Поля ввода для второго экрана (скрыты изначально) -->
+            <div id="login-form" class="login-form-overlay">
+                <input type="text" id="phone-input" class="form-input" placeholder="Телефон или СНИЛС">
+                <input type="password" id="password-input" class="form-input" placeholder="Пароль">
+                <button id="submit-login-btn" class="form-btn">
+                    Войти
+                </button>
+            </div>
 
-            <input type="password" id="password-input" class="form-input" placeholder="Пароль"
-                   style="top: 380px; left: 40px;">
-
-            <button id="submit-login-btn" class="form-btn"
-                    style="top: 450px; left: 40px;">
+            <!-- Кнопка Войти - видна только на первом экране -->
+            <button type="button" id="login-btn" class="button-login" onclick="showLoginForm()">
                 Войти
             </button>
+
+            <!-- Кнопка Зарегистрироваться - видна только на первом экране -->
+            <button type="button" id="register-btn" class="button-login2"
+                    onclick="
+                        document.getElementById('phone-img').src='{{ url_for('images_files', filename='gosuslugi/im3.jpg') }}';
+                        this.classList.add('hidden');
+                        document.getElementById('login-btn').classList.add('hidden');
+                        showNotification('Вы перешли на страницу регистрации');
+                    ">
+                Зарегистрироваться
+            </button>
+
+            <!-- Кликабельные области для всех изображений -->
+            <div id="clickable-area-im4" class="clickable-area hidden" onclick="goToImage('im5')"></div>
+            <div id="clickable-area-im5" class="clickable-area hidden" onclick="goToImage('im6')"></div>
+            <div id="clickable-area-im6" class="clickable-area hidden" onclick="goToImage('im7')"></div>
+            <div id="clickable-area-im7" class="clickable-area hidden" onclick="goToImage('im8')"></div>
+            <div id="clickable-area-im8" class="clickable-area hidden" onclick="goToImage('im9')"></div>
+            <div id="clickable-area-im9" class="clickable-area hidden" onclick="goToImage('im10')"></div>
+            <div id="clickable-area-im10" class="clickable-area hidden" onclick="completeDoctorAppointment()"></div>
         </div>
-
-        <!-- Кнопка Войти - видна только на первом экране -->
-        <button type="button" id="login-btn" class="button-login" onclick="showLoginForm()">
-            Войти
-        </button>
-
-        <!-- Кнопка Зарегистрироваться - видна только на первом экране -->
-        <button type="button" id="register-btn" class="button-login2"
-                onclick="
-                    document.getElementById('phone-img').src='{{ url_for('images_files', filename='gosuslugi/im3.jpg') }}';
-                    this.classList.add('hidden');
-                    document.getElementById('login-btn').classList.add('hidden');
-                    showNotification('Вы перешли на страницу регистрации');
-                ">
-            Зарегистрироваться
-        </button>
     </div>
 
     <!-- Тренинг панель -->
@@ -395,6 +585,7 @@
                         <p>   • <strong>Телефон или СНИЛС:</strong> +7 900 123-45-67</p>
                         <p>   • <strong>Пароль:</strong> gosuslugi123</p>
                         <p>3. Нажмите синюю кнопку "Войти" на изображении</p>
+                        <p>4. После успешного входа появится синяя кнопка "Мои услуги"</p>
                     </div>
 
                     <button class="help-btn" onclick="toggleHelp(1)">
@@ -407,6 +598,7 @@
                         <p>3. Введите в верхнее поле: <strong>+7 900 123-45-67</strong></p>
                         <p>4. Введите в нижнее поле: <strong>gosuslugi123</strong></p>
                         <p>5. Нажмите нижнюю синюю кнопку "Войти" на изображении</p>
+                        <p>6. После этого на изображении появится синяя пульсирующая кнопка "Мои услуги"</p>
                     </div>
                 </div>
             </div>
@@ -414,44 +606,190 @@
             <!-- Задание 2 -->
             <div id="task2" class="task">
                 <div class="task-number">2</div>
-                <h2 class="task-title">Завершение входа в личный кабинет</h2>
+                <h2 class="task-title">Навигация по личному кабинету</h2>
                 <div class="task-description">
-                    <p>Завершите вход, нажав кнопку "Войти" на экране авторизации.</p>
+                    <p>Найдите и нажмите на раздел "Мои услуги" в боковом меню.</p>
 
-                    <div class="mt-4">
-                        <p>После ввода данных нажмите кнопку "Войти" для завершения авторизации.</p>
-                        <p><strong>Ожидаемый результат:</strong> Вы увидите главную страницу личного кабинета Госуслуг.</p>
+                    <div class="mt-3">
+                        <p><strong>Инструкция:</strong></p>
+                        <p>1. После успешного входа вы увидите главную страницу личного кабинета</p>
+                        <p>2. На этой странице появится синяя пульсирующая кнопка "Мои услуги"</p>
+                        <p>3. Кнопка находится в левой части экрана (в боковом меню)</p>
+                        <p>4. Нажмите на эту кнопку для перехода в раздел</p>
                     </div>
 
                     <button class="help-btn" onclick="toggleHelp(2)">
                         <i class="bi bi-question-circle"></i> Подсказка
                     </button>
                     <div id="help2" class="help-content">
-                        <p><strong>Как выполнить задание:</strong></p>
-                        <p>1. Убедитесь, что на изображении телефона видна форма входа</p>
-                        <p>2. Нажмите на синюю кнопку "Войти" на изображении</p>
-                        <p>3. После этого вы должны увидеть главную страницу личного кабинета</p>
-                        <p><em>Совет: Кнопка находится внизу формы, под полями для ввода</em></p>
+                        <p><strong>Как найти кнопку:</strong></p>
+                        <p>1. После успешного входа вы увидите главную страницу (изображение im4)</p>
+                        <p>2. На этом изображении слева появится синяя пульсирующая кнопка</p>
+                        <p>3. Кнопка находится примерно на середине левой стороны экрана</p>
+                        <p>4. Она имеет надпись "Мои услуги" и синюю подсветку</p>
+                        <p>5. Просто нажмите на эту кнопку один раз</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Задание 3 (пример) -->
+            <!-- Задание 3 -->
             <div id="task3" class="task">
                 <div class="task-number">3</div>
-                <h2 class="task-title">Навигация по личному кабинету</h2>
+                <h2 class="task-title">Просмотр деталей услуги</h2>
                 <div class="task-description">
-                    <p>Ознакомьтесь с основными разделами личного кабинета.</p>
-                    <p>Найдите раздел "Мои услуги" в главном меню.</p>
+                    <p>Изучите подробную информацию о выбранной услуге.</p>
+
+                    <div class="mt-3">
+                        <p><strong>Инструкция:</strong></p>
+                        <p>1. После перехода в раздел "Мои услуги" вы увидите список услуг</p>
+                        <p>2. На этом экране появится широкая вытянутая кнопка "Подробнее"</p>
+                        <p>3. Кнопка находится в центральной части экрана</p>
+                        <p>4. Нажмите на эту кнопку для просмотра деталей услуги</p>
+                    </div>
 
                     <button class="help-btn" onclick="toggleHelp(3)">
                         <i class="bi bi-question-circle"></i> Подсказка
                     </button>
                     <div id="help3" class="help-content">
                         <p><strong>Как выполнить:</strong></p>
-                        <p>1. В личном кабинете найдите боковое меню</p>
-                        <p>2. Найдите пункт "Мои услуги" в меню</p>
-                        <p>3. Нажмите на этот пункт для перехода</p>
+                        <p>1. На экране со списком услуг найдите синюю пульсирующую кнопку</p>
+                        <p>2. Кнопка имеет надпись "Подробнее" и более широкую форму</p>
+                        <p>3. Она расположена в центре экрана, рядом с описанием услуги</p>
+                        <p>4. Нажмите на эту кнопку для перехода к деталям</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Задание 4 -->
+            <div id="task4" class="task">
+                <div class="task-number">4</div>
+                <h2 class="task-title">Возврат в предыдущий раздел</h2>
+                <div class="task-description">
+                    <p>Вернитесь обратно в раздел "Мои услуги".</p>
+
+                    <div class="mt-3">
+                        <p><strong>Инструкция:</strong></p>
+                        <p>1. На странице с деталями услуги появится синяя кнопка "Назад"</p>
+                        <p>2. Кнопка находится в верхней или боковой части экрана</p>
+                        <p>3. Нажмите на эту кнопку для возврата в предыдущий раздел</p>
+                    </div>
+
+                    <button class="help-btn" onclick="toggleHelp(4)">
+                        <i class="bi bi-question-circle"></i> Подсказка
+                    </button>
+                    <div id="help4" class="help-content">
+                        <p><strong>Как выполнить:</strong></p>
+                        <p>1. На странице деталей услуги найдите синюю пульсирующую кнопку</p>
+                        <p>2. Кнопка имеет надпись "Назад"</p>
+                        <p>3. Она расположена в верхней части экрана или слева</p>
+                        <p>4. Нажмите на эту кнопку для возврата к списку услуг</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Задание 5: Запись ко врачу -->
+            <div id="task5" class="task">
+                <div class="task-number">5</div>
+                <h2 class="task-title">Запись на прием к врачу</h2>
+                <div class="task-description">
+                    <p>Начните процесс записи на медицинский прием.</p>
+
+                    <div class="mt-3">
+                        <p><strong>Инструкция:</strong></p>
+                        <p>1. Вернувшись в раздел "Мои услуги", найдите кнопку "Запись к врачу"</p>
+                        <p>2. Кнопка находится в списке медицинских услуг</p>
+                        <p>3. Нажмите на эту кнопку для начала записи</p>
+                    </div>
+
+                    <button class="help-btn" onclick="toggleHelp(5)">
+                        <i class="bi bi-question-circle"></i> Подсказка
+                    </button>
+                    <div id="help5" class="help-content">
+                        <p><strong>Как выполнить:</strong></p>
+                        <p>1. На главном экране услуг найдите раздел "Медицинские услуги"</p>
+                        <p>2. В этом разделе найдите пункт "Запись к врачу"</p>
+                        <p>3. Нажмите на синюю пульсирующую кнопку рядом с этим пунктом</p>
+                        <p>4. Кнопка имеет надпись "Запись к врачу"</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Задание 6: Выбор врача -->
+            <div id="task6" class="task">
+                <div class="task-number">6</div>
+                <h2 class="task-title">Выбор специалиста</h2>
+                <div class="task-description">
+                    <p>Выберите врача для записи.</p>
+
+                    <div class="mt-3">
+                        <p><strong>Инструкция:</strong></p>
+                        <p>1. На экране записи к врачу появится список специалистов</p>
+                        <p>2. Найдите синюю кнопку "Выбрать врача" рядом с нужным специалистом</p>
+                        <p>3. Нажмите на эту кнопку для выбора врача</p>
+                    </div>
+
+                    <button class="help-btn" onclick="toggleHelp(6)">
+                        <i class="bi bi-question-circle"></i> Подсказка
+                    </button>
+                    <div id="help6" class="help-content">
+                        <p><strong>Как выполнить:</strong></p>
+                        <p>1. На странице записи к врачу просмотрите список доступных специалистов</p>
+                        <p>2. Найдите врача нужной специальности (например, терапевт)</p>
+                        <p>3. Рядом с именем врача нажмите на синюю пульсирующую кнопку "Выбрать врача"</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Задание 7: Выбор времени -->
+            <div id="task7" class="task">
+                <div class="task-number">7</div>
+                <h2 class="task-title">Выбор времени приема</h2>
+                <div class="task-description">
+                    <p>Выберите удобное время для визита к врачу.</p>
+
+                    <div class="mt-3">
+                        <p><strong>Инструкция:</strong></p>
+                        <p>1. После выбора врача откроется календарь с доступными датами</p>
+                        <p>2. Найдите синюю кнопку "Выбрать время" рядом с удобной датой</p>
+                        <p>3. Нажмите на эту кнопку для выбора времени приема</p>
+                    </div>
+
+                    <button class="help-btn" onclick="toggleHelp(7)">
+                        <i class="bi bi-question-circle"></i> Подсказка
+                    </button>
+                    <div id="help7" class="help-content">
+                        <p><strong>Как выполнить:</strong></p>
+                        <p>1. На календаре выберите удобную дату приема</p>
+                        <p>2. Найдите доступное время в расписании врача</p>
+                        <p>3. Нажмите на синюю пульсирующую кнопку "Выбрать время"</p>
+                        <p>4. Кнопка находится рядом с выбранным временным слотом</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Задание 8: Подтверждение записи -->
+            <div id="task8" class="task">
+                <div class="task-number">8</div>
+                <h2 class="task-title">Подтверждение записи</h2>
+                <div class="task-description">
+                    <p>Завершите процесс записи на прием.</p>
+
+                    <div class="mt-3">
+                        <p><strong>Инструкция:</strong></p>
+                        <p>1. После выбора времени появится экран подтверждения</p>
+                        <p>2. Проверьте все данные: врач, дата, время</p>
+                        <p>3. Нажмите на большую синюю кнопку "Подтвердить запись"</p>
+                    </div>
+
+                    <button class="help-btn" onclick="toggleHelp(8)">
+                        <i class="bi bi-question-circle"></i> Подсказка
+                    </button>
+                    <div id="help8" class="help-content">
+                        <p><strong>Как выполнить:</strong></p>
+                        <p>1. На финальном экране проверьте все введенные данные</p>
+                        <p>2. Убедитесь, что выбраны правильные врач, дата и время</p>
+                        <p>3. Внизу экрана найдите большую синюю пульсирующую кнопку</p>
+                        <p>4. Нажмите на кнопку "Подтвердить запись" для завершения</p>
                     </div>
                 </div>
             </div>
@@ -463,8 +801,9 @@
             <div id="complete-screen" class="complete-screen">
                 <div class="complete-icon"><i class="bi bi-trophy-fill"></i></div>
                 <h2>Тренинг завершен!</h2>
-                <div class="score" id="score">3/3</div>
+                <div class="score" id="score">8/8</div>
                 <p>Поздравляем! Вы успешно завершили тренинг по работе с Госуслугами.</p>
+                <p>Вы научились авторизовываться, находить услуги и записываться ко врачу.</p>
                 <button class="next-btn" onclick="restartTraining()">
                     <i class="bi bi-arrow-repeat"></i> Начать заново
                 </button>
@@ -485,14 +824,18 @@
     // Переменные
     let currentTask = 1;
     let tasksCompleted = 0;
-    let isTask1Completed = false;
+    const totalTasks = 8;
+
+    // Состояния выполнения заданий
+    const taskCompleted = Array(totalTasks + 1).fill(false);
 
     // Показать форму входа
     function showLoginForm() {
         // Сменить изображение на форму входа
         document.getElementById('phone-img').src = "{{ url_for('images_files', filename='gosuslugi/im2.jpg') }}";
 
-        // Скрыть кнопки
+        // Скрыть все кнопки
+        hideAllClickableAreas();
         document.getElementById('login-btn').classList.add('hidden');
         document.getElementById('register-btn').classList.add('hidden');
 
@@ -510,10 +853,14 @@
                 document.getElementById('login-form').style.display = 'none';
 
                 // Завершить задание 1
-                if (currentTask === 1 && !isTask1Completed) {
-                    isTask1Completed = true;
+                if (currentTask === 1 && !taskCompleted[1]) {
                     completeTask(1);
-                    showNotification('Вход выполнен успешно! Задание 1 завершено.');
+                    showNotification('Вход выполнен успешно! Задание 1 завершено. Нажмите на синюю кнопку "Мои услуги"');
+
+                    // Показать первую кнопку на im4
+                    setTimeout(() => {
+                        showClickableArea('im4');
+                    }, 500);
                 }
             } else {
                 showNotification('Неверные данные. Используйте: +7 900 123-45-67 / gosuslugi123');
@@ -530,19 +877,132 @@
         showNotification('Введите данные для входа в систему');
     }
 
+    // Функция перехода к следующему изображению
+    function goToImage(nextImage) {
+        const currentSrc = document.getElementById('phone-img').src;
+        const currentImage = getCurrentImageName(currentSrc);
+
+        // Скрыть текущую кнопку
+        hideClickableArea(currentImage);
+
+        // Перейти на следующее изображение
+        document.getElementById('phone-img').src = `{{ url_for('images_files', filename='gosuslugi/') }}${nextImage}.jpg`;
+
+        // Показать следующую кнопку через задержку
+        setTimeout(() => {
+            showClickableArea(nextImage);
+
+            // Определить какое задание завершить
+            let taskToComplete = 0;
+            switch(currentImage) {
+                case 'im4': taskToComplete = 2; break; // Мои услуги
+                case 'im5': taskToComplete = 3; break; // Подробнее
+                case 'im6': taskToComplete = 4; break; // Назад
+                case 'im7': taskToComplete = 5; break; // Запись к врачу
+                case 'im8': taskToComplete = 6; break; // Выбрать врача
+                case 'im9': taskToComplete = 7; break; // Выбрать время
+            }
+
+            // Завершить задание если нужно
+            if (taskToComplete > 0 && currentTask === taskToComplete && !taskCompleted[taskToComplete]) {
+                completeTask(taskToComplete);
+
+                // Показать соответствующее уведомление
+                const messages = {
+                    2: 'Раздел "Мои услуги" открыт! Задание 2 завершено.',
+                    3: 'Детали услуги просмотрены! Задание 3 завершено.',
+                    4: 'Вы вернулись назад! Задание 4 завершено.',
+                    5: 'Запись к врачу начата! Задание 5 завершено.',
+                    6: 'Врач выбран! Задание 6 завершено.',
+                    7: 'Время выбрано! Задание 7 завершено.'
+                };
+
+                if (messages[taskToComplete]) {
+                    const nextMessages = {
+                        2: 'Нажмите на широкую кнопку "Подробнее"',
+                        3: 'Нажмите на кнопку "Назад"',
+                        4: 'Нажмите на кнопку "Запись к врачу"',
+                        5: 'Нажмите на кнопку "Выбрать врача"',
+                        6: 'Нажмите на кнопку "Выбрать время"',
+                        7: 'Нажмите на кнопку "Подтвердить запись"'
+                    };
+
+                    showNotification(`${messages[taskToComplete]} ${nextMessages[taskToComplete] || ''}`);
+                }
+            }
+        }, 500);
+    }
+
+    // Завершение записи ко врачу
+    function completeDoctorAppointment() {
+        // Скрыть кнопку
+        hideClickableArea('im10');
+
+        // Завершить задание 8
+        if (currentTask === 8 && !taskCompleted[8]) {
+            completeTask(8);
+            showNotification('Запись к врачу подтверждена! Задание 8 завершено.');
+
+            // Показать финальное изображение
+            setTimeout(() => {
+                document.getElementById('phone-img').src = "{{ url_for('images_files', filename='gosuslugi/im11.jpg') }}";
+                showNotification('Поздравляем! Вы успешно записались на прием к врачу!');
+            }, 1000);
+        }
+    }
+
+    // Получить имя текущего изображения из src
+    function getCurrentImageName(src) {
+        const match = src.match(/im\d+/);
+        return match ? match[0] : '';
+    }
+
+    // Показать кликабельную область для конкретного изображения
+    function showClickableArea(imageName) {
+        const elementId = `clickable-area-${imageName}`;
+        const element = document.getElementById(elementId);
+        if (element) {
+            element.classList.remove('hidden');
+            element.classList.add('active');
+        }
+    }
+
+    // Скрыть кликабельную область для конкретного изображения
+    function hideClickableArea(imageName) {
+        const elementId = `clickable-area-${imageName}`;
+        const element = document.getElementById(elementId);
+        if (element) {
+            element.classList.add('hidden');
+            element.classList.remove('active');
+        }
+    }
+
+    // Скрыть все кликабельные области
+    function hideAllClickableAreas() {
+        document.querySelectorAll('.clickable-area').forEach(area => {
+            area.classList.add('hidden');
+            area.classList.remove('active');
+        });
+    }
+
     // Завершить задание
     function completeTask(taskNum) {
-        tasksCompleted++;
-        updateProgress();
+        if (!taskCompleted[taskNum]) {
+            taskCompleted[taskNum] = true;
+            tasksCompleted++;
+            updateProgress();
 
-        document.getElementById('next-btn').classList.add('active');
+            document.getElementById('next-btn').classList.add('active');
 
-        // Если все задания выполнены
-        if (tasksCompleted === 3) {
-            document.getElementById('complete-screen').classList.add('active');
-            document.getElementById('task3').classList.remove('active');
-            document.getElementById('next-btn').classList.remove('active');
-            document.getElementById('score').textContent = '3/3';
+            // Если все задания выполнены
+            if (tasksCompleted === totalTasks) {
+                setTimeout(() => {
+                    document.getElementById('complete-screen').classList.add('active');
+                    document.getElementById('task' + totalTasks).classList.remove('active');
+                    document.getElementById('next-btn').classList.remove('active');
+                    document.getElementById('score').textContent = `${totalTasks}/${totalTasks}`;
+                }, 1000);
+            }
         }
     }
 
@@ -558,14 +1018,52 @@
         currentTask++;
 
         // Показать новое задание
-        if (currentTask <= 3) {
+        if (currentTask <= totalTasks) {
             document.getElementById('task' + currentTask).classList.add('active');
+
+            // Показать соответствующую кнопку если изображение уже показано
+            const currentSrc = document.getElementById('phone-img').src;
+            const currentImage = getCurrentImageName(currentSrc);
+
+            // Определить какое изображение должно быть для текущего задания
+            const taskToImageMap = {
+                1: 'im4',
+                2: 'im4',
+                3: 'im5',
+                4: 'im6',
+                5: 'im7',
+                6: 'im8',
+                7: 'im9',
+                8: 'im10'
+            };
+
+            const expectedImage = taskToImageMap[currentTask];
+
+            if (currentImage === expectedImage) {
+                setTimeout(() => {
+                    showClickableArea(expectedImage);
+
+                    const messages = {
+                        2: 'Нажмите на синюю кнопку "Мои услуги"',
+                        3: 'Нажмите на широкую кнопку "Подробнее"',
+                        4: 'Нажмите на кнопку "Назад"',
+                        5: 'Нажмите на кнопку "Запись к врачу"',
+                        6: 'Нажмите на кнопку "Выбрать врача"',
+                        7: 'Нажмите на кнопку "Выбрать время"',
+                        8: 'Нажмите на кнопку "Подтвердить запись"'
+                    };
+
+                    if (messages[currentTask]) {
+                        showNotification(messages[currentTask]);
+                    }
+                }, 500);
+            }
         }
     }
 
     // Обновить прогресс
     function updateProgress() {
-        const progress = (tasksCompleted / 3) * 100;
+        const progress = (tasksCompleted / totalTasks) * 100;
         document.getElementById('progress').style.width = progress + '%';
     }
 
@@ -590,7 +1088,11 @@
     function restartTraining() {
         currentTask = 1;
         tasksCompleted = 0;
-        isTask1Completed = false;
+
+        // Сбросить состояния заданий
+        for (let i = 1; i <= totalTasks; i++) {
+            taskCompleted[i] = false;
+        }
 
         // Скрыть экран завершения
         document.getElementById('complete-screen').classList.remove('active');
@@ -613,9 +1115,12 @@
         document.getElementById('phone-img').src = "{{ url_for('images_files', filename='gosuslugi/im1.jpg') }}";
         document.getElementById('login-form').style.display = 'none';
 
-        // Показать кнопки
+        // Показать основные кнопки
         document.getElementById('login-btn').classList.remove('hidden');
         document.getElementById('register-btn').classList.remove('hidden');
+
+        // Скрыть все кликабельные области
+        hideAllClickableAreas();
 
         // Очистить поля ввода
         document.getElementById('phone-input').value = '';
@@ -627,8 +1132,29 @@
         showNotification('Тренинг перезапущен');
     }
 
-    // Автозавершение задания 2 при переходе на третье изображение
-    // Мониторинг изменения изображения
+    // Функция для обновления размеров кнопок при изменении размера окна
+    function updateButtonSizes() {
+        // Все кнопки уже позиционируются в процентах через CSS
+        // Эта функция может быть использована для дополнительной настройки
+        const phoneContainer = document.querySelector('.phone-container');
+        if (!phoneContainer) return;
+
+        const width = phoneContainer.clientWidth;
+        const height = phoneContainer.clientHeight;
+
+        // Можно добавить логику для очень маленьких экранов
+        if (width < 200) {
+            document.querySelectorAll('.clickable-area').forEach(btn => {
+                btn.style.fontSize = '10px';
+            });
+        } else {
+            document.querySelectorAll('.clickable-area').forEach(btn => {
+                btn.style.fontSize = '';
+            });
+        }
+    }
+
+    // Наблюдатель за изменениями изображения
     let lastImageSrc = '';
     const phoneImg = document.getElementById('phone-img');
 
@@ -637,13 +1163,44 @@
         mutations.forEach(function(mutation) {
             if (mutation.type === 'attributes' && mutation.attributeName === 'src') {
                 const currentSrc = phoneImg.src;
-                if (currentSrc.includes('im3.jpg') && lastImageSrc.includes('im2.jpg')) {
-                    // Перешли с im2.jpg на im3.jpg (успешный вход)
-                    if (currentTask === 2 && !isTask1Completed) {
-                        completeTask(2);
-                        showNotification('Вход выполнен! Задание 2 завершено.');
+                const currentImage = getCurrentImageName(currentSrc);
+
+                // Определить какое задание соответствует текущему изображению
+                const imageToTaskMap = {
+                    'im4': [1, 2],   // im4 для заданий 1 и 2
+                    'im5': 3,        // im5 для задания 3
+                    'im6': 4,        // im6 для задания 4
+                    'im7': 5,        // im7 для задания 5
+                    'im8': 6,        // im8 для задания 6
+                    'im9': 7,        // im9 для задания 7
+                    'im10': 8        // im10 для задания 8
+                };
+
+                const taskForImage = imageToTaskMap[currentImage];
+                if (taskForImage) {
+                    const tasks = Array.isArray(taskForImage) ? taskForImage : [taskForImage];
+
+                    if (tasks.includes(currentTask)) {
+                        setTimeout(() => {
+                            showClickableArea(currentImage);
+
+                            const messages = {
+                                'im4': 'Нажмите на синюю кнопку "Мои услуги"',
+                                'im5': 'Нажмите на широкую кнопку "Подробнее"',
+                                'im6': 'Нажмите на кнопку "Назад"',
+                                'im7': 'Нажмите на кнопку "Запись к врачу"',
+                                'im8': 'Нажмите на кнопку "Выбрать врача"',
+                                'im9': 'Нажмите на кнопку "Выбрать время"',
+                                'im10': 'Нажмите на кнопку "Подтвердить запись"'
+                            };
+
+                            if (messages[currentImage] && !taskCompleted[currentTask]) {
+                                showNotification(messages[currentImage]);
+                            }
+                        }, 500);
                     }
                 }
+
                 lastImageSrc = currentSrc;
             }
         });
@@ -651,6 +1208,15 @@
 
     // Начать наблюдение за изменениями src
     observer.observe(phoneImg, { attributes: true });
+
+    // Обновлять размеры кнопок при изменении размера окна
+    window.addEventListener('resize', updateButtonSizes);
+
+    // Инициализация при загрузке
+    window.addEventListener('load', function() {
+        updateButtonSizes();
+        showNotification('Тренинг готов к работе! Начните с задания 1.');
+    });
 </script>
 </body>
 </html>
