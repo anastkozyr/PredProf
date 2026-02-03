@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тренинг: Настройка Wi-Fi на смартфоне</title>
+    <title>Тренинг: Госуслуги - Вход в личный кабинет</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         * {
@@ -32,171 +32,115 @@
             flex: 1;
             display: flex;
             justify-content: center;
-        }
-
-        .phone {
-            width: 360px;
-            height: 720px;
-            background: black;
-            border-radius: 40px;
-            padding: 20px;
-            border: 8px solid #222;
-            position: relative;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-
-        .phone-screen {
-            width: 100%;
-            height: 100%;
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
             position: relative;
         }
 
-
-
-        /* Экран телефона */
-
-                .button-login {
-                background: #007bff; /* Синий фон */
-                border: none; /* Без границы */
-                padding: 20px 150px; /* Отступы */
-                border-radius: 12px; /* Закругленные углы */
-                cursor: pointer; /* Курсор-указатель */
-                transition: all 0.3s ease; /* Плавные анимации */
-                position: absolute;
-                top: 640px;    /* Отступ сверху */
-                left: 223px;  /* Отступ слева */
-                color: white; /* Белый текст */
-                font-size: 16px; /* Размер шрифта */
-                font-weight: 500; /* Полужирный текст */
-                font-family: inherit; /* Наследуем шрифт */
-                box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2); /* Легкая тень */
-            }
-
-            .button-login:hover {
-                background: #0056b3; /* Темнее при наведении */
-                transform: translateY(-2px); /* Поднимаем немного */
-                box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3); /* Тень больше */
-            }
-
-            .button-login:active {
-                background: #004085; /* Еще темнее при нажатии */
-                transform: translateY(0); /* Возвращаем на место */
-                box-shadow: 0 1px 2px rgba(0, 123, 255, 0.2); /* Меньшая тень */
-            }
-            .button-login2 {
-    background: transparent; /* Прозрачный фон */
-    border: 2px solid #007bff; /* Синяя граница как у btn-outline-primary */
-    padding: 17px 90px; /* Внутренние отступы */
-    border-radius: 10px; /* Закругленные углы */
-    cursor: pointer; /* Курсор-указатель */
-    transition: all 0.3s ease; /* Плавные анимации */
-    position: absolute;
-    top: 705px;    /* Отступ сверху */
-    left: 230px;  /* Отступ слева */
-    color: #007bff; /* Синий текст как у btn-outline-primary */
-    font-size: 16px; /* Размер шрифта */
-    font-weight: 500; /* Полужирный текст */
-}
-
-.button-login2:hover {
-    background: #007bff; /* Синий фон при наведении */
-    color: white; /* Белый текст при наведении */
-    border-color: #007bff; /* Синяя граница */
-}
-
-.button-login2:active {
-    transform: scale(0.98); /* Эффект нажатия */
-    background: #0056b3; /* Темнее при нажатии */
-    border-color: #0056b3;
-}
-
-        .screen {
-            width: 100%;
-            height: 100%;
-            display: none;
+        .img {
+            width: 350px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
 
-        .screen.active {
-            display: block;
-        }
-
-        .status-bar {
-            height: 30px;
-            background: black;
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            padding: 0 15px;
-            align-items: center;
-            font-size: 14px;
-        }
-
-        .content {
-            height: calc(100% - 90px);
-            overflow-y: auto;
-            padding-bottom: 60px;
-        }
-
-        .nav-bar {
+        /* Кнопки для первого экрана */
+        .button-login, .button-login2 {
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 60px;
-            background: white;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            border-top: 1px solid #ddd;
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: #666;
             cursor: pointer;
-            padding: 10px;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            font-weight: 500;
+            font-family: inherit;
         }
 
-        .nav-item.active {
-            color: #007AFF;
-        }
-
-        .wifi-list {
-            padding: 15px;
-        }
-
-        .wifi-item {
-            padding: 12px;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .wifi-item:hover {
-            background: #f5f5f5;
-        }
-
-        .connect-btn {
-            background: #007AFF;
-            color: white;
+        /* Кнопка ВОЙТИ - верхняя кнопка */
+        .button-login {
+            background: #007bff;
             border: none;
-            padding: 6px 12px;
-            border-radius: 6px;
-            cursor: pointer;
+            padding: 12px 150px;
+            border-radius: 12px;
+            color: white;
+            top: 630px;
+            left: 5px;
+            box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
         }
 
+        .button-login:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+        }
 
+        .button-login:active {
+            background: #004085;
+            transform: translateY(0);
+            box-shadow: 0 1px 2px rgba(0, 123, 255, 0.2);
+        }
 
+        /* Кнопка ЗАРЕГИСТРИРОВАТЬСЯ - нижняя кнопка */
+        .button-login2 {
+            background: transparent;
+            border: 2px solid #007bff;
+            padding: 12px 90px;
+            border-radius: 10px;
+            color: #007bff;
+            top: 680px;
+            left: 7px;
+        }
 
+        .button-login2:hover {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
 
+        .button-login2:active {
+            transform: scale(0.98);
+            background: #0056b3;
+            border-color: #0056b3;
+        }
 
+        /* Поля ввода для второго экрана */
+        .login-form-overlay {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 350px;
+            height: 640px;
+        }
+
+        .form-input {
+            position: absolute;
+            width: 270px;
+            padding: 10px;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+        }
+
+        .form-btn {
+            position: absolute;
+            width: 270px;
+            padding: 12px;
+            background: #007bff;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-btn:hover {
+            background: #0056b3;
+        }
+
+        /* Скрыть элементы */
+        .hidden {
+            display: none !important;
+        }
 
         /* Тренинг панель */
         .training-section {
@@ -336,6 +280,20 @@
             margin: 20px 0;
         }
 
+        /* Кнопка главной страницы */
+        .trainer-btn {
+            background-color: #2c698d;
+            border: none;
+            color: white;
+            border-radius: 25px;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 20px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
         /* Адаптивность */
         @media (max-width: 992px) {
             .container {
@@ -343,24 +301,22 @@
                 align-items: center;
             }
 
-            .phone {
-                transform: scale(0.9);
-                margin-bottom: 20px;
-            }
-
-            .training-section {
-                max-width: 100%;
-                width: 100%;
+            .training-panel {
+                margin: 0;
             }
         }
 
         @media (max-width: 576px) {
-            .phone {
-                transform: scale(0.8);
-            }
-
             .training-panel {
                 padding: 20px;
+            }
+
+            .img {
+                width: 300px;
+            }
+
+            .button-login, .button-login2 {
+                transform: scale(0.9);
             }
         }
 
@@ -377,23 +333,6 @@
             z-index: 1000;
             display: none;
         }
-        .trainer-btn {
-            background-color: #2c698d;
-            border: none;
-            color: white;
-            border-radius: 25px;
-            padding: 18px 45px;
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-top: 40px;
-            width: auto;
-            min-width: 280px;
-        }
-        .img {
-            width: 350px;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);}
     </style>
 </head>
 <body>
@@ -401,10 +340,39 @@
     <!-- Телефон -->
     <div class="phone-section">
         <img id="phone-img" src="{{ url_for('images_files', filename='gosuslugi/im1.jpg') }}" alt="Приложение госуслуги" class="img">
-        <button type="button" class="button-login" onclick="document.getElementById('phone-img').src='{{ url_for('images_files', filename='gosuslugi/im2.jpg') }}'">Войти</button>
-        <button type="button" class="button-login2" onclick="document.getElementById('phone-img').src='{{ url_for('images_files', filename='gosuslugi/im3.jpg') }}'">Зарегистрироваться</button>
+
+        <!-- Поля ввода для второго экрана (скрыты изначально) -->
+        <div id="login-form" class="login-form-overlay">
+            <input type="text" id="phone-input" class="form-input" placeholder="Телефон или СНИЛС"
+                   style="top: 320px; left: 40px;">
+
+            <input type="password" id="password-input" class="form-input" placeholder="Пароль"
+                   style="top: 380px; left: 40px;">
+
+            <button id="submit-login-btn" class="form-btn"
+                    style="top: 450px; left: 40px;">
+                Войти
+            </button>
+        </div>
+
+        <!-- Кнопка Войти - видна только на первом экране -->
+        <button type="button" id="login-btn" class="button-login" onclick="showLoginForm()">
+            Войти
+        </button>
+
+        <!-- Кнопка Зарегистрироваться - видна только на первом экране -->
+        <button type="button" id="register-btn" class="button-login2"
+                onclick="
+                    document.getElementById('phone-img').src='{{ url_for('images_files', filename='gosuslugi/im3.jpg') }}';
+                    this.classList.add('hidden');
+                    document.getElementById('login-btn').classList.add('hidden');
+                    showNotification('Вы перешли на страницу регистрации');
+                ">
+            Зарегистрироваться
+        </button>
     </div>
 
+    <!-- Тренинг панель -->
     <div class="training-section">
         <div class="training-panel">
             <h1 class="training-title"><i class="bi bi-phone"></i> Тренинг по пользованию приложением "Госуслуги"</h1>
@@ -413,71 +381,77 @@
                 <div class="progress" id="progress"></div>
             </div>
 
+            <!-- Задание 1 -->
             <div id="task1" class="task active">
-    <div class="task-number">1</div>
-    <h2 class="task-title">Войти в личный кабинет</h2>
-    <div class="task-description">
-        <p>Авторизуйтесь на портале Госуслуг, чтобы получить доступ к услугам.</p>
-        <button class="help-btn" onclick="toggleHelp(1)">
-            <i class="bi bi-question-circle"></i> Помощь
-        </button>
-        <div id="help1" class="help-content">
-            <p><strong>Как выполнить:</strong></p>
-            <p>1. Найдите в правом верхнем углу кнопку "Войти"</p>
-            <p>2. Нажмите на синюю кнопку "Войти" для перехода к форме авторизации</p>
-            <p>3. Введите ваш логин (номер телефона или СНИЛС) и пароль</p>
-        </div>
-    </div>
-</div>
-
-            <div id="task2" class="task">
-                <div class="task-number">2</div>
-                <h2 class="task-title">Добавить в корзину хлеб</h2>
+                <div class="task-number">1</div>
+                <h2 class="task-title">Авторизация на портале Госуслуг</h2>
                 <div class="task-description">
-                    <p>Найдите в каталоге товаров хлеб</p>
-                    <button class="help-btn" onclick="toggleHelp(2)">
-                        <i class="bi bi-question-circle"></i> Помощь
+                    <p>Войдите в личный кабинет, используя ваши учетные данные.</p>
+
+                    <div class="mt-3">
+                        <p><strong>Инструкция:</strong></p>
+                        <p>1. Нажмите кнопку "Войти" на изображении слева</p>
+                        <p>2. Введите данные в поля формы на изображении:</p>
+                        <p>   • <strong>Телефон или СНИЛС:</strong> +7 900 123-45-67</p>
+                        <p>   • <strong>Пароль:</strong> gosuslugi123</p>
+                        <p>3. Нажмите синюю кнопку "Войти" на изображении</p>
+                    </div>
+
+                    <button class="help-btn" onclick="toggleHelp(1)">
+                        <i class="bi bi-question-circle"></i> Подсказка
                     </button>
-                    <div id="help2" class="help-content">
-                        <p><strong>Как выполнить:</strong></p>
-                        <p>1. В поле "Поиск по товарам" введите "Хлеб"</p>
-                        <p>2. Добавьте любой хлеб в корзину, нажав кнопку "В корзину"</p>
-                        <p>3. Вернитесь обратно в каталог, нажав на стрелочку рядом с полем поиска</p>
+                    <div id="help1" class="help-content">
+                        <p><strong>Как выполнить задание:</strong></p>
+                        <p>1. На изображении телефона нажмите на синюю кнопку "Войти"</p>
+                        <p>2. Появятся поля для ввода данных</p>
+                        <p>3. Введите в верхнее поле: <strong>+7 900 123-45-67</strong></p>
+                        <p>4. Введите в нижнее поле: <strong>gosuslugi123</strong></p>
+                        <p>5. Нажмите нижнюю синюю кнопку "Войти" на изображении</p>
                     </div>
                 </div>
             </div>
 
+            <!-- Задание 2 -->
+            <div id="task2" class="task">
+                <div class="task-number">2</div>
+                <h2 class="task-title">Завершение входа в личный кабинет</h2>
+                <div class="task-description">
+                    <p>Завершите вход, нажав кнопку "Войти" на экране авторизации.</p>
+
+                    <div class="mt-4">
+                        <p>После ввода данных нажмите кнопку "Войти" для завершения авторизации.</p>
+                        <p><strong>Ожидаемый результат:</strong> Вы увидите главную страницу личного кабинета Госуслуг.</p>
+                    </div>
+
+                    <button class="help-btn" onclick="toggleHelp(2)">
+                        <i class="bi bi-question-circle"></i> Подсказка
+                    </button>
+                    <div id="help2" class="help-content">
+                        <p><strong>Как выполнить задание:</strong></p>
+                        <p>1. Убедитесь, что на изображении телефона видна форма входа</p>
+                        <p>2. Нажмите на синюю кнопку "Войти" на изображении</p>
+                        <p>3. После этого вы должны увидеть главную страницу личного кабинета</p>
+                        <p><em>Совет: Кнопка находится внизу формы, под полями для ввода</em></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Задание 3 (пример) -->
             <div id="task3" class="task">
                 <div class="task-number">3</div>
-                <h2 class="task-title">Добавьте в корзину кашу</h2>
+                <h2 class="task-title">Навигация по личному кабинету</h2>
                 <div class="task-description">
-                    <p>Найдите в каталоге готовой еды кашу и добавьте ее в корзину.</p>
+                    <p>Ознакомьтесь с основными разделами личного кабинета.</p>
+                    <p>Найдите раздел "Мои услуги" в главном меню.</p>
+
                     <button class="help-btn" onclick="toggleHelp(3)">
-                        <i class="bi bi-question-circle"></i> Помощь
+                        <i class="bi bi-question-circle"></i> Подсказка
                     </button>
                     <div id="help3" class="help-content">
                         <p><strong>Как выполнить:</strong></p>
-                        <p>1. Вы находитесь в каталоге товаров</p>
-                        <p>2. Найдите окно "Завтраки" в разделе "Готовая еда"</p>
-                        <p>3. Нажмите на окно "Завтраки"</p>
-                        <p>4. Добавьте рисовую кашу в корзину, нажав на кнопку "В корзину"</p>
-                    </div>
-                </div>
-            </div>
-
-            <div id="task4" class="task">
-                <div class="task-number">4</div>
-                <h2 class="task-title">Посмотреть корзину с товарами</h2>
-                <div class="task-description">
-                    <p>Зайдите в корзину.</p>
-                    <button class="help-btn" onclick="toggleHelp(4)">
-                        <i class="bi bi-question-circle"></i> Помощь
-                    </button>
-                    <div id="help4" class="help-content">
-                        <p><strong>Как выполнить:</strong></p>
-                        <p>1. Зайдите в корзину (Красная кнопка с значком корзины и ценой покупки внизу)</p>
-                        <p>2. Проверьте, что в корзине находятся злеб и рисовая каша</p>
-                        <p>3. Вернитесь обратно в каталог товаров из корзины, нажав на крестик в левос верхнем углу экрана</p>
+                        <p>1. В личном кабинете найдите боковое меню</p>
+                        <p>2. Найдите пункт "Мои услуги" в меню</p>
+                        <p>3. Нажмите на этот пункт для перехода</p>
                     </div>
                 </div>
             </div>
@@ -489,14 +463,14 @@
             <div id="complete-screen" class="complete-screen">
                 <div class="complete-icon"><i class="bi bi-trophy-fill"></i></div>
                 <h2>Тренинг завершен!</h2>
-                <div class="score" id="score">0/5</div>
-                <p>Поздравляем! Вы успешно завершили тренинг.</p>
+                <div class="score" id="score">3/3</div>
+                <p>Поздравляем! Вы успешно завершили тренинг по работе с Госуслугами.</p>
                 <button class="next-btn" onclick="restartTraining()">
                     <i class="bi bi-arrow-repeat"></i> Начать заново
                 </button>
-                <div class="button-container">
-                    <a href="{{ url_for('go_to_trainer') }}" class="btn trainer-btn">
-                        Перейти на главную страницу <i class="bi bi-arrow-right-circle"></i>
+                <div style="margin-top: 20px;">
+                    <a href="{{ url_for('go_to_trainer') }}" class="trainer-btn">
+                        <i class="bi bi-arrow-right-circle"></i> Вернуться к тренажёру
                     </a>
                 </div>
             </div>
@@ -511,89 +485,49 @@
     // Переменные
     let currentTask = 1;
     let tasksCompleted = 0;
-    let screenLocked = false;
-    let volumeUpCount = 0;
-    let volumeDownCount = 0;
-    let powerCount = 0;
+    let isTask1Completed = false;
 
-    // Показать экран телефона
-    function showScreen(screen) {
-        // Скрыть все экраны
-        document.querySelectorAll('.screen').forEach(s => {
-            s.classList.remove('active');
+    // Показать форму входа
+    function showLoginForm() {
+        // Сменить изображение на форму входа
+        document.getElementById('phone-img').src = "{{ url_for('images_files', filename='gosuslugi/im2.jpg') }}";
+
+        // Скрыть кнопки
+        document.getElementById('login-btn').classList.add('hidden');
+        document.getElementById('register-btn').classList.add('hidden');
+
+        // Показать поля ввода
+        document.getElementById('login-form').style.display = 'block';
+
+        // Назначить обработчик для кнопки входа
+        document.getElementById('submit-login-btn').onclick = function() {
+            const phone = document.getElementById('phone-input').value.trim();
+            const password = document.getElementById('password-input').value.trim();
+
+            if (phone === '+7 900 123-45-67' && password === 'gosuslugi123') {
+                // Успешный вход
+                document.getElementById('phone-img').src = "{{ url_for('images_files', filename='gosuslugi/im4.jpg') }}";
+                document.getElementById('login-form').style.display = 'none';
+
+                // Завершить задание 1
+                if (currentTask === 1 && !isTask1Completed) {
+                    isTask1Completed = true;
+                    completeTask(1);
+                    showNotification('Вход выполнен успешно! Задание 1 завершено.');
+                }
+            } else {
+                showNotification('Неверные данные. Используйте: +7 900 123-45-67 / gosuslugi123');
+            }
+        };
+
+        // Включить нажатие Enter для входа
+        document.getElementById('password-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('submit-login-btn').click();
+            }
         });
 
-        // Показать нужный экран
-        document.getElementById(screen + '-screen').classList.add('active');
-
-        // Проверить задание 1
-        if (scr    een === 'wifi' && currentTask === 1) {
-            completeTask(1);
-        }
-    }
-
-    // Обновить Wi-Fi
-    function refreshWifi() {
-        showNotification('Сканирование сетей...');
-        if (currentTask === 3) {
-            completeTask(3);
-        }
-    }
-
-    // Подключиться к Wi-Fi
-    function connectToWifi() {
-        showScreen('connect');
-    }
-
-    // Подключить Wi-Fi с паролем
-    function connectWifi() {
-        const password = document.getElementById('wifi-password').value;
-        if (password === '12345678' && currentTask === 2) {
-            completeTask(2);
-            showNotification('Подключение успешно!');
-            showScreen('wifi');
-        } else {
-            showNotification('Неверный пароль! Попробуйте: 12345678');
-        }
-    }
-
-    // Кнопки телефона
-    function pressVolumeUp() {
-        volumeUpCount++;
-        showNotification('Громкость увеличена');
-
-        if (currentTask === 4 && volumeUpCount >= 2 && volumeDownCount >= 1) {
-            completeTask(4);
-        }
-    }
-
-    function pressVolumeDown() {
-        volumeDownCount++;
-        showNotification('Громкость уменьшена');
-
-        if (currentTask === 4 && volumeUpCount >= 2 && volumeDownCount >= 1) {
-            completeTask(4);
-        }
-    }
-
-    function pressPower() {
-        powerCount++;
-
-        if (screenLocked) {
-            // Разблокировать
-            screenLocked = false;
-            showScreen('home');
-            showNotification('Экран разблокирован');
-
-            if (currentTask === 5 && powerCount >= 2) {
-                completeTask(5);
-            }
-        } else {
-            // Заблокировать
-            screenLocked = true;
-            showScreen('black');
-            showNotification('Экран заблокирован');
-        }
+        showNotification('Введите данные для входа в систему');
     }
 
     // Завершить задание
@@ -604,11 +538,11 @@
         document.getElementById('next-btn').classList.add('active');
 
         // Если все задания выполнены
-        if (tasksCompleted === 5) {
+        if (tasksCompleted === 3) {
             document.getElementById('complete-screen').classList.add('active');
-            document.getElementById('task5').classList.remove('active');
+            document.getElementById('task3').classList.remove('active');
             document.getElementById('next-btn').classList.remove('active');
-            document.getElementById('score').textContent = '5/5';
+            document.getElementById('score').textContent = '3/3';
         }
     }
 
@@ -624,14 +558,14 @@
         currentTask++;
 
         // Показать новое задание
-        if (currentTask <= 5) {
+        if (currentTask <= 3) {
             document.getElementById('task' + currentTask).classList.add('active');
         }
     }
 
     // Обновить прогресс
     function updateProgress() {
-        const progress = (tasksCompleted / 5) * 100;
+        const progress = (tasksCompleted / 3) * 100;
         document.getElementById('progress').style.width = progress + '%';
     }
 
@@ -649,17 +583,14 @@
 
         setTimeout(() => {
             notification.style.display = 'none';
-        }, 2000);
+        }, 3000);
     }
 
     // Начать заново
     function restartTraining() {
         currentTask = 1;
         tasksCompleted = 0;
-        screenLocked = false;
-        volumeUpCount = 0;
-        volumeDownCount = 0;
-        powerCount = 0;
+        isTask1Completed = false;
 
         // Скрыть экран завершения
         document.getElementById('complete-screen').classList.remove('active');
@@ -679,25 +610,47 @@
         });
 
         // Сбросить телефон
-        showScreen('home');
+        document.getElementById('phone-img').src = "{{ url_for('images_files', filename='gosuslugi/im1.jpg') }}";
+        document.getElementById('login-form').style.display = 'none';
+
+        // Показать кнопки
+        document.getElementById('login-btn').classList.remove('hidden');
+        document.getElementById('register-btn').classList.remove('hidden');
+
+        // Очистить поля ввода
+        document.getElementById('phone-input').value = '';
+        document.getElementById('password-input').value = '';
 
         // Обновить прогресс
         updateProgress();
+
+        showNotification('Тренинг перезапущен');
     }
 
-    // Обновлять время
-    function updateTime() {
-        const now = new Date();
-        const time = now.getHours().toString().padStart(2, '0') + ':' +
-                     now.getMinutes().toString().padStart(2, '0');
-        document.querySelectorAll('.time').forEach(el => {
-            el.textContent = time;
+    // Автозавершение задания 2 при переходе на третье изображение
+    // Мониторинг изменения изображения
+    let lastImageSrc = '';
+    const phoneImg = document.getElementById('phone-img');
+
+    // Создаем наблюдатель за изменениями
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'src') {
+                const currentSrc = phoneImg.src;
+                if (currentSrc.includes('im3.jpg') && lastImageSrc.includes('im2.jpg')) {
+                    // Перешли с im2.jpg на im3.jpg (успешный вход)
+                    if (currentTask === 2 && !isTask1Completed) {
+                        completeTask(2);
+                        showNotification('Вход выполнен! Задание 2 завершено.');
+                    }
+                }
+                lastImageSrc = currentSrc;
+            }
         });
-    }
+    });
 
-    // Запустить
-    updateTime();
-    setInterval(updateTime, 60000);
+    // Начать наблюдение за изменениями src
+    observer.observe(phoneImg, { attributes: true });
 </script>
 </body>
 </html>
