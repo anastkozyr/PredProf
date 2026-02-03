@@ -599,6 +599,14 @@
         let porridgeAdded = false;
         let modalAction = null;
 
+        // Отслеживаем, на каких экранах мы уже были для каждого задания
+        let visitedScreens = {
+            task1: false,
+            task2: false,
+            task3: false,
+            task4: false
+        };
+
         // Координаты кликабельных областей (примерные)
         const screenConfigs = {
             'five_1.jpg': {
@@ -606,11 +614,10 @@
                     {
                         id: 'catalog-btn',
                         name: '',
-                        // Пробуем разные координаты - начнем с большой области
-                        top: '89%',     // Внизу экрана
-                        left: '27%',    // Слева
-                        width: '18%',   // Ширина
-                        height: '8%',   // Высота
+                        top: '89%',
+                        left: '27%',
+                        width: '18%',
+                        height: '8%',
                         action: 'openCatalog'
                     }
                 ]
@@ -705,8 +712,7 @@
                         action: 'watchBasket'
                     }
                 ]
-            }
-
+            },
         };
 
         // Загрузка данных пользователя
@@ -727,10 +733,41 @@
                     document.getElementById('userStatus').innerHTML =
                         `👤 ${data.name} | Уровень: ${data.level}`;
                     document.getElementById('userStatus').classList.add('active');
+
+                    // Загружаем сохраненный прогресс, если есть
+                    if (data.progress) {
+                        currentTask = data.progress.current_task || 1;
+                        tasksCompleted = data.progress.completed || 0;
+                        breadAdded = data.progress.bread_added || false;
+                        porridgeAdded = data.progress.porridge_added || false;
+
+                        updateProgress();
+
+                        // Показываем текущее задание
+                        showCurrentTask();
+
+                        // Если тренинг завершен, показываем экран завершения
+                        if (tasksCompleted === totalTasks) {
+                            setTimeout(() => {
+                                document.getElementById('complete-screen').classList.add('active');
+                                document.getElementById('task' + currentTask).classList.remove('active');
+                                document.getElementById('next-btn').classList.remove('active');
+                                document.getElementById('score').textContent = `${totalTasks}/${totalTasks}`;
+                            }, 500);
+                        }
+                    }
                 }
             } catch (error) {
                 console.error('Ошибка загрузки данных:', error);
             }
+        }
+
+        // Показать текущее задание
+        function showCurrentTask() {
+            document.querySelectorAll('.task').forEach(task => {
+                task.classList.remove('active');
+            });
+            document.getElementById('task' + currentTask).classList.add('active');
         }
 
         // Загрузка экрана с фотографией
@@ -776,15 +813,19 @@
 
         // Обработка клика по области
         function handleAreaClick(action) {
-            console.log('Клик по области:', action);
+            console.log('Клик по области:', action, 'Текущее задание:', currentTask);
 
             switch(action) {
                 case 'openCatalog':
-                    if (currentTask === 1) {
-                        completeTask(1);
-                    }
                     loadScreen('five_catalog.jpg');
                     showNotification('Каталог открыт! Теперь найдите поле поиска.');
+
+                    // Если это задание 1, завершаем его при открытии каталога
+                    if (currentTask === 1) {
+                        setTimeout(() => {
+                            completeTask(1);
+                        }, 500);
+                    }
                     break;
 
                 case 'showSearch':
@@ -792,7 +833,6 @@
                     break;
 
                 case 'showSearchModal':
-                    loadScreen('five_search.jpg');
                     showModal('Поиск товара', 'searchProduct', 'Введите название товара:');
                     break;
 
@@ -802,10 +842,27 @@
 
                 case 'addBread':
                     loadScreen('bread_in_basket.jpg');
+                    breadAdded = true;
+
+                    // Если это задание 2, завершаем его при добавлении хлеба
+                    if (currentTask === 2) {
+                        setTimeout(() => {
+                            completeTask(2);
+                            // Сразу показываем кнопку для закрытия поиска
+                            showNotification('Закройте поиск, чтобы вернуться в каталог');
+                        }, 500);
+                    }
                     break;
 
                 case 'cancel_find_bread':
-                    loadScreen('catalog_food.jpg');
+                    // Если только что добавили хлеб и это задание 2 было завершено
+                    // то сразу показываем экран для задания 3
+                    if (currentTask === 3 && breadAdded) {
+                        loadScreen('catalog_food.jpg');
+                        showNotification('Отлично! Теперь найдите раздел "Завтраки"');
+                    } else {
+                        loadScreen('catalog_food.jpg');
+                    }
                     break;
 
                 case 'openBreakfast':
@@ -814,18 +871,47 @@
 
                 case 'addPorridge':
                     loadScreen('pice_porridge_in_basket.jpg');
+                    porridgeAdded = true;
+
+                    // Если это задание 3, завершаем его при добавлении каши
+                    if (currentTask === 3) {
+                        setTimeout(() => {
+                            completeTask(3);
+                            // Сразу показываем кнопку корзины
+                            showNotification('Отлично! Теперь перейдите в корзину');
+                        }, 500);
+                    }
                     break;
 
                 case 'watchBasket':
                     loadScreen('fool_basket.jpg');
+                    // Если это задание 4, завершаем его сразу при открытии корзины
+                    if (currentTask === 4 && breadAdded && porridgeAdded) {
+                        setTimeout(() => {
+                            completeTask(4);
+                            showNotification('Корзина проверена! Все товары на месте.');
+                        }, 500);
+                    } else {
+                        // Показываем кнопку проверки для пользователя
+                        showNotification('Проверьте, что в корзине есть хлеб и каша');
+                    }
                     break;
 
                 case 'checkCart':
-                    if (currentTask === 4 && breadAdded && porridgeAdded) {
-                        completeTask(4);
-                        showNotification('Корзина проверена! Все товары на месте.');
+                    // Проверяем, добавлены ли оба товара
+                    if (breadAdded && porridgeAdded) {
+                        // Если это задание 4, завершаем его
+                        if (currentTask === 4) {
+                            completeTask(4);
+                            showNotification('Корзина проверена! Все товары на месте.');
+                        }
                     } else {
-                        showNotification('Сначала добавьте хлеб и кашу в корзину!');
+                        let message = 'Сначала добавьте ';
+                        if (!breadAdded) message += 'хлеб';
+                        if (!breadAdded && !porridgeAdded) message += ' и ';
+                        if (!porridgeAdded) message += 'кашу';
+                        message += ' в корзину!';
+                        showNotification(message);
                     }
                     break;
             }
@@ -868,35 +954,9 @@
                     if (inputValue.toLowerCase() === 'хлеб') {
                         closeModal();
                         loadScreen('five_search.jpg');
-                    }
-                    break;
-
-                case 'confirmAddBread':
-                    const breadQty = parseInt(inputValue) || 1;
-                    if (breadQty > 0) {
-                        breadAdded = true;
-                        closeModal();
-                        if (currentTask === 2) {
-                            completeTask(2);
-                        }
-                        showNotification(`Добавлено ${breadQty} хлеб(а) в корзину!`);
-
-                        // Возвращаемся в каталог для следующего задания
-                        setTimeout(() => {
-                            loadScreen('five_catalog.jpg');
-                        }, 1500);
-                    }
-                    break;
-
-                case 'confirmAddPorridge':
-                    const porridgeQty = parseInt(inputValue) || 1;
-                    if (porridgeQty > 0) {
-                        porridgeAdded = true;
-                        closeModal();
-                        if (currentTask === 3) {
-                            completeTask(3);
-                        }
-                        showNotification(`Добавлено ${porridgeQty} каш(и) в корзину!`);
+                        showNotification('Теперь нажмите на поле поиска');
+                    } else {
+                        showNotification('Для задания введите "Хлеб"');
                     }
                     break;
             }
@@ -911,7 +971,10 @@
                     body: JSON.stringify({
                         task_id: taskId,
                         progress: tasksCompleted,
-                        total_tasks: totalTasks
+                        total_tasks: totalTasks,
+                        current_task: currentTask,
+                        bread_added: breadAdded,
+                        porridge_added: porridgeAdded
                     })
                 });
             } catch (error) {
@@ -919,16 +982,24 @@
             }
         }
 
-        // Завершить задание
+        // Завершить задание - УПРОЩЕННАЯ ВЕРСИЯ
         async function completeTask(taskNum) {
+            // Проверяем, что это текущее задание
+            if (taskNum !== currentTask) {
+                console.log('Попытка завершить не текущее задание:', taskNum, 'текущее:', currentTask);
+                return;
+            }
+
             tasksCompleted++;
             updateProgress();
 
             await saveProgress(taskNum);
 
+            // Показываем кнопку "Следующее задание"
             document.getElementById('next-btn').classList.add('active');
-            showNotification(`Задание ${taskNum} выполнено!`);
+            showNotification(`Задание ${taskNum} выполнено! Нажмите "Следующее задание"`);
 
+            // Если все задания выполнены
             if (tasksCompleted === totalTasks) {
                 setTimeout(() => {
                     document.getElementById('complete-screen').classList.add('active');
@@ -940,31 +1011,66 @@
             }
         }
 
-        // Следующее задание
+        // Следующее задание - УПРОЩЕННАЯ ВЕРСИЯ
         function nextTask() {
+            console.log('Переход к следующему заданию. Текущее:', currentTask);
+
+            // Скрываем текущее задание
             document.getElementById('task' + currentTask).classList.remove('active');
+
+            // Скрываем кнопку
             document.getElementById('next-btn').classList.remove('active');
+
+            // Скрываем все подсказки
             document.querySelectorAll('.help-content').forEach(help => {
                 help.classList.remove('active');
             });
 
+            // Переходим к следующему заданию
             currentTask++;
 
             if (currentTask <= totalTasks) {
+                // Показываем новое задание
                 document.getElementById('task' + currentTask).classList.add('active');
                 showNotification(`Начато задание ${currentTask}`);
 
-                // Обновляем экран в зависимости от задания
+                // Автоматически загружаем нужный экран для нового задания:
                 switch(currentTask) {
                     case 2:
-                        loadScreen('five_catalog.jpg');
+                        // Остаемся в каталоге (уже там после задания 1)
+                        // Если пользователь ушел, загружаем каталог
+                        if (currentImage !== 'five_catalog.jpg') {
+                            loadScreen('five_catalog.jpg');
+                        }
+                        showNotification('Используйте поиск чтобы найти хлеб');
                         break;
                     case 3:
-                        loadScreen('five_catalog.jpg');
+                        // После задания 2 пользователь на bread_in_basket.jpg
+                        // Ждем когда он закроет поиск, тогда покажем catalog_food.jpg
+                        // Но если он уже на другом экране, покажем каталог
+                        if (currentImage === 'bread_in_basket.jpg') {
+                            // Пользователь уже добавил хлеб, ждем когда закроет поиск
+                            showNotification('Закройте поиск хлеба чтобы продолжить');
+                        } else {
+                            // Возвращаемся в каталог
+                            loadScreen('five_catalog.jpg');
+                            showNotification('Найдите раздел "Завтраки" в каталоге');
+                        }
                         break;
                     case 4:
+                        // После задания 3 пользователь на pice_porridge_in_basket.jpg
+                        // Ждем когда он нажмет на корзину
+                        if (currentImage === 'pice_porridge_in_basket.jpg') {
+                            showNotification('Перейдите в корзину чтобы проверить товары');
+                        } else {
+                            // Показываем текущий экран
+                            showNotification('Найдите иконку корзины внизу экрана');
+                        }
                         break;
                 }
+
+                // Сохраняем смену задания
+                saveProgress('switch_to_task_' + currentTask);
             }
         }
 
