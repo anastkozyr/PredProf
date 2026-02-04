@@ -94,7 +94,7 @@ def images_files(filename):
 @login_required
 def go_to_trainer():
     user_level = current_user.level
-    return render_template('practic.html')
+    return render_template('practic.html', user_level=user_level)
 
 
 @app.route('/smartphone_basics', methods=['POST'])
