@@ -103,7 +103,11 @@ def smartphone_basics_base():
 @app.route('/messenger_training')
 @login_required
 def messenger_training():
-    return render_template('messenger_training.html')
+    user_level = current_user.level
+    if user_level == 'basic':
+        return render_template('messenger_training_basic.html')
+    else:
+        return render_template('messanger_training_advanced.html')
 
 @app.route('/public-services')
 @login_required
@@ -115,7 +119,6 @@ def gosuslugi_training():
 @login_required
 def teory_smartphone():
     return render_template('teory_smartphone.html')
-
 
 
 @app.route('/online_shopping')
