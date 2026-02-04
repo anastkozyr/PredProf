@@ -5,20 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5423f298-9750-4c02-8302-b1b3867beef4" name="Changes" comment="почти норм базовая пятерочка">
-      <change afterPath="$PROJECT_DIR$/images/five/bread2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/five/bread2_in_basket.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/five/breakfast2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/five/catalog_food2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/five/delivery_address.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/five/delivery_shop.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/five/fool_basket2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/five/pice_porridge_in_basket2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/five/ready_address.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/five/ready_order.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/online_shopping.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/online_shopping_pro.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/online_shopping_basic.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/online_shopping_basic.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,12 +21,12 @@
     &quot;assignee&quot;: &quot;voroninav12&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/anastkozyr/PredProf.git",
-    "accountId": "65cdfd9c-4b48-4949-863c-36fbd57ee783"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/anastkozyr/PredProf.git&quot;,
+    &quot;accountId&quot;: &quot;65cdfd9c-4b48-4949-863c-36fbd57ee783&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -54,7 +41,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "natasha",
-    "last_opened_file_path": "C:/Users/leono/Documents/GitHub/PredProf/images/five",
+    "last_opened_file_path": "C:/Users/leono/Documents/GitHub/PredProf",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
