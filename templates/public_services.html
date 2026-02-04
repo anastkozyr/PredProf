@@ -50,7 +50,7 @@
         }
 
         /* Кнопки для первого экрана */
-        .button-login, .button-login2 {
+        .button-login, .button-login2, .button-start, .button-confirm {
             position: absolute;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -73,6 +73,7 @@
             box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
             transform: translateY(-50%);
         }
+
         /* Кнопка НАЧАТЬ */
         .button-start {
             background: #007bff;
@@ -80,19 +81,34 @@
             padding: 12px 150px;
             border-radius: 12px;
             color: white;
-            top: 82%; /* 630/640 = 0.984 */
-            left: 1.4%; /* 5/350 = 0.014 */
+            top: 82%;
+            left: 1.4%;
             right: 1.4%;
             box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
             transform: translateY(-50%);
         }
-        .button-login:hover {
+
+        /* Кнопка ПОДТВЕРДИТЬ (для im9) */
+        .button-confirm {
+            background: #007bff;
+            border: none;
+            padding: 12px 120px;
+            border-radius: 12px;
+            color: white;
+            top: 82%;
+            left: 1.4%;
+            right: 1.4%;
+            box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
+            transform: translateY(-50%);
+        }
+
+        .button-login:hover, .button-start:hover, .button-confirm:hover {
             background: #0056b3;
             transform: translateY(-52%);
             box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
         }
 
-        .button-login:active {
+        .button-login:active, .button-start:active, .button-confirm:active {
             background: #004085;
             transform: translateY(-50%);
             box-shadow: 0 1px 2px rgba(0, 123, 255, 0.2);
@@ -153,8 +169,6 @@
             top: 59.4%; /* 380/640 = 0.594 */
         }
 
-
-         
         .form-btn {
             position: absolute;
             padding: 12px;
@@ -230,13 +244,6 @@
             height: 8.25%; /* 40/640 = 0.0625 */
         }
 
-        /* im7 - начать */
-        #clickable-area-im7 {
-            top: 28.13%; /* 180/640 = 0.2813 */
-            left: 14.29%; /* 50/350 = 0.1429 */
-            width: 42.86%; /* 150/350 = 0.4286 */
-            height: 7.03%; /* 45/640 = 0.0703 */
-        }
 
         /* im8 - Выбор врача */
         #clickable-area-im8 {
@@ -244,22 +251,6 @@
             left: 12.14%; /* 60/350 = 0.1714 */
             width: 76%; /* 140/350 = 0.4 */
             height: 7.25%; /* 40/640 = 0.0625 */
-        }
-
-        /* im9 - Выбор времени */
-        #clickable-area-im9 {
-            top: 43.75%; /* 280/640 = 0.4375 */
-            left: 11.43%; /* 40/350 = 0.1143 */
-            width: 45.71%; /* 160/350 = 0.4571 */
-            height: 5.47%; /* 35/640 = 0.0547 */
-        }
-
-        /* im10 - Подтверждение записи */
-        #clickable-area-im10 {
-            top: 54.69%; /* 350/640 = 0.5469 */
-            left: 14.29%; /* 50/350 = 0.1429 */
-            width: 48.57%; /* 170/350 = 0.4857 */
-            height: 7.03%; /* 45/640 = 0.0703 */
         }
 
         @keyframes pulse {
@@ -471,7 +462,7 @@
                 padding: 20px;
             }
 
-            .button-login, .button-login2 {
+            .button-login, .button-login2, .button-start, .button-confirm {
                 font-size: 14px;
                 padding: 10px;
             }
@@ -484,6 +475,16 @@
             .button-login2 {
                 padding-left: 60px;
                 padding-right: 60px;
+            }
+
+            .button-start {
+                padding-left: 100px;
+                padding-right: 100px;
+            }
+
+            .button-confirm {
+                padding-left: 80px;
+                padding-right: 80px;
             }
         }
 
@@ -514,6 +515,18 @@
             .button-login2 {
                 padding-left: 40px;
                 padding-right: 40px;
+                font-size: 13px;
+            }
+
+            .button-start {
+                padding-left: 70px;
+                padding-right: 70px;
+                font-size: 13px;
+            }
+
+            .button-confirm {
+                padding-left: 50px;
+                padding-right: 50px;
                 font-size: 13px;
             }
         }
@@ -565,14 +578,29 @@
                 Зарегистрироваться
             </button>
 
+            <!-- Кнопка НАЧАТЬ - для изображения im7 -->
+            <button type="button" id="start-btn" class="button-start hidden" onclick="handleStartButton()">
+                Начать
+            </button>
+
+            <!-- Кнопка ПОДТВЕРДИТЬ - для изображения im9 -->
+            <button type="button" id="confirm-btn" class="button-confirm hidden" onclick="handleConfirmButton()">
+                Подтвердить
+            </button>
+
+
+            <button type="button" id="continue-btn" class="button-confirm hidden" onclick="handleConfirmButton()">
+                 Продолжить
+            </button>
+
             <!-- Кликабельные области для всех изображений -->
             <div id="clickable-area-im4" class="clickable-area hidden" onclick="goToImage('im5')"></div>
             <div id="clickable-area-im5" class="clickable-area hidden" onclick="goToImage('im6')"></div>
             <div id="clickable-area-im6" class="clickable-area hidden" onclick="goToImage('im7')"></div>
-            <div id="clickable-area-im7" class="clickable-area hidden" onclick="goToImage('im8')"></div>
+            <div id="clickable-area-im7" class="button-start hidden" onclick="goToImage('im8')"></div>
             <div id="clickable-area-im8" class="clickable-area hidden" onclick="goToImage('im9')"></div>
-            <div id="clickable-area-im9" class="clickable-area hidden" onclick="goToImage('im10')"></div>
-            <div id="clickable-area-im10" class="clickable-area hidden" onclick="completeDoctorAppointment()"></div>
+            <div id="clickable-area-im9" class="button-confirm hidden" onclick="goToImage('im10')"></div>
+            <div id="clickable-area-im10" class="button-start hidden" onclick="completeDoctorAppointment()"></div>
         </div>
     </div>
 
@@ -713,6 +741,7 @@
                         <p>1. Вернувшись в раздел "Мои услуги", найдите кнопку "Запись к врачу"</p>
                         <p>2. Кнопка находится в списке медицинских услуг</p>
                         <p>3. Нажмите на эту кнопку для начала записи</p>
+                        <p>4. Затем нажмите на синюю кнопку "Начать" внизу экрана</p>
                     </div>
 
                     <button class="help-btn" onclick="toggleHelp(5)">
@@ -724,6 +753,7 @@
                         <p>2. В этом разделе найдите пункт "Запись к врачу"</p>
                         <p>3. Нажмите на синюю пульсирующую кнопку рядом с этим пунктом</p>
                         <p>4. Кнопка имеет надпись "Запись к врачу"</p>
+                        <p>5. Затем внизу экрана нажмите большую синюю кнопку "Начать"</p>
                     </div>
                 </div>
             </div>
@@ -766,6 +796,7 @@
                         <p>1. После выбора врача откроется календарь с доступными датами</p>
                         <p>2. Найдите синюю кнопку "Выбрать время" рядом с удобной датой</p>
                         <p>3. Нажмите на эту кнопку для выбора времени приема</p>
+                        <p>4. Затем нажмите на синюю кнопку "Подтвердить" внизу экрана</p>
                     </div>
 
                     <button class="help-btn" onclick="toggleHelp(7)">
@@ -777,6 +808,7 @@
                         <p>2. Найдите доступное время в расписании врача</p>
                         <p>3. Нажмите на синюю пульсирующую кнопку "Выбрать время"</p>
                         <p>4. Кнопка находится рядом с выбранным временным слотом</p>
+                        <p>5. Затем внизу экрана нажмите большую синюю кнопку "Подтвердить"</p>
                     </div>
                 </div>
             </div>
@@ -850,6 +882,7 @@
 
         // Скрыть все кнопки
         hideAllClickableAreas();
+        hideAllBlueButtons();
         document.getElementById('login-btn').classList.add('hidden');
         document.getElementById('register-btn').classList.add('hidden');
 
@@ -899,12 +932,22 @@
         // Скрыть текущую кнопку
         hideClickableArea(currentImage);
 
+        // Скрыть все синие кнопки
+        hideAllBlueButtons();
+
         // Перейти на следующее изображение
         document.getElementById('phone-img').src = `{{ url_for('images_files', filename='gosuslugi/') }}${nextImage}.jpg`;
 
         // Показать следующую кнопку через задержку
         setTimeout(() => {
             showClickableArea(nextImage);
+
+            // Показать синюю кнопку для im7 и im9
+            if (nextImage === 'im7') {
+                document.getElementById('start-btn').classList.remove('hidden');
+            } else if (nextImage === 'im9') {
+                document.getElementById('confirm-btn').classList.remove('hidden');
+            }
 
             // Определить какое задание завершить
             let taskToComplete = 0;
@@ -945,6 +988,40 @@
                 }
             }
         }, 500);
+    }
+
+    // Обработка кнопки "Начать" на im7
+    function handleStartButton() {
+        // Скрыть синюю кнопку
+        document.getElementById('start-btn').classList.add('hidden');
+
+        // Завершить задание 5
+        if (currentTask === 5 && !taskCompleted[5]) {
+            completeTask(5);
+            showNotification('Начата запись к врачу! Задание 5 завершено.');
+
+            // Перейти к следующему заданию
+            setTimeout(() => {
+                nextTask();
+            }, 1000);
+        }
+    }
+
+    // Обработка кнопки "Подтвердить" на im9
+    function handleConfirmButton() {
+        // Скрыть синюю кнопку
+        document.getElementById('confirm-btn').classList.add('hidden');
+
+        // Завершить задание 7
+        if (currentTask === 7 && !taskCompleted[7]) {
+            completeTask(7);
+            showNotification('Время подтверждено! Задание 7 завершено.');
+
+            // Перейти к следующему заданию
+            setTimeout(() => {
+                nextTask();
+            }, 1000);
+        }
     }
 
     // Завершение записи ко врачу
@@ -997,6 +1074,14 @@
             area.classList.add('hidden');
             area.classList.remove('active');
         });
+    }
+
+    // Скрыть все синие кнопки (Войти, Начать, Подтвердить)
+    function hideAllBlueButtons() {
+        document.getElementById('start-btn').classList.add('hidden');
+        document.getElementById('confirm-btn').classList.add('hidden');
+        document.getElementById('login-btn').classList.add('hidden');
+        document.getElementById('register-btn').classList.add('hidden');
     }
 
     // Завершить задание
@@ -1056,6 +1141,13 @@
             if (currentImage === expectedImage) {
                 setTimeout(() => {
                     showClickableArea(expectedImage);
+
+                    // Показать синюю кнопку для im7 и im9
+                    if (expectedImage === 'im7') {
+                        document.getElementById('start-btn').classList.remove('hidden');
+                    } else if (expectedImage === 'im9') {
+                        document.getElementById('confirm-btn').classList.remove('hidden');
+                    }
 
                     const messages = {
                         2: 'Нажмите на синюю кнопку "Мои услуги"',
@@ -1133,6 +1225,10 @@
         document.getElementById('login-btn').classList.remove('hidden');
         document.getElementById('register-btn').classList.remove('hidden');
 
+        // Скрыть все синие кнопки
+        document.getElementById('start-btn').classList.add('hidden');
+        document.getElementById('confirm-btn').classList.add('hidden');
+
         // Скрыть все кликабельные области
         hideAllClickableAreas();
 
@@ -1179,6 +1275,9 @@
                 const currentSrc = phoneImg.src;
                 const currentImage = getCurrentImageName(currentSrc);
 
+                // Скрыть все синие кнопки при смене изображения
+                hideAllBlueButtons();
+
                 // Определить какое задание соответствует текущему изображению
                 const imageToTaskMap = {
                     'im4': [1, 2],   // im4 для заданий 1 и 2
@@ -1197,6 +1296,13 @@
                     if (tasks.includes(currentTask)) {
                         setTimeout(() => {
                             showClickableArea(currentImage);
+
+                            // Показать синюю кнопку для im7 и im9
+                            if (currentImage === 'im7') {
+                                document.getElementById('start-btn').classList.remove('hidden');
+                            } else if (currentImage === 'im9') {
+                                document.getElementById('confirm-btn').classList.remove('hidden');
+                            }
 
                             const messages = {
                                 'im4': 'Нажмите на синюю кнопку "Мои услуги"',
