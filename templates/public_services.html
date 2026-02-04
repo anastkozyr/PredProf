@@ -63,7 +63,7 @@
         }
 
         /* Кнопки для первого экрана */
-        .button-login, .button-login2, .button-start, .button-confirm, .button-continue {
+        .button-login, .button-login2, .button-start, .button-confirm, .button-continue, .button-select, .button-next {
             position: absolute;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -80,13 +80,13 @@
             box-shadow: 0 8px 25px rgba(0, 122, 255, 0.3);
         }
 
-        .button-login:hover, .button-login2:hover, .button-start:hover, .button-confirm:hover, .button-continue:hover {
+        .button-login:hover, .button-login2:hover, .button-start:hover, .button-confirm:hover, .button-continue:hover, .button-select:hover, .button-next:hover {
             transform: translateY(-5px);
             background: linear-gradient(135deg, #0056b3, #007AFF);
             box-shadow: 0 12px 30px rgba(0, 122, 255, 0.4);
         }
 
-        .button-login:active, .button-login2:active, .button-start:active, .button-confirm:active, .button-continue:active {
+        .button-login:active, .button-login2:active, .button-start:active, .button-confirm:active, .button-continue:active, .button-select:active, .button-next:active {
             transform: translateY(0);
             box-shadow: 0 5px 15px rgba(0, 122, 255, 0.3);
         }
@@ -96,6 +96,11 @@
             bottom: 40px;
             left: 10px;
             right: 10px;
+        }
+
+        .button-login.active {
+            animation: pulse 1.5s infinite;
+            box-shadow: 0 0 25px rgba(0, 123, 255, 0.8);
         }
 
         /* Кнопка ЗАРЕГИСТРИРОВАТЬСЯ */
@@ -120,11 +125,21 @@
             right: 10px;
         }
 
+        .button-start.active {
+            animation: pulse 1.5s infinite;
+            box-shadow: 0 0 25px rgba(0, 123, 255, 0.8);
+        }
+
         /* Кнопка ПОДТВЕРДИТЬ */
         .button-confirm {
             bottom: 40px;
             left: 10px;
             right: 10px;
+        }
+
+        .button-confirm.active {
+            animation: pulse 1.5s infinite;
+            box-shadow: 0 0 25px rgba(0, 123, 255, 0.8);
         }
 
         /* Кнопка ПРОДОЛЖИТЬ */
@@ -134,8 +149,37 @@
             right: 10px;
         }
 
-        /* Поля ввода для второго экрана */
-        .login-form-overlay {
+        .button-continue.active {
+            animation: pulse 1.5s infinite;
+            box-shadow: 0 0 25px rgba(0, 123, 255, 0.8);
+        }
+
+        /* Кнопка ВЫБРАТЬ */
+        .button-select {
+            bottom: 40px;
+            left: 10px;
+            right: 10px;
+        }
+
+        .button-select.active {
+            animation: pulse 1.5s infinite;
+            box-shadow: 0 0 25px rgba(0, 123, 255, 0.8);
+        }
+
+        /* Кнопка ДАЛЕЕ */
+        .button-next {
+            bottom: 40px;
+            left: 10px;
+            right: 10px;
+        }
+
+        .button-next.active {
+            animation: pulse 1.5s infinite;
+            box-shadow: 0 0 25px rgba(0, 123, 255, 0.8);
+        }
+
+        /* Поля ввода */
+        .login-form-overlay, .policy-form-overlay, .region-form-overlay, .doctor-form-overlay, .address-form-overlay, .date-form-overlay {
             display: none;
             position: absolute;
             top: 0;
@@ -143,9 +187,10 @@
             width: 100%;
             height: 100%;
             z-index: 5;
+
         }
 
-        .form-input {
+        .form-input, .form-select {
             position: absolute;
             padding: 20px;
             border: 3px solid #007AFF;
@@ -154,6 +199,30 @@
             background: white;
             width: 85%;
             left: 7.5%;
+
+        }
+        .form-input2, .form-select {
+            position: absolute;
+            padding: 20px;
+            border: 3px solid #007AFF;
+            border-radius: 15px;
+            font-size: 18px;
+            background: white;
+            width: 85%; /* ширина 85% от родителя */
+            left: 8.5%; /* отступ слева 10.5% от родителя */
+            top: 15%; /* отступ сверху 30% от родителя */
+            height: 6%; /* высота 6% от родителя */
+        }
+        .form-input3, .form-select {
+            padding: 20px;
+            border: 3px solid #007AFF;
+            border-radius: 15px;
+            font-size: 18px;
+            background: white;
+            width: 85%;
+            left: 7.5%;
+            top: 80%
+            height: 8%
         }
 
         #phone-input {
@@ -167,6 +236,36 @@
         /* Поле для ввода полиса ОМС */
         #policy-input {
             top: 40%;
+        }
+
+        /* Поле для региона */
+        #region-input {
+            top: 40%;
+        }
+
+        /* Выбор врача */
+        #doctor-select {
+            top: 40%;
+        }
+
+        /* Выбор ФИО врача */
+        #doctor-name-select {
+            top: 40%;
+        }
+
+        /* Адрес больницы */
+        #address-input {
+            top: 40%;
+        }
+
+        /* Дата */
+        #date-input {
+            top: 40%;
+        }
+
+        /* Время */
+        #time-input {
+            top: 52%;
         }
 
         .form-btn {
@@ -225,7 +324,7 @@
         /* Координаты кликабельных областей */
         #clickable-area-im4 {
             top: 87%;
-            left: 20%;
+            left: 19.2%;
             width: 22%;
             height: 10%;
         }
@@ -244,57 +343,28 @@
             height: 8%;
         }
 
-        #clickable-area-im7 {
-            top: 40%;
-            left: 10%;
-            width: 80%;
-            height: 10%;
+        /* Кнопка "Себя" на im8 */
+        #clickable-area-im8 {
+            top: 29%;
+            left: 4%;
+            width: 92%;
+            height: 7%;
+            background: rgba(40, 167, 69, 0.3);
+            border: 3px solid #28a745;
         }
 
-        #clickable-area-im8 {
-            top: 35%;
-            left: 10%;
-            width: 80%;
-            height: 12%;
+        #clickable-area-im8:hover {
+            background: rgba(40, 167, 69, 0.6);
         }
 
         #clickable-area-im9 {
-            top: 30%;
-            left: 10%;
-            width: 80%;
-            height: 10%;
-        }
-
-        #clickable-area-im10 {
             bottom: 40px;
             left: 10px;
             right: 10px;
             height: 60px;
         }
 
-        /* Новые области для im11-im14 */
-        #clickable-area-im11 {
-            top: 40%;
-            left: 10%;
-            width: 80%;
-            height: 12%;
-        }
-
-        #clickable-area-im12 {
-            top: 50%;
-            left: 10%;
-            width: 80%;
-            height: 12%;
-        }
-
-        #clickable-area-im13 {
-            bottom: 100px;
-            left: 10px;
-            right: 10px;
-            height: 60px;
-        }
-
-        #clickable-area-im14 {
+        #clickable-area-im10 {
             bottom: 40px;
             left: 10px;
             right: 10px;
@@ -530,6 +600,14 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
+        .notification.error {
+            background: rgba(220, 53, 69, 0.9);
+        }
+
+        .notification.success {
+            background: rgba(40, 167, 69, 0.9);
+        }
+
         .trainer-btn {
             background: linear-gradient(135deg, #2c698d, #3a86ff);
             border: none;
@@ -551,17 +629,6 @@
         .trainer-btn:hover {
             transform: translateY(-5px);
             box-shadow: 0 12px 30px rgba(44, 105, 141, 0.4);
-        }
-
-        /* Форма для ввода полиса на im9 */
-        .policy-form-overlay {
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 5;
         }
 
         /* Адаптивность */
@@ -609,7 +676,7 @@
             <div class="phone-screen">
                 <img id="phone-img" src="{{ url_for('images_files', filename='gosuslugi/im1.jpg') }}" alt="Приложение госуслуги" class="phone-img">
 
-                <!-- Поля ввода для второго экрана (скрыты изначально) -->
+                <!-- Форма входа -->
                 <div id="login-form" class="login-form-overlay">
                     <input type="text" id="phone-input" class="form-input" placeholder="Телефон или СНИЛС">
                     <input type="password" id="password-input" class="form-input" placeholder="Пароль">
@@ -618,27 +685,75 @@
                     </button>
                 </div>
 
-                <!-- Форма для ввода полиса на im9 -->
+                <!-- Форма для ввода региона -->
+                <div id="region-form" class="region-form-overlay">
+                    <input type="text" id="region-input" class="form-input2" placeholder="Введите регион (Москва)">
+                    <button id="submit-region-btn" class="form-btn">
+                        Продолжить
+                    </button>
+                </div>
+
+                <!-- Форма для ввода полиса -->
                 <div id="policy-form" class="policy-form-overlay">
-                    <input type="text" id="policy-input" class="form-input" placeholder="Введите номер полиса ОМС">
+                    <input type="text" id="policy-input" class="form-input3" placeholder="Введите номер полиса ОМС">
                     <button id="submit-policy-btn" class="form-btn">
                         Продолжить
                     </button>
                 </div>
 
+                <!-- Форма для выбора врача -->
+                <div id="doctor-form" class="doctor-form-overlay">
+                    <select id="doctor-select" class="form-select">
+                        <option value="">Выберите врача</option>
+                        <option value="терапевт">Терапевт</option>
+                        <option value="офтальмолог">Офтальмолог</option>
+                        <option value="хирург">Хирург</option>
+                        <option value="отоларинголог">Отоларинголог</option>
+                    </select>
+                    <button id="submit-doctor-btn" class="form-btn">
+                        Продолжить
+                    </button>
+                </div>
+
+                <!-- Форма для выбора ФИО врача -->
+                <div id="doctor-name-form" class="doctor-form-overlay">
+                    <select id="doctor-name-select" class="form-select">
+                        <option value="">Выберите врача</option>
+                        <option value="Иванов И.П.">Иванов И.П.</option>
+                        <option value="Петрова А.В.">Петрова А.В.</option>
+                        <option value="Сидоров С.М.">Сидоров С.М.</option>
+                        <option value="Кузнецова О.Л.">Кузнецова О.Л.</option>
+                    </select>
+                    <button id="submit-doctor-name-btn" class="form-btn">
+                        Продолжить
+                    </button>
+                </div>
+
+                <!-- Форма для ввода адреса больницы -->
+                <div id="address-form" class="address-form-overlay">
+                    <input type="text" id="address-input" class="form-input" placeholder="Введите адрес больницы">
+                    <button id="submit-address-btn" class="form-btn">
+                        Выбрать
+                    </button>
+                </div>
+
+                <!-- Форма для выбора даты и времени -->
+                <div id="date-form" class="date-form-overlay">
+                    <input type="text" id="date-input" class="form-input" placeholder="Введите дату (16 февраля)">
+                    <input type="text" id="time-input" class="form-input" placeholder="Введите время (12:30)">
+                    <button id="submit-date-btn" class="form-btn">
+                        Выбрать время
+                    </button>
+                </div>
+
                 <!-- Кнопка Войти - видна только на первом экране -->
-                <button type="button" id="login-btn" class="button-login" onclick="showLoginForm()">
+                <button type="button" id="login-btn" class="button-login active" onclick="showLoginForm()">
                     Войти
                 </button>
 
                 <!-- Кнопка Зарегистрироваться - видна только на первом экране -->
                 <button type="button" id="register-btn" class="button-login2"
-                        onclick="
-                            document.getElementById('phone-img').src='{{ url_for('images_files', filename='gosuslugi/im3.jpg') }}';
-                            this.classList.add('hidden');
-                            document.getElementById('login-btn').classList.add('hidden');
-                            showNotification('Вы перешли на страницу регистрации');
-                        ">
+                        onclick="showRegistrationError()">
                     Зарегистрироваться
                 </button>
 
@@ -647,34 +762,35 @@
                     Начать
                 </button>
 
-                <button type="button" id="confirm-btn" class="button-confirm hidden" onclick="handleConfirmButton()">
-                    Подтвердить
-                </button>
-
                 <button type="button" id="continue-btn" class="button-continue hidden" onclick="handleContinueButton()">
                     Продолжить
+                </button>
+
+                <button type="button" id="select-btn" class="button-select hidden" onclick="handleSelectButton()">
+                    Выбрать
+                </button>
+
+                <button type="button" id="next-btn-phone" class="button-next hidden" onclick="handleNextButton()">
+                    Далее
                 </button>
 
                 <!-- Кликабельные области для всех изображений -->
                 <div id="clickable-area-im4" class="clickable-area hidden" onclick="goToImage('im5')"></div>
                 <div id="clickable-area-im5" class="clickable-area hidden" onclick="goToImage('im6')"></div>
                 <div id="clickable-area-im6" class="clickable-area hidden" onclick="goToImage('im7')"></div>
-                <div id="clickable-area-im7" class="clickable-area hidden" onclick="goToImage('im8')"></div>
-                <div id="start-btn" class="button-start hidden" onclick="handleStartButton()"></div>
-                <div id="clickable-area-im9" class="clickable-area hidden" onclick="goToImage('im10')"></div>
-                <div id="clickable-area-im10" class="clickable-area hidden" onclick="goToImage('im11')">
+
+                <!-- Кликабельная область "Себя" на im8 -->
+                <div id="clickable-area-im8" class="clickable-area hidden" onclick="selectYourself()">
+
+                </div>
+
+                <!-- Кнопка "Продолжить" на im9 -->
+                <div id="clickable-area-im10" class="clickable-area hidden" onclick="showRegionForm()">
                     Продолжить
                 </div>
-                <div id="clickable-area-im11" class="clickable-area hidden" onclick="goToImage('im12')">
-                    Выбрать услугу
-                </div>
-                <div id="clickable-area-im12" class="clickable-area hidden" onclick="goToImage('im13')">
-                    Подтвердить данные
-                </div>
-                <div id="clickable-area-im13" class="clickable-area hidden" onclick="goToImage('im14')">
-                    Просмотреть запись
-                </div>
-                <div id="clickable-area-im14" class="clickable-area hidden" onclick="completeDoctorAppointment()">
+
+                <!-- Кнопка "Продолжить" на im10 -->
+                <div id="clickable-area-im11" class="clickable-area hidden" onclick="completeAppointment()">
                     Завершить запись
                 </div>
             </div>
@@ -693,9 +809,10 @@
             <!-- Задание 1 -->
             <div id="task1" class="task active">
                 <div class="task-number">1</div>
-                <h2 class="task-title">Авторизация на портале Госуслуг</h2>
+                <h2 class="task-title">Войти в аккаунт</h2>
                 <div class="task-description">
-                    <p><strong>Задача:</strong> Войдите в личный кабинет, используя ваши учетные данные</p>
+                    <p><strong>Задача:</strong> Войдите в личный кабинет Госуслуг</p>
+                    <p><strong>Внимание:</strong> Не нажимайте "Зарегистрироваться"! Только "Войти"</p>
                     <p><strong>Данные для входа:</strong></p>
                     <p>• Телефон: <strong>+7 900 123-45-67</strong></p>
                     <p>• Пароль: <strong>gosuslugi123</strong></p>
@@ -705,12 +822,12 @@
                 </button>
                 <div id="help1" class="help-content-big">
                     <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
-                    <div class="help-step">1. Нажмите на синюю кнопку <strong>"Войти"</strong> внизу экрана</div>
+                    <div class="help-step">1. Нажмите на пульсирующую кнопку <strong>"Войти"</strong> внизу экрана</div>
                     <div class="help-step">2. Введите в верхнее поле: <strong>+7 900 123-45-67</strong></div>
                     <div class="help-step">3. Введите в нижнее поле: <strong>gosuslugi123</strong></div>
                     <div class="help-step">4. Нажмите синюю кнопку <strong>"Войти"</strong> внизу экрана</div>
-                    <p style="margin-top: 20px; color: #007AFF; font-weight: bold;">
-                        <i class="bi bi-lightbulb"></i> После успешного входа появится синяя кнопка "Мои услуги"
+                    <p style="margin-top: 20px; color: #dc3545; font-weight: bold;">
+                        <i class="bi bi-exclamation-triangle"></i> Не нажимайте "Зарегистрироваться" - это ошибка!
                     </p>
                 </div>
             </div>
@@ -718,7 +835,7 @@
             <!-- Задание 2 -->
             <div id="task2" class="task">
                 <div class="task-number">2</div>
-                <h2 class="task-title">Навигация по личному кабинету</h2>
+                <h2 class="task-title">Перейти в услуги</h2>
                 <div class="task-description">
                     <p><strong>Задача:</strong> Найдите и нажмите на раздел "Мои услуги" в боковом меню</p>
                     <p><strong>Подсказка:</strong> Кнопка находится в левой части экрана</p>
@@ -731,205 +848,210 @@
                     <div class="help-step">1. После успешного входа вы увидите главную страницу</div>
                     <div class="help-step">2. Найдите в левой части экрана синюю кнопку <strong>"Мои услуги"</strong></div>
                     <div class="help-step">3. Нажмите на эту кнопку один раз</div>
-                    <p style="margin-top: 20px; color: #007AFF; font-weight: bold;">
-                        <i class="bi bi-lightbulb"></i> Кнопка будет пульсировать синим цветом
-                    </p>
                 </div>
             </div>
 
             <!-- Задание 3 -->
             <div id="task3" class="task">
                 <div class="task-number">3</div>
-                <h2 class="task-title">Просмотр деталей услуги</h2>
+                <h2 class="task-title">Выбрать раздел "Здоровье"</h2>
                 <div class="task-description">
-                    <p><strong>Задача:</strong> Изучите подробную информацию о выбранной услуге</p>
-                    <p><strong>Подсказка:</strong> Нажмите на кнопку "Подробнее" рядом с медицинской услугой</p>
+                    <p><strong>Задача:</strong> В разделе услуг найдите и выберите категорию "Здоровье"</p>
+                    <p><strong>Подсказка:</strong> Прокрутите список услуг вниз до медицинского раздела</p>
                 </div>
                 <button class="help-btn-big" onclick="toggleHelp(3)">
                     <i class="bi bi-question-circle"></i> КАК ЭТО СДЕЛАТЬ?
                 </button>
                 <div id="help3" class="help-content-big">
                     <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
-                    <div class="help-step">1. В разделе "Мои услуги" найдите медицинские услуги</div>
-                    <div class="help-step">2. Рядом с услугой "Медицинское обслуживание" найдите кнопку <strong>"Подробнее"</strong></div>
-                    <div class="help-step">3. Нажмите на эту кнопку для просмотра деталей</div>
+                    <div class="help-step">1. В разделе "Мои услуги" прокрутите список вниз</div>
+                    <div class="help-step">2. Найдите категорию <strong>"Здоровье"</strong></div>
+                    <div class="help-step">3. Нажмите на эту категорию для перехода</div>
                 </div>
             </div>
 
             <!-- Задание 4 -->
             <div id="task4" class="task">
                 <div class="task-number">4</div>
-                <h2 class="task-title">Возврат в предыдущий раздел</h2>
+                <h2 class="task-title">Выбрать "Записаться ко врачу"</h2>
                 <div class="task-description">
-                    <p><strong>Задача:</strong> Вернитесь обратно в раздел "Мои услуги"</p>
-                    <p><strong>Подсказка:</strong> Используйте кнопку "Назад" в верхней части экрана</p>
+                    <p><strong>Задача:</strong> В разделе "Здоровье" выберите услугу "Записаться ко врачу"</p>
+                    <p><strong>Подсказка:</strong> Это одна из основных медицинских услуг</p>
                 </div>
                 <button class="help-btn-big" onclick="toggleHelp(4)">
                     <i class="bi bi-question-circle"></i> КАК ЭТО СДЕЛАТЬ?
                 </button>
                 <div id="help4" class="help-content-big">
                     <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
-                    <div class="help-step">1. На странице с деталями услуги найдите вверху кнопку <strong>"Назад"</strong></div>
-                    <div class="help-step">2. Нажмите на эту кнопку один раз</div>
-                    <div class="help-step">3. Вы вернетесь к списку услуг</div>
+                    <div class="help-step">1. В разделе "Здоровье" найдите услугу <strong>"Записаться ко врачу"</strong></div>
+                    <div class="help-step">2. Нажмите на эту услугу для начала записи</div>
                 </div>
             </div>
 
-            <!-- Задание 5: Запись ко врачу -->
+            <!-- Задание 5 -->
             <div id="task5" class="task">
                 <div class="task-number">5</div>
-                <h2 class="task-title">Запись на прием к врачу</h2>
+                <h2 class="task-title">Нажать кнопку "Начать"</h2>
                 <div class="task-description">
-                    <p><strong>Задача:</strong> Начните процесс записи на медицинский прием</p>
-                    <p><strong>Инструкция:</strong> Найдите услугу "Запись к врачу" и нажмите на нее</p>
+                    <p><strong>Задача:</strong> Начните процесс записи, нажав на кнопку "Начать"</p>
+                    <p><strong>Инструкция:</strong> Кнопка находится внизу экрана</p>
                 </div>
                 <button class="help-btn-big" onclick="toggleHelp(5)">
                     <i class="bi bi-question-circle"></i> КАК ЭТО СДЕЛАТЬ?
                 </button>
                 <div id="help5" class="help-content-big">
                     <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
-                    <div class="help-step">1. В разделе "Медицинские услуги" найдите пункт <strong>"Запись к врачу"</strong></div>
-                    <div class="help-step">2. Нажмите на эту кнопку для начала записи</div>
-                    <div class="help-step">3. Затем нажмите на синюю кнопку <strong>"Начать"</strong> внизу экрана</div>
-                    <p style="margin-top: 20px; color: #007AFF; font-weight: bold;">
-                        <i class="bi bi-lightbulb"></i> После этого появится список доступных врачей
-                    </p>
+                    <div class="help-step">1. На странице записи к врачу найдите внизу кнопку <strong>"Начать"</strong></div>
+                    <div class="help-step">2. Нажмите на эту кнопку для продолжения</div>
                 </div>
             </div>
 
-            <!-- Задание 6: Выбор врача -->
+            <!-- Задание 6 -->
             <div id="task6" class="task">
                 <div class="task-number">6</div>
-                <h2 class="task-title">Выбор специалиста</h2>
+                <h2 class="task-title">Ответить на вопрос "Кого записать?"</h2>
                 <div class="task-description">
-                    <p><strong>Задача:</strong> Выберите врача для записи на прием</p>
-                    <p><strong>Подсказка:</strong> Найдите нужного специалиста в списке и нажмите "Выбрать врача"</p>
+                    <p><strong>Задача:</strong> Выберите вариант "Себя"</p>
+                    <p><strong>Подсказка:</strong> Это первый вариант в списке</p>
                 </div>
                 <button class="help-btn-big" onclick="toggleHelp(6)">
                     <i class="bi bi-question-circle"></i> КАК ЭТО СДЕЛАТЬ?
                 </button>
                 <div id="help6" class="help-content-big">
                     <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
-                    <div class="help-step">1. На странице записи просмотрите список доступных специалистов</div>
-                    <div class="help-step">2. Найдите врача нужной специальности (например, терапевт)</div>
-                    <div class="help-step">3. Нажмите на синюю кнопку <strong>"Выбрать врача"</strong> рядом с именем врача</div>
+                    <div class="help-step">1. На вопрос "Кого записать?" выберите вариант <strong>"Себя"</strong></div>
+                    <div class="help-step">2. Нажмите на зеленую кнопку "Себя"</div>
                 </div>
             </div>
 
-            <!-- Задание 7: Выбор времени -->
+            <!-- Задание 7 -->
             <div id="task7" class="task">
                 <div class="task-number">7</div>
-                <h2 class="task-title">Выбор времени приема</h2>
+                <h2 class="task-title">Указать регион</h2>
                 <div class="task-description">
-                    <p><strong>Задача:</strong> Выберите удобное время для визита к врачу</p>
-                    <p><strong>Дополнительно:</strong> Введите номер полиса ОМС: <strong>1234567890123456</strong></p>
+                    <p><strong>Задача:</strong> Введите регион "Москва"</p>
+                    <p><strong>Инструкция:</strong> Введите точно как указано</p>
                 </div>
                 <button class="help-btn-big" onclick="toggleHelp(7)">
                     <i class="bi bi-question-circle"></i> КАК ЭТО СДЕЛАТЬ?
                 </button>
                 <div id="help7" class="help-content-big">
                     <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
-                    <div class="help-step">1. На календаре выберите удобную дату приема</div>
-                    <div class="help-step">2. Найдите доступное время в расписании врача</div>
-                    <div class="help-step">3. Нажмите на синюю кнопку <strong>"Выбрать время"</strong></div>
-                    <div class="help-step">4. Введите номер полиса ОМС: <strong>1234567890123456</strong></div>
-                    <div class="help-step">5. Нажмите синюю кнопку <strong>"Подтвердить"</strong> внизу экрана</div>
+                    <div class="help-step">1. В открывшейся форме введите: <strong>Москва</strong></div>
+                    <div class="help-step">2. Нажмите кнопку "Продолжить"</div>
                 </div>
             </div>
 
-            <!-- Задание 8: Подтверждение записи -->
+            <!-- Задание 8 -->
             <div id="task8" class="task">
                 <div class="task-number">8</div>
-                <h2 class="task-title">Подтверждение записи</h2>
+                <h2 class="task-title">Ввести полис ОМС</h2>
                 <div class="task-description">
-                    <p><strong>Задача:</strong> Завершите процесс записи на прием к врачу</p>
-                    <p><strong>Подсказка:</strong> Проверьте данные и нажмите "Подтвердить запись"</p>
+                    <p><strong>Задача:</strong> Введите номер полиса ОМС</p>
+                    <p><strong>Номер полиса:</strong> <strong>12345678901234567</strong> (17 цифр)</p>
                 </div>
                 <button class="help-btn-big" onclick="toggleHelp(8)">
                     <i class="bi bi-question-circle"></i> КАК ЭТО СДЕЛАТЬ?
                 </button>
                 <div id="help8" class="help-content-big">
                     <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
-                    <div class="help-step">1. Проверьте все данные на экране подтверждения</div>
-                    <div class="help-step">2. Убедитесь, что выбраны правильные врач, дата и время</div>
-                    <div class="help-step">3. Нажмите на большую синюю кнопку <strong>"Подтвердить запись"</strong></div>
-                    <p style="margin-top: 20px; color: #28a745; font-weight: bold;">
-                        <i class="bi bi-check-circle"></i> После этого запись будет успешно завершена!
-                    </p>
+                    <div class="help-step">1. Введите номер полиса: <strong>12345678901234567</strong></div>
+                    <div class="help-step">2. Нажмите кнопку "Продолжить"</div>
                 </div>
             </div>
 
-            <!-- Новые задания для im11-im14 -->
+            <!-- Задание 9 -->
             <div id="task9" class="task">
                 <div class="task-number">9</div>
-                <h2 class="task-title">Продолжение процесса записи</h2>
+                <h2 class="task-title">Выбрать врача-офтальмолога</h2>
                 <div class="task-description">
-                    <p><strong>Задача:</strong> Продолжите процесс записи к врачу</p>
-                    <p><strong>Инструкция:</strong> Нажмите на кнопку "Продолжить" для перехода к выбору услуги</p>
+                    <p><strong>Задача:</strong> Из выпадающего списка выберите "офтальмолог"</p>
+                    <p><strong>Подсказка:</strong> Это специалист по глазам</p>
                 </div>
                 <button class="help-btn-big" onclick="toggleHelp(9)">
                     <i class="bi bi-question-circle"></i> КАК ЭТО СДЕЛАТЬ?
                 </button>
                 <div id="help9" class="help-content-big">
                     <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
-                    <div class="help-step">1. На экране подтверждения нажмите на кнопку <strong>"Продолжить"</strong></div>
-                    <div class="help-step">2. Система перейдет к следующему шагу - выбору конкретной медицинской услуги</div>
+                    <div class="help-step">1. В выпадающем списке найдите <strong>"офтальмолог"</strong></div>
+                    <div class="help-step">2. Выберите этот вариант</div>
+                    <div class="help-step">3. Нажмите кнопку "Продолжить"</div>
                 </div>
             </div>
 
+            <!-- Задание 10 -->
             <div id="task10" class="task">
                 <div class="task-number">10</div>
-                <h2 class="task-title">Выбор медицинской услуги</h2>
+                <h2 class="task-title">Выбрать ФИО врача</h2>
                 <div class="task-description">
-                    <p><strong>Задача:</strong> Выберите нужную медицинскую услугу из списка</p>
-                    <p><strong>Подсказка:</strong> Выберите "Первичный прием терапевта" из доступных вариантов</p>
+                    <p><strong>Задача:</strong> Выберите врача "Иванов И.П."</p>
+                    <p><strong>Инструкция:</strong> Это первый вариант в списке</p>
                 </div>
                 <button class="help-btn-big" onclick="toggleHelp(10)">
                     <i class="bi bi-question-circle"></i> КАК ЭТО СДЕЛАТЬ?
                 </button>
                 <div id="help10" class="help-content-big">
                     <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
-                    <div class="help-step">1. На странице выбора услуги просмотрите список доступных медицинских услуг</div>
-                    <div class="help-step">2. Найдите в списке пункт <strong>"Первичный прием терапевта"</strong></div>
-                    <div class="help-step">3. Нажмите на эту услугу для выбора</div>
+                    <div class="help-step">1. В выпадающем списке выберите <strong>"Иванов И.П."</strong></div>
+                    <div class="help-step">2. Нажмите кнопку "Продолжить"</div>
                 </div>
             </div>
 
+            <!-- Задание 11 -->
             <div id="task11" class="task">
                 <div class="task-number">11</div>
-                <h2 class="task-title">Подтверждение данных пациента</h2>
+                <h2 class="task-title">Ввести адрес больницы</h2>
                 <div class="task-description">
-                    <p><strong>Задача:</strong> Проверьте и подтвердите данные пациента</p>
-                    <p><strong>Инструкция:</strong> Убедитесь, что все данные верны, и нажмите "Подтвердить данные"</p>
+                    <p><strong>Задача:</strong> Введите адрес больницы</p>
+                    <p><strong>Пример:</strong> ул. Ленина, д. 10, поликлиника №1</p>
                 </div>
                 <button class="help-btn-big" onclick="toggleHelp(11)">
                     <i class="bi bi-question-circle"></i> КАК ЭТО СДЕЛАТЬ?
                 </button>
                 <div id="help11" class="help-content-big">
                     <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
-                    <div class="help-step">1. Внимательно проверьте все указанные данные: ФИО, дату рождения, полис ОМС</div>
-                    <div class="help-step">2. Если все данные верны, нажмите на кнопку <strong>"Подтвердить данные"</strong></div>
-                    <div class="help-step">3. Если есть ошибки, нажмите "Изменить данные" для корректировки</div>
+                    <div class="help-step">1. Введите любой адрес больницы</div>
+                    <div class="help-step">2. Например: <strong>ул. Ленина, д. 10, поликлиника №1</strong></div>
+                    <div class="help-step">3. Нажмите кнопку "Выбрать"</div>
                 </div>
             </div>
 
+            <!-- Задание 12 -->
             <div id="task12" class="task">
                 <div class="task-number">12</div>
-                <h2 class="task-title">Просмотр и завершение записи</h2>
+                <h2 class="task-title">Выбрать дату и время</h2>
                 <div class="task-description">
-                    <p><strong>Задача:</strong> Просмотрите детали записи и завершите процесс</p>
-                    <p><strong>Подсказка:</strong> Нажмите "Просмотреть запись" для деталей, затем "Завершить запись"</p>
+                    <p><strong>Задача:</strong> Выберите дату 16 февраля и время 12:30</p>
+                    <p><strong>Инструкция:</strong> Введите точно как указано</p>
                 </div>
                 <button class="help-btn-big" onclick="toggleHelp(12)">
                     <i class="bi bi-question-circle"></i> КАК ЭТО СДЕЛАТЬ?
                 </button>
                 <div id="help12" class="help-content-big">
                     <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
-                    <div class="help-step">1. На странице подтверждения нажмите <strong>"Просмотреть запись"</strong> для просмотра деталей</div>
-                    <div class="help-step">2. Проверьте время приема, врача и поликлинику</div>
-                    <div class="help-step">3. Нажмите на финальную кнопку <strong>"Завершить запись"</strong></div>
+                    <div class="help-step">1. В поле "Дата" введите: <strong>16 февраля</strong></div>
+                    <div class="help-step">2. В поле "Время" введите: <strong>12:30</strong></div>
+                    <div class="help-step">3. Нажмите кнопку "Выбрать время"</div>
+                </div>
+            </div>
+
+            <!-- Задание 13 -->
+            <div id="task13" class="task">
+                <div class="task-number">13</div>
+                <h2 class="task-title">Завершить запись</h2>
+                <div class="task-description">
+                    <p><strong>Задача:</strong> Завершите процесс записи к врачу</p>
+                    <p><strong>Подсказка:</strong> Проверьте данные и нажмите "Завершить запись"</p>
+                </div>
+                <button class="help-btn-big" onclick="toggleHelp(13)">
+                    <i class="bi bi-question-circle"></i> КАК ЭТО СДЕЛАТЬ?
+                </button>
+                <div id="help13" class="help-content-big">
+                    <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
+                    <div class="help-step">1. Проверьте все введенные данные</div>
+                    <div class="help-step">2. Нажмите на кнопку <strong>"Завершить запись"</strong></div>
                     <p style="margin-top: 20px; color: #28a745; font-weight: bold;">
-                        <i class="bi bi-check-circle"></i> Поздравляем! Вы успешно завершили запись к врачу через Госуслуги!
+                        <i class="bi bi-check-circle"></i> После этого запись будет успешно завершена!
                     </p>
                 </div>
             </div>
@@ -941,7 +1063,7 @@
             <div id="complete-screen" class="complete-screen">
                 <div class="complete-icon"><i class="bi bi-trophy-fill"></i></div>
                 <h2 style="font-size: 36px; margin-bottom: 20px;">ТРЕНИНГ ЗАВЕРШЕН!</h2>
-                <div class="score" id="score">12/12</div>
+                <div class="score" id="score">13/13</div>
                 <p style="font-size: 24px; color: #666; margin-bottom: 30px;">
                     Поздравляем! Вы успешно освоили запись к врачу через Госуслуги
                 </p>
@@ -965,10 +1087,20 @@
     // Переменные
     let currentTask = 1;
     let tasksCompleted = 0;
-    const totalTasks = 12;
+    const totalTasks = 13;
 
     // Состояния выполнения заданий
     const taskCompleted = Array(totalTasks + 1).fill(false);
+
+    // Показать ошибку регистрации
+    function showRegistrationError() {
+        showNotification('Ошибка! Задание: "Войти в аккаунт". Нажмите кнопку "Войти"', 'error');
+        // Добавляем анимацию к кнопке "Войти" для привлечения внимания
+        document.getElementById('login-btn').classList.add('active');
+        setTimeout(() => {
+            document.getElementById('login-btn').classList.remove('active');
+        }, 2000);
+    }
 
     // Показать форму входа
     function showLoginForm() {
@@ -997,7 +1129,7 @@
                 // Завершить задание 1
                 if (currentTask === 1 && !taskCompleted[1]) {
                     completeTask(1);
-                    showNotification('Вход выполнен успешно! Задание 1 завершено.');
+                    showNotification('Вход выполнен успешно! Задание 1 завершено.', 'success');
 
                     // Показать первую кнопку на im4
                     setTimeout(() => {
@@ -1006,7 +1138,7 @@
                     }, 500);
                 }
             } else {
-                showNotification('Неверные данные. Используйте: +7 900 123-45-67 / gosuslugi123');
+                showNotification('Неверные данные. Используйте: +7 900 123-45-67 / gosuslugi123', 'error');
             }
         };
 
@@ -1028,45 +1160,98 @@
         // Скрыть текущую кнопку
         hideClickableArea(currentImage);
 
+        // Скрыть анимацию у всех кнопок
+        document.getElementById('start-btn').classList.remove('active');
+        document.getElementById('continue-btn').classList.remove('active');
+        document.getElementById('select-btn').classList.remove('active');
+        document.getElementById('next-btn-phone').classList.remove('active');
+
         // Скрыть все синие кнопки
         hideAllBlueButtons();
 
         // Скрыть все формы
-        document.getElementById('login-form').style.display = 'none';
-        document.getElementById('policy-form').style.display = 'none';
+        hideAllForms();
 
         // Перейти на следующее изображение
         document.getElementById('phone-img').src = `{{ url_for('images_files', filename='gosuslugi/') }}${nextImage}.jpg`;
 
         // Показать следующую кнопку через задержку
         setTimeout(() => {
-            showClickableArea(nextImage);
-
-            // Показать синюю кнопку для im7
-            if (nextImage === 'im7') {
-                document.getElementById('start-btn').classList.remove('hidden');
-                showNotification('Нажмите на синюю кнопку "Начать" внизу экрана');
-            } else if (nextImage === 'im9') {
-                // Для im9 показываем форму для ввода полиса
-                setTimeout(() => {
-                    document.getElementById('policy-form').style.display = 'block';
-                    showNotification('Введите номер полиса ОМС: 1234567890123456');
-                }, 500);
+            // Показать соответствующие элементы для каждого изображения
+            switch(nextImage) {
+                case 'im4':
+                    showClickableArea('im4');
+                    showNotification('Нажмите на кнопку "Мои услуги"');
+                    break;
+                case 'im5':
+                    showClickableArea('im5');
+                    showNotification('Нажмите на раздел "Здоровье"');
+                    break;
+                case 'im6':
+                    showClickableArea('im6');
+                    showNotification('Нажмите на "Записаться ко врачу"');
+                    break;
+                case 'im7':
+                    // Показать синюю кнопку "Начать" с анимацией
+                    document.getElementById('start-btn').classList.remove('hidden');
+                    document.getElementById('start-btn').classList.add('active');
+                    showNotification('Нажмите на синюю кнопку "Начать"');
+                    break;
+                case 'im8':
+                    // Показать кнопку "Себя"
+                    showClickableArea('im8');
+                    showNotification('Нажмите на зеленую кнопку "Себя"');
+                    break;
+                case 'im9':
+                    // Показать форму для региона
+                    setTimeout(() => {
+                        showRegionForm();
+                    }, 500);
+                    break;
+                case 'im10':
+                    // Показать форму для полиса ОМС
+                    setTimeout(() => {
+                        showPolicyForm();
+                    }, 500);
+                    break;
+                case 'im11':
+                    // Показать форму для выбора врача
+                    setTimeout(() => {
+                        showDoctorForm();
+                    }, 500);
+                    break;
+                case 'im12':
+                    // Показать форму для выбора ФИО врача
+                    setTimeout(() => {
+                        showDoctorNameForm();
+                    }, 500);
+                    break;
+                case 'im13':
+                    // Показать форму для адреса больницы
+                    setTimeout(() => {
+                        showAddressForm();
+                    }, 500);
+                    break;
+                case 'im14':
+                    // Показать форму для даты и времени
+                    setTimeout(() => {
+                        showDateForm();
+                    }, 500);
+                    break;
+                case 'im15':
+                    // Показать кнопку завершения
+                    showClickableArea('im10');
+                    showNotification('Нажмите "Завершить запись" для завершения');
+                    break;
             }
 
             // Определить какое задание завершить
             let taskToComplete = 0;
             switch(currentImage) {
                 case 'im4': taskToComplete = 2; break; // Мои услуги
-                case 'im5': taskToComplete = 3; break; // Подробнее
-                case 'im6': taskToComplete = 4; break; // Назад
-                case 'im7': taskToComplete = 5; break; // Запись к врачу
-                case 'im8': taskToComplete = 6; break; // Выбрать врача
-                case 'im9': taskToComplete = 7; break; // Выбрать время
-                case 'im10': taskToComplete = 8; break; // Подтвердить запись
-                case 'im11': taskToComplete = 9; break; // Продолжить
-                case 'im12': taskToComplete = 10; break; // Выбрать услугу
-                case 'im13': taskToComplete = 11; break; // Подтвердить данные
+                case 'im5': taskToComplete = 3; break; // Здоровье
+                case 'im6': taskToComplete = 4; break; // Записаться ко врачу
+                case 'im7': taskToComplete = 5; break; // Начать (кнопка "Начать")
             }
 
             // Завершить задание если нужно
@@ -1078,68 +1263,273 @@
 
     // Обработка кнопки "Начать" на im7
     function handleStartButton() {
-        // Скрыть синюю кнопку
+        // Скрыть синюю кнопку и убрать анимацию
         document.getElementById('start-btn').classList.add('hidden');
+        document.getElementById('start-btn').classList.remove('active');
 
         // Завершить задание 5
         if (currentTask === 5 && !taskCompleted[5]) {
             completeTask(5);
-            showNotification('Запись к врачу начата! Задание 5 завершено.');
+            showNotification('Процесс записи начат! Задание 5 завершено.', 'success');
 
             // Перейти к следующему изображению
             setTimeout(() => {
                 goToImage('im8');
-                showNotification('Нажмите на кнопку "Выбрать врача"');
+                showNotification('Выберите "Себя" в качестве пациента');
             }, 1000);
         }
     }
 
-    // Обработка кнопки "Подтвердить" на im9
-    function handleConfirmButton() {
-        const policy = document.getElementById('policy-input').value.trim();
+    // Выбор "Себя" на im8
+    function selectYourself() {
+        // Скрыть кнопку
+        hideClickableArea('im8');
 
-        if (policy === '1234567890123456') {
-            // Скрыть форму
-            document.getElementById('policy-form').style.display = 'none';
+        // Завершить задание 6
+        if (currentTask === 6 && !taskCompleted[6]) {
+            completeTask(6);
+            showNotification('Выбран вариант "Себя". Задание 6 завершено.', 'success');
 
-            // Завершить задание 7
-            if (currentTask === 7 && !taskCompleted[7]) {
-                completeTask(7);
-                showNotification('Полис ОМС подтвержден! Задание 7 завершено.');
-
-                // Перейти к следующему изображению
-                setTimeout(() => {
-                    goToImage('im10');
-                    showNotification('Нажмите на кнопку "Продолжить"');
-                }, 1000);
-            }
-        } else {
-            showNotification('Неверный номер полиса. Используйте: 1234567890123456');
+            // Перейти к следующему изображению
+            setTimeout(() => {
+                goToImage('im9');
+                showNotification('Введите регион "Москва"');
+            }, 1000);
         }
     }
 
-    // Обработка кнопки "Продолжить" (если нужна)
+    // Показать форму для региона
+    function showRegionForm() {
+        document.getElementById('region-form').style.display = 'block';
+
+        // Назначить обработчик для кнопки
+        document.getElementById('submit-region-btn').onclick = function() {
+            const region = document.getElementById('region-input').value.trim();
+
+            if (region.toLowerCase() === 'москва') {
+                // Скрыть форму
+                document.getElementById('region-form').style.display = 'none';
+
+                // Завершить задание 7
+                if (currentTask === 7 && !taskCompleted[7]) {
+                    completeTask(7);
+                    showNotification('Регион "Москва" указан. Задание 7 завершено.', 'success');
+
+                    // Перейти к следующему изображению
+                    setTimeout(() => {
+                        goToImage('im10');
+                    }, 1000);
+                }
+            } else {
+                showNotification('Неверный регион. Введите: Москва', 'error');
+            }
+        };
+
+        // Включить нажатие Enter
+        document.getElementById('region-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('submit-region-btn').click();
+            }
+        });
+    }
+
+    // Показать форму для полиса
+    function showPolicyForm() {
+        document.getElementById('policy-form').style.display = 'block';
+
+        // Назначить обработчик для кнопки
+        document.getElementById('submit-policy-btn').onclick = function() {
+            const policy = document.getElementById('policy-input').value.trim();
+
+            if (policy === '12345678901234567') {
+                // Скрыть форму
+                document.getElementById('policy-form').style.display = 'none';
+
+                // Завершить задание 8
+                if (currentTask === 8 && !taskCompleted[8]) {
+                    completeTask(8);
+                    showNotification('Полис ОМС введен. Задание 8 завершено.', 'success');
+
+                    // Перейти к следующему изображению
+                    setTimeout(() => {
+                        goToImage('im11');
+                    }, 1000);
+                }
+            } else {
+                showNotification('Неверный номер полиса. Используйте: 12345678901234567', 'error');
+            }
+        };
+
+        // Включить нажатие Enter
+        document.getElementById('policy-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('submit-policy-btn').click();
+            }
+        });
+    }
+
+    // Показать форму для выбора врача
+    function showDoctorForm() {
+        document.getElementById('doctor-form').style.display = 'block';
+
+        // Назначить обработчик для кнопки
+        document.getElementById('submit-doctor-btn').onclick = function() {
+            const doctor = document.getElementById('doctor-select').value;
+
+            if (doctor === 'офтальмолог') {
+                // Скрыть форму
+                document.getElementById('doctor-form').style.display = 'none';
+
+                // Завершить задание 9
+                if (currentTask === 9 && !taskCompleted[9]) {
+                    completeTask(9);
+                    showNotification('Врач-офтальмолог выбран. Задание 9 завершено.', 'success');
+
+                    // Перейти к следующему изображению
+                    setTimeout(() => {
+                        goToImage('im12');
+                    }, 1000);
+                }
+            } else {
+                showNotification('Неверный выбор. Выберите "офтальмолог"', 'error');
+            }
+        };
+    }
+
+    // Показать форму для выбора ФИО врача
+    function showDoctorNameForm() {
+        document.getElementById('doctor-name-form').style.display = 'block';
+
+        // Назначить обработчик для кнопки
+        document.getElementById('submit-doctor-name-btn').onclick = function() {
+            const doctorName = document.getElementById('doctor-name-select').value;
+
+            if (doctorName === 'Иванов И.П.') {
+                // Скрыть форму
+                document.getElementById('doctor-name-form').style.display = 'none';
+
+                // Завершить задание 10
+                if (currentTask === 10 && !taskCompleted[10]) {
+                    completeTask(10);
+                    showNotification('Врач Иванов И.П. выбран. Задание 10 завершено.', 'success');
+
+                    // Перейти к следующему изображению
+                    setTimeout(() => {
+                        goToImage('im13');
+                    }, 1000);
+                }
+            } else {
+                showNotification('Неверный выбор. Выберите "Иванов И.П."', 'error');
+            }
+        };
+    }
+
+    // Показать форму для адреса
+    function showAddressForm() {
+        document.getElementById('address-form').style.display = 'block';
+
+        // Назначить обработчик для кнопки
+        document.getElementById('submit-address-btn').onclick = function() {
+            const address = document.getElementById('address-input').value.trim();
+
+            if (address.length > 5) {
+                // Скрыть форму
+                document.getElementById('address-form').style.display = 'none';
+
+                // Завершить задание 11
+                if (currentTask === 11 && !taskCompleted[11]) {
+                    completeTask(11);
+                    showNotification('Адрес больницы введен. Задание 11 завершено.', 'success');
+
+                    // Перейти к следующему изображению
+                    setTimeout(() => {
+                        goToImage('im14');
+                    }, 1000);
+                }
+            } else {
+                showNotification('Введите корректный адрес больницы', 'error');
+            }
+        };
+
+        // Включить нажатие Enter
+        document.getElementById('address-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('submit-address-btn').click();
+            }
+        });
+    }
+
+    // Показать форму для даты и времени
+    function showDateForm() {
+        document.getElementById('date-form').style.display = 'block';
+
+        // Назначить обработчик для кнопки
+        document.getElementById('submit-date-btn').onclick = function() {
+            const date = document.getElementById('date-input').value.trim();
+            const time = document.getElementById('time-input').value.trim();
+
+            if (date.toLowerCase() === '16 февраля' && time === '12:30') {
+                // Скрыть форму
+                document.getElementById('date-form').style.display = 'none';
+
+                // Завершить задание 12
+                if (currentTask === 12 && !taskCompleted[12]) {
+                    completeTask(12);
+                    showNotification('Дата и время выбраны. Задание 12 завершено.', 'success');
+
+                    // Перейти к завершению
+                    setTimeout(() => {
+                        goToImage('im15');
+                        showNotification('Нажмите "Завершить запись" для завершения процесса');
+                    }, 1000);
+                }
+            } else {
+                showNotification('Неверные данные. Введите: Дата - "16 февраля", Время - "12:30"', 'error');
+            }
+        };
+
+        // Включить нажатие Enter для времени
+        document.getElementById('time-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('submit-date-btn').click();
+            }
+        });
+    }
+
+    // Завершить запись
+    function completeAppointment() {
+        // Скрыть кнопку
+        hideClickableArea('im10');
+
+        // Завершить задание 13
+        if (currentTask === 13 && !taskCompleted[13]) {
+            completeTask(13);
+            showNotification('Запись к врачу успешно завершена! Задание 13 завершено.', 'success');
+
+            // Показать финальное изображение
+            setTimeout(() => {
+                document.getElementById('phone-img').src = "{{ url_for('images_files', filename='gosuslugi/im16.jpg') }}";
+                showNotification('Поздравляем! Вы успешно записались на прием к врачу!', 'success');
+            }, 1000);
+        }
+    }
+
+    // Обработка кнопки "Продолжить"
     function handleContinueButton() {
         document.getElementById('continue-btn').classList.add('hidden');
         showNotification('Продолжение процесса записи...');
     }
 
-    // Завершение записи ко врачу
-    function completeDoctorAppointment() {
-        // Скрыть кнопку
-        hideClickableArea('im14');
+    // Обработка кнопки "Выбрать"
+    function handleSelectButton() {
+        document.getElementById('select-btn').classList.add('hidden');
+        showNotification('Выбор подтвержден...');
+    }
 
-        // Завершить задание 12
-        if (currentTask === 12 && !taskCompleted[12]) {
-            completeTask(12);
-            showNotification('Запись к врачу успешно завершена! Задание 12 завершено.');
-
-            // Показать финальное изображение
-            setTimeout(() => {
-                document.getElementById('phone-img').src = "{{ url_for('images_files', filename='gosuslugi/im15.jpg') }}";
-                showNotification('Поздравляем! Вы успешно записались на прием к врачу!');
-            }, 1000);
-        }
+    // Обработка кнопки "Далее"
+    function handleNextButton() {
+        document.getElementById('next-btn-phone').classList.add('hidden');
+        showNotification('Переход к следующему шагу...');
     }
 
     // Получить имя текущего изображения из src
@@ -1179,10 +1569,22 @@
     // Скрыть все синие кнопки
     function hideAllBlueButtons() {
         document.getElementById('start-btn').classList.add('hidden');
-        document.getElementById('confirm-btn').classList.add('hidden');
         document.getElementById('continue-btn').classList.add('hidden');
+        document.getElementById('select-btn').classList.add('hidden');
+        document.getElementById('next-btn-phone').classList.add('hidden');
         document.getElementById('login-btn').classList.add('hidden');
         document.getElementById('register-btn').classList.add('hidden');
+    }
+
+    // Скрыть все формы
+    function hideAllForms() {
+        document.getElementById('login-form').style.display = 'none';
+        document.getElementById('region-form').style.display = 'none';
+        document.getElementById('policy-form').style.display = 'none';
+        document.getElementById('doctor-form').style.display = 'none';
+        document.getElementById('doctor-name-form').style.display = 'none';
+        document.getElementById('address-form').style.display = 'none';
+        document.getElementById('date-form').style.display = 'none';
     }
 
     // Завершить задание
@@ -1193,7 +1595,7 @@
             updateProgress();
 
             document.getElementById('next-btn').classList.add('active');
-            showNotification('Задание ' + taskNum + ' выполнено! Нажмите "Следующее задание"');
+            showNotification('Задание ' + taskNum + ' выполнено! Нажмите "Следующее задание"', 'success');
 
             // Если все задания выполнены
             if (tasksCompleted === totalTasks) {
@@ -1233,7 +1635,7 @@
 
             // Определить какое изображение должно быть для текущего задания
             const taskToImageMap = {
-                1: 'im4',
+                1: '', // Задание 1 - начальный экран
                 2: 'im4',
                 3: 'im5',
                 4: 'im6',
@@ -1244,42 +1646,66 @@
                 9: 'im11',
                 10: 'im12',
                 11: 'im13',
-                12: 'im14'
+                12: 'im14',
+                13: 'im15'
             };
 
             const expectedImage = taskToImageMap[currentTask];
 
-            if (currentImage === expectedImage) {
+            if (currentImage === expectedImage || (currentTask === 1 && currentImage === 'im1')) {
                 setTimeout(() => {
-                    showClickableArea(expectedImage);
-
-                    // Показать синюю кнопку для im7 и форму для im9
-                    if (expectedImage === 'im7') {
-                        document.getElementById('start-btn').classList.remove('hidden');
-                        showNotification('Нажмите на синюю кнопку "Начать"');
-                    } else if (expectedImage === 'im9') {
-                        setTimeout(() => {
-                            document.getElementById('policy-form').style.display = 'block';
-                            showNotification('Введите номер полиса ОМС: 1234567890123456');
-                        }, 500);
-                    }
-
-                    const messages = {
-                        2: 'Нажмите на синюю кнопку "Мои услуги"',
-                        3: 'Нажмите на кнопку "Подробнее"',
-                        4: 'Нажмите на кнопку "Назад"',
-                        5: 'Нажмите на кнопку "Запись к врачу"',
-                        6: 'Нажмите на кнопку "Выбрать врача"',
-                        7: 'Выберите время и введите полис ОМС',
-                        8: 'Нажмите на кнопку "Продолжить"',
-                        9: 'Нажмите на кнопку "Выбрать услугу"',
-                        10: 'Нажмите на кнопку "Подтвердить данные"',
-                        11: 'Нажмите на кнопку "Просмотреть запись"',
-                        12: 'Нажмите на кнопку "Завершить запись"'
-                    };
-
-                    if (messages[currentTask]) {
-                        showNotification(messages[currentTask]);
+                    // Показать соответствующие элементы для каждого задания
+                    switch(currentTask) {
+                        case 1:
+                            // Показать кнопку "Войти" с анимацией
+                            document.getElementById('login-btn').classList.remove('hidden');
+                            document.getElementById('login-btn').classList.add('active');
+                            document.getElementById('register-btn').classList.remove('hidden');
+                            showNotification('Нажмите на пульсирующую кнопку "Войти"');
+                            break;
+                        case 2:
+                            showClickableArea('im4');
+                            showNotification('Нажмите на кнопку "Мои услуги"');
+                            break;
+                        case 3:
+                            showClickableArea('im5');
+                            showNotification('Нажмите на раздел "Здоровье"');
+                            break;
+                        case 4:
+                            showClickableArea('im6');
+                            showNotification('Нажмите на "Записаться ко врачу"');
+                            break;
+                        case 5:
+                            document.getElementById('start-btn').classList.remove('hidden');
+                            document.getElementById('start-btn').classList.add('active');
+                            showNotification('Нажмите на синюю кнопку "Начать"');
+                            break;
+                        case 6:
+                            showClickableArea('im8');
+                            showNotification('Нажмите на зеленую кнопку "Себя"');
+                            break;
+                        case 7:
+                            showRegionForm();
+                            break;
+                        case 8:
+                            showPolicyForm();
+                            break;
+                        case 9:
+                            showDoctorForm();
+                            break;
+                        case 10:
+                            showDoctorNameForm();
+                            break;
+                        case 11:
+                            showAddressForm();
+                            break;
+                        case 12:
+                            showDateForm();
+                            break;
+                        case 13:
+                            showClickableArea('im10');
+                            showNotification('Нажмите "Завершить запись" для завершения');
+                            break;
                     }
                 }, 500);
             }
@@ -1299,9 +1725,13 @@
     }
 
     // Показать уведомление
-    function showNotification(message) {
+    function showNotification(message, type = '') {
         const notification = document.getElementById('notification');
         notification.textContent = message;
+        notification.className = 'notification';
+        if (type) {
+            notification.classList.add(type);
+        }
         notification.style.display = 'block';
 
         setTimeout(() => {
@@ -1338,11 +1768,13 @@
 
         // Сбросить телефон
         document.getElementById('phone-img').src = "{{ url_for('images_files', filename='gosuslugi/im1.jpg') }}";
-        document.getElementById('login-form').style.display = 'none';
-        document.getElementById('policy-form').style.display = 'none';
+
+        // Скрыть все формы
+        hideAllForms();
 
         // Показать основные кнопки
         document.getElementById('login-btn').classList.remove('hidden');
+        document.getElementById('login-btn').classList.add('active');
         document.getElementById('register-btn').classList.remove('hidden');
 
         // Скрыть все синие кнопки
@@ -1354,7 +1786,13 @@
         // Очистить поля ввода
         document.getElementById('phone-input').value = '';
         document.getElementById('password-input').value = '';
+        document.getElementById('region-input').value = '';
         document.getElementById('policy-input').value = '';
+        document.getElementById('doctor-select').value = '';
+        document.getElementById('doctor-name-select').value = '';
+        document.getElementById('address-input').value = '';
+        document.getElementById('date-input').value = '';
+        document.getElementById('time-input').value = '';
 
         // Обновить прогресс
         updateProgress();
@@ -1366,13 +1804,34 @@
     document.addEventListener('DOMContentLoaded', function() {
         showNotification('Тренинг готов к работе! Начните с задания 1.');
 
-        // Назначить обработчик для кнопки подтверждения полиса
-        document.getElementById('submit-policy-btn').onclick = handleConfirmButton;
+        // Включить нажатие Enter для всех форм
+        document.getElementById('password-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('submit-login-btn').click();
+            }
+        });
 
-        // Включить нажатие Enter для подтверждения полиса
+        document.getElementById('region-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('submit-region-btn').click();
+            }
+        });
+
         document.getElementById('policy-input').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 document.getElementById('submit-policy-btn').click();
+            }
+        });
+
+        document.getElementById('address-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('submit-address-btn').click();
+            }
+        });
+
+        document.getElementById('time-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('submit-date-btn').click();
             }
         });
     });
