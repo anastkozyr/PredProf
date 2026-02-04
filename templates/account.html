@@ -183,6 +183,12 @@
             animation: glow 2s ease-in-out infinite alternate;
         }
 
+        .medal-icon.silver {
+            background: linear-gradient(135deg, #bfc5cc 0%, #e5e7eb 100%);
+            box-shadow: 0 5px 15px rgba(205, 127, 50, 0.35);
+        }
+
+
         .medal-icon.not-earned {
             background: linear-gradient(135deg, #e0f0ff 0%, #c8e0ff 100%);
             box-shadow: 0 3px 10px rgba(44, 105, 141, 0.1);
@@ -195,6 +201,11 @@
         }
 
         .medal-icon.earned i {
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .medal-icon.silver i {
+            color: white;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
@@ -375,59 +386,59 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Навигация -->
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <a href="{{ url_for('go_to_trainer') }}" class="btn-back">
-                <i class="bi bi-arrow-left"></i> Назад к тренажёру
-            </a>
-            <h1 class="text-center mb-0" style="color: #2c698d; font-weight: 700;">
-                <i class="bi bi-person-circle me-2"></i>Мой профиль
-            </h1>
-            <div style="width: 100px;"></div> <!-- Для выравнивания -->
-        </div>
+<div class="container">
+    <!-- Навигация -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <a href="{{ url_for('go_to_trainer') }}" class="btn-back">
+            <i class="bi bi-arrow-left"></i> Назад к тренажёру
+        </a>
+        <h1 class="text-center mb-0" style="color: #2c698d; font-weight: 700;">
+            <i class="bi bi-person-circle me-2"></i>Мой профиль
+        </h1>
+        <div style="width: 100px;"></div> <!-- Для выравнивания -->
+    </div>
 
-        <!-- Основной контент -->
-        <div class="account-container">
-            <!-- Профиль пользователя -->
-            <div class="profile-card">
-                <div class="avatar-large">
-                    <i class="bi bi-person"></i>
+    <!-- Основной контент -->
+    <div class="account-container">
+        <!-- Профиль пользователя -->
+        <div class="profile-card">
+            <div class="avatar-large">
+                <i class="bi bi-person"></i>
+            </div>
+            <h2 class="user-name">{{ name }}</h2>
+
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <div class="user-detail">
+                        <i class="bi bi-person-badge"></i>
+                        <div>
+                            <div class="fw-bold" style="color: #1a4d6e;">Уровень обучения</div>
+                            <div>{{ level }}</div>
+                        </div>
+                    </div>
                 </div>
-                <h2 class="user-name">{{ name }}</h2>
 
-                <div class="row mt-4">
-                    <div class="col-md-4">
-                        <div class="user-detail">
-                            <i class="bi bi-person-badge"></i>
-                            <div>
-                                <div class="fw-bold" style="color: #1a4d6e;">Уровень обучения</div>
-                                <div>{{ level }}</div>
-                            </div>
+                <div class="col-md-4">
+                    <div class="user-detail">
+                        <i class="bi bi-calendar-check"></i>
+                        <div>
+                            <div class="fw-bold" style="color: #1a4d6e;">Дата регистрации</div>
+                            <div>{{ created_date }}</div>
                         </div>
                     </div>
-
-                    <div class="col-md-4">
-                        <div class="user-detail">
-                            <i class="bi bi-calendar-check"></i>
-                            <div>
-                                <div class="fw-bold" style="color: #1a4d6e;">Дата регистрации</div>
-                                <div>{{ created_date }}</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="user-detail">
-                            <i class="bi bi-award-fill"></i>
-                            <div>
-                                <div class="fw-bold" style="color: #1a4d6e;">Медалей получено</div>
-                                <div>2 из 8</div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
+
+                <div class="col-md-4">
+                    <div class="user-detail">
+                        <i class="bi bi-award-fill"></i>
+                        <div>
+                            <div class="fw-bold" style="color: #1a4d6e;">Медалей получено</div>
+                            <div>2 из 8</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
 
             <!-- Статистика -->
             <h3 class="section-title">
@@ -458,7 +469,7 @@
 
                 <div class="col-md-3 col-sm-6 mb-4">
                     <div class="stat-card">
-                        <div class="stat-number">2 поменять!!</div>
+                        <div class="stat-number">{{ medals }}</div>
                         <div class="stat-label">Медалей получено</div>
                     </div>
                 </div>
@@ -544,7 +555,7 @@
                 </div>
             </div>
 
-            
+
             <h3 class="section-title">
                 <i class="bi bi-trophy me-2"></i>Мои медали
             </h3>
@@ -552,57 +563,174 @@
             <div class="medals-container">
 
                 <div class="medal-item">
-                    <span class="medal-number">1</span>
+                    {% if advanced[0] == '1' %}
                     <div class="medal-icon earned">
                         <i class="bi bi-award-fill"></i>
                     </div>
-                    <div class="medal-name">Первый шаг</div>
+                    <div class="medal-name">Основы смартфона, продвинутый уровень</div>
                     <span class="medal-status earned">Получено</span>
-                    <div class="medal-tooltip">
-                        <strong>Первый шаг</strong><br>
-                        Завершил свой первый курс обучения
+                    {% else %}
+                    <div class="medal-icon not-earned">
+                        <i class="bi bi-award-fill"></i>
                     </div>
+                    <div class="medal-name">Основы смартфона, продвинутый уровень</div>
+                    <span class="medal-status not-earned">Не получено</span>
+                    {% endif %}
+                </div>
+
+                <div class="medal-item">
+                    {% if advanced[1] == '1' %}
+                    <div class="medal-icon earned">
+                        <i class="bi bi-award-fill"></i>
+                    </div>
+                    <div class="medal-name">Мессенджер МАХ, продвинутый уровень</div>
+                    <span class="medal-status earned">Получено</span>
+                    {% else %}
+                    <div class="medal-icon not-earned">
+                        <i class="bi bi-award-fill"></i>
+                    </div>
+                    <div class="medal-name">Мессенджер МАХ, продвинутый уровень</div>
+                    <span class="medal-status not-earned">Не получено</span>
+                    {% endif %}
+                </div>
+
+                <div class="medal-item">
+                    {% if advanced[2] == '1' %}
+                    <div class="medal-icon earned">
+                        <i class="bi bi-award-fill"></i>
+                    </div>
+                    <div class="medal-name">Госуслуги, продвинутый уровень</div>
+                    <span class="medal-status earned">Получено</span>
+                    {% else %}
+                    <div class="medal-icon not-earned">
+                        <i class="bi bi-award-fill"></i>
+                    </div>
+                    <div class="medal-name">Госуслуги, продвинутый уровень</div>
+                    <span class="medal-status not-earned">Не получено</span>
+                    {% endif %}
+                </div>
+
+                <div class="medal-item">
+                    {% if advanced[3] == '1' %}
+                    <div class="medal-icon earned">
+                        <i class="bi bi-award-fill"></i>
+                    </div>
+                    <div class="medal-name">Онлайн-покупки, продвинутый уровень</div>
+                    <span class="medal-status earned">Получено</span>
+                    {% else %}
+                    <div class="medal-icon not-earned">
+                        <i class="bi bi-award-fill"></i>
+                    </div>
+                    <div class="medal-name">Онлайн-покупки, продвинутый уровень</div>
+                    <span class="medal-status not-earned">Не получено</span>
+                    {% endif %}
+                </div>
+
+                <!-- Бронзовые за базовый уровень -->
+
+                <div class="medal-item">
+                    {% if basic[0] == '1' %}
+                    <div class="medal-icon bronze">
+                        <i class="bi bi-award-fill"></i>
+                    </div>
+                    <div class="medal-name">Основы смартфона, базовый уровень</div>
+                    <span class="medal-status earned">Получено</span>
+                    {% else %}
+                    <div class="medal-icon not-earned">
+                        <i class="bi bi-award-fill"></i>
+                    </div>
+                    <div class="medal-name">Основы смартфона, базовый уровень</div>
+                    <span class="medal-status not-earned">Не получено</span>
+                    {% endif %}
+                </div>
+
+                <div class="medal-item">
+                    {% if basic[1] == '1' %}
+                    <div class="medal-icon bronze">
+                        <i class="bi bi-award-fill"></i>
+                    </div>
+                    <div class="medal-name">Мессенджер МАХ, базовый уровень</div>
+                    <span class="medal-status earned">Получено</span>
+                    {% else %}
+                    <div class="medal-icon not-earned">
+                        <i class="bi bi-award-fill"></i>
+                    </div>
+                    <div class="medal-name">Мессенджер МАХ, базовый уровень</div>
+                    <span class="medal-status not-earned">Не получено</span>
+                    {% endif %}
+                </div>
+
+                <div class="medal-item">
+                    {% if basic[2] == '1' %}
+                    <div class="medal-icon bronze">
+                        <i class="bi bi-award-fill"></i>
+                    </div>
+                    <div class="medal-name">Госуслуги, базовый уровень</div>
+                    <span class="medal-status earned">Получено</span>
+                    {% else %}
+                    <div class="medal-icon not-earned">
+                        <i class="bi bi-award-fill"></i>
+                    </div>
+                    <div class="medal-name">Госуслуги, базовый уровень</div>
+                    <span class="medal-status not-earned">Не получено</span>
+                    {% endif %}
+                </div>
+
+                <div class="medal-item">
+                    {% if basic[3] == '1' %}
+                    <div class="medal-icon bronze">
+                        <i class="bi bi-award-fill"></i>
+                    </div>
+                    <div class="medal-name">Онлайн-покупки, базовый уровень</div>
+                    <span class="medal-status earned">Получено</span>
+                    {% else %}
+                    <div class="medal-icon not-earned">
+                        <i class="bi bi-award-fill"></i>
+                    </div>
+                    <div class="medal-name">Онлайн-покупки, базовый уровень</div>
+                    <span class="medal-status not-earned">Не получено</span>
+                    {% endif %}
                 </div>
 
 
-            <!-- Кнопки действий -->
-            <div class="d-flex flex-column flex-md-row justify-content-center gap-3">
-                <a href="{{ url_for('go_to_trainer') }}" class="btn-continue">
-                    <i class="bi bi-play-circle"></i> Продолжить обучение
-                </a>
+                <!-- Кнопки действий -->
+                <div class="d-flex flex-column flex-md-row justify-content-center gap-3">
+                    <a href="{{ url_for('go_to_trainer') }}" class="btn-continue">
+                        <i class="bi bi-play-circle"></i> Продолжить обучение
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
 
-    <script>
-        // Анимация появления медалек
-        document.addEventListener('DOMContentLoaded', function() {
-            const medals = document.querySelectorAll('.medal-item');
+        <script>
+            // Анимация появления медалек
+            document.addEventListener('DOMContentLoaded', function() {
+                const medals = document.querySelectorAll('.medal-item');
 
-            medals.forEach((medal, index) => {
-                medal.style.opacity = '0';
-                medal.style.transform = 'translateY(20px)';
-                medal.style.transition = 'all 0.5s ease';
+                medals.forEach((medal, index) => {
+                    medal.style.opacity = '0';
+                    medal.style.transform = 'translateY(20px)';
+                    medal.style.transition = 'all 0.5s ease';
 
-                setTimeout(() => {
-                    medal.style.opacity = '1';
-                    medal.style.transform = 'translateY(0)';
-                }, index * 100);
-            });
-
-            // Анимация для полученных медалей
-            const earnedMedals = document.querySelectorAll('.medal-icon.earned');
-            earnedMedals.forEach((medal, index) => {
-                setTimeout(() => {
-                    medal.style.transform = 'scale(1.1)';
                     setTimeout(() => {
-                        medal.style.transform = 'scale(1)';
-                    }, 300);
-                }, 1000 + index * 200);
-            });
-        });
-    </script>
+                        medal.style.opacity = '1';
+                        medal.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+                // Анимация для полученных медалей
+                const earnedMedals = document.querySelectorAll('.medal-icon.earned');
+                earnedMedals.forEach((medal, index) => {
+                    setTimeout(() => {
+                        medal.style.transform = 'scale(1.1)';
+                        setTimeout(() => {
+                            medal.style.transform = 'scale(1)';
+                        }, 300);
+                    }, 1000 + index * 200);
+                });
+            });
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -102,7 +102,7 @@ def go_to_trainer():
 def smartphone_basics():
     db_sess = db_session.create_session()
     user = db_sess.query(User).filter(User.id == current_user.id).first()
-    user.progress_advanced = "1" + user.progress_basic[1:]
+    user.progress_advanced = "1" + user.progress_advanced[1:]
     db_sess.commit()
     return jsonify({"status": "ok"})
 
@@ -186,6 +186,9 @@ def account():
     level = current_user.level
     created_date = current_user.created_date
     formatted_date = created_date.strftime('%d.%m.%Y')
+    medals = current_user.progress_basic.count('1') + current_user.progress_advanced.count('1')
+    basic = current_user.progress_basic
+    advanced = current_user.progress_advanced
     if level == 'basic':
         first = int(current_user.progress_basic[0])
         second = int(current_user.progress_basic[1])
@@ -201,7 +204,7 @@ def account():
     progress = str((first + second + third + fourth) * 25) + '%'
     return render_template('account.html',
                            name=name, level=levelrus, first=first, second=second, third=third, fourth=fourth,
-                           created_date=formatted_date, progress=progress)
+                           created_date=formatted_date, progress=progress, medals=medals, basic=basic, advanced=advanced)
 
 if __name__ == '__main__':
     app.run(debug=True, port=8028, host='127.0.0.1')
