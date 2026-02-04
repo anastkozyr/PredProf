@@ -603,6 +603,26 @@
                     </div>
                 </div>
 
+                <div id="task4" class="task">
+                    <div class="task-number">4</div>
+                    <h2 class="task-title">Создайте групповой чат и отправьте приветственное сообщение и стикер</h2>
+                    <div class="task-description">
+                        <p>Создайте чат "День рождения" с контактами "Анастасия" и "Алена"</p>
+                    </div>
+                    <button class="help-btn-big" onclick="toggleHelp(4)">
+                        <i class="bi bi-question-circle"></i> Помощь
+                    </button>
+                    <div id="help4" class="help-content">
+                        <p><strong>Как выполнить:</strong></p>
+                        <p>1. Нажмите на "стрелочку" вверху экрана, которая вернет обратно на список чатов</p>
+                        <p>2. Нажмите на "плюс" вверху экрана</p>
+                        <p>3. Нажмите "Создать чат"</p>
+                        <p>4. В открывшемся при нажатии окне выберите нужные контакты</p>
+                        <p>5. Нажмите "Создать пустой чат"</p>
+                        <p>6. Отправьте приветственное сообщение и стикер в чат</p>
+                    </div>
+                </div>
+
                 <button id="next-btn" class="next-btn" onclick="nextTask()">
                     Следующее задание <i class="bi bi-arrow-right"></i>
                 </button>
@@ -610,7 +630,7 @@
                 <div id="complete-screen" class="complete-screen">
                     <div class="complete-icon"><i class="bi bi-trophy-fill"></i></div>
                     <h2>Тренинг завершен!</h2>
-                    <div class="score" id="score">0/3</div>
+                    <div class="score" id="score">0/4</div>
                     <p>Вы успешно научились пользоваться мессенджером MAX!</p>
                     <button class="next-btn" onclick="restartTraining()" style="background: #6b7280;">
                         <i class="bi bi-arrow-repeat"></i> Начать заново
@@ -626,6 +646,6 @@
     <!-- Уведомление -->
     <div id="notification" class="notification"></div>
 
-    <script src="{{ url_for('static', filename='js/max_training.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/max_training_advanced.js') }}"></script>
 </body>
 </html>
