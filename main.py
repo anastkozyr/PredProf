@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request  # ← добавили request!
+from flask import Flask, render_template, send_from_directory, redirect, request, jsonify  # ← добавили request!
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from data import db_session
 from data.users import User
@@ -7,53 +7,54 @@ from forms.user import RegisterForm, LoginForm
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'vunned111vunned111'
 
-# Настраиваем Flask-Login
+db_session.global_init("db/users.db")
+
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
+
 @login_manager.user_loader
 def load_user(user_id):
     db_sess = db_session.create_session()
-    return db_sess.query(User).get(user_id)
+    try:
+        return db_sess.query(User).get(int(user_id))
+    finally:
+        db_sess.close()
 
-# Инициализируем БД
-db_session.global_init("db/users.db")
 
-# ============ МАРШРУТЫ ============
 @app.route('/')
 def start_page():
     return render_template('base.html')
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
-        if form.password.data != form.password_again.data:
-            return render_template('register.html',
-                                 form=form,
-                                 message="Пароли не совпадают")
 
         db_sess = db_session.create_session()
+        try:
+            if db_sess.query(User).filter(User.name == form.name.data).first():
+                return render_template('register.html',
+                                       form=form,
+                                       message="Пользователь с таким именем уже существует")
 
-        # Проверяем по имени пользователя
-        if db_sess.query(User).filter(User.name == form.name.data).first():
-            return render_template('register.html',
-                                 form=form,
-                                 message="Пользователь с таким именем уже существует")
+            user = User(
+                name=form.name.data,
+                # email больше не обязателен
+                level=form.level.data  # Поле level
+            )
+            user.set_password(form.password.data)
 
-        user = User(
-            name=form.name.data,
-            # email больше не обязателен
-            about=""  # Поле about пустое
-        )
-        user.set_password(form.password.data)
-
-        db_sess.add(user)
-        db_sess.commit()
-        return redirect('/login')
+            db_sess.add(user)
+            db_sess.commit()
+            return redirect('/login')
+        finally:
+            db_sess.close()
 
     return render_template('register.html', form=form)
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -61,15 +62,18 @@ def login():
     if form.validate_on_submit():
         db_sess = db_session.create_session()
         # Ищем пользователя по имени, а не по email
-        user = db_sess.query(User).filter(User.name == form.name.data).first()
+        try:
+            user = db_sess.query(User).filter(User.name == form.name.data).first()
 
-        if user and user.check_password(form.password.data):
-            login_user(user, remember=True)  # remember_me убрали
-            return redirect(request.referrer or "/go-to-trainer")  # Перенаправляем в тренажер
+            if user and user.check_password(form.password.data):
+                login_user(user, remember=True)  # remember_me убрали
+                return redirect("/go-to-trainer")  # Перенаправляем в тренажер
 
-        return render_template('login.html',
-                             form=form,
-                             message="Неправильное имя пользователя или пароль")
+            return render_template('login.html',
+                                   message="Неправильное имя пользователя или пароль",
+                                   form=form)
+        finally:
+            db_sess.close()
 
     return render_template('login.html', form=form)
 
@@ -80,27 +84,124 @@ def logout():
     logout_user()
     return redirect("/")
 
-@app.route('/go-to-trainer')
-def go_to_trainer():
-    return render_template('practic.html')
 
-@app.route('/smartphone_basics')
+@app.route('/images/<path:filename>')
+def images_files(filename):
+    return send_from_directory('images', filename)
+
+
+@app.route('/go-to-trainer')
+@login_required
+def go_to_trainer():
+    user_level = current_user.level
+    return render_template('practic.html', user_level=user_level)
+
+
+@app.route('/smartphone_basics', methods=['POST'])
+@login_required
 def smartphone_basics():
-    return render_template('smartphone_basics.html')
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).filter(User.id == current_user.id).first()
+    user.progress_advanced = "1" + user.progress_basic[1:]
+    db_sess.commit()
+    return jsonify({"status": "ok"})
+
+@app.route('/smartphone_basics', methods=['GET'])
+@login_required
+def smartphone_basics_page():
+    user_level = current_user.level
+    return render_template('smartphone_basics.html', user_level=user_level)
+
+
+@app.route('/smartphone_basics_base', methods=['POST'])
+@login_required
+def smartphone_basics_base():
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).filter(User.id == current_user.id).first()
+    user.progress_basic = "1" + user.progress_basic[1:]
+    db_sess.commit()
+    return jsonify({"status": "ok"})
+
+
+@app.route('/smartphone_basics_base', methods=['GET'])
+@login_required
+def smartphone_basics_base_page():
+    return render_template('smartphone_basics_base.html')
+
 
 @app.route('/messenger_training')
+@login_required
 def messenger_training():
     return render_template('messenger_training.html')
 
+
 @app.route('/public-services')
+@login_required
 def gosuslugi_training():
     return render_template('public_services.html')
 
-@app.route('/online_shopping')
+
+@app.route('/teory_smartphone-services')
+@login_required
+def teory_smartphone():
+    return render_template('teory_smartphone.html')
+
+
+@app.route('/online_shopping_basic', methods=['POST'])
+@login_required
+def online_shopping_basic():
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).filter(User.id == current_user.id).first()
+    user.progress_basic = user.progress_basic[:3] + "1"
+    db_sess.commit()
+    return jsonify({"status": "ok"})
+
+@app.route('/online_shopping_basic', methods=['GET'])
+@login_required
+def online_shopping_basic_page():
+    return render_template('online_shopping_basic.html')
+
+@app.route('/online_shopping', methods=['POST'])
+@login_required
 def online_shopping():
     return render_template('online_shopping.html')
 
+@app.route('/online_shopping', methods=['GET'])
+@login_required
+def online_shopping_page():
+    return render_template('online_shopping.html')
 
+
+@app.route('/buttons')
+@login_required
+def buttons():
+    user_level = current_user.level
+    return render_template('buttons.html', user_level=user_level)
+
+
+@app.route('/account')
+@login_required
+def account():
+    name = current_user.name
+    level = current_user.level
+    created_date = current_user.created_date
+    formatted_date = created_date.strftime('%d.%m.%Y')
+    if level == 'basic':
+        first = int(current_user.progress_basic[0])
+        second = int(current_user.progress_basic[1])
+        third = int(current_user.progress_basic[2])
+        fourth = int(current_user.progress_basic[3])
+        levelrus = "Базовый"
+    else:
+        first = int(current_user.progress_advanced[0])
+        second = int(current_user.progress_advanced[1])
+        third = int(current_user.progress_advanced[2])
+        fourth = int(current_user.progress_advanced[3])
+        levelrus = "Продвинутый"
+    progress = str((first + second + third + fourth) * 25) + '%'
+    return render_template('account.html',
+                           name=name, level=levelrus, first=first, second=second, third=third, fourth=fourth,
+                           created_date=formatted_date, progress=progress)
 
 if __name__ == '__main__':
     app.run(debug=True, port=8028, host='127.0.0.1')

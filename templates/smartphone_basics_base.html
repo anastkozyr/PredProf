@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тренинг: Кнопки телефона</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e6f7ff 0%, #e6f7ff 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: row;
+            gap: 40px;
+        }
+
+        /* Телефон */
+        .phone-section {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .phone {
+            width: 380px;
+            height: 760px;
+            background: #111;
+            border-radius: 45px;
+            padding: 25px;
+            border: 12px solid #333;
+            position: relative;
+            box-shadow: 0 25px 75px rgba(0,0,0,0.5);
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Кнопки телефона */
+        .phone-buttons {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .volume-up {
+            position: absolute;
+            left: -25px;
+            top: 140px;
+            width: 18px;
+            height: 90px;
+            background: #444;
+            border-radius: 10px 0 0 10px;
+            cursor: pointer;
+            pointer-events: all;
+            transition: all 0.2s;
+        }
+
+        .volume-down {
+            position: absolute;
+            left: -25px;
+            top: 250px;
+            width: 18px;
+            height: 70px;
+            background: #444;
+            border-radius: 10px 0 0 10px;
+            cursor: pointer;
+            pointer-events: all;
+            transition: all 0.2s;
+        }
+
+        .power-btn {
+            position: absolute;
+            right: -25px;
+            top: 140px;
+            width: 18px;
+            height: 80px;
+            background: #444;
+            border-radius: 0 10px 10px 0;
+            cursor: pointer;
+            pointer-events: all;
+            transition: all 0.2s;
+        }
+
+        .volume-up:hover, .volume-down:hover, .power-btn:hover {
+            background: #007AFF;
+        }
+
+        /* Экран телефона */
+        .screen {
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        .time-screen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            color: white;
+        }
+
+        .big-time {
+            font-size: 100px;
+            font-weight: bold;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 20px rgba(0, 122, 255, 0.5);
+        }
+
+        .time-date {
+            font-size: 24px;
+            margin-top: 20px;
+            opacity: 0.8;
+            text-align: center;
+        }
+
+        .black-screen {
+            background: #000;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .black-screen i {
+            font-size: 60px;
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        .black-screen p {
+            font-size: 24px;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        /* Тренинг панель */
+        .training-section {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .training-panel {
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 25px 75px rgba(0,0,0,0.2);
+            height: 100%;
+        }
+
+        .training-title {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            height: 12px;
+            background: #eee;
+            border-radius: 6px;
+            margin: 30px 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #007AFF, #00b4ff);
+            width: 0%;
+            transition: width 0.5s;
+        }
+
+        .task {
+            margin-bottom: 40px;
+            display: none;
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 30px;
+        }
+
+        .task.active {
+            display: block;
+            border: 3px solid #007AFF;
+            box-shadow: 0 5px 20px rgba(0, 122, 255, 0.1);
+        }
+
+        .task-number {
+            background: #007AFF;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .task-title {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .task-description {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            font-size: 20px;
+            line-height: 1.6;
+            border: 2px solid #eee;
+        }
+
+        /* Большая кнопка помощи */
+        .help-btn-big {
+            background: linear-gradient(135deg, #7ea7cc, #3a86ff);
+            color: white;
+            border: none;
+            padding: 25px 40px;
+            border-radius: 15px;
+            cursor: pointer;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            width: 100%;
+            font-size: 22px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .help-btn-big:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, #2c698d, #3a86ff);
+        }
+
+        .help-btn-big i {
+            font-size: 28px;
+        }
+
+        .help-content-big {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 25px;
+            display: none;
+            border: 3px solid #007AFF;
+            font-size: 20px;
+            line-height: 1.8;
+        }
+
+        .help-content-big.active {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .help-step {
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 4px solid #007AFF;
+            padding: 10px 15px;
+        }
+
+        .next-btn {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            border: none;
+            padding: 25px 50px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 30px;
+            display: none;
+            width: 100%;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+        }
+
+        .next-btn.active {
+            display: block;
+        }
+
+        .next-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(40, 167, 69, 0.4);
+        }
+
+        .complete-screen {
+            text-align: center;
+            display: none;
+            padding: 40px;
+        }
+
+        .complete-screen.active {
+            display: block;
+        }
+
+        .complete-icon {
+            font-size: 80px;
+            color: #28a745;
+            margin-bottom: 30px;
+        }
+
+        .score {
+            font-size: 60px;
+            font-weight: bold;
+            color: #333;
+            margin: 30px 0;
+        }
+
+        /* Уведомления */
+        .notification {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 30px;
+            z-index: 1000;
+            display: none;
+            font-size: 18px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .trainer-btn {
+            background: linear-gradient(135deg, #2c698d, #3a86ff);
+            border: none;
+            color: white;
+            border-radius: 25px;
+            padding: 25px 50px;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 40px;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(44, 105, 141, 0.3);
+        }
+
+        .trainer-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(44, 105, 141, 0.4);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 1200px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+                gap: 30px;
+            }
+
+            .phone {
+                transform: scale(0.9);
+            }
+
+            .training-section {
+                max-width: 100%;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .phone {
+                transform: scale(0.8);
+            }
+
+            .training-panel {
+                padding: 25px;
+            }
+
+            .task-title {
+                font-size: 24px;
+            }
+
+            .task-description {
+                font-size: 18px;
+            }
+
+            .big-time {
+                font-size: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Телефон -->
+        <div class="phone-section">
+            <div class="phone">
+                <div class="phone-buttons">
+                    <div class="volume-up" onclick="pressVolumeUp()"></div>
+                    <div class="volume-down" onclick="pressVolumeDown()"></div>
+                    <div class="power-btn" onclick="pressPower()"></div>
+                </div>
+
+                <div class="phone-screen">
+                    <!-- Главный экран с временем -->
+                    <div id="home-screen" class="screen active">
+                        <div class="time-screen">
+                            <div>
+                                <div class="big-time" id="current-time">14:30</div>
+                                <div class="time-date" id="current-date">Понедельник, 12 мая</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Черный экран блокировки -->
+                    <div id="black-screen" class="screen black-screen">
+                        <i class="bi bi-phone"></i>
+                        <p>Телефон заблокирован</p>
+                        <p style="font-size: 18px; margin-top: 10px;">Нажмите кнопку питания для разблокировки</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Панель тренинга -->
+        <div class="training-section">
+            <div class="training-panel">
+                <h1 class="training-title">Тренинг: Кнопки телефона</h1>
+
+                <div class="progress-bar">
+                    <div class="progress" id="progress"></div>
+                </div>
+
+                <!-- Задание 1: Кнопки громкости -->
+                <div id="task1" class="task active">
+                    <div class="task-number">1</div>
+                    <h2 class="task-title">Использовать кнопки громкости</h2>
+                    <div class="task-description">
+                        <p><strong>Задача:</strong> Нажмите 2 раза на кнопку увеличения громкости и 1 раз на кнопку уменьшения громкости</p>
+                        <p><strong>Подсказка:</strong> Кнопки находятся на левой стороне телефона</p>
+                    </div>
+                    <button class="help-btn-big" onclick="toggleHelp(1)">
+                        <i class="bi bi-question-circle"></i> КАК ЭТО СДЕЛАТЬ?
+                    </button>
+                    <div id="help1" class="help-content-big">
+                        <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
+                        <div class="help-step">1. Найдите кнопки на <strong>левой стороне</strong> телефона</div>
+                        <div class="help-step">2. <strong>Верхняя кнопка</strong> - увеличение громкости</div>
+                        <div class="help-step">3. <strong>Нижняя кнопка</strong> - уменьшение громкости</div>
+                        <div class="help-step">4. Нажмите <strong>верхнюю кнопку 2 раза</strong></div>
+                        <div class="help-step">5. Нажмите <strong>нижнюю кнопку 1 раз</strong></div>
+                        <p style="margin-top: 20px; color: #007AFF; font-weight: bold;">
+                            <i class="bi bi-lightbulb"></i> Кнопки находятся сбоку от черного телефона
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Задание 2: Кнопка питания -->
+                <div id="task2" class="task">
+                    <div class="task-number">2</div>
+                    <h2 class="task-title">Использовать кнопку питания</h2>
+                    <div class="task-description">
+                        <p><strong>Задача:</strong> Выключите и включите телефон с помощью кнопки питания</p>
+                        <p><strong>Подсказка:</strong> Нажмите кнопку питания дважды: сначала для блокировки, затем для разблокировки</p>
+                    </div>
+                    <button class="help-btn-big" onclick="toggleHelp(2)">
+                        <i class="bi bi-question-circle"></i> КАК ЭТО СДЕЛАТЬ?
+                    </button>
+                    <div id="help2" class="help-content-big">
+                        <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
+                        <div class="help-step">1. Найдите кнопку на <strong>правой стороне</strong> телефона</div>
+                        <div class="help-step">2. Нажмите кнопку питания <strong>1 раз</strong> - телефон заблокируется</div>
+                        <div class="help-step">3. Нажмите кнопку питания <strong>еще 1 раз</strong> - телефон разблокируется</div>
+                        <p style="margin-top: 20px; color: #007AFF; font-weight: bold;">
+                            <i class="bi bi-lightbulb"></i> Нужно сделать 2 нажатия: первое блокирует, второе разблокирует
+                        </p>
+                    </div>
+                </div>
+
+                <button id="next-btn" class="next-btn" onclick="nextTask()">
+                    СЛЕДУЮЩЕЕ ЗАДАНИЕ <i class="bi bi-arrow-right"></i>
+                </button>
+
+                <!-- Экран завершения -->
+                <div id="complete-screen" class="complete-screen">
+                    <div class="complete-icon"><i class="bi bi-trophy-fill"></i></div>
+                    <h2 style="font-size: 36px; margin-bottom: 20px;">ТРЕНИНГ ЗАВЕРШЕН!</h2>
+                    <div class="score" id="score">2/2</div>
+                    <p style="font-size: 24px; color: #666; margin-bottom: 30px;">
+                        Поздравляем! Вы успешно освоили работу с кнопками телефона
+                    </p>
+
+                   <a href="{{ url_for('go_to_trainer') }}" class="trainer-btn">
+                        <i class="bi bi-arrow-right-circle"></i> НА ГЛАВНУЮ СТРАНИЦУ
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Уведомление -->
+    <div id="notification" class="notification"></div>
+
+    <script>
+        // Переменные
+        let currentTask = 1;
+        let tasksCompleted = 0;
+        let screenLocked = false;
+        let volumeUpCount = 0;
+        let volumeDownCount = 0;
+        let powerCount = 0;
+        const totalTasks = 2;
+
+        function completeTraining() {
+            if (tasksCompleted === totalTasks) {
+            // Перенаправить на страницу обновления прогресса
+               fetch("/smartphone_basics_base", {method: "POST"});
+            }
+        }
+
+        // Функция для форматирования даты
+        function formatDate(date) {
+            const days = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+            const months = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+
+            const dayName = days[date.getDay()];
+            const day = date.getDate();
+            const month = months[date.getMonth()];
+
+            return `${dayName}, ${day} ${month}`;
+        }
+
+        // Обновить время и дату
+        function updateTime() {
+            const now = new Date();
+            const time = now.getHours().toString().padStart(2, '0') + ':' +
+                         now.getMinutes().toString().padStart(2, '0');
+
+            // Обновить время
+            document.getElementById('current-time').textContent = time;
+
+            // Обновить дату
+            document.getElementById('current-date').textContent = formatDate(now);
+        }
+
+        // Кнопки телефона
+        function pressVolumeUp() {
+            volumeUpCount++;
+            showNotification('Громкость увеличена');
+
+            if (currentTask === 1 && volumeUpCount >= 2 && volumeDownCount >= 1) {
+                completeTask(1);
+            }
+        }
+
+        function pressVolumeDown() {
+            volumeDownCount++;
+            showNotification('Громкость уменьшена');
+
+            if (currentTask === 1 && volumeUpCount >= 2 && volumeDownCount >= 1) {
+                completeTask(1);
+            }
+        }
+
+        function pressPower() {
+            powerCount++;
+
+            if (screenLocked) {
+                // Разблокировать
+                screenLocked = false;
+                showScreen('home');
+                showNotification('Экран разблокирован');
+
+                if (currentTask === 2 && powerCount >= 2) {
+                    completeTask(2);
+                }
+            } else {
+                // Заблокировать
+                screenLocked = true;
+                showScreen('black');
+                showNotification('Экран заблокирован');
+            }
+        }
+
+        // Показать экран телефона
+        function showScreen(screen) {
+            // Скрыть все экраны
+            document.querySelectorAll('.screen').forEach(s => {
+                s.classList.remove('active');
+            });
+
+            // Показать нужный экран
+            document.getElementById(screen + '-screen').classList.add('active');
+        }
+
+        // Завершить задание
+        function completeTask(taskNum) {
+            tasksCompleted++;
+            updateProgress();
+
+            document.getElementById('next-btn').classList.add('active');
+            showNotification('Задание ' + taskNum + ' выполнено! Нажмите "Следующее задание"');
+
+            // Если все задания выполнены
+            if (tasksCompleted === totalTasks) {
+                completeTraining();
+                setTimeout(() => {
+                    document.getElementById('complete-screen').classList.add('active');
+                    document.getElementById('task' + currentTask).classList.remove('active');
+                    document.getElementById('next-btn').classList.remove('active');
+                    document.getElementById('score').textContent = totalTasks + '/' + totalTasks;
+                }, 1000);
+            }
+        }
+
+        // Следующее задание
+        function nextTask() {
+            // Скрыть текущее задание
+            document.getElementById('task' + currentTask).classList.remove('active');
+
+            // Скрыть кнопку
+            document.getElementById('next-btn').classList.remove('active');
+
+            // Скрыть все подсказки
+            document.querySelectorAll('.help-content-big').forEach(help => {
+                help.classList.remove('active');
+            });
+
+            // Перейти к следующему заданию
+            currentTask++;
+
+            // Сбросить счетчики для кнопок
+            if (currentTask === 2) {
+                powerCount = 0;
+            }
+
+            // Показать новое задание
+            if (currentTask <= totalTasks) {
+                document.getElementById('task' + currentTask).classList.add('active');
+
+                // Показать подсказку для нового задания
+                if (currentTask === 2) {
+                    showNotification('Задание 2: Используйте кнопку питания на правой стороне телефона');
+                }
+            }
+        }
+
+        // Обновить прогресс
+        function updateProgress() {
+            const progress = (tasksCompleted / totalTasks) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+        }
+
+        // Показать/скрыть помощь
+        function toggleHelp(taskNum) {
+            const help = document.getElementById('help' + taskNum);
+            help.classList.toggle('active');
+        }
+
+        // Показать уведомление
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.display = 'block';
+
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+
+        // Начать заново
+        function restartTraining() {
+            currentTask = 1;
+            tasksCompleted = 0;
+            screenLocked = false;
+            volumeUpCount = 0;
+            volumeDownCount = 0;
+            powerCount = 0;
+
+            // Скрыть экран завершения
+            document.getElementById('complete-screen').classList.remove('active');
+
+            // Показать первое задание
+            document.querySelectorAll('.task').forEach(task => {
+                task.classList.remove('active');
+            });
+            document.getElementById('task1').classList.add('active');
+
+            // Скрыть кнопку
+            document.getElementById('next-btn').classList.remove('active');
+
+            // Скрыть все подсказки
+            document.querySelectorAll('.help-content-big').forEach(help => {
+                help.classList.remove('active');
+            });
+
+            // Сбросить телефон
+            showScreen('home');
+
+            // Обновить прогресс
+            updateProgress();
+
+            showNotification('Тренинг начат заново. Удачи!');
+        }
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTime();
+            setInterval(updateTime, 60000);
+        });
+    </script>
+</body>
+</html>

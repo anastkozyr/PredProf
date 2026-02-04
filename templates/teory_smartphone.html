@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Теория: Wi-Fi на смартфоне</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #e6f7ff;
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+        }
+
+        .header h1 {
+            color: #2c698d;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .theory-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .chapter {
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #e6f7ff;
+        }
+
+        .chapter:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .chapter-number {
+            background: #2c698d;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .chapter-title {
+            color: #2c698d;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .chapter-title i {
+            font-size: 2rem;
+        }
+
+        .chapter-content {
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+
+        .chapter-content p {
+            margin-bottom: 15px;
+            color: #444;
+        }
+
+        .chapter-content ul {
+            margin: 20px 0 20px 30px;
+        }
+
+        .chapter-content li {
+            margin-bottom: 10px;
+            padding-left: 10px;
+        }
+
+        .tip-box {
+            background: #e6f7ff;
+            border-left: 4px solid #2c698d;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .tip-box strong {
+            color: #2c698d;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .phone-illustration {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 1px solid #e0e0e0;
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .phone-icon {
+            flex-shrink: 0;
+            font-size: 4rem;
+            color: #2c698d;
+        }
+
+        .step {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            transition: transform 0.3s;
+        }
+
+        .step:hover {
+            transform: translateY(-5px);
+            border-color: #2c698d;
+            box-shadow: 0 5px 15px rgba(44, 105, 141, 0.1);
+        }
+
+        .step-number {
+            background: #2c698d;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .step-content {
+            display: inline-block;
+            width: calc(100% - 50px);
+            vertical-align: top;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #e6f7ff;
+        }
+
+        .trainer-btn {
+            background: #2c698d;
+            color: white;
+            border: none;
+            padding: 18px 45px;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .trainer-btn:hover {
+            background: #1a4d6e;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(44, 105, 141, 0.2);
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-left: 20px;
+            background: #6c757d;
+        }
+
+        .back-btn:hover {
+            background: #5a6268;
+        }
+
+        .video-link {
+            color: #2c698d;
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1px dotted #2c698d;
+        }
+
+        .video-link:hover {
+            border-bottom: 2px solid #2c698d;
+        }
+
+        @media (max-width: 768px) {
+            .theory-content {
+                padding: 25px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .header p {
+                font-size: 1.1rem;
+            }
+
+            .chapter-title {
+                font-size: 1.5rem;
+            }
+
+            .phone-illustration {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .trainer-btn {
+                padding: 15px 30px;
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .theory-content {
+                padding: 20px;
+            }
+
+            .header {
+                padding: 10px;
+            }
+
+            .button-container {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .back-btn {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="bi bi-wifi"></i> Теория: Wi-Fi на смартфоне</h1>
+            <p>Узнайте всё о подключении и настройке Wi-Fi на мобильных устройствах. Простая теория и практические советы для начинающих.</p>
+        </div>
+
+        <div class="theory-content">
+            <!-- Глава 1 -->
+            <div class="chapter">
+                <div class="chapter-number">1</div>
+                <h2 class="chapter-title"><i class="bi bi-info-circle"></i> Что такое Wi-Fi и зачем он нужен?</h2>
+                <div class="chapter-content">
+                    <p><strong>Wi-Fi</strong> - это технология беспроводной связи, которая позволяет устройствам (смартфонам, планшетам, компьютерам) подключаться к интернету без проводов.</p>
+
+                    <div class="phone-illustration">
+                        <i class="bi bi-phone phone-icon"></i>
+                        <div>
+                            <p><strong>Почему Wi-Fi лучше мобильного интернета?</strong></p>
+                            <ul>
+                                <li> <strong>Стабильнее связь</strong> - меньше обрывов</li>
+                                <li> <strong>Выше скорость</strong> - быстрее загрузка</li>
+                                <li> <strong>Экономит мобильный трафик</strong></li>
+                                <li> <strong>Меньше расходует батарею</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="tip-box">
+                        <strong> Важно знать:</strong>
+                        <p>Wi-Fi работает через специальные устройства - <strong>роутеры</strong>. Роутер получает интернет от провайдера и раздает его по Wi-Fi на ваши устройства.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Глава 2 -->
+            <div class="chapter">
+                <div class="chapter-number">2</div>
+                <h2 class="chapter-title"><i class="bi bi-gear"></i> Как настроить Wi-Fi на смартфоне</h2>
+                <div class="chapter-content">
+                    <p>Настройка Wi-Fi на всех смартфонах происходит примерно одинаково. Вот пошаговая инструкция:</p>
+
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <div class="step-content">
+                            <strong>Откройте настройки телефона</strong>
+                            <p>На главном экране найдите иконку  "Настройки" и нажмите на нее.</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <div class="step-content">
+                            <strong>Найдите раздел Wi-Fi</strong>
+                            <p>В настройках ищите пункт "Wi-Fi" или "Беспроводные сети".</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <div class="step-content">
+                            <strong>Включите Wi-Fi</strong>
+                            <p>Переведите переключатель в положение "Включено". Телефон начнет искать доступные сети.</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <span class="step-number">4</span>
+                        <div class="step-content">
+                            <strong>Выберите вашу сеть</strong>
+                            <p>В списке сетей найдите название вашей домашней сети. Обычно оно указано на роутере.</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <span class="step-number">5</span>
+                        <div class="step-content">
+                            <strong>Введите пароль</strong>
+                            <p>Нажмите на сеть и введите пароль. Пароль обычно написан на роутере или выдан провайдером.</p>
+                        </div>
+                    </div>
+
+                    <div class="tip-box">
+                        <strong>Безопасность паролей:</strong>
+                        <p>Никогда не подключайтесь к открытым сетям Wi-Fi без пароля в публичных местах. Они могут быть небезопасными.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Глава 3 -->
+            <div class="chapter">
+                <div class="chapter-number">3</div>
+                <h2 class="chapter-title"><i class="bi bi-shield-check"></i> Безопасность Wi-Fi соединения</h2>
+                <div class="chapter-content">
+                    <p>Безопасное подключение к Wi-Fi защищает ваши личные данные и устройства.</p>
+
+                    <h3 style="color: #2c698d; margin: 25px 0 15px 0;">Как проверить безопасность сети:</h3>
+
+                    <div class="step">
+                        <span class="step-number">✓</span>
+                        <div class="step-content">
+                            <strong>Защищенные сети</strong>
+                            <p>Рядом с названием сети должен быть значок. Это означает, что сеть защищена паролем.</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <span class="step-number">✓</span>
+                        <div class="step-content">
+                            <strong>Знакомые имена сетей</strong>
+                            <p>Подключайтесь только к сетям, которым доверяете. Избегайте сетей со странными названиями.</p>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <span class="step-number">✓</span>
+                        <div class="step-content">
+                            <strong>Обновляйте пароли</strong>
+                            <p>Регулярно меняйте пароль от домашнего Wi-Fi. Используйте сложные пароли из букв, цифр и символов.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Глава 4 -->
+            <div class="chapter">
+                <div class="chapter-number">4</div>
+                <h2 class="chapter-title"><i class="bi bi-tools"></i> Решение частых проблем с Wi-Fi</h2>
+                <div class="chapter-content">
+                    <p>Если Wi-Fi не работает или работает плохо, попробуйте эти решения:</p>
+
+                    <div class="tip-box">
+                        <strong> Проблема: Слабый сигнал Wi-Fi</strong>
+                        <p><strong>Решение:</strong> Подойдите ближе к роутеру. Убедитесь, что между телефоном и роутером нет толстых стен или металлических предметов.</p>
+                    </div>
+
+                    <div class="tip-box">
+                        <strong> Проблема: Не подключается к сети</strong>
+                        <p><strong>Решение:</strong></p>
+                        <ol style="margin-left: 20px;">
+                            <li>Перезагрузите телефон</li>
+                            <li>Перезагрузите роутер</li>
+                            <li>Забудьте сеть и подключитесь заново</li>
+                        </ol>
+                    </div>
+
+                    <div class="tip-box">
+                        <strong> Проблема: Медленный интернет</strong>
+                        <p><strong>Решение:</strong></p>
+                        <ul style="margin-left: 20px;">
+                            <li>Отключите неиспользуемые устройства от Wi-Fi</li>
+                            <li>Обновите приложения на телефоне</li>
+                            <li>Позвоните провайдеру - возможно, проблема на их стороне</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Глава 5 -->
+            <div class="chapter">
+                <div class="chapter-number">5</div>
+                <h2 class="chapter-title"><i class="bi bi-volume-up"></i> Кнопки телефона и их функции</h2>
+                <div class="chapter-content">
+                    <p>На каждом смартфоне есть физические кнопки, которые важно знать:</p>
+
+                    <div class="phone-illustration" style="background: linear-gradient(135deg, #f8f9fa 0%, #e6f7ff 100%);">
+                        <div style="text-align: center;">
+                            <i class="bi bi-phone" style="font-size: 4rem; color: #2c698d; display: block; margin-bottom: 15px;"></i>
+                            <p><strong>Основные кнопки смартфона</strong></p>
+                        </div>
+                        <div style="flex: 1;">
+                            <div class="step" style="margin: 10px 0;">
+                                <span class="step-number" style="background: #4CAF50;">+</span>
+                                <div class="step-content">
+                                    <strong>Кнопка увеличения громкости</strong>
+                                    <p>Сделать звук громче. Также используется для других функций в сочетании с другими кнопками.</p>
+                                </div>
+                            </div>
+
+                            <div class="step" style="margin: 10px 0;">
+                                <span class="step-number" style="background: #ff9966;">-</span>
+                                <div class="step-content">
+                                    <strong>Кнопка уменьшения громкости</strong>
+                                    <p>Сделать звук тише. В режиме беззвучного звонка - отключить звук.</p>
+                                </div>
+                            </div>
+
+                            <div class="step" style="margin: 10px 0;">
+                                <span class="step-number" style="background: #dc3545;">⏻</span>
+                                <div class="step-content">
+                                    <strong>Кнопка питания</strong>
+                                    <p>
+                                        • Короткое нажатие - блокировка/разблокировка экрана<br>
+                                        • Длинное нажатие (3 сек) - выключение/включение телефона<br>
+                                        • Вместе с кнопкой громкости - скриншот
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tip-box">
+                        <strong> Полезный совет:</strong>
+                        <p>Если телефон завис и не реагирует на касания, нажмите и удерживайте кнопку питания 10-15 секунд - телефон перезагрузится.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Кнопки действий -->
+            <div class="button-container">
+                {%if user_level == 'basic' %}
+                <a href="{{ url_for('smartphone_basics_base') }}" class="trainer-btn" onclick="startTraining()">
+                    <i class="bi bi-play-circle"></i> Начать практический тренинг
+                </a>
+                <a href="{{ url_for('go_to_trainer') }}" class="trainer-btn back-btn">
+                    <i class="bi bi-house"></i> Вернуться на главную
+                </a>
+                {%else%}
+                <a href="{{ url_for('smartphone_basics_base') }}" class="trainer-btn" onclick="startTraining()">
+                    <i class="bi bi-play-circle"></i> Начать практический тренинг
+                </a>
+                <a href="{{ url_for('go_to_trainer') }}" class="trainer-btn back-btn">
+                    <i class="bi bi-house"></i> Вернуться на главную
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function startTraining() {
+            if (confirm('Хотите перейти к практическому тренингу? Вы изучили теоретический материал?')) {
+                // Здесь можно добавить переход на страницу тренинга
+                window.location.href = 'smartphone_training.html';
+            }
+        }
+
+        // Плавная прокрутка к главам
+        document.addEventListener('DOMContentLoaded', function() {
+            const chapters = document.querySelectorAll('.chapter');
+            chapters.forEach(chapter => {
+                chapter.style.opacity = '0';
+                chapter.style.transform = 'translateY(20px)';
+                chapter.style.transition = 'opacity 0.5s, transform 0.5s';
+            });
+
+            setTimeout(() => {
+                let delay = 0;
+                chapters.forEach(chapter => {
+                    setTimeout(() => {
+                        chapter.style.opacity = '1';
+                        chapter.style.transform = 'translateY(0)';
+                    }, delay);
+                    delay += 200;
+                });
+            }, 300);
+        });
+    </script>
+</body>
+<header style="position: fixed; top: 20px; right: 20px; z-index: 1000;">
+    <div class="user-account" style="position: relative;">
+        <button onclick="goToAccount()" style="
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #007AFF, #00b4ff);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 122, 255, 0.3);
+            transition: all 0.3s;
+        ">
+            <i class="bi bi-person"></i>
+        </button>
+
+    </div>
+</header>
+<script>
+    function goToAccount() {
+        window.location.href = 'account.html';
+    }
+</script>
+</html>

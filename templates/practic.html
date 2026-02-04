@@ -118,6 +118,36 @@
             text-decoration: none;
         }
 
+        /* Стили для кнопки аккаунта */
+        .account-btn-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .account-btn {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #007AFF, #00b4ff);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 122, 255, 0.3);
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .account-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(0, 122, 255, 0.4);
+        }
+
         @media (max-width: 992px) {
             .rectangle-container {
                 flex-wrap: wrap;
@@ -137,10 +167,22 @@
             .rectangle-container {
                 gap: 15px;
             }
+
+            .account-btn-container {
+                top: 10px;
+                right: 10px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Кнопка аккаунта (исправлена) -->
+    <div class="account-btn-container">
+        <a href="{{ url_for('account') }}" class="account-btn">
+            <i class="bi bi-person"></i>
+        </a>
+    </div>
+
     <nav class="navbar navbar-expand-lg py-3">
         <div class="container-fluid">
             <a class="navbar-brand site-title" href="{{ url_for('start_page') }}">
@@ -165,7 +207,7 @@
                             <div class="rectangle-content">
                                 Изучите основные функции смартфона: настройки, звонки, сообщения и многое другое
                             </div>
-                            <a href="{{ url_for('smartphone_basics') }}" class="start-button">
+                            <a href="{{ url_for('buttons') }}" class="start-button">
                                 Начать обучение
                             </a>
                         </div>
@@ -207,9 +249,15 @@
                             <div class="rectangle-content">
                                 Научитесь безопасно совершать покупки в интернете, сравнивать цены и выбирать товары
                             </div>
+                            {% if user_level == 'basic' %}
+                            <a href="{{ url_for('online_shopping_basic') }}" class="start-button">
+                                Начать обучение
+                            </a>
+                            {% else %}
                             <a href="{{ url_for('online_shopping') }}" class="start-button">
                                 Начать обучение
                             </a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
