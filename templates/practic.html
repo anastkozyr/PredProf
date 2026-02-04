@@ -249,9 +249,15 @@
                             <div class="rectangle-content">
                                 Научитесь безопасно совершать покупки в интернете, сравнивать цены и выбирать товары
                             </div>
+                            {{% if user_level == 'basic' %}}
                             <a href="{{ url_for('online_shopping_basic') }}" class="start-button">
                                 Начать обучение
                             </a>
+                            {{% else %}}
+                            <a href="{{ url_for('online_shopping') }}" class="start-button">
+                                Начать обучение
+                            </a>
+                            {{% endif %}}
                         </div>
                     </div>
                 </div>

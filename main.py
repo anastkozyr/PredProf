@@ -93,6 +93,7 @@ def images_files(filename):
 @app.route('/go-to-trainer')
 @login_required
 def go_to_trainer():
+    user_level = current_user.level
     return render_template('practic.html')
 
 
@@ -160,15 +161,15 @@ def online_shopping_basic():
 def online_shopping_basic_page():
     return render_template('online_shopping_basic.html')
 
-# @app.route('/online_shopping', methods=['POST'])
-# @login_required
-# def online_shopping_page():
-#     return render_template('online_shopping.html')
-#
-# @app.route('/online_shopping', methods=['GET'])
-# @login_required
-# def online_shopping_page():
-#     return render_template('online_shopping.html')
+@app.route('/online_shopping', methods=['POST'])
+@login_required
+def online_shopping_page():
+    return render_template('online_shopping.html')
+
+@app.route('/online_shopping', methods=['GET'])
+@login_required
+def online_shopping_page():
+    return render_template('online_shopping.html')
 
 
 @app.route('/buttons')
