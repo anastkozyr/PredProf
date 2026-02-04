@@ -387,9 +387,8 @@
             border: 2px solid #eee;
         }
 
-        /* Большая кнопка помощи */
         .help-btn-big {
-            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            background: linear-gradient(135deg, #7ea7cc, #3a86ff);
             color: white;
             border: none;
             padding: 25px 40px;
@@ -404,13 +403,11 @@
             font-size: 22px;
             font-weight: bold;
             transition: all 0.3s;
-            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
         }
 
         .help-btn-big:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(255, 107, 107, 0.4);
-            background: linear-gradient(135deg, #ff5252, #ff7b7b);
+            background: linear-gradient(135deg, #2c698d, #3a86ff);
         }
 
         .help-btn-big i {
@@ -423,7 +420,7 @@
             border-radius: 15px;
             margin-top: 25px;
             display: none;
-            border: 3px solid #ff6b6b;
+            border: 3px solid #007AFF;
             font-size: 20px;
             line-height: 1.8;
         }
@@ -922,9 +919,9 @@
                     <button class="next-btn" onclick="restartTraining()" style="background: linear-gradient(135deg, #6c757d, #495057);">
                         <i class="bi bi-arrow-repeat"></i> НАЧАТЬ ЗАНОВО
                     </button>
-                    <button class="trainer-btn">
+                    <a href="{{ url_for('go_to_trainer') }}" class="trainer-btn">
                         <i class="bi bi-arrow-right-circle"></i> ПЕРЕЙТИ НА ГЛАВНУЮ СТРАНИЦУ
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
@@ -1229,4 +1226,5 @@
         setInterval(updateTime, 60000);
     </script>
 </body>
+
 </html>
