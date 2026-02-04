@@ -163,7 +163,7 @@ def online_shopping_basic_page():
 
 @app.route('/online_shopping', methods=['POST'])
 @login_required
-def online_shopping_page():
+def online_shopping():
     return render_template('online_shopping.html')
 
 @app.route('/online_shopping', methods=['GET'])
