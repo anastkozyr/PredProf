@@ -146,7 +146,7 @@
             border: none;
             outline: none;
             background: transparent;
-            font-size: 14px;
+            font-size: 50px;
             font-weight: bold;
             color: #000000;
             text-align: center;
@@ -175,7 +175,7 @@
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
 
-        @keyframes pulse-blue {
+        @keyframes pulse-black {
             0% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7); }
             70% { box-shadow: 0 0 0 10px rgba(0, 0, 0, 0); }
             100% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
@@ -298,7 +298,7 @@
             justify-content: center;
             gap: 15px;
             width: 100%;
-            font-size: 40px;
+            font-size: 36px;
             font-weight: bold;
             transition: all 0.3s;
             box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
@@ -355,6 +355,7 @@
             text-align: center;
             display: none;
             padding: 30px;
+            font-size: 30px;
         }
 
         .complete-screen.active {
@@ -368,7 +369,7 @@
         }
 
         .score {
-            font-size: 48px;
+            font-size: 60px;
             font-weight: bold;
             color: #333;
             margin: 20px 0;
@@ -390,12 +391,12 @@
         }
 
         .trainer-btn {
-            background-color: #2c698d;
+            background: #007AFF;
             border: none;
             color: white;
             border-radius: 25px;
             padding: 15px 30px;
-            font-size: 16px;
+            font-size: 50px;
             font-weight: bold;
             margin-top: 20px;
             width: 100%;
@@ -406,7 +407,7 @@
         }
 
         .trainer-btn:hover {
-            background-color: #1d4a63;
+            background-color: #1c00d4;
         }
 
         .user-status {
@@ -510,10 +511,10 @@
                     <div class="task-number">1</div>
                     <h2 class="task-title">Открыть каталог товаров</h2>
                     <div class="task-description">
-                        <p>На главном экране приложения "Пятерочка" нажмите на кнопку "Каталог".</p>
+                        <p>На главном экране приложения "Пятерочка" откройте каталог товаров.</p>
                     </div>
                     <button class="help-btn-big" onclick="toggleHelp(1)">
-                        <i class="bi bi-question-circle"></i> Помощь
+                        <i class="bi bi-question-circle"></i> КАК ЭТО СДЕЛАТЬ?
                     </button>
                     <div id="help1" class="help-content">
                         <p><strong>Как выполнить:</strong></p>
@@ -530,32 +531,32 @@
                         <p>В каталоге найдите хлеб через поиск и добавьте его в корзину.</p>
                     </div>
                     <button class="help-btn-big" onclick="toggleHelp(2)">
-                        <i class="bi bi-question-circle"></i> Помощь
+                        <i class="bi bi-question-circle"></i> КАК ЭТО СДЕЛАТЬ?
                     </button>
                     <div id="help2" class="help-content">
                         <p><strong>Как выполнить:</strong></p>
                         <p>1. В каталоге найдите строку поиска</p>
-                        <p>2. Введите "Хлеб"</p>
+                        <p>2. Нажмите на строку поиска и введите "Хлеб"</p>
                         <p>3. Нажмите Enter</p>
-                        <p>4. Выберите хлеб и нажмите "В корзину"</p>
+                        <p>4. Найдите "Рижский ржаной хлеб со злаками" за 144руб и нажмите "В корзину"</p>
                     </div>
                 </div>
 
                 <div id="task3" class="task">
                     <div class="task-number">3</div>
-                    <h2 class="task-title">Положить кашу в корзину</h2>
+                    <h2 class="task-title">Найти кашу в готовом каталоге товаров без поиска и положить ее в корзину</h2>
                     <div class="task-description">
                         <p>Вернитесь в каталог и добавьте кашу из категории "Завтраки" в корзину.</p>
                     </div>
                     <button class="help-btn-big" onclick="toggleHelp(3)">
-                        <i class="bi bi-question-circle"></i> Помощь
+                        <i class="bi bi-question-circle"></i> КАК ЭТО СДЕЛАТЬ?
                     </button>
                     <div id="help3" class="help-content">
                         <p><strong>Как выполнить:</strong></p>
                         <p>1. Нажмите на крестик чтобы выйти из поиска</p>
                         <p>2. Найдите раздел "Готовая еда"</p>
-                        <p>3. Нажмите на "Завтраки"</p>
-                        <p>4. Выберите кашу и нажмите "В корзину"</p>
+                        <p>3. Выберите подраздел "Завтраки", нажав на кнопку</p>
+                        <p>4. Найдите "рисовую кашу на молоке" за 119руб и нажмите "В корзину"</p>
                     </div>
                 </div>
 
@@ -566,7 +567,7 @@
                         <p>Перейдите в корзину и проверьте добавленные товары.</p>
                     </div>
                     <button class="help-btn-big" onclick="toggleHelp(4)">
-                        <i class="bi bi-question-circle"></i> Помощь
+                        <i class="bi bi-question-circle"></i> КАК ЭТО СДЕЛАТЬ?
                     </button>
                     <div id="help4" class="help-content">
                         <p><strong>Как выполнить:</strong></p>
@@ -584,7 +585,7 @@
                     <div class="complete-icon"><i class="bi bi-trophy-fill"></i></div>
                     <h2>Тренинг завершен!</h2>
                     <div class="score" id="score">0/4</div>
-                    <p>Вы успешно научились делать покупки в приложении!</p>
+                    <p>Поздравляем! Вы научились делать покупки в приложении!</p>
                     <button class="next-btn" onclick="restartTraining()" style="background: #6c757d;">
                         <i class="bi bi-arrow-repeat"></i> Начать заново
                     </button>
@@ -693,7 +694,7 @@
                         name: '',
                         top: '18%',
                         left: '34%',
-                        width: '33%',
+                        width: '31%',
                         height: '16%',
                         action: 'openBreakfast'
                     }
@@ -922,7 +923,7 @@
                             completeTask(2);
                             // Сразу показываем кнопку для закрытия поиска
                             showNotification('Закройте поиск, чтобы вернуться в каталог');
-                        }, 1000);
+                        }, 500);
                     }
                     break;
 
@@ -960,7 +961,7 @@
                         setTimeout(() => {
                             showNotification('УРА! УРА! ВЫ ЗАВЕРШИЛИ ТРЕНИНГ ПО ОНЛАЙН ПОКУПКАМ');
                             completeTask(4);
-                        }, 1000);
+                        }, 2000);
                     }
                     break;
 

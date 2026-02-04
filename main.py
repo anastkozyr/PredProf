@@ -1,5 +1,5 @@
 from flask import Flask, render_template, send_from_directory, redirect, request, flash, session, \
-    url_for  # ← добавили request!
+    url_for, jsonify
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from data import db_session
 from data.users import User
@@ -129,10 +129,29 @@ def teory_smartphone():
     return render_template('teory_smartphone.html')
 
 
-@app.route('/online_shopping')
+@app.route('/online_shopping_basic', methods=['POST'])
+@login_required
+def online_shopping_basic():
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).filter(User.id == current_user.id).first()
+    user.progress_basic = user.progress_basic[:3] + "1"
+    db_sess.commit()
+    return jsonify({"status": "ok"})
+
+@app.route('/online_shopping_basic', methods=['GET'])
+@login_required
+def online_shopping_basic_page():
+    return render_template('online_shopping_basic.html')
+
+@app.route('/online_shopping_pro', methods=['POST'])
 @login_required
 def online_shopping():
-    return render_template('online_shopping_basic.html')
+    return render_template('online_shopping_pro.html')
+
+@app.route('/online_shopping_pro', methods=['GET'])
+@login_required
+def online_shopping_page():
+    return render_template('online_shopping_pro.html')
 
 
 @app.route('/buttons')
