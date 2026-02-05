@@ -1080,7 +1080,10 @@
                 '+7 900 123-45-67',
                 '+7900123-45-67',
                 '+79001234567',
-                '79001234567'
+                '79001234567',
+                '7 9001234567',
+                '7 900 123 45 67',
+                '7900 1234567'
             ];
 
             if ((phonePatterns.includes(phone) || phone.includes('9001234567')) && password === 'gosuslugi123') {
@@ -1237,40 +1240,21 @@
 
     // Обработка клика на im15 - ТЕПЕРЬ ПРЯМОЙ ПЕРЕХОД К ЗАВЕРШЕНИЮ ТРЕНИНГА
     function handleIm15Click() {
-        hideClickableArea('im15');
-        task2Steps.confirmed = true;
+        taskCompleted[2] = true;
+        tasksCompleted = totalTasks;
+        updateProgress();
 
-        // Скрыть все элементы телефона
-        document.getElementById('phone-img').style.display = 'none';
-        hideAllBlueButtons();
-        hideAllClickableAreas();
-        hideAllForms();
-        document.getElementById('success-screen').classList.remove('active');
+        document.getElementById('task2').classList.remove('active');
+        document.getElementById('next-btn').classList.remove('active');
 
-        // Проверить, все ли шаги второго задания выполнены
-        const allStepsCompleted = Object.values(task2Steps).every(step => step === true);
+        // показываем финальный экран
+        setTimeout(() => {
+            document.getElementById('complete-screen').classList.add('active');
+            document.getElementById('score').textContent = '2/2';
+            completeTraining();
+            showNotification('Тренинг успешно завершён!', 'success');
+        }, 500);
 
-        if (allStepsCompleted && currentTask === 2 && !taskCompleted[2]) {
-            // Завершить задание 2
-            taskCompleted[2] = true;
-            tasksCompleted = 2;
-            updateProgress();
-
-            // Скрыть текущее задание
-            document.getElementById('task' + currentTask).classList.remove('active');
-            document.getElementById('next-btn').classList.remove('active');
-
-            // Показать экран завершения
-            setTimeout(() => {
-                document.getElementById('complete-screen').classList.add('active');
-                document.getElementById('score').textContent = '2/2';
-
-                // Отправить запрос на сервер
-                completeTraining();
-
-                showNotification('Тренинг успешно завершен! Поздравляем!', 'success');
-            }, 1000);
-        }
     }
 
     // Показать форму для региона
@@ -1448,15 +1432,7 @@
 
     function completeTraining() {
         if (tasksCompleted === totalTasks) {
-            fetch("/public-services", {method: "POST"})
-                .then(response => {
-                    if (response.ok) {
-                        console.log("Прогресс сохранен на сервере");
-                    }
-                })
-                .catch(error => {
-                    console.error("Ошибка при сохранении прогресса:", error);
-                });
+            fetch("/public_services", {method: "POST"})
         }
     }
 

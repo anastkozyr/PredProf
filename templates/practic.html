@@ -241,9 +241,15 @@
                             <div class="rectangle-content">
                                 Освойте портал Госуслуг: запись к врачу, оплата налогов, получение документов
                             </div>
+                            {% if user_level == 'basic' %}
+                            <a href="{{ url_for('gosuslugi_training') }}" class="start-button">
+                                Начать обучение
+                            </a>
+                            {% else %}
                             <a href="{{ url_for('gosuslugi_training_pro') }}" class="start-button">
                                 Начать обучение
                             </a>
+                            {% endif %}
                         </div>
 
                         <!-- Четвертый прямоугольник -->
