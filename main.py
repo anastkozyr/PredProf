@@ -174,7 +174,7 @@ def gosuslugi_training_pro():
     db_sess.commit()
     return jsonify({"status": "ok"})
 
-@app.route('/public-services_pro', methods=['GET'])
+@app.route('/public_services_pro', methods=['GET'])
 @login_required
 def gosuslugi_training_pro_page():
     return render_template('public_services_pro.html')
