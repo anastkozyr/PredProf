@@ -225,10 +225,14 @@ def buttons():
 @login_required
 def change_level():
     db_sess = db_session.create_session()
-    level = request.form.get('level')
-    current_user.level = level
+    level = current_user.level
+    user = db_sess.query(User).filter(User.id == current_user.id).first()
+    if level == 'basic':
+        user.level = 'advanced'
+    else:
+        user.level = 'basic'
     db_sess.commit()
-    return redirect(url_for('account'))
+    return jsonify({"status": "ok"})
 
 
 
