@@ -225,12 +225,10 @@ def buttons():
 @login_required
 def change_level():
     db_sess = db_session.create_session()
-    level = current_user.level
+    data = request.get_json()
+    level = data.get('level')
     user = db_sess.query(User).filter(User.id == current_user.id).first()
-    if level == 'basic':
-        user.level = 'advanced'
-    else:
-        user.level = 'basic'
+    user.level = level
     db_sess.commit()
     return jsonify({"status": "ok"})
 
@@ -258,7 +256,7 @@ def account():
         third = int(current_user.progress_advanced[2])
         fourth = int(current_user.progress_advanced[3])
         levelrus = "Продвинутый"
-    progress = str(round((first + second + third + fourth) * 12.5)) + '%'
+    progress = str(round((basic.count('1') + advanced.count('1')) * 12.5)) + '%'
     return render_template('account.html',
                            name=name, level=level, levelrus=levelrus, first=first, second=second, third=third, fourth=fourth,
                            created_date=formatted_date, progress=progress, medals=medals, basic=basic, advanced=advanced)

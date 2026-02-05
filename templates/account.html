@@ -427,15 +427,15 @@
         }
 
         .level-title {
-            font-weight: 600;
+            font-weight: 700;
             color: #1a4d6e;
-            margin-bottom: 8px;
-            font-size: 1.1rem;
+            margin-bottom: 12px;
+            font-size: 1.5rem;
         }
 
         .level-description {
             color: #4a7b9d;
-            font-size: 0.9rem;
+            font-size: 1.2rem;
             line-height: 1.4;
         }
 
@@ -487,34 +487,31 @@
                         <div>
                             <div class="fw-bold" style="color: #1a4d6e;">Уровень обучения</div>
                             <div class="level-selection">
-                                {% for subfield in form.user_level %}
-                                <div class="level-option {{ subfield.data }}"
-     onclick="document.querySelectorAll('.level-option').forEach(el => el.classList.remove('selected'));
-              this.classList.add('selected');
-              document.querySelector('input[value=\'{{ subfield.data }}\']').checked = true;"
-     id="{{ subfield.data }}-level">
-<!--                                <div class="level-option {{ subfield.data }}" onclick="selectLevel('{{ subfield.data }}')" id="{{ subfield.data }}-level">-->
+
+                                <div class="level-option basic {% if level == 'basic' %}selected{% endif %}"
+                                     onclick="changeLevel('basic')">
                                     <div class="level-icon">
-                                        {% if subfield.data == 'basic' %}
                                         <i class="bi bi-person"></i>
-                                        {% else %}
-                                        <i class="bi bi-person-gear"></i>
-                                        {% endif %}
                                     </div>
-                                    <div class="level-title">
-                                        {{ subfield.label.text }}
-                                    </div>
+                                    <div class="level-title">Базовый</div>
                                     <div class="level-description">
-                                        {% if subfield.data == 'basic' %}
-                                        Базовый
-                                        {% else %}
-                                        Расширенный
-                                        {% endif %}
+                                        Для начинающих пользователей
                                     </div>
-                                    {{ subfield(style="display: none;") }}
                                 </div>
-                                {% endfor %}
+
+                                <div class="level-option advanced {% if level == 'advanced' %}selected{% endif %}"
+                                     onclick="changeLevel('advanced')">
+                                    <div class="level-icon">
+                                        <i class="bi bi-person-gear"></i>
+                                    </div>
+                                    <div class="level-title">Продвинутый</div>
+                                    <div class="level-description">
+                                        Для уверенных пользователей
+                                    </div>
+                                </div>
+
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -852,7 +849,8 @@
                     <a href="{{ url_for('go_to_trainer') }}" class="btn-continue text-center">
                         <i class="bi bi-play-circle"></i> Продолжить обучение
                     </a>
-                    <a href="{{ url_for('logout') }}" class="btn btn-danger text-center" style="border-radius: 20px; padding: 12px 30px; font-weight: 600;">
+                    <a href="{{ url_for('logout') }}" class="btn btn-danger text-center"
+                       style="border-radius: 20px; padding: 12px 30px; font-weight: 600;">
                         <i class="bi bi-box-arrow-right me-2"></i> Выйти из аккаунта
                     </a>
                 </div>
