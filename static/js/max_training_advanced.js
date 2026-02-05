@@ -1,3 +1,32 @@
+let audioUnlocked = false;
+const soundPlayer = new Audio();
+soundPlayer.volume = 1;
+
+function unlockAudio() {
+    if (audioUnlocked) return;
+
+    soundPlayer.src = '/static/sounds/max/task_1.mp3';
+    soundPlayer.volume = 0;
+
+    soundPlayer.play()
+        .then(() => {
+            audioUnlocked = true;
+            soundPlayer.pause();
+            soundPlayer.currentTime = 0;
+            soundPlayer.volume = 1;
+
+            const config = screenConfigs[currentImage];
+            if (config && config.sound) {
+                playSound(config.sound);
+            }
+        })
+        .catch(() => {});
+}
+
+document.addEventListener('click', unlockAudio, { once: true });
+document.addEventListener('touchstart', unlockAudio, { once: true });
+
+
 let currentTask = 1;
 let tasksCompleted = 0;
 let totalTasks = 4;
@@ -153,6 +182,14 @@ const screenConfigs = {
         ]
     },
 };
+
+function playSound(soundName) {
+    soundPlayer.src = `/static/sounds/max/${soundName}`;
+    soundPlayer.currentTime = 0;
+    soundPlayer.play().catch(err => {
+        console.warn('Sound play blocked:', err);
+    });
+}
 
 // Загрузка данных пользователя
 document.addEventListener('DOMContentLoaded', function() {
@@ -593,16 +630,19 @@ function nextTask() {
         switch(currentTask) {
             case 1:
                 loadScreen('start_page.jpeg');
+                playSound('task_1.mp3');
                 break;
             case 2:
                 loadScreen('hello_sticker.jpeg');
+                playSound('task_2.mp3');
                 break;
             case 3:
                 loadScreen('hello_text.jpeg');
+                playSound('task_3.mp3');
                 break;
-
             case 4:
                 loadScreen('final.jpeg');
+                playSound('task_4.mp3');
                 break;
         }
     }
