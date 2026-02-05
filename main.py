@@ -254,7 +254,7 @@ def account():
         third = int(current_user.progress_advanced[2])
         fourth = int(current_user.progress_advanced[3])
         levelrus = "Продвинутый"
-    progress = str((first + second + third + fourth) * 25) + '%'
+    progress = str(round((first + second + third + fourth) * 12.5)) + '%'
     return render_template('account.html',
                            name=name, level=level, levelrus=levelrus, first=first, second=second, third=third, fourth=fourth,
                            created_date=formatted_date, progress=progress, medals=medals, basic=basic, advanced=advanced)
