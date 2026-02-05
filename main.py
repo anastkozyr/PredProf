@@ -151,7 +151,7 @@ def messenger_training_page():
     else:
         return render_template('messanger_training_advanced.html')
 
-@app.route('/public-services', methods=['POST'])
+@app.route('/public_services', methods=['POST'])
 @login_required
 def gosuslugi_training():
     db_sess = db_session.create_session()
@@ -160,10 +160,24 @@ def gosuslugi_training():
     db_sess.commit()
     return jsonify({"status": "ok"})
 
-@app.route('/public-services', methods=['GET'])
+@app.route('/public_services', methods=['GET'])
 @login_required
 def gosuslugi_training_page():
     return render_template('public_services.html')
+
+@app.route('/public_services_pro', methods=['POST'])
+@login_required
+def gosuslugi_training_pro():
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).filter(User.id == current_user.id).first()
+    user.progress_advanced = user.progress_advanced[:2] + "1" + user.progress_advanced[3]
+    db_sess.commit()
+    return jsonify({"status": "ok"})
+
+@app.route('/public-services_pro', methods=['GET'])
+@login_required
+def gosuslugi_training_pro_page():
+    return render_template('public_services_pro.html')
 
 
 @app.route('/teory_smartphone-services')
@@ -211,10 +225,14 @@ def buttons():
 @login_required
 def change_level():
     db_sess = db_session.create_session()
-    level = request.form.get('level')
-    current_user.level = level
+    level = current_user.level
+    user = db_sess.query(User).filter(User.id == current_user.id).first()
+    if level == 'basic':
+        user.level = 'advanced'
+    else:
+        user.level = 'basic'
     db_sess.commit()
-    return redirect(url_for('account'))
+    return jsonify({"status": "ok"})
 
 
 
@@ -240,7 +258,7 @@ def account():
         third = int(current_user.progress_advanced[2])
         fourth = int(current_user.progress_advanced[3])
         levelrus = "Продвинутый"
-    progress = str((first + second + third + fourth) * 25) + '%'
+    progress = str(round((first + second + third + fourth) * 12.5)) + '%'
     return render_template('account.html',
                            name=name, level=level, levelrus=levelrus, first=first, second=second, third=third, fourth=fourth,
                            created_date=formatted_date, progress=progress, medals=medals, basic=basic, advanced=advanced)
