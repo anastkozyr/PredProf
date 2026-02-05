@@ -181,36 +181,6 @@
             100% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
         }
 
-        .modal-btn {
-            width: 100%;
-            padding: 15px;
-            margin: 5px 0;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .modal-btn.primary {
-            background: #ff2e2e;
-            color: white;
-        }
-
-        .modal-btn.primary:hover {
-            background: #e52525;
-        }
-
-        .modal-btn.secondary {
-            background: #6c757d;
-            color: white;
-        }
-
-        .modal-btn.secondary:hover {
-            background: #5a6268;
-        }
-
         /* Панель тренинга */
         .training-section {
             flex: 1;
@@ -494,47 +464,6 @@
                     <!-- Интерактивные области поверх фотографии -->
                     <div id="interactiveOverlay" class="interactive-overlay">
                         <!-- Кликабельные области будут добавляться динамически -->
-                    </div>
-
-                    <!-- Модальное окно выбора оплаты -->
-                    <div id="paymentModal" class="payment-modal">
-                        <div class="payment-content">
-                            <h2 class="payment-title">Выберите способ оплаты</h2>
-
-                            <div class="payment-option" onclick="selectPayment('card')">
-                                <div class="payment-icon">
-                                    <i class="bi bi-credit-card"></i>
-                                </div>
-                                <div class="payment-info">
-                                    <h4>Банковская карта</h4>
-                                    <p>Оплата онлайн</p>
-                                </div>
-                            </div>
-
-                            <div class="payment-option" onclick="selectPayment('sberpay')">
-                                <div class="payment-icon">
-                                    <i class="bi bi-phone"></i>
-                                </div>
-                                <div class="payment-info">
-                                    <h4>СберПэй</h4>
-                                    <p>Оплата через СберБанк Онлайн</p>
-                                </div>
-                            </div>
-
-                            <div class="payment-option" onclick="selectPayment('cash')">
-                                <div class="payment-icon">
-                                    <i class="bi bi-cash"></i>
-                                </div>
-                                <div class="payment-info">
-                                    <h4>Наличными при получении</h4>
-                                    <p>Оплата курьеру</p>
-                                </div>
-                            </div>
-
-                            <button id="confirmPaymentBtn" class="payment-btn" disabled onclick="confirmPayment()">
-                                Подтвердить выбор
-                            </button>
-                        </div>
                     </div>
 
                     <!-- Отладка координат -->
@@ -886,6 +815,7 @@
                         width: '98%',
                         height: '6%',
                         action: 'readyAddress',
+                        placeholder: 'Введите адрес доставки...'
                     },
                 ]
             },
@@ -906,16 +836,41 @@
                 areas: [
                     {
                         id: 'add_order-btn',
-                        name: 'Выбрать способ оплаты',
-                        background: rgba(255, 0, 0, 0.8),
-                        top: '50%',
-                        left: '9%',
-                        width: '89%',
-                        height: '7%',
+                        name: '',
+                        top: '51%',
+                        left: '3%',
+                        width: '93%',
+                        height: '8.3%',
                         action: 'openPayment'
                     }
                 ]
-            }
+            },
+            'pay_choose.jpg': {
+                areas: [
+                    {
+                        id: 'choose_pay-btn',
+                        name: '',
+                        top: '66%',
+                        left: '3%',
+                        width: '93%',
+                        height: '18%',
+                        action: 'finish_choose'
+                    }
+                ]
+            },
+            'finish.jpg': {
+                areas: [
+                    {
+                        id: 'finish-btn',
+                        name: '',
+                        top: '80.2%',
+                        left: '6.5%',
+                        width: '91%',
+                        height: '7%',
+                        action: 'finish'
+                    }
+                ]
+            },
         };
 
         // Загрузка данных пользователя
@@ -1147,7 +1102,20 @@
 
                 case 'watchBasket':
                     loadScreen('fool_basket2.jpg');
-                    completeTask(4);
+                    // Проверяем, добавлены ли оба товара
+                    if (breadAdded && porridgeAdded) {
+                        // Если это задание 4, завершаем его
+                        if (currentTask === 4) {
+                            completeTask(4);
+                        }
+                    } else {
+                        let message = 'Сначала добавьте ';
+                        if (!breadAdded) message += 'хлеб';
+                        if (!breadAdded && !porridgeAdded) message += ' и ';
+                        if (!porridgeAdded) message += 'кашу';
+                        message += ' в корзину!';
+                        showNotification(message);
+                    }
                     break;
 
                 case 'chooseDelivery':
@@ -1166,37 +1134,35 @@
                     if (currentImage === 'ready_address.jpg') {
                         loadScreen('ready_order.jpg');
                     }
-                    break;
-
-                case 'openPayment':
-                    document.getElementById('paymentModal').classList.add('active');
-                    showNotification('Выберите способ оплаты');
-                break;
-
-                case 'completeOrder':
-                    // Это последняя кнопка - завершаем задание 4
                     if (currentTask === 5) {
                         setTimeout(() => {
                             completeTask(5);
-                        }, 2000);
-                    }
-
-                case 'checkCart':
-                    // Проверяем, добавлены ли оба товара
-                    if (breadAdded && porridgeAdded) {
-                        // Если это задание 4, завершаем его
-                        if (currentTask === 4) {
-                            completeTask(4);
-                        }
-                    } else {
-                        let message = 'Сначала добавьте ';
-                        if (!breadAdded) message += 'хлеб';
-                        if (!breadAdded && !porridgeAdded) message += ' и ';
-                        if (!porridgeAdded) message += 'кашу';
-                        message += ' в корзину!';
-                        showNotification(message);
+                        }, 500);
                     }
                     break;
+
+                case 'openPayment':
+                    loadScreen('pay_choose.jpg');
+                break;
+
+                case 'finish_choose':
+                    loadScreen('finish.jpg');
+                    if (currentTask === 6) {
+                        setTimeout(() => {
+                            completeTask(6);
+                        }, 500);
+                    }
+                break;
+
+                case 'finish':
+                    loadScreen('end.jpg');
+                    if (currentTask === 7) {
+                        setTimeout(() => {
+                            showNotification('УРА! УРА! ВЫ ЗАВЕРШИЛИ ТРЕНИНГ ПО ОНЛАЙН ПОКУПКАМ');
+                            completeTask(7);
+                        }, 500);
+                    }
+                break;
             }
         }
 
@@ -1293,8 +1259,6 @@
                         // Ждем когда он нажмет на корзину
                         if (currentImage === 'pice_porridge_in_basket.jpg') {
                         } else {
-                            // Показываем текущий экран
-                            showNotification('Найдите иконку корзины внизу экрана');
                         }
                         break;
                     case 5:
