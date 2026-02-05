@@ -1,4 +1,5 @@
-from flask import Flask, render_template, send_from_directory, redirect, request, jsonify  # ← добавили request!
+from flask import Flask, render_template, send_from_directory, redirect, request, jsonify, \
+    url_for  # ← добавили request!
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from data import db_session
 from data.users import User
@@ -178,6 +179,16 @@ def buttons():
     user_level = current_user.level
     return render_template('buttons.html', user_level=user_level)
 
+@app.route('/change_level', methods=['POST'])
+@login_required
+def change_level():
+    db_sess = db_session.create_session()
+    level = request.form.get('level')
+    current_user.level = level
+    db_sess.commit()
+    return redirect(url_for('account'))
+
+
 
 @app.route('/account')
 @login_required
@@ -203,7 +214,7 @@ def account():
         levelrus = "Продвинутый"
     progress = str((first + second + third + fourth) * 25) + '%'
     return render_template('account.html',
-                           name=name, level=levelrus, first=first, second=second, third=third, fourth=fourth,
+                           name=name, level=level, levelrus=levelrus, first=first, second=second, third=third, fourth=fourth,
                            created_date=formatted_date, progress=progress, medals=medals, basic=basic, advanced=advanced)
 
 if __name__ == '__main__':
