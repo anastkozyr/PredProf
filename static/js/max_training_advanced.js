@@ -546,6 +546,13 @@ async function saveProgress(taskId) {
     }
 }
 
+function completeTraining() {
+    if (tasksCompleted === totalTasks) {
+    // Перенаправить на страницу обновления прогресса
+       fetch("/messenger_training", {method: "POST"});
+    }
+}
+
 // Завершить задание
 async function completeTask(taskNum) {
     tasksCompleted++;
@@ -557,6 +564,7 @@ async function completeTask(taskNum) {
     showNotification(`Задание ${taskNum} выполнено!`);
 
     if (tasksCompleted === totalTasks) {
+        completeTraining();
         setTimeout(() => {
             document.getElementById('complete-screen').classList.add('active');
             document.getElementById('task' + currentTask).classList.remove('active');
