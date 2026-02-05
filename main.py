@@ -129,11 +129,23 @@ def smartphone_basics_base():
 def smartphone_basics_base_page():
     return render_template('smartphone_basics_base.html')
 
-
-@app.route('/messenger_training')
+@app.route('/messenger_training', methods=['POST'])
 @login_required
 def messenger_training():
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).filter(User.id == current_user.id).first()
+    if user.level == 'basic':
+        user.progress_basic = user.progress_basic[0] + "1" + user.progress_basic[2:]
+    else:
+        user.progress_advanced = user.progress_advanced[0] + "1" + user.progress_advanced[2:]
+    db_sess.commit()
+    return jsonify({"status": "ok"})
+
+@app.route('/messenger_training', methods=['GET'])
+@login_required
+def messenger_training_page():
     user_level = current_user.level
+    print(user_level)
     if user_level == 'basic':
         return render_template('messenger_training_basic.html')
     else:
@@ -171,7 +183,7 @@ def online_shopping_basic_page():
 def online_shopping():
     db_sess = db_session.create_session()
     user = db_sess.query(User).filter(User.id == current_user.id).first()
-    user.progress_basic = user.progress_advanced[:3] + "1"
+    user.progress_advanced = user.progress_advanced[:3] + "1"
     db_sess.commit()
     return jsonify({"status": "ok"})
 

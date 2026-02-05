@@ -1033,6 +1033,7 @@
 
             // Если все задания выполнены
             if (tasksCompleted === totalTasks) {
+                completeTraining();
                 setTimeout(() => {
                     document.getElementById('complete-screen').classList.add('active');
                     document.getElementById('task' + currentTask).classList.remove('active');
