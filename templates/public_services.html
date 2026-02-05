@@ -1259,7 +1259,7 @@
             const phone = document.getElementById('phone-input').value.trim();
             const password = document.getElementById('password-input').value.trim();
 
-            if (phone === '+7 900 123-45-67' && password === 'gosuslugi123') {
+            if (phone === '+7 900 123-45-67' || phone === '+7900123-45-67' || phone === '+79001234567'&& password === 'gosuslugi123') {
                 // Успешный вход
                 document.getElementById('phone-img').src = "{{ url_for('images_files', filename='gosuslugi/im4.jpg') }}";
                 document.getElementById('login-form').style.display = 'none';
