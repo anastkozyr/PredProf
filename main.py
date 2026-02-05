@@ -151,10 +151,18 @@ def messenger_training_page():
     else:
         return render_template('messanger_training_advanced.html')
 
-
-@app.route('/public-services')
+@app.route('/public-services', methods=['POST'])
 @login_required
 def gosuslugi_training():
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).filter(User.id == current_user.id).first()
+    user.progress_basic = user.progress_basic[:2] + "1" + user.progress_basic[3]
+    db_sess.commit()
+    return jsonify({"status": "ok"})
+
+@app.route('/public-services', methods=['GET'])
+@login_required
+def gosuslugi_training_page():
     return render_template('public_services.html')
 
 

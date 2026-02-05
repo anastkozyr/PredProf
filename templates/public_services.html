@@ -1698,6 +1698,13 @@ function handleIm15Click() {
         document.getElementById('date-form').style.display = 'none';
     }
 
+    function completeTraining() {
+            if (tasksCompleted === totalTasks) {
+            // Перенаправить на страницу обновления прогресса
+               fetch("/public-services", {method: "POST"});
+            }
+    }
+
     // Завершить задание
     function completeTask(taskNum) {
         if (!taskCompleted[taskNum]) {
@@ -1710,6 +1717,7 @@ function handleIm15Click() {
 
             // Если все задания выполнены
             if (tasksCompleted === totalTasks) {
+                completeTraining();
                 setTimeout(() => {
                     document.getElementById('complete-screen').classList.add('active');
                     document.getElementById('task' + totalTasks).classList.remove('active');
