@@ -422,6 +422,13 @@ function updateProgress() {
 // Показать/скрыть помощь
 function toggleHelp(taskNum) {
     const help = document.getElementById('help' + taskNum);
+    if (taskNum == 1){
+        playSound('help_1.mp3')
+    }if (taskNum == 2){
+        playSound('help_2.mp3')
+    }if (taskNum == 3){
+        playSound('help_3.mp3')
+    }
     help.classList.toggle('active');
 }
 

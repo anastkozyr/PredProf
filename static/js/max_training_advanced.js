@@ -658,6 +658,15 @@ function updateProgress() {
 function toggleHelp(taskNum) {
     const help = document.getElementById('help' + taskNum);
     help.classList.toggle('active');
+    if (taskNum == 1){
+        playSound('help_1.mp3')
+    }if (taskNum == 2){
+        playSound('help_2.mp3')
+    }if (taskNum == 3){
+        playSound('help_3.mp3')
+    }if (taskNum == 4){
+        playSound('help_4.mp3')
+    }
 }
 
 function showNotification(message) {
