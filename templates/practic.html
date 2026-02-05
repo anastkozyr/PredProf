@@ -207,9 +207,15 @@
                             <div class="rectangle-content">
                                 Изучите основные функции смартфона: настройки, звонки, сообщения и многое другое
                             </div>
+                            {% if user_level == 'basic' %}
+                            <a href="{{ url_for('smartphone_basics_base') }}" class="start-button">
+                                Начать обучение
+                            </a>
+                            {% else %}
                             <a href="{{ url_for('smartphone_basics') }}" class="start-button">
                                 Начать обучение
                             </a>
+                            {% endif %}
                         </div>
 
                         <!-- Второй прямоугольник -->
