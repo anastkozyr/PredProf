@@ -263,11 +263,12 @@ def account():
         fourth = int(current_user.progress_advanced[3])
         levelrus = "Продвинутый"
     progress = str(round((basic.count('1') + advanced.count('1')) * 12.5)) + '%'
+    tasks = int(basic[0]) * 2 + int(basic[1]) * 3 + int(basic[2]) * 2 + int(basic[3]) * 4 + int(advanced[0]) * 4 + int(advanced[1]) * 4 + int(advanced[2]) * 3 + int(advanced[3]) * 7
     return render_template('account.html',
                            name=name, level=level, levelrus=levelrus, first=first, second=second, third=third,
                            fourth=fourth,
                            created_date=formatted_date, progress=progress, medals=medals, basic=basic,
-                           advanced=advanced)
+                           advanced=advanced, tasks=tasks)
 
 
 if __name__ == '__main__':
