@@ -1,3 +1,32 @@
+let audioUnlocked = false;
+const soundPlayer = new Audio();
+soundPlayer.volume = 1;
+
+function unlockAudio() {
+    if (audioUnlocked) return;
+
+    soundPlayer.src = '/static/sounds/max/task_1.mp3';
+    soundPlayer.volume = 0;
+
+    soundPlayer.play()
+        .then(() => {
+            audioUnlocked = true;
+            soundPlayer.pause();
+            soundPlayer.currentTime = 0;
+            soundPlayer.volume = 1;
+
+            const config = screenConfigs[currentImage];
+            if (config && config.sound) {
+                playSound(config.sound);
+            }
+        })
+        .catch(() => {});
+}
+
+document.addEventListener('click', unlockAudio, { once: true });
+document.addEventListener('touchstart', unlockAudio, { once: true });
+
+
 let currentTask = 1;
 let tasksCompleted = 0;
 let totalTasks = 3;
@@ -6,7 +35,6 @@ let stickerSent = false;
 let messageSent = false;
 let modalAction = null;
 
-// Координаты
 const screenConfigs = {
     'start_page.jpeg': {
         areas: [
@@ -18,7 +46,7 @@ const screenConfigs = {
                 height: '8%',   // Высота
                 action: 'openContacts'
             }
-        ]
+        ],
     },
     'contacts.jpeg': {
         areas: [
@@ -44,6 +72,9 @@ const screenConfigs = {
             }
         ]
     },
+    'hello_sticker.jpeg': {
+        areas: []
+    },
     'hello_text.jpeg': {
         areas: [
             {
@@ -54,7 +85,7 @@ const screenConfigs = {
                 height: '5%',
                 action: 'sendPhoto'
             }
-        ]
+        ],
     },
     'gallery.jpeg': {
         areas: [
@@ -67,7 +98,8 @@ const screenConfigs = {
                 action: 'choosePhoto'
             }
         ]
-    }, 'send_photo.jpeg': {
+    },
+    'send_photo.jpeg': {
         areas: [
             {
                 id: 'send-photo',
@@ -78,14 +110,24 @@ const screenConfigs = {
                 action: 'sharePhoto'
             }
         ]
+    },
+    'final.jpeg': {
+        areas: []
     }
 };
+
+function playSound(soundName) {
+    soundPlayer.src = `/static/sounds/max/${soundName}`;
+    soundPlayer.currentTime = 0;
+    soundPlayer.play().catch(err => {
+        console.warn('Sound play blocked:', err);
+    });
+}
 
 // Загрузка данных пользователя
 document.addEventListener('DOMContentLoaded', function() {
     loadUserData();
     loadScreen('start_page.jpeg');
-
 });
 
 // Загрузка данных пользователя
@@ -166,7 +208,6 @@ function addMessageInputField() {
         box-shadow: 0 4px 15px rgba(94, 114, 228, 0.3);
         transition: all 0.3s;
     `;
-
 
     sendButton.onclick = function() {
         sendTextMessage();
@@ -262,7 +303,8 @@ function handleAreaClick(action) {
             loadScreen('hello_sticker.jpeg');
             if (currentTask === 1) {
                 completeTask(1);
-            }showNotification('Перейдите к следующему заданию');
+            }
+            showNotification('Перейдите к следующему заданию');
             break;
 
         case 'focusMessageInput':
@@ -288,7 +330,8 @@ function handleAreaClick(action) {
             loadScreen('final.jpeg');
             if (currentTask === 3) {
                 completeTask(3);
-            }showNotification('Тренинг успешно пройден!');
+            }
+            showNotification('Тренинг успешно пройден!');
             break;
     }
 }
@@ -312,8 +355,7 @@ async function saveProgress(taskId) {
 
 function completeTraining() {
     if (tasksCompleted === totalTasks) {
-    // Перенаправить на страницу обновления прогресса
-       fetch("/messenger_training", {method: "POST"});
+        fetch("/messenger_training", {method: "POST"});
     }
 }
 
@@ -357,14 +399,15 @@ function nextTask() {
         switch(currentTask) {
             case 1:
                 loadScreen('start_page.jpeg');
+                playSound('task_1.mp3');
                 break;
             case 2:
-                // Показываем экран со стикером для отправки сообщения
                 loadScreen('hello_sticker.jpeg');
+                playSound('task_2.mp3');
                 break;
             case 3:
-                // Показываем экран с текстовым сообщением для отправки фото
                 loadScreen('hello_text.jpeg');
+                playSound('task_3.mp3');
                 break;
         }
     }
@@ -379,6 +422,13 @@ function updateProgress() {
 // Показать/скрыть помощь
 function toggleHelp(taskNum) {
     const help = document.getElementById('help' + taskNum);
+    if (taskNum == 1){
+        playSound('help_1.mp3')
+    }if (taskNum == 2){
+        playSound('help_2.mp3')
+    }if (taskNum == 3){
+        playSound('help_3.mp3')
+    }
     help.classList.toggle('active');
 }
 

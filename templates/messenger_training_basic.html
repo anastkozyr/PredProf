@@ -6,626 +6,624 @@
     <title>Тренинг: Использование мессенджера "MAX"</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-    body {
-        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-        min-height: 100vh;
-        padding: 20px;
-    }
+        body {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-    .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: row;
-        gap: 30px;
-    }
-
-    .phone-section {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        position: relative;
-        min-height: 800px;
-    }
-
-    .phone-frame {
-        width: 380px;
-        height: 760px;
-        background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
-        border-radius: 40px;
-        padding: 20px;
-        border: 10px solid #4b5563;
-        position: relative;
-        box-shadow: 0 25px 75px rgba(75, 85, 99, 0.2);
-    }
-
-    .phone-screen {
-        width: 100%;
-        height: 100%;
-        background: white;
-        border-radius: 25px;
-        overflow: hidden;
-        position: relative;
-    }
-
-    /* Стили для интерфейса приложения с фотографиями */
-    .app-screen {
-        width: 100%;
-        height: 100%;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .app-screen img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 20px;
-    }
-
-    /* Интерактивные элементы поверх фотографий */
-    .interactive-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-    }
-
-    .clickable-area {
-        position: absolute;
-        background: rgba(139, 92, 246, 0.2);
-        border: 3px solid #8b5cf6;
-        border-radius: 15px;
-        pointer-events: all;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        z-index: 100;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-weight: bold;
-        font-size: 14px;
-        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-    }
-
-    .clickable-area:hover {
-        background: rgba(139, 92, 246, 0.4);
-        transform: scale(1.05);
-        border-color: #7c3aed;
-    }
-
-    .clickable-area.active {
-        animation: pulse 1.5s infinite;
-        box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
-        border-color: #7c3aed;
-    }
-
-    @keyframes pulse {
-        0% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.5); }
-        70% { box-shadow: 0 0 0 15px rgba(139, 92, 246, 0); }
-        100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
-    }
-
-    /* Модальное окно для ввода */
-    .modal-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(75, 85, 99, 0.9);
-        display: none;
-        align-items: center;
-        justify-content: center;
-        z-index: 1000;
-    }
-
-    .modal-overlay.active {
-        display: flex;
-    }
-
-    .modal-content {
-        background: white;
-        padding: 30px;
-        border-radius: 20px;
-        width: 80%;
-        max-width: 300px;
-        text-align: center;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
-        color: #374151;
-        border: 1px solid #e5e7eb;
-    }
-
-    .modal-title {
-        font-size: 20px;
-        margin-bottom: 20px;
-        color: #374151;
-    }
-
-    .input-field {
-        width: 100%;
-        padding: 15px;
-        margin: 10px 0;
-        background: white;
-        border: 2px solid #d1d5db;
-        border-radius: 10px;
-        font-size: 16px;
-        outline: none;
-        text-align: center;
-        color: #374151;
-    }
-
-    .input-field:focus {
-        border-color: #8b5cf6;
-        box-shadow: 0 0 10px rgba(139, 92, 246, 0.2);
-    }
-
-    .modal-btn {
-        width: 100%;
-        padding: 15px;
-        margin: 5px 0;
-        border: none;
-        border-radius: 10px;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.3s;
-    }
-
-    .modal-btn.primary {
-        background: #8b5cf6;
-        color: white;
-    }
-
-    .modal-btn.primary:hover {
-        background: #7c3aed;
-        transform: translateY(-2px);
-    }
-
-    .modal-btn.secondary {
-        background: #f3f4f6;
-        color: #374151;
-        border: 2px solid #d1d5db;
-    }
-
-    .modal-btn.secondary:hover {
-        background: #e5e7eb;
-    }
-
-    /* Панель тренинга */
-    .training-section {
-        flex: 1;
-        max-width: 600px;
-    }
-
-    .training-panel {
-        background: white;
-        border-radius: 20px;
-        padding: 30px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.05);
-        color: #374151;
-        border: 1px solid #e5e7eb;
-    }
-
-    .training-title {
-        font-size: 24px;
-        color: #374151;
-        margin-bottom: 10px;
-        text-align: center;
-    }
-
-    .progress-bar {
-        height: 8px;
-        background: #f3f4f6;
-        border-radius: 4px;
-        margin: 20px 0;
-        overflow: hidden;
-    }
-
-    .progress {
-        height: 100%;
-        background: linear-gradient(90deg, #8b5cf6 0%, #a78bfa 100%);
-        width: 0%;
-        transition: width 0.5s;
-    }
-
-    .task {
-        margin-bottom: 30px;
-        display: none;
-        background: #f9fafb;
-        padding: 20px;
-        border-radius: 10px;
-        border: 1px solid #e5e7eb;
-    }
-
-    .task.active {
-        display: block;
-        border-left: 4px solid #8b5cf6;
-        background: #faf5ff;
-    }
-
-    .task-number {
-        background: #8b5cf6;
-        color: white;
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: bold;
-        margin-bottom: 15px;
-        box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
-    }
-
-    .task-title {
-        font-size: 20px;
-        color: #374151;
-        margin-bottom: 10px;
-    }
-
-    .task-description {
-        color: #6b7280;
-        margin-bottom: 15px;
-    }
-
-    /* Большая кнопка помощи */
-    .help-btn-big {
-        background: #8b5cf6;
-        color: white;
-        border: none;
-        padding: 25px 40px;
-        border-radius: 15px;
-        cursor: pointer;
-        margin-top: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 15px;
-        width: 100%;
-        font-size: 22px;
-        font-weight: bold;
-        transition: all 0.3s;
-        box-shadow: 0 8px 25px rgba(139, 92, 246, 0.2);
-    }
-
-    .help-btn-big:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 30px rgba(139, 92, 246, 0.3);
-        background: #7c3aed;
-    }
-
-    .help-btn-big i {
-        font-size: 28px;
-    }
-
-    .help-content {
-        background: #f9fafb;
-        padding: 15px;
-        border-radius: 8px;
-        margin-top: 15px;
-        display: none;
-        border-left: 3px solid #8b5cf6;
-        color: #374151;
-        border: 1px solid #e5e7eb;
-    }
-
-    .help-content.active {
-        display: block;
-    }
-
-    .next-btn {
-        background: #8b5cf6;
-        color: white;
-        border: none;
-        padding: 15px 30px;
-        border-radius: 10px;
-        cursor: pointer;
-        font-size: 16px;
-        margin-top: 20px;
-        display: none;
-        width: 100%;
-        font-weight: bold;
-        transition: all 0.3s;
-        box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
-    }
-
-    .next-btn.active {
-        display: block;
-    }
-
-    .next-btn:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 30px rgba(139, 92, 246, 0.3);
-        background: #7c3aed;
-    }
-
-    .complete-screen {
-        text-align: center;
-        display: none;
-        padding: 30px;
-        background: white;
-        border-radius: 15px;
-        border: 1px solid #e5e7eb;
-    }
-
-    .complete-screen.active {
-        display: block;
-    }
-
-    .complete-icon {
-        font-size: 60px;
-        color: #8b5cf6;
-        margin-bottom: 20px;
-        text-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
-    }
-
-    .score {
-        font-size: 48px;
-        font-weight: bold;
-        color: #374151;
-        margin: 20px 0;
-        background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-
-    /* Уведомления */
-    .notification {
-        position: fixed;
-        top: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: #8b5cf6;
-        color: white;
-        padding: 15px 30px;
-        border-radius: 25px;
-        z-index: 1000;
-        display: none;
-        font-weight: bold;
-        box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .trainer-btn {
-        background: #8b5cf6;
-        border: none;
-        color: white;
-        border-radius: 25px;
-        padding: 15px 30px;
-        font-size: 16px;
-        font-weight: bold;
-        margin-top: 20px;
-        width: 100%;
-        cursor: pointer;
-        text-decoration: none;
-        display: inline-block;
-        text-align: center;
-        transition: all 0.3s;
-        box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
-    }
-
-    .trainer-btn:hover {
-        background: #7c3aed;
-        transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
-    }
-
-    .user-status {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: white;
-        padding: 10px 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        font-size: 14px;
-        display: none;
-        color: #374151;
-        border: 1px solid #e5e7eb;
-    }
-
-    .user-status.active {
-        display: block;
-    }
-
-    /* Адаптивность */
-    @media (max-width: 992px) {
         .container {
-            flex-direction: column;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: row;
+            gap: 30px;
+        }
+
+        .phone-section {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            min-height: 800px;
+        }
+
+        .phone-frame {
+            width: 380px;
+            height: 760px;
+            background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+            border-radius: 40px;
+            padding: 20px;
+            border: 10px solid #4b5563;
+            position: relative;
+            box-shadow: 0 25px 75px rgba(75, 85, 99, 0.2);
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Стили для интерфейса приложения с фотографиями */
+        .app-screen {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-screen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        /* Интерактивные элементы поверх фотографий */
+        .interactive-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .clickable-area {
+            position: absolute;
+            background: rgba(139, 92, 246, 0.2);
+            border: 3px solid #8b5cf6;
+            border-radius: 15px;
+            pointer-events: all;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 100;
+            display: flex;
             align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
 
-        .phone-frame {
-            transform: scale(0.9);
+        .clickable-area:hover {
+            background: rgba(139, 92, 246, 0.4);
+            transform: scale(1.05);
+            border-color: #7c3aed;
+        }
+
+        .clickable-area.active {
+            animation: pulse 1.5s infinite;
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+            border-color: #7c3aed;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.5); }
+            70% { box-shadow: 0 0 0 15px rgba(139, 92, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+        }
+
+        /* Модальное окно для ввода */
+        .modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(75, 85, 99, 0.9);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            width: 80%;
+            max-width: 300px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            color: #374151;
+            border: 1px solid #e5e7eb;
+        }
+
+        .modal-title {
+            font-size: 20px;
             margin-bottom: 20px;
+            color: #374151;
         }
-    }
 
-    @media (max-width: 576px) {
-        .phone-frame {
-            transform: scale(0.8);
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            background: white;
+            border: 2px solid #d1d5db;
+            border-radius: 10px;
+            font-size: 16px;
+            outline: none;
+            text-align: center;
+            color: #374151;
+        }
+
+        .input-field:focus {
+            border-color: #8b5cf6;
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.2);
+        }
+
+        .modal-btn {
+            width: 100%;
+            padding: 15px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .modal-btn.primary {
+            background: #8b5cf6;
+            color: white;
+        }
+
+        .modal-btn.primary:hover {
+            background: #7c3aed;
+            transform: translateY(-2px);
+        }
+
+        .modal-btn.secondary {
+            background: #f3f4f6;
+            color: #374151;
+            border: 2px solid #d1d5db;
+        }
+
+        .modal-btn.secondary:hover {
+            background: #e5e7eb;
+        }
+
+        /* Панель тренинга */
+        .training-section {
+            flex: 1;
+            max-width: 600px;
         }
 
         .training-panel {
-            padding: 20px;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.05);
+            color: #374151;
+            border: 1px solid #e5e7eb;
         }
-    }
 
-    @keyframes fadeInOut {
-        0%, 100% { opacity: 0; }
-        10%, 90% { opacity: 1; }
-    }
+        .training-title {
+            font-size: 24px;
+            color: #374151;
+            margin-bottom: 10px;
+            text-align: center;
+        }
 
-    /* Координаты для отладки */
-    .coordinates-debug {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        background: rgba(75, 85, 99, 0.9);
-        color: white;
-        padding: 5px 10px;
-        border-radius: 5px;
-        font-size: 12px;
-        z-index: 1000;
-        backdrop-filter: blur(5px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-    }
+        .progress-bar {
+            height: 8px;
+            background: #f3f4f6;
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
 
-    /* Дополнительные стили для улучшения читаемости */
-    .help-content p {
-        color: #6b7280;
-        margin-bottom: 10px;
-    }
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #8b5cf6 0%, #a78bfa 100%);
+            width: 0%;
+            transition: width 0.5s;
+        }
 
-    .help-content strong {
-        color: #374151;
-    }
+        .task {
+            margin-bottom: 30px;
+            display: none;
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #e5e7eb;
+        }
 
-    .training-panel h1 {
-        color: #374151;
-    }
+        .task.active {
+            display: block;
+            border-left: 4px solid #8b5cf6;
+            background: #faf5ff;
+        }
 
-    .training-panel h2 {
-        color: #374151;
-    }
-</style>
+        .task-number {
+            background: #8b5cf6;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
+        }
+
+        .task-title {
+            font-size: 20px;
+            color: #374151;
+            margin-bottom: 10px;
+        }
+
+        .task-description {
+            color: #6b7280;
+            margin-bottom: 15px;
+        }
+
+        /* Большая кнопка помощи */
+        .help-btn-big {
+            background: #8b5cf6;
+            color: white;
+            border: none;
+            padding: 25px 40px;
+            border-radius: 15px;
+            cursor: pointer;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            width: 100%;
+            font-size: 22px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.2);
+        }
+
+        .help-btn-big:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(139, 92, 246, 0.3);
+            background: #7c3aed;
+        }
+
+        .help-btn-big i {
+            font-size: 28px;
+        }
+
+        .help-content {
+            background: #f9fafb;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+            border-left: 3px solid #8b5cf6;
+            color: #374151;
+            border: 1px solid #e5e7eb;
+        }
+
+        .help-content.active {
+            display: block;
+        }
+
+        .next-btn {
+            background: #8b5cf6;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            display: none;
+            width: 100%;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
+        }
+
+        .next-btn.active {
+            display: block;
+        }
+
+        .next-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(139, 92, 246, 0.3);
+            background: #7c3aed;
+        }
+
+        .complete-screen {
+            text-align: center;
+            display: none;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .complete-screen.active {
+            display: block;
+        }
+
+        .complete-icon {
+            font-size: 60px;
+            color: #8b5cf6;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
+        }
+
+        .score {
+            font-size: 48px;
+            font-weight: bold;
+            color: #374151;
+            margin: 20px 0;
+            background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Уведомления */
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #8b5cf6;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 25px;
+            z-index: 1000;
+            display: none;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .trainer-btn {
+            background: #8b5cf6;
+            border: none;
+            color: white;
+            border-radius: 25px;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 20px;
+            width: 100%;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
+        }
+
+        .trainer-btn:hover {
+            background: #7c3aed;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+        }
+
+        .user-status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+            display: none;
+            color: #374151;
+            border: 1px solid #e5e7eb;
+        }
+
+        .user-status.active {
+            display: block;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .phone-frame {
+                transform: scale(0.9);
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .phone-frame {
+                transform: scale(0.8);
+            }
+
+            .training-panel {
+                padding: 20px;
+            }
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; }
+            10%, 90% { opacity: 1; }
+        }
+
+        /* Координаты для отладки */
+        .coordinates-debug {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(75, 85, 99, 0.9);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Дополнительные стили для улучшения читаемости */
+        .help-content p {
+            color: #6b7280;
+            margin-bottom: 10px;
+        }
+
+        .help-content strong {
+            color: #374151;
+        }
+
+        .training-panel h1 {
+            color: #374151;
+        }
+
+        .training-panel h2 {
+            color: #374151;
+        }
+    </style>
 </head>
 <body>
-    <!-- Статус пользователя -->
-    <div id="userStatus" class="user-status">
-        Загрузка данных пользователя...
-    </div>
+<!-- Статус пользователя -->
+<div id="userStatus" class="user-status">
+    Загрузка данных пользователя...
+</div>
 
-    <div class="container">
-        <!-- Телефон с фотографиями -->
-        <div class="phone-section">
-            <div class="phone-frame">
-                <div class="phone-screen">
-                    <!-- Основной экран с фотографией -->
-                    <div id="appScreen" class="app-screen">
-                        <!-- Фотография будет загружена здесь -->
-                    </div>
-
-                    <!-- Интерактивные области поверх фотографии -->
-                    <div id="interactiveOverlay" class="interactive-overlay">
-                        <!-- Кликабельные области будут добавляться динамически -->
-                    </div>
-
-                    <!-- Модальное окно для ввода -->
-                    <div id="modalOverlay" class="modal-overlay">
-                        <div class="modal-content">
-                            <div class="modal-title" id="modalTitle">Введите количество</div>
-                            <input type="text" id="inputField" class="input-field" placeholder="Введите текст">
-                            <button class="modal-btn primary" onclick="confirmAction()">Подтвердить</button>
-                            <button class="modal-btn secondary" onclick="closeModal()">Отмена</button>
-                        </div>
-                    </div>
-
-                    <!-- Подсказка -->
-                    <div id="hint" class="hint"></div>
-
-                    <!-- Отладка координат -->
-                    <div id="coordinatesDebug" class="coordinates-debug" style="display: none;"></div>
+<div class="container">
+    <!-- Телефон с фотографиями -->
+    <div class="phone-section">
+        <div class="phone-frame">
+            <div class="phone-screen">
+                <!-- Основной экран с фотографией -->
+                <div id="appScreen" class="app-screen">
                 </div>
+
+                <div id="interactiveOverlay" class="interactive-overlay">
+                    <!-- Кликабельные области -->
+                </div>
+
+                <!-- Модальное окно для ввода -->
+                <div id="modalOverlay" class="modal-overlay">
+                    <div class="modal-content">
+                        <div class="modal-title" id="modalTitle">Введите количество</div>
+                        <input type="text" id="inputField" class="input-field" placeholder="Введите текст">
+                        <button class="modal-btn primary" onclick="confirmAction()">Подтвердить</button>
+                        <button class="modal-btn secondary" onclick="closeModal()">Отмена</button>
+                    </div>
+                </div>
+
+                <!-- Подсказка -->
+                <div id="hint" class="hint"></div>
+
+                <!-- Отладка координат -->
+                <div id="coordinatesDebug" class="coordinates-debug" style="display: none;"></div>
             </div>
         </div>
+    </div>
 
-        <!-- Панель тренинга -->
-        <div class="training-section">
-            <div class="training-panel">
-                <h1 class="training-title"><i class="bi bi-chat-dots"></i> Тренинг: Использование мессенджера "MAX"</h1>
+    <!-- Панель тренинга -->
+    <div class="training-section">
+        <div class="training-panel">
+            <h1 class="training-title"><i class="bi bi-chat-dots"></i> Тренинг: Использование мессенджера "MAX"</h1>
 
-                <div class="progress-bar">
-                    <div class="progress" id="progress"></div>
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+
+            <div id="task1" class="task active">
+                <div class="task-number">1</div>
+                <h2 class="task-title">Отправить приветственное сообщение</h2>
+                <div class="task-description">
+                    <p>Через вкладку "Контакты" отправьте приветственный стикер контакту "Евгения Соседка"</p>
                 </div>
-
-                <div id="task1" class="task active">
-                    <div class="task-number">1</div>
-                    <h2 class="task-title">Отправить приветственное сообщение</h2>
-                    <div class="task-description">
-                        <p>Через вкладку "Контакты" отправьте приветственный стикер контакту "Евгения Соседка"</p>
-                    </div>
-                    <button class="help-btn-big" onclick="toggleHelp(1)">
-                        <i class="bi bi-question-circle"></i> Помощь
-                    </button>
-                    <div id="help1" class="help-content">
-                        <p><strong>Как выполнить:</strong></p>
-                        <p>1. На панели внизу экрана нажмите контакты</p>
-                        <p>2. Из списка нажмите на контакт "Евгения Соседка"</p>
-                        <p>3. В открывшемся чате нажмите на приветственный стикер</p>
-                    </div>
-                </div>
-
-                <div id="task2" class="task">
-                    <div class="task-number">2</div>
-                    <h2 class="task-title">Отправить текстовое сообщение</h2>
-                    <div class="task-description">
-                        <p>Отправьте сообщение "Добрый вечер"</p>
-                    </div>
-                    <button class="help-btn-big" onclick="toggleHelp(2)">
-                        <i class="bi bi-question-circle"></i> Помощь
-                    </button>
-                    <div id="help2" class="help-content">
-                        <p><strong>Как выполнить:</strong></p>
-                        <p>1. Нажмите внизу экрана на область для отправки сообщения</p>
-                        <p>2. Введите "Добрый вечер"</p>
-                        <p>3. Нажмите Enter или кнопку отправки</p>
-                    </div>
-                </div>
-
-                <div id="task3" class="task">
-                    <div class="task-number">3</div>
-                    <h2 class="task-title">Загрузить фото из галереи</h2>
-                    <div class="task-description">
-                        <p>Отправьте контакту фото из галереи</p>
-                    </div>
-                    <button class="help-btn-big" onclick="toggleHelp(3)">
-                        <i class="bi bi-question-circle"></i> Помощь
-                    </button>
-                    <div id="help3" class="help-content">
-                        <p><strong>Как выполнить:</strong></p>
-                        <p>1. Нажмите на "скрепку" внизу экрана</p>
-                        <p>2. Найдите нужное фото и нажмите на него</p>
-                        <p>3. В открывшемся при нажатии окне нажмите кнопку отправки (телеграмма внизу экрана)</p>
-                    </div>
-                </div>
-
-                <button id="next-btn" class="next-btn" onclick="nextTask()">
-                    Следующее задание <i class="bi bi-arrow-right"></i>
+                <button class="help-btn-big" onclick="toggleHelp(1)">
+                    <i class="bi bi-question-circle"></i> Помощь
                 </button>
-
-                <div id="complete-screen" class="complete-screen">
-                    <div class="complete-icon"><i class="bi bi-trophy-fill"></i></div>
-                    <h2>Тренинг завершен!</h2>
-                    <div class="score" id="score">0/3</div>
-                    <p>Вы успешно научились пользоваться мессенджером MAX!</p>
-                    <button class="next-btn" onclick="restartTraining()" style="background: #6b7280;">
-                        <i class="bi bi-arrow-repeat"></i> Начать заново
-                    </button>
-                    <a href="{{ url_for('go_to_trainer') }}" class="trainer-btn">
-                        <i class="bi bi-arrow-right-circle"></i> На главную страницу
-                    </a>
+                <div id="help1" class="help-content">
+                    <p><strong>Как выполнить:</strong></p>
+                    <p>1. На панели внизу экрана нажмите контакты</p>
+                    <p>2. Из списка нажмите на контакт "Евгения Соседка"</p>
+                    <p>3. В открывшемся чате нажмите на приветственный стикер</p>
                 </div>
+            </div>
+
+            <div id="task2" class="task">
+                <div class="task-number">2</div>
+                <h2 class="task-title">Отправить текстовое сообщение</h2>
+                <div class="task-description">
+                    <p>Отправьте сообщение "Добрый вечер"</p>
+                </div>
+                <button class="help-btn-big" onclick="toggleHelp(2)">
+                    <i class="bi bi-question-circle"></i> Помощь
+                </button>
+                <div id="help2" class="help-content">
+                    <p><strong>Как выполнить:</strong></p>
+                    <p>1. Нажмите внизу экрана на область для отправки сообщения</p>
+                    <p>2. Введите "Добрый вечер"</p>
+                    <p>3. Нажмите Enter или кнопку отправки</p>
+                </div>
+            </div>
+
+            <div id="task3" class="task">
+                <div class="task-number">3</div>
+                <h2 class="task-title">Загрузить фото из галереи</h2>
+                <div class="task-description">
+                    <p>Отправьте контакту фото из галереи</p>
+                </div>
+                <button class="help-btn-big" onclick="toggleHelp(3)">
+                    <i class="bi bi-question-circle"></i> Помощь
+                </button>
+                <div id="help3" class="help-content">
+                    <p><strong>Как выполнить:</strong></p>
+                    <p>1. Нажмите на "скрепку" внизу экрана</p>
+                    <p>2. Найдите нужное фото и нажмите на него</p>
+                    <p>3. В открывшемся при нажатии окне нажмите кнопку отправки (телеграмма внизу экрана)</p>
+                </div>
+            </div>
+
+            <button id="next-btn" class="next-btn" onclick="nextTask()">
+                Следующее задание <i class="bi bi-arrow-right"></i>
+            </button>
+
+            <div id="complete-screen" class="complete-screen">
+                <div class="complete-icon"><i class="bi bi-trophy-fill"></i></div>
+                <h2>Тренинг завершен!</h2>
+                <div class="score" id="score">0/3</div>
+                <p>Вы успешно научились пользоваться мессенджером MAX!</p>
+                <button class="next-btn" onclick="restartTraining()" style="background: #6b7280;">
+                    <i class="bi bi-arrow-repeat"></i> Начать заново
+                </button>
+                <a href="{{ url_for('go_to_trainer') }}" class="trainer-btn">
+                    <i class="bi bi-arrow-right-circle"></i> На главную страницу
+                </a>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Уведомление -->
-    <div id="notification" class="notification"></div>
+<!-- Уведомление -->
+<div id="notification" class="notification"></div>
 
-    <script src="{{ url_for('static', filename='js/max_training_basic.js') }}"></script>
+<script src="{{ url_for('static', filename='js/max_training_basic.js') }}"></script>
 </body>
 </html>

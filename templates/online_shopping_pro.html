@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тренинг: Пятерочка</title>
+    <title>Тренинг: "Онлайн покупки"</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         * {
@@ -80,6 +80,7 @@
             pointer-events: none;
         }
 
+        /* Стили для кнопок */
         .clickable-area {
             position: absolute;
             background: rgba(255, 255, 255, 0.2);
@@ -109,88 +110,75 @@
         }
 
         @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7); }
-            70% { box-shadow: 0 0 0 15px rgba(0, 0, 0, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
+            0% {
+                box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+                transform: scale(1);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+                transform: scale(1.05);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+                transform: scale(1);
+            }
         }
 
-        /* Модальное окно для ввода */
-        .modal-overlay {
+        /* Стили для полей ввода */
+        .input-area {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            display: none;
+            background: rgba(255, 255, 255, 0.9);
+            border: 3px solid #000000;
+            border-radius: 15px;
+            pointer-events: all;
+            cursor: text;
+            transition: all 0.3s ease;
+            z-index: 100;
+            display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 1000;
+            overflow: hidden;
         }
 
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            width: 80%;
-            max-width: 300px;
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-
-        .modal-title {
-            font-size: 20px;
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            font-size: 16px;
-            outline: none;
-            text-align: center;
-        }
-
-        .input-field:focus {
-            border-color: #ff2e2e;
-        }
-
-        .modal-btn {
-            width: 100%;
-            padding: 15px;
-            margin: 5px 0;
+        .input-area input {
+            width: 90%;
+            height: 80%;
             border: none;
-            border-radius: 10px;
-            font-size: 16px;
+            outline: none;
+            background: transparent;
+            font-size: 50px;
             font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
+            color: #000000;
+            text-align: center;
+            padding: 0 5px;
         }
 
-        .modal-btn.primary {
-            background: #ff2e2e;
-            color: white;
+        .input-area input::placeholder {
+            color: #666;
+            font-weight: normal;
         }
 
-        .modal-btn.primary:hover {
-            background: #e52525;
+        .input-area:focus-within {
+            background: rgba(255, 255, 255, 1);
+            border-color: #27e64d;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+            transform: scale(1.02);
         }
 
-        .modal-btn.secondary {
-            background: #6c757d;
-            color: white;
+        .input-area:hover:not(:focus-within) {
+            background: rgba(255, 255, 255, 0.95);
+            transform: scale(1.02);
         }
 
-        .modal-btn.secondary:hover {
-            background: #5a6268;
+        .input-area.active {
+            animation: pulse-blue 1.5s infinite;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes pulse-black {
+            0% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 0, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
         }
 
         /* Панель тренинга */
@@ -207,7 +195,7 @@
         }
 
         .training-title {
-            font-size: 24px;
+            font-size: 40px;
             color: #333;
             margin-bottom: 10px;
             text-align: center;
@@ -255,14 +243,15 @@
         }
 
         .task-title {
-            font-size: 20px;
+            font-size: 30px;
             color: #333;
             margin-bottom: 10px;
         }
 
         .task-description {
-            color: #666;
-            margin-bottom: 15px;
+            color: #000000;
+            margin-bottom: 30px;
+            font-size: 20px;
         }
 
         /* Большая кнопка помощи */
@@ -279,7 +268,7 @@
             justify-content: center;
             gap: 15px;
             width: 100%;
-            font-size: 22px;
+            font-size: 36px;
             font-weight: bold;
             transition: all 0.3s;
             box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
@@ -292,7 +281,7 @@
         }
 
         .help-btn-big i {
-            font-size: 28px;
+            font-size: 40px;
         }
 
         .help-content {
@@ -302,6 +291,7 @@
             margin-top: 15px;
             display: none;
             border-left: 3px solid #007AFF;
+            font-size: 30px;
         }
 
         .help-content.active {
@@ -315,7 +305,7 @@
             padding: 15px 30px;
             border-radius: 10px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 41px;
             margin-top: 20px;
             display: none;
             width: 100%;
@@ -335,6 +325,7 @@
             text-align: center;
             display: none;
             padding: 30px;
+            font-size: 30px;
         }
 
         .complete-screen.active {
@@ -348,7 +339,7 @@
         }
 
         .score {
-            font-size: 48px;
+            font-size: 60px;
             font-weight: bold;
             color: #333;
             margin: 20px 0;
@@ -370,12 +361,12 @@
         }
 
         .trainer-btn {
-            background-color: #2c698d;
+            background: #007AFF;
             border: none;
             color: white;
             border-radius: 25px;
             padding: 15px 30px;
-            font-size: 16px;
+            font-size: 50px;
             font-weight: bold;
             margin-top: 20px;
             width: 100%;
@@ -386,7 +377,7 @@
         }
 
         .trainer-btn:hover {
-            background-color: #1d4a63;
+            background-color: #1c00d4;
         }
 
         .user-status {
@@ -433,6 +424,13 @@
             10%, 90% { opacity: 1; }
         }
 
+        .help-step {
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 4px solid #007AFF;
+            padding: 10px 15px;
+        }
+
         /* Координаты для отладки */
         .coordinates-debug {
             position: absolute;
@@ -468,19 +466,6 @@
                         <!-- Кликабельные области будут добавляться динамически -->
                     </div>
 
-                    <!-- Модальное окно для ввода -->
-                    <div id="modalOverlay" class="modal-overlay">
-                        <div class="modal-content">
-                            <div class="modal-title" id="modalTitle">Введите количество</div>
-                            <input type="text" id="inputField" class="input-field" placeholder="Введите текст">
-                            <button class="modal-btn primary" onclick="confirmAction()">Подтвердить</button>
-                            <button class="modal-btn secondary" onclick="closeModal()">Отмена</button>
-                        </div>
-                    </div>
-
-                    <!-- Подсказка -->
-                    <div id="hint" class="hint"></div>
-
                     <!-- Отладка координат -->
                     <div id="coordinatesDebug" class="coordinates-debug" style="display: none;"></div>
                 </div>
@@ -500,16 +485,19 @@
                     <div class="task-number">1</div>
                     <h2 class="task-title">Открыть каталог товаров</h2>
                     <div class="task-description">
-                        <p>На главном экране приложения "Пятерочка" нажмите на кнопку "Каталог".</p>
+                        <p>На главном экране приложения "Пятерочка" откройте каталог товаров.</p>
                     </div>
                     <button class="help-btn-big" onclick="toggleHelp(1)">
-                        <i class="bi bi-question-circle"></i> Помощь
+                        <i class="bi bi-question-circle"></i> ПОМОЩЬ
                     </button>
                     <div id="help1" class="help-content">
-                        <p><strong>Как выполнить:</strong></p>
-                        <p>1. Посмотрите на экран телефона справа</p>
-                        <p>2. На панели внизу экрана найдите кнопку "Каталог"</p>
-                        <p>3. Нажмите на эту кнопку</p>
+                        <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
+                        <div class="help-step">1. Посмотрите на <strong>экран</strong> телефона <strong>справа</strong></div>
+                        <div class="help-step">2. На панели <strong>внизу экрана</strong> найдите <strong>кнопку "Каталог"</strong></div>
+                        <div class="help-step">3. <strong>Нажмите</strong> на эту кнопку</div>
+                        <p style="margin-top: 20px; color: #007AFF; font-weight: bold;">
+                            <i class="bi bi-lightbulb"></i> Кнопки пульсируют тонкой черной окантовкой
+                        </p>
                     </div>
                 </div>
 
@@ -517,35 +505,42 @@
                     <div class="task-number">2</div>
                     <h2 class="task-title">Положить хлеб в корзину</h2>
                     <div class="task-description">
-                        <p>В каталоге найдите хлеб через поиск и добавьте его в корзину.</p>
+                        <p>В каталоге найдите <strong>"Рижский ржаной хлеб со злаками" за 144руб</strong> через поиск и добавьте его в корзину.</p>
                     </div>
                     <button class="help-btn-big" onclick="toggleHelp(2)">
-                        <i class="bi bi-question-circle"></i> Помощь
+                        <i class="bi bi-question-circle"></i> ПОМОЩЬ
                     </button>
                     <div id="help2" class="help-content">
-                        <p><strong>Как выполнить:</strong></p>
-                        <p>1. В каталоге найдите строку поиска</p>
-                        <p>2. Введите "Хлеб"</p>
-                        <p>3. Нажмите Enter</p>
-                        <p>4. Выберите хлеб и нажмите "В корзину"</p>
+                        <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
+                        <div class="help-step">1. В каталоге найдите <strong>строку поиска</strong></div>
+                        <div class="help-step">2. <strong>Нажмите</strong> на строку поиска</div>
+                        <div class="help-step">3. Введите <strong>"Хлеб"</strong></div>
+                        <div class="help-step">4. Нажмите <strong>Enter</strong></div>
+                        <div class="help-step">5. Найдите <strong>"Рижский ржаной хлеб со злаками" за 144руб</strong> и нажмите <strong>"В корзину"</strong></div>
+                        <p style="margin-top: 20px; color: #007AFF; font-weight: bold;">
+                            <i class="bi bi-lightbulb"></i> Кнопки пульсируют тонкой черной окантовкой
+                        </p>
                     </div>
                 </div>
 
                 <div id="task3" class="task">
                     <div class="task-number">3</div>
-                    <h2 class="task-title">Положить кашу в корзину</h2>
+                    <h2 class="task-title">Найти кашу в готовом каталоге товаров без поиска и положить ее в корзину</h2>
                     <div class="task-description">
-                        <p>Вернитесь в каталог и добавьте кашу из категории "Завтраки" в корзину.</p>
+                        <p>Добавьте <strong>"рисовую кашу на молоке" за 119руб</strong> из категории "Завтраки" в корзину.</p>
                     </div>
                     <button class="help-btn-big" onclick="toggleHelp(3)">
-                        <i class="bi bi-question-circle"></i> Помощь
+                        <i class="bi bi-question-circle"></i> ПОМОЩЬ
                     </button>
                     <div id="help3" class="help-content">
-                        <p><strong>Как выполнить:</strong></p>
-                        <p>1. Нажмите на крестик чтобы выйти из поиска</p>
-                        <p>2. Найдите раздел "Готовая еда"</p>
-                        <p>3. Нажмите на "Завтраки"</p>
-                        <p>4. Выберите кашу и нажмите "В корзину"</p>
+                        <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
+                        <div class="help-step">1. Нажмите на <strong>крестик</strong> чтобы выйти из поиска</div>
+                        <div class="help-step">2. Найдите раздел <strong>"Готовая еда"</strong></div>
+                        <div class="help-step">3. Выберите подраздел <strong>"Завтраки", нажав на кнопку</strong></div>
+                        <div class="help-step">4. Найдите <strong>"рисовую кашу на молоке" за 119руб</strong> и нажмите <strong>"В корзину"</strong></div>
+                        <p style="margin-top: 20px; color: #007AFF; font-weight: bold;">
+                            <i class="bi bi-lightbulb"></i> Кнопки пульсируют тонкой черной окантовкой
+                        </p>
                     </div>
                 </div>
 
@@ -556,13 +551,78 @@
                         <p>Перейдите в корзину и проверьте добавленные товары.</p>
                     </div>
                     <button class="help-btn-big" onclick="toggleHelp(4)">
-                        <i class="bi bi-question-circle"></i> Помощь
+                        <i class="bi bi-question-circle"></i> ПОМОЩЬ
                     </button>
                     <div id="help4" class="help-content">
-                        <p><strong>Как выполнить:</strong></p>
-                        <p>1. В каталоге найдите красную кнопку с корзиной внизу</p>
-                        <p>2. Нажмите на нее чтобы открыть корзину</p>
-                        <p>3. Проверьте, что в корзине есть хлеб и каша</p>
+                        <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
+                        <div class="help-step">1. В каталоге найдите <strong>красную кнопку с корзиной</strong> внизу</div>
+                        <div class="help-step">2. <strong>Нажмите</strong> на нее чтобы открыть корзину</div>
+                        <div class="help-step">3. Проверьте, что в корзине есть <strong>хлеб</strong> и <strong>каша</strong></div>
+                        <p style="margin-top: 20px; color: #007AFF; font-weight: bold;">
+                            <i class="bi bi-lightbulb"></i> Кнопки пульсируют тонкой черной окантовкой
+                        </p>
+                    </div>
+                </div>
+
+                <div id="task5" class="task">
+                    <div class="task-number">5</div>
+                    <h2 class="task-title">Выбрать адрес доставки</h2>
+                    <div class="task-description">
+                        <p>Оформите доставку заказа на адрес <strong>"Пушкинская улица, 2"</strong>.</p>
+                    </div>
+                    <button class="help-btn-big" onclick="toggleHelp(5)">
+                        <i class="bi bi-question-circle"></i> ПОМОЩЬ
+                    </button>
+                    <div id="help5" class="help-content">
+                        <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
+                        <div class="help-step">1. В <strong>верхней части</strong> приложения нажмите кнопку <strong>"Выбрать адрес доставки или магазина"</strong></div>
+                        <div class="help-step">2. <strong>Вверху страницы</strong> переключитесь на доставку, нажав <strong>кнопку "Доставка"</strong> рядом с кнопкой "Магазин"</div>
+                        <div class="help-step">3. Найдите и <strong>нажмите</strong> на <strong>поле для ввода</strong> адреса доставки</div>
+                        <div class="help-step">4. Введите адрес <strong>"Пушкинская улица, 2"</strong></div>
+                        <div class="help-step">5. Нажмите <strong>Enter</strong></div>
+                        <div class="help-step">6. Нажмите кнопку <strong>Доставить сюда</strong></div>
+                        <p style="margin-top: 20px; color: #007AFF; font-weight: bold;">
+                            <i class="bi bi-lightbulb"></i> Кнопки пульсируют тонкой черной окантовкой
+                        </p>
+                    </div>
+                </div>
+
+                <div id="task6" class="task">
+                    <div class="task-number">6</div>
+                    <h2 class="task-title">Выбрать способ оплаты</h2>
+                    <div class="task-description">
+                        <p>Перейдите в окно выбора оплаты и выберете "При получении"</p>
+                    </div>
+                    <button class="help-btn-big" onclick="toggleHelp(6)">
+                        <i class="bi bi-question-circle"></i> ПОМОЩЬ
+                    </button>
+                    <div id="help6" class="help-content">
+                        <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
+                        <div class="help-step">1. Найдите кнопку <strong>"Выбрать способ оплаты"</strong> и <strong>нажмите</strong> на нее.</div>
+                        <div class="help-step">2. В открывшемся окне выберете <strong>"При получении"</strong></div>
+                        <div class="help-step">3. Нажмите кнопку <strong>"Выбрать"</strong></div>
+                        <p style="margin-top: 20px; color: #007AFF; font-weight: bold;">
+                            <i class="bi bi-lightbulb"></i> Кнопки пульсируют тонкой черной окантовкой
+                        </p>
+                    </div>
+                </div>
+
+                <div id="task7" class="task">
+                    <div class="task-number">7</div>
+                    <h2 class="task-title">Оформить заказ</h2>
+                    <div class="task-description">
+                        <p>Закончите оформление заказа, нажав на кнопку "Оформить заказ"</p>
+                    </div>
+                    <button class="help-btn-big" onclick="toggleHelp(7)">
+                        <i class="bi bi-question-circle"></i> ПОМОЩЬ
+                    </button>
+                    <div id="help7" class="help-content">
+                        <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
+                        <div class="help-step">1. Найдите кнопку <strong>"Оформить заказ"</strong> внизу экрана приложения.</div>
+                        <div class="help-step">2. <strong>Нажмите</strong> на эту кнопку</div>
+                        <p style="margin-top: 20px; color: #007AFF; font-weight: bold;">
+                            <i class="bi bi-lightbulb"></i> Кнопки пульсируют тонкой черной окантовкой
+                        </p>
                     </div>
                 </div>
 
@@ -573,8 +633,8 @@
                 <div id="complete-screen" class="complete-screen">
                     <div class="complete-icon"><i class="bi bi-trophy-fill"></i></div>
                     <h2>Тренинг завершен!</h2>
-                    <div class="score" id="score">0/4</div>
-                    <p>Вы успешно научились делать покупки в приложении!</p>
+                    <div class="score" id="score">7/7</div>
+                    <p>Поздравляем! Вы научились делать покупки в приложении!</p>
                     <button class="next-btn" onclick="restartTraining()" style="background: #6c757d;">
                         <i class="bi bi-arrow-repeat"></i> Начать заново
                     </button>
@@ -590,609 +650,687 @@
     <div id="notification" class="notification"></div>
 
     <script>
-    // Переменные
-    let currentTask = 1;
-    let tasksCompleted = 0;
-    let totalTasks = 4;
-    let currentImage = 'five_1.jpg';
-    let breadAdded = false;
-    let porridgeAdded = false;
-    let modalAction = null;
+        // Переменные
+        let currentTask = 1;
+        let tasksCompleted = 0;
+        let totalTasks = 7;
+        let currentImage = 'five_1.jpg';
+        let breadAdded = false;
+        let porridgeAdded = false;
+        let modalAction = null;
 
-    // Координаты кликабельных областей (примерные)
-    const screenConfigs = {
-        'five_1.jpg': {
-            areas: [
-                {
-                    id: 'catalog-btn',
-                    name: '',
-                    top: '89%',
-                    left: '27%',
-                    width: '18%',
-                    height: '8%',
-                    action: 'openCatalog'
+        // Отслеживаем, на каких экранах мы уже были для каждого задания
+        let visitedScreens = {
+            task1: false,
+            task2: false,
+            task3: false,
+            task4: false,
+            task5: false,
+            task6: false,
+            task7: false
+        };
+
+        // Координаты кликабельных областей (примерные)
+        const screenConfigs = {
+            'five_1.jpg': {
+                areas: [
+                    {
+                        id: 'catalog-btn',
+                        name: '',
+                        top: '89%',
+                        left: '27%',
+                        width: '18%',
+                        height: '8%',
+                        action: 'openCatalog'
+                    }
+                ]
+            },
+            'five_catalog.jpg': {
+                areas: [
+                    {
+                        id: 'search-input',
+                        name: '',
+                        top: '15%',
+                        left: '3%',
+                        width: '81%',
+                        height: '6%',
+                        action: 'showSearch'
+                    }
+                ]
+            },
+            'five_search.jpg': {
+                areas: [
+                    {
+                        id: 'bread-input',
+                        type: 'input', // тип: поле ввода
+                        name: '',
+                        top: '1.5%',
+                        left: '10%',
+                        width: '80%',
+                        height: '6%',
+                        action: 'findBread',
+                        placeholder: 'Введите хлеб...' // дополнительное поле
+                    },
+                ]
+            },
+            'bread2.jpg': {
+                areas: [
+                    {
+                        id: 'bread-item',
+                        name: '',
+                        top: '69%',
+                        left: '35%',
+                        width: '30%',
+                        height: '5%',
+                        action: 'addBread'
+                    }
+                ]
+            },
+            'bread2_in_basket.jpg': {
+                areas: [
+                    {
+                        id: 'cancel-btn',
+                        name: '',
+                        top: '1.5%',
+                        left: '76%',
+                        width: '10%',
+                        height: '5%',
+                        action: 'cancel_find_bread'
+                    }
+                ]
+            },
+            'catalog_food2.jpg': {
+                areas: [
+                    {
+                        id: 'breakfast-btn',
+                        name: '',
+                        top: '17.5%',
+                        left: '34%',
+                        width: '31%',
+                        height: '16%',
+                        action: 'openBreakfast'
+                    }
+                ]
+            },
+            'breakfast2.jpg': {
+                areas: [
+                    {
+                        id: 'add-btn',
+                        name: '',
+                        top: '40.5%',
+                        left: '50%',
+                        width: '50%',
+                        height: '5%',
+                        action: 'addPorridge'
+                    }
+                ]
+            },
+            'pice_porridge_in_basket2.jpg': {
+                areas: [
+                    {
+                        id: 'basket-btn',
+                        name: '',
+                        top: '85%',
+                        left: '67%',
+                        width: '32%',
+                        height: '5%',
+                        action: 'watchBasket'
+                    }
+                ]
+            },
+            'fool_basket2.jpg': {
+                areas: [
+                    {
+                        id: 'choose-btn',
+                        name: '',
+                        top: '11.5%',
+                        left: '2%',
+                        width: '95%',
+                        height: '5%',
+                        action: 'chooseDelivery'
+                    }
+                ]
+            },
+            'delivery_shop.jpg': {
+                areas: [
+                    {
+                        id: 'delivery-btn',
+                        name: '',
+                        top: '2%',
+                        left: '2%',
+                        width: '47%',
+                        height: '7%',
+                        action: 'chooseAddress'
+                    }
+                ]
+            },
+            'delivery_address.jpg': {
+                areas: [
+                    {
+                        id: 'input_address-btn',
+                        type: 'input', // тип: поле ввода
+                        name: '',
+                        top: '72%',
+                        left: '1%',
+                        width: '98%',
+                        height: '6%',
+                        action: 'readyAddress',
+                        placeholder: 'Введите адрес доставки...'
+                    },
+                ]
+            },
+            'ready_address.jpg': {
+                areas: [
+                    {
+                        id: 'ready_address-btn',
+                        name: '',
+                        top: '82%',
+                        left: '1%',
+                        width: '99%',
+                        height: '7%',
+                        action: 'Add'
+                    }
+                ]
+            },
+            'ready_order.jpg': {
+                areas: [
+                    {
+                        id: 'add_order-btn',
+                        name: '',
+                        top: '51%',
+                        left: '3%',
+                        width: '93%',
+                        height: '8.3%',
+                        action: 'openPayment'
+                    }
+                ]
+            },
+            'pay_choose.jpg': {
+                areas: [
+                    {
+                        id: 'choose_pay-btn',
+                        name: '',
+                        top: '66%',
+                        left: '3%',
+                        width: '93%',
+                        height: '18%',
+                        action: 'finish_choose'
+                    }
+                ]
+            },
+            'finish.jpg': {
+                areas: [
+                    {
+                        id: 'finish-btn',
+                        name: '',
+                        top: '80.2%',
+                        left: '6.5%',
+                        width: '91%',
+                        height: '7%',
+                        action: 'finish'
+                    }
+                ]
+            },
+        };
+
+        // Загрузка данных пользователя
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserData();
+            loadScreen('five_1.jpg');
+
+            // Включаем отладку координат (по умолчанию выключено)
+            // document.getElementById('coordinatesDebug').style.display = 'block';
+        });
+
+        // Загрузка данных пользователя
+        async function loadUserData() {
+            try {
+                const response = await fetch('/api/get-user-level');
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('userStatus').innerHTML =
+                        `👤 ${data.name} | Уровень: ${data.level}`;
+                    document.getElementById('userStatus').classList.add('active');
+
+                    // Загружаем сохраненный прогресс, если есть
+                    if (data.progress) {
+                        currentTask = data.progress.current_task || 1;
+                        tasksCompleted = data.progress.completed || 0;
+                        breadAdded = data.progress.bread_added || false;
+                        porridgeAdded = data.progress.porridge_added || false;
+
+                        updateProgress();
+
+                        // Показываем текущее задание
+                        showCurrentTask();
+
+                        // Если тренинг завершен, показываем экран завершения
+                        if (tasksCompleted === totalTasks) {
+                            setTimeout(() => {
+                                document.getElementById('complete-screen').classList.add('active');
+                                document.getElementById('task' + currentTask).classList.remove('active');
+                                document.getElementById('next-btn').classList.remove('active');
+                                document.getElementById('score').textContent = `${totalTasks}/${totalTasks}`;
+                            }, 500);
+                        }
+                    }
                 }
-            ]
-        },
-        'five_catalog.jpg': {
-            areas: [
-                {
-                    id: 'search-input',
-                    name: '',
-                    top: '15%',
-                    left: '3%',
-                    width: '81%',
-                    height: '6%',
-                    action: 'showSearch'
-                }
-            ]
-        },
-        'five_search.jpg': {
-            areas: [
-                {
-                    id: 'bread-input',
-                    name: '',
-                    top: '1.5%',
-                    left: '10%',
-                    width: '80%',
-                    height: '6%',
-                    action: 'findBread'
-                }
-            ]
-        },
-        'bread2.jpg': {
-            areas: [
-                {
-                    id: 'bread-item',
-                    name: '',
-                    top: '69%',
-                    left: '35%',
-                    width: '30%',
-                    height: '5%',
-                    action: 'addBread'
-                }
-            ]
-        },
-        'bread2_in_basket.jpg': {
-            areas: [
-                {
-                    id: 'cancel-btn',
-                    name: '',
-                    top: '1.5%',
-                    left: '76%',
-                    width: '10%',
-                    height: '5%',
-                    action: 'cancel_find_bread'
-                }
-            ]
-        },
-        'catalog_food2.jpg': {
-            areas: [
-                {
-                    id: 'breakfast-btn',
-                    name: '',
-                    top: '17%',
-                    left: '34%',
-                    width: '33%',
-                    height: '16%',
-                    action: 'openBreakfast'
-                }
-            ]
-        },
-        'breakfast2.jpg': {
-            areas: [
-                {
-                    id: 'add-btn',
-                    name: '',
-                    top: '40.5%',
-                    left: '50%',
-                    width: '50%',
-                    height: '5%',
-                    action: 'addPorridge'
-                }
-            ]
-        },
-        'pice_porridge_in_basket2.jpg': {
-            areas: [
-                {
-                    id: 'basket-btn',
-                    name: '',
-                    top: '85%',
-                    left: '67%',
-                    width: '32%',
-                    height: '5%',
-                    action: 'watchBasket'
-                }
-            ]
-        },
-        'fool_basket2.jpg': {
-            areas: [
-                {
-                    id: 'address-btn',
-                    name: '',
-                    top: '11.5%',
-                    left: '9%',
-                    width: '80%',
-                    height: '5%',
-                    action: 'chooseAddress'
-                }
-            ]
-        },
-        'delivery_shop.jpg': {
-            areas: [
-                {
-                    id: 'choose-btn',
-                    name: '',
-                    top: '2%',
-                    left: '2%',
-                    width: '47%',
-                    height: '7%',
-                    action: 'chooseDelivery'
-                }
-            ]
-        },
-        'delivery_address.jpg': {
-            areas: [
-                {
-                    id: 'input_address-btn',
-                    name: '',
-                    top: '72%',
-                    left: '1%',
-                    width: '98%',
-                    height: '6%',
-                    action: 'readyAddress'
-                }
-            ]
-        },
-        'ready_address.jpg': {
-            areas: [
-                {
-                    id: 'ready_address-btn',
-                    name: '',
-                    top: '82%',
-                    left: '1%',
-                    width: '99%',
-                    height: '7%',
-                    action: 'Add'
-                }
-            ]
-        },
-        'ready_order.jpg': {
-            areas: [
-                {
-                    id: 'add_order-btn',
-                    name: '',
-                    top: '79.7%',
-                    left: '9%',
-                    width: '89%',
-                    height: '7%',
-                    action: 'completeOrder'
-                }
-            ]
+            } catch (error) {
+                console.error('Ошибка загрузки данных:', error);
+            }
         }
-    };
 
-    // Загрузка данных пользователя
-    document.addEventListener('DOMContentLoaded', function() {
-        loadUserData();
-        loadScreen('five_1.jpg');
-    });
+        // Показать текущее задание
+        function showCurrentTask() {
+            document.querySelectorAll('.task').forEach(task => {
+                task.classList.remove('active');
+            });
+            document.getElementById('task' + currentTask).classList.add('active');
+        }
 
-    // Загрузка данных пользователя
-    async function loadUserData() {
-        try {
-            const response = await fetch('/api/get-user-level');
-            if (response.ok) {
-                const data = await response.json();
-                document.getElementById('userStatus').innerHTML =
-                    `👤 ${data.name} | Уровень: ${data.level}`;
-                document.getElementById('userStatus').classList.add('active');
+        // Загрузка экрана с фотографией
+        function loadScreen(imageName) {
+            currentImage = imageName;
+            const config = screenConfigs[imageName];
 
-                // Загружаем сохраненный прогресс, если есть
-                if (data.progress) {
-                    currentTask = data.progress.current_task || 1;
-                    tasksCompleted = data.progress.completed || 0;
-                    breadAdded = data.progress.bread_added || false;
-                    porridgeAdded = data.progress.porridge_added || false;
+            // Загружаем фотографию
+            document.getElementById('appScreen').innerHTML =
+                `<img src="{{ url_for('images_files', filename='five/') }}${imageName}" alt="Экран приложения"
+                      onload="initClickableAreas()">`;
 
-                    updateProgress();
+        }
 
-                    // Показываем текущее задание
-                    showCurrentTask();
+        // Инициализация кликабельных областей после загрузки изображения
+        function initClickableAreas() {
+            const config = screenConfigs[currentImage];
 
-                    // Если тренинг завершен, показываем экран завершения
-                    if (tasksCompleted === totalTasks) {
+            // Очищаем старые области
+            document.getElementById('interactiveOverlay').innerHTML = '';
+
+            // Добавляем новые области
+            if (config && config.areas) {
+                config.areas.forEach(area => {
+                    let element;
+
+                    if (area.type === 'input') {
+                        // Создаем поле ввода
+                        element = document.createElement('div');
+                        element.className = 'input-area'; // У полей ввода другой класс
+                        element.innerHTML = `
+                            <input type="text"
+                                   placeholder="${area.placeholder || 'Введите текст...'}"
+                                   style="width: 90%; height: 80%; border: none; outline: none; background: transparent; font-size: 14px; text-align: center;">
+                        `;
+
+                        // Добавляем обработчик клавиши Enter
+                        const input = element.querySelector('input');
+                        input.addEventListener('keypress', function(e) {
+                            if (e.key === 'Enter') {
+                                handleAreaClick(area.action, this.value);
+                            }
+                        });
+
+                        // Поле ввода тоже может быть активным
+                        if (shouldBeActive(area)) {
+                            element.classList.add('active');
+                        }
+                    } else {
+                        // Создаем кнопку (по умолчанию)
+                        element = document.createElement('div');
+                        element.className = 'clickable-area'; // Основной класс для кнопок
+                        element.innerHTML = `<span>${area.name}</span>`;
+
+                        // Добавляем класс active для пульсации, если нужно
+                        if (shouldBeActive(area)) {
+                            element.classList.add('active');
+                        }
+
+                        // Добавляем обработчик клика
+                        element.onclick = () => handleAreaClick(area.action);
+                    }
+
+                    // Позиционируем область
+                    element.style.top = area.top;
+                    element.style.left = area.left;
+                    element.style.width = area.width;
+                    element.style.height = area.height;
+                    element.id = area.id;
+
+                    document.getElementById('interactiveOverlay').appendChild(element);
+                });
+            }
+        }
+
+        // Функция для определения, должна ли область быть активной (пульсировать)
+        function shouldBeActive(area) {
+            // Здесь можно добавить логику для определения, какие области должны пульсировать
+            // Например, только те, которые нужны для текущего задания
+
+            // Пример: если это первое задание и это кнопка каталога
+            if (currentTask === 1 && area.id === 'catalog-btn') {
+                return true;
+            }
+
+            // Пример: если это второе задание и это поле поиска
+            if (currentTask === 2 && area.id === 'search-input') {
+                return true;
+            }
+
+            // Пример: если это третье задание и это кнопка завтраков
+            if (currentTask === 3 && area.id === 'breakfast-btn') {
+                return true;
+            }
+
+            // Пример: если это четвертое задание и это кнопка корзины
+            if (currentTask === 4 && area.id === 'basket-btn') {
+                return true;
+            }
+
+            if (currentTask === 5 && area.id === 'ready_address-btn') {
+                return true;
+            }
+
+            if (currentTask === 6 && area.id === 'add_order-btn') {
+                return true;
+            }
+
+            if (currentTask === 7 && area.id === 'basket-btn') {
+                return true;
+            }
+
+            // По умолчанию все области активны (пульсируют)
+            return true;
+        }
+
+        // Обработка клика по области
+        function handleAreaClick(action) {
+            console.log('Клик по области:', action, 'Текущее задание:', currentTask);
+
+            switch(action) {
+                case 'openCatalog':
+                    loadScreen('five_catalog.jpg');
+
+                    // Если это задание 1, завершаем его при открытии каталога
+                    if (currentTask === 1) {
                         setTimeout(() => {
-                            document.getElementById('complete-screen').classList.add('active');
-                            document.getElementById('task' + currentTask).classList.remove('active');
-                            document.getElementById('next-btn').classList.remove('active');
-                            document.getElementById('score').textContent = `${totalTasks}/${totalTasks}`;
+                            completeTask(1);
                         }, 500);
                     }
-                }
-            }
-        } catch (error) {
-            console.error('Ошибка загрузки данных:', error);
-        }
-    }
+                    break;
 
-    // Показать текущее задание
-    function showCurrentTask() {
-        document.querySelectorAll('.task').forEach(task => {
-            task.classList.remove('active');
-        });
-        document.getElementById('task' + currentTask).classList.add('active');
-    }
-
-    // Загрузка экрана с фотографией
-    function loadScreen(imageName) {
-        currentImage = imageName;
-        const config = screenConfigs[imageName];
-
-        // Загружаем фотографию
-        document.getElementById('appScreen').innerHTML =
-            `<img src="{{ url_for('images_files', filename='five/') }}${imageName}" alt="Экран приложения"
-                  onload="initClickableAreas()">`;
-
-    }
-
-    // Инициализация кликабельных областей после загрузки изображения
-    function initClickableAreas() {
-        const config = screenConfigs[currentImage];
-
-        // Очищаем старые области
-        document.getElementById('interactiveOverlay').innerHTML = '';
-
-        // Добавляем новые области
-        if (config && config.areas) {
-            config.areas.forEach(area => {
-                const clickableArea = document.createElement('div');
-                clickableArea.className = 'clickable-area active';
-                clickableArea.innerHTML = `<span>${area.name}</span>`;
-
-                // Позиционируем область
-                clickableArea.style.top = area.top;
-                clickableArea.style.left = area.left;
-                clickableArea.style.width = area.width;
-                clickableArea.style.height = area.height;
-                clickableArea.id = area.id;
-
-                // Добавляем обработчик клика
-                clickableArea.onclick = () => handleAreaClick(area.action);
-
-                document.getElementById('interactiveOverlay').appendChild(clickableArea);
-            });
-        }
-    }
-
-    // Обработка клика по области
-    function handleAreaClick(action) {
-        console.log('Клик по области:', action, 'Текущее задание:', currentTask);
-
-        switch(action) {
-            case 'openCatalog':
-                loadScreen('five_catalog.jpg');
-                showNotification('Каталог открыт! Теперь найдите поле поиска.');
-
-                // Если это задание 1, завершаем его при открытии каталога
-                if (currentTask === 1) {
-                    setTimeout(() => {
-                        completeTask(1);
-                    }, 500);
-                }
-                break;
-
-            case 'showSearch':
-                loadScreen('five_search.jpg');
-                break;
-
-            case 'findBread':
-                loadScreen('bread2.jpg');
-                break;
-
-            case 'addBread':
-                loadScreen('bread2_in_basket.jpg');
-                breadAdded = true;
-
-                // Если это задание 2, завершаем его при добавлении хлеба
-                if (currentTask === 2) {
-                    setTimeout(() => {
-                        completeTask(2);
-                        showNotification('Закройте поиск, чтобы вернуться в каталог');
-                    }, 500);
-                }
-                break;
-
-            case 'cancel_find_bread':
-                if (currentTask === 3 && breadAdded) {
-                    loadScreen('catalog_food2.jpg');
-                    showNotification('Отлично! Теперь найдите раздел "Завтраки"');
-                } else {
-                    loadScreen('catalog_food2.jpg');
-                }
-                break;
-
-            case 'openBreakfast':
-                loadScreen('breakfast2.jpg');
-                break;
-
-            case 'addPorridge':
-                loadScreen('pice_porridge_in_basket2.jpg');
-                porridgeAdded = true;
-
-                // Если это задание 3, завершаем его при добавлении каши
-                if (currentTask === 3) {
-                    setTimeout(() => {
-                        completeTask(3);
-                        showNotification('Отлично! Теперь перейдите в корзину');
-                    }, 500);
-                }
-                break;
-
-            case 'watchBasket':
-                loadScreen('fool_basket2.jpg');
-                showNotification('Теперь выберите адрес доставки');
-                break;
-
-            case 'chooseAddress':
-                loadScreen('delivery_shop.jpg');
-                break;
-
-            case 'chooseDelivery':
-                loadScreen('delivery_address.jpg');
-                break;
-
-            case 'readyAddress':
-                loadScreen('ready_address.jpg');
-                break;
-
-            case 'Add':
-                if (currentImage === 'ready_address.jpg') {
-                    loadScreen('ready_order.jpg');
-                    showNotification('Заказ готов! Нажмите "Оформить заказ" для завершения');
-                }
-                break;
-
-            case 'completeOrder':
-                // Это последняя кнопка - завершаем задание 4
-                if (currentTask === 4 && breadAdded && porridgeAdded) {
-                    completeTask(4);
-                    showNotification('Заказ успешно оформлен!');
-                }
-                break;
-        }
-    }
-
-    // Показать модальное окно
-    function showModal(placeholder, action, title = 'Введите данные') {
-        modalAction = action;
-        document.getElementById('modalTitle').textContent = title;
-        document.getElementById('inputField').placeholder = placeholder;
-        document.getElementById('inputField').value = '';
-
-        // В зависимости от действия меняем тип поля
-        if (action === 'searchProduct') {
-            document.getElementById('inputField').type = 'text';
-            document.getElementById('inputField').placeholder = 'Например: Хлеб';
-        } else {
-            document.getElementById('inputField').type = 'number';
-            document.getElementById('inputField').value = '1';
-            document.getElementById('inputField').min = '1';
-            document.getElementById('inputField').max = '10';
-        }
-
-        document.getElementById('modalOverlay').classList.add('active');
-        document.getElementById('inputField').focus();
-    }
-
-    // Закрыть модальное окно
-    function closeModal() {
-        document.getElementById('modalOverlay').classList.remove('active');
-        modalAction = null;
-    }
-
-    // Подтвердить действие в модальном окне
-    function confirmAction() {
-        const inputValue = document.getElementById('inputField').value.trim();
-
-        switch(modalAction) {
-            case 'searchProduct':
-                if (inputValue.toLowerCase() === 'хлеб') {
-                    closeModal();
+                case 'showSearch':
                     loadScreen('five_search.jpg');
-                }
-                break;
+                    break;
 
-            case 'confirmAddBread':
-                const breadQty = parseInt(inputValue) || 1;
-                if (breadQty > 0) {
+                case 'findBread':
+                    loadScreen('bread2.jpg');
+                    break;
+
+                case 'addBread':
+                    loadScreen('bread2_in_basket.jpg');
                     breadAdded = true;
-                    closeModal();
+
+                    // Если это задание 2, завершаем его при добавлении хлеба
                     if (currentTask === 2) {
-                        completeTask(2);
+                        setTimeout(() => {
+                            completeTask(2);
+                            // Сразу показываем кнопку для закрытия поиска
+                        }, 500);
                     }
-                    showNotification(`Добавлено ${breadQty} хлеб(а) в корзину!`);
-                }
-                break;
+                    break;
 
-            case 'confirmAddPorridge':
-                const porridgeQty = parseInt(inputValue) || 1;
-                if (porridgeQty > 0) {
+                case 'cancel_find_bread':
+                    loadScreen('catalog_food2.jpg');
+                    break;
+
+                case 'openBreakfast':
+                    loadScreen('breakfast2.jpg');
+                    break;
+
+                case 'addPorridge':
+                    loadScreen('pice_porridge_in_basket2.jpg');
                     porridgeAdded = true;
-                    closeModal();
+
+                    // Если это задание 3, завершаем его при добавлении каши
                     if (currentTask === 3) {
-                        completeTask(3);
+                        setTimeout(() => {
+                            completeTask(3);
+                            // Сразу показываем кнопку корзины
+                        }, 500);
                     }
-                    showNotification(`Добавлено ${porridgeQty} каш(и) в корзину!`);
-                }
+                    break;
+
+                case 'watchBasket':
+                    loadScreen('fool_basket2.jpg');
+                    // Проверяем, добавлены ли оба товара
+                    if (breadAdded && porridgeAdded) {
+                        // Если это задание 4, завершаем его
+                        if (currentTask === 4) {
+                            completeTask(4);
+                        }
+                    } else {
+                        let message = 'Сначала добавьте ';
+                        if (!breadAdded) message += 'хлеб';
+                        if (!breadAdded && !porridgeAdded) message += ' и ';
+                        if (!porridgeAdded) message += 'кашу';
+                        message += ' в корзину!';
+                        showNotification(message);
+                    }
+                    break;
+
+                case 'chooseDelivery':
+                    loadScreen('delivery_shop.jpg');
+                    break;
+
+                case 'chooseAddress':
+                    loadScreen('delivery_address.jpg');
+                    break;
+
+                case 'readyAddress':
+                    loadScreen('ready_address.jpg');
+                    break;
+
+                case 'Add':
+                    if (currentImage === 'ready_address.jpg') {
+                        loadScreen('ready_order.jpg');
+                    }
+                    if (currentTask === 5) {
+                        setTimeout(() => {
+                            completeTask(5);
+                        }, 500);
+                    }
+                    break;
+
+                case 'openPayment':
+                    loadScreen('pay_choose.jpg');
                 break;
-        }
-    }
 
-    // Сохранение прогресса
-    async function saveProgress(taskId) {
-        try {
-            await fetch('/api/save-progress', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                    task_id: taskId,
-                    progress: tasksCompleted,
-                    total_tasks: totalTasks,
-                    current_task: currentTask,
-                    bread_added: breadAdded,
-                    porridge_added: porridgeAdded
-                })
-            });
-        } catch (error) {
-            console.error('Ошибка сохранения:', error);
-        }
-    }
-
-
-    function completeTraining() {
-        if (tasksCompleted === totalTasks) {
-        // Перенаправить на страницу обновления прогресса
-           fetch("/online_shopping", {method: "POST"});
-        }
-    }
-    // Завершить задание
-    async function completeTask(taskNum) {
-        // Проверяем, что это текущее задание
-        if (taskNum !== currentTask) {
-            console.log('Попытка завершить не текущее задание:', taskNum, 'текущее:', currentTask);
-            return;
-        }
-
-        tasksCompleted++;
-        updateProgress();
-
-        await saveProgress(taskNum);
-
-        // Показываем кнопку "Следующее задание"
-        document.getElementById('next-btn').classList.add('active');
-        showNotification(`Задание ${taskNum} выполнено! Нажмите "Следующее задание"`);
-
-        // Если все задания выполнены
-        if (tasksCompleted === totalTasks) {
-            completeTraining();
-            setTimeout(() => {
-                document.getElementById('complete-screen').classList.add('active');
-                document.getElementById('task' + currentTask).classList.remove('active');
-                document.getElementById('next-btn').classList.remove('active');
-                document.getElementById('score').textContent = `${totalTasks}/${totalTasks}`;
-                saveProgress('final');
-            }, 1000);
-        }
-    }
-
-    // Следующее задание
-    function nextTask() {
-        console.log('Переход к следующему заданию. Текущее:', currentTask);
-
-        // Скрываем текущее задание
-        document.getElementById('task' + currentTask).classList.remove('active');
-
-        // Скрываем кнопку
-        document.getElementById('next-btn').classList.remove('active');
-
-        // Скрываем все подсказки
-        document.querySelectorAll('.help-content').forEach(help => {
-            help.classList.remove('active');
-        });
-
-        // Переходим к следующему заданию
-        currentTask++;
-
-        if (currentTask <= totalTasks) {
-            // Показываем новое задание
-            document.getElementById('task' + currentTask).classList.add('active');
-            showNotification(`Начато задание ${currentTask}`);
-
-            // Автоматически загружаем нужный экран для нового задания:
-            switch(currentTask) {
-                case 2:
-                    // После задания 1 пользователь уже в каталоге
-                    if (currentImage !== 'five_catalog.jpg') {
-                        loadScreen('five_catalog.jpg');
+                case 'finish_choose':
+                    loadScreen('finish.jpg');
+                    if (currentTask === 6) {
+                        setTimeout(() => {
+                            completeTask(6);
+                        }, 500);
                     }
-                    showNotification('Используйте поиск чтобы найти хлеб');
-                    break;
-                case 3:
-                    // После задания 2 пользователь на bread2_in_basket.jpg
-                    if (currentImage === 'bread2_in_basket.jpg') {
-                        showNotification('Закройте поиск хлеба чтобы продолжить');
-                    } else {
-                        loadScreen('five_catalog.jpg');
-                        showNotification('Найдите раздел "Завтраки" в каталоге');
+                break;
+
+                case 'finish':
+                    loadScreen('end.jpg');
+                    if (currentTask === 7) {
+                        setTimeout(() => {
+                            showNotification('УРА! УРА! ВЫ ЗАВЕРШИЛИ ТРЕНИНГ ПО ОНЛАЙН ПОКУПКАМ');
+                            completeTask(7);
+                        }, 500);
                     }
-                    break;
-                case 4:
-                    // После задания 3 пользователь на pice_porridge_in_basket2.jpg
-                    if (currentImage === 'pice_porridge_in_basket2.jpg') {
-                        showNotification('Перейдите в корзину чтобы проверить товары');
-                    } else {
-                        showNotification('Найдите иконку корзины внизу экрана');
-                    }
-                    break;
+                break;
+            }
+        }
+
+
+        // Сохранение прогресса
+        async function saveProgress(taskId) {
+            try {
+                await fetch('/api/save-progress', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        task_id: taskId,
+                        progress: tasksCompleted,
+                        total_tasks: totalTasks,
+                        current_task: currentTask,
+                        bread_added: breadAdded,
+                        porridge_added: porridgeAdded
+                    })
+                });
+            } catch (error) {
+                console.error('Ошибка сохранения:', error);
+            }
+        }
+
+        function completeTraining() {
+            if (tasksCompleted === totalTasks) {
+            // Перенаправить на страницу обновления прогресса
+               fetch("/online_shopping", {method: "POST"});
+            }
+        }
+        // Завершить задание
+        async function completeTask(taskNum) {
+            // Проверяем, что это текущее задание
+            if (taskNum !== currentTask) {
+                console.log('Попытка завершить не текущее задание:', taskNum, 'текущее:', currentTask);
+                return;
             }
 
-            // Сохраняем смену задания
-            saveProgress('switch_to_task_' + currentTask);
+            tasksCompleted++;
+            updateProgress();
+
+            await saveProgress(taskNum);
+
+            // Показываем кнопку "Следующее задание"
+            if (taskNum < 7) {
+                document.getElementById('next-btn').classList.add('active');
+                showNotification(`Задание ${taskNum} выполнено! Нажмите "Следующее задание"`);
+                }
+
+            // Если все задания выполнены
+            if (tasksCompleted === totalTasks) {
+                completeTraining();
+                setTimeout(() => {
+                    document.getElementById('complete-screen').classList.add('active');
+                    document.getElementById('task' + currentTask).classList.remove('active');
+                    document.getElementById('next-btn').classList.remove('active');
+                    document.getElementById('score').textContent = `${totalTasks}/${totalTasks}`;
+                    saveProgress('final');
+                }, 1000);
+            }
         }
-    }
 
-    // Обновить прогресс
-    function updateProgress() {
-        const progress = (tasksCompleted / totalTasks) * 100;
-        document.getElementById('progress').style.width = progress + '%';
-    }
+        // Следующее задание
+        function nextTask() {
+            console.log('Переход к следующему заданию. Текущее:', currentTask);
 
-    // Показать/скрыть помощь
-    function toggleHelp(taskNum) {
-        const help = document.getElementById('help' + taskNum);
-        help.classList.toggle('active');
-    }
+            // Скрываем текущее задание
+            document.getElementById('task' + currentTask).classList.remove('active');
 
-    // Показать уведомление
-    function showNotification(message) {
-        const notification = document.getElementById('notification');
-        notification.textContent = message;
-        notification.style.display = 'block';
-        setTimeout(() => {
-            notification.style.display = 'none';
-        }, 3000);
-    }
+            // Скрываем кнопку
+            document.getElementById('next-btn').classList.remove('active');
 
-    // Начать заново
-    async function restartTraining() {
-        currentTask = 1;
-        tasksCompleted = 0;
-        breadAdded = false;
-        porridgeAdded = false;
+            // Скрываем все подсказки
+            document.querySelectorAll('.help-content').forEach(help => {
+                help.classList.remove('active');
+            });
 
-        document.getElementById('complete-screen').classList.remove('active');
-        document.querySelectorAll('.task').forEach(task => {
-            task.classList.remove('active');
-        });
-        document.getElementById('task1').classList.add('active');
-        document.getElementById('next-btn').classList.remove('active');
-        document.querySelectorAll('.help-content').forEach(help => {
-            help.classList.remove('active');
-        });
+            // Переходим к следующему заданию
+            currentTask++;
 
-        loadScreen('five_1.jpg');
-        updateProgress();
-        await saveProgress('reset');
-        showNotification('Тренинг начат заново!');
-    }
+            if (currentTask <= totalTasks) {
+                // Показываем новое задание
+                document.getElementById('task' + currentTask).classList.add('active');
+                showNotification(`Начато задание ${currentTask}`);
 
-    // Поддержка клавиши Enter в модальном окне
-    document.getElementById('inputField').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            confirmAction();
+                // Автоматически загружаем нужный экран для нового задания:
+                switch(currentTask) {
+                    case 2:
+                        // Остаемся в каталоге (уже там после задания 1)
+                        // Если пользователь ушел, загружаем каталог
+                        if (currentImage !== 'five_catalog.jpg') {
+                            loadScreen('five_catalog.jpg');
+                        }
+                        break;
+                    case 3:
+                        if (currentImage === 'bread_in_basket.jpg') {
+                        }
+                        break;
+                    case 4:
+                        // После задания 3 пользователь на pice_porridge_in_basket.jpg
+                        // Ждем когда он нажмет на корзину
+                        if (currentImage === 'pice_porridge_in_basket.jpg') {
+                        } else {
+                        }
+                        break;
+                    case 5:
+                        if (currentImage === 'ready_order.jpg') {
+                        }
+                        break;
+
+                }
+
+                // Сохраняем смену задания
+                saveProgress('switch_to_task_' + currentTask);
+            }
         }
-    });
-</script>
+
+        // Обновить прогресс
+        function updateProgress() {
+            const progress = (tasksCompleted / totalTasks) * 100;
+            document.getElementById('progress').style.width = progress + '%';
+        }
+
+        // Показать/скрыть помощь
+        function toggleHelp(taskNum) {
+            const help = document.getElementById('help' + taskNum);
+            help.classList.toggle('active');
+        }
+
+        // Показать уведомление
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+
+        // Начать заново
+        async function restartTraining() {
+            currentTask = 1;
+            tasksCompleted = 0;
+            breadAdded = false;
+            porridgeAdded = false;
+
+            document.getElementById('complete-screen').classList.remove('active');
+            document.querySelectorAll('.task').forEach(task => {
+                task.classList.remove('active');
+            });
+            document.getElementById('task1').classList.add('active');
+            document.getElementById('next-btn').classList.remove('active');
+            document.querySelectorAll('.help-content').forEach(help => {
+                help.classList.remove('active');
+            });
+
+            loadScreen('five_1.jpg');
+            updateProgress();
+            await saveProgress('reset');
+            showNotification('Тренинг начат заново!');
+        }
+
+        // Поддержка клавиши Enter в модальном окне
+        document.getElementById('inputField').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                confirmAction();
+            }
+        });
+    </script>
 </body>
 </html>

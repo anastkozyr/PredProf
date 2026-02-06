@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Тренинг: Онлайн покупки"</title>
+    <title>Тренинг: "Онлайн покупки"</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         * {
@@ -335,7 +335,7 @@
             padding: 15px 30px;
             border-radius: 10px;
             cursor: pointer;
-            font-size: 30px;
+            font-size: 41px;
             margin-top: 20px;
             display: none;
             width: 100%;
@@ -454,6 +454,13 @@
             10%, 90% { opacity: 1; }
         }
 
+        .help-step {
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 4px solid #007AFF;
+            padding: 10px 15px;
+        }
+
         /* Координаты для отладки */
         .coordinates-debug {
             position: absolute;
@@ -514,13 +521,16 @@
                         <p>На главном экране приложения "Пятерочка" откройте каталог товаров.</p>
                     </div>
                     <button class="help-btn-big" onclick="toggleHelp(1)">
-                        <i class="bi bi-question-circle"></i> КАК ЭТО СДЕЛАТЬ?
+                        <i class="bi bi-question-circle"></i> ПОМОЩЬ
                     </button>
                     <div id="help1" class="help-content">
-                        <p><strong>Как выполнить:</strong></p>
-                        <p>1. Посмотрите на экран телефона справа</p>
-                        <p>2. На панели внизу экрана найдите кнопку "Каталог"</p>
-                        <p>3. Нажмите на эту кнопку</p>
+                        <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
+                        <div class="help-step">1. Посмотрите на <strong>экран</strong> телефона <strong>справа</strong></div>
+                        <div class="help-step">2. На панели <strong>внизу экрана</strong> найдите <strong>кнопку "Каталог"</strong></div>
+                        <div class="help-step">3. <strong>Нажмите</strong> на эту кнопку</div>
+                        <p style="margin-top: 20px; color: #007AFF; font-weight: bold;">
+                            <i class="bi bi-lightbulb"></i> Кнопки пульсируют тонкой черной окантовкой
+                        </p>
                     </div>
                 </div>
 
@@ -528,17 +538,21 @@
                     <div class="task-number">2</div>
                     <h2 class="task-title">Положить хлеб в корзину</h2>
                     <div class="task-description">
-                        <p>В каталоге найдите хлеб через поиск и добавьте его в корзину.</p>
+                        <p>В каталоге найдите <strong>"Рижский ржаной хлеб со злаками" за 144руб</strong> через поиск и добавьте его в корзину.</p>
                     </div>
                     <button class="help-btn-big" onclick="toggleHelp(2)">
-                        <i class="bi bi-question-circle"></i> КАК ЭТО СДЕЛАТЬ?
+                        <i class="bi bi-question-circle"></i> ПОМОЩЬ
                     </button>
                     <div id="help2" class="help-content">
-                        <p><strong>Как выполнить:</strong></p>
-                        <p>1. В каталоге найдите строку поиска</p>
-                        <p>2. Нажмите на строку поиска и введите "Хлеб"</p>
-                        <p>3. Нажмите Enter</p>
-                        <p>4. Найдите "Рижский ржаной хлеб со злаками" за 144руб и нажмите "В корзину"</p>
+                        <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
+                        <div class="help-step">1. В каталоге найдите <strong>строку поиска</strong></div>
+                        <div class="help-step">2. <strong>Нажмите</strong> на строку поиска</div>
+                        <div class="help-step">3. Введите <strong>"Хлеб"</strong></div>
+                        <div class="help-step">4. Нажмите <strong>Enter</strong></div>
+                        <div class="help-step">5. Найдите <strong>"Рижский ржаной хлеб со злаками" за 144руб</strong> и нажмите <strong>"В корзину"</strong></div>
+                        <p style="margin-top: 20px; color: #007AFF; font-weight: bold;">
+                            <i class="bi bi-lightbulb"></i> Кнопки пульсируют тонкой черной окантовкой
+                        </p>
                     </div>
                 </div>
 
@@ -546,17 +560,20 @@
                     <div class="task-number">3</div>
                     <h2 class="task-title">Найти кашу в готовом каталоге товаров без поиска и положить ее в корзину</h2>
                     <div class="task-description">
-                        <p>Вернитесь в каталог и добавьте кашу из категории "Завтраки" в корзину.</p>
+                        <p>Добавьте <strong>"рисовую кашу на молоке" за 119руб</strong> из категории "Завтраки" в корзину.</p>
                     </div>
                     <button class="help-btn-big" onclick="toggleHelp(3)">
-                        <i class="bi bi-question-circle"></i> КАК ЭТО СДЕЛАТЬ?
+                        <i class="bi bi-question-circle"></i> ПОМОЩЬ
                     </button>
                     <div id="help3" class="help-content">
-                        <p><strong>Как выполнить:</strong></p>
-                        <p>1. Нажмите на крестик чтобы выйти из поиска</p>
-                        <p>2. Найдите раздел "Готовая еда"</p>
-                        <p>3. Выберите подраздел "Завтраки", нажав на кнопку</p>
-                        <p>4. Найдите "рисовую кашу на молоке" за 119руб и нажмите "В корзину"</p>
+                        <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
+                        <div class="help-step">1. Нажмите на <strong>крестик</strong> чтобы выйти из поиска</div>
+                        <div class="help-step">2. Найдите раздел <strong>"Готовая еда"</strong></div>
+                        <div class="help-step">3. Выберите подраздел <strong>"Завтраки", нажав на кнопку</strong></div>
+                        <div class="help-step">4. Найдите <strong>"рисовую кашу на молоке" за 119руб</strong> и нажмите <strong>"В корзину"</strong></div>
+                        <p style="margin-top: 20px; color: #007AFF; font-weight: bold;">
+                            <i class="bi bi-lightbulb"></i> Кнопки пульсируют тонкой черной окантовкой
+                        </p>
                     </div>
                 </div>
 
@@ -567,13 +584,16 @@
                         <p>Перейдите в корзину и проверьте добавленные товары.</p>
                     </div>
                     <button class="help-btn-big" onclick="toggleHelp(4)">
-                        <i class="bi bi-question-circle"></i> КАК ЭТО СДЕЛАТЬ?
+                        <i class="bi bi-question-circle"></i> ПОМОЩЬ
                     </button>
                     <div id="help4" class="help-content">
-                        <p><strong>Как выполнить:</strong></p>
-                        <p>1. В каталоге найдите красную кнопку с корзиной внизу</p>
-                        <p>2. Нажмите на нее чтобы открыть корзину</p>
-                        <p>3. Проверьте, что в корзине есть хлеб и каша</p>
+                        <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
+                        <div class="help-step">1. В каталоге найдите <strong>красную кнопку с корзиной</strong> внизу</div>
+                        <div class="help-step">2. <strong>Нажмите</strong> на нее чтобы открыть корзину</div>
+                        <div class="help-step">3. Проверьте, что в корзине есть <strong>хлеб</strong> и <strong>каша</strong></div>
+                        <p style="margin-top: 20px; color: #007AFF; font-weight: bold;">
+                            <i class="bi bi-lightbulb"></i> Кнопки пульсируют тонкой черной окантовкой
+                        </p>
                     </div>
                 </div>
 

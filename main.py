@@ -107,6 +107,7 @@ def smartphone_basics():
     db_sess.commit()
     return jsonify({"status": "ok"})
 
+
 @app.route('/smartphone_basics', methods=['GET'])
 @login_required
 def smartphone_basics_page():
@@ -129,6 +130,7 @@ def smartphone_basics_base():
 def smartphone_basics_base_page():
     return render_template('smartphone_basics_base.html')
 
+
 @app.route('/messenger_training', methods=['POST'])
 @login_required
 def messenger_training():
@@ -140,6 +142,7 @@ def messenger_training():
         user.progress_advanced = user.progress_advanced[0] + "1" + user.progress_advanced[2:]
     db_sess.commit()
     return jsonify({"status": "ok"})
+
 
 @app.route('/messenger_training', methods=['GET'])
 @login_required
@@ -195,10 +198,12 @@ def online_shopping_basic():
     db_sess.commit()
     return jsonify({"status": "ok"})
 
+
 @app.route('/online_shopping_basic', methods=['GET'])
 @login_required
 def online_shopping_basic_page():
     return render_template('online_shopping_basic.html')
+
 
 @app.route('/online_shopping', methods=['POST'])
 @login_required
@@ -208,6 +213,7 @@ def online_shopping():
     user.progress_advanced = user.progress_advanced[:3] + "1"
     db_sess.commit()
     return jsonify({"status": "ok"})
+
 
 @app.route('/online_shopping', methods=['GET'])
 @login_required
@@ -221,6 +227,7 @@ def buttons():
     user_level = current_user.level
     return render_template('buttons.html', user_level=user_level)
 
+
 @app.route('/change_level', methods=['POST'])
 @login_required
 def change_level():
@@ -231,7 +238,6 @@ def change_level():
     user.level = level
     db_sess.commit()
     return jsonify({"status": "ok"})
-
 
 
 @app.route('/account')
@@ -258,8 +264,11 @@ def account():
         levelrus = "Продвинутый"
     progress = str(round((basic.count('1') + advanced.count('1')) * 12.5)) + '%'
     return render_template('account.html',
-                           name=name, level=level, levelrus=levelrus, first=first, second=second, third=third, fourth=fourth,
-                           created_date=formatted_date, progress=progress, medals=medals, basic=basic, advanced=advanced)
+                           name=name, level=level, levelrus=levelrus, first=first, second=second, third=third,
+                           fourth=fourth,
+                           created_date=formatted_date, progress=progress, medals=medals, basic=basic,
+                           advanced=advanced)
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=8028, host='127.0.0.1')
