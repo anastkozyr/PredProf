@@ -5,9 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5423f298-9750-4c02-8302-b1b3867beef4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/static/js/gos_training_basic.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/js/os_training_basic.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/js/os_training_pro.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db/users.db" beforeDir="false" afterPath="$PROJECT_DIR$/db/users.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/online_shopping_basic.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/online_shopping_basic.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/messenger_training_basic.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/messenger_training_basic.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/public_services.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public_services.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/public_services_pro.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public_services_pro.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/smartphone_basics.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/smartphone_basics.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/smartphone_basics_base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/smartphone_basics_base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
