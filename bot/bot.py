@@ -72,7 +72,7 @@ async def os_video(message: Message):
 
 @dp.message(F.text == 'MAX')
 async def max_video(message: Message):
-    #ПОМЕНЯТЬ НА НУЖНОЕ ВИДЕО
+    # ПОМЕНЯТЬ НА НУЖНОЕ ВИДЕО
     video = FSInputFile(path=f'{BASE_DIR}/videos/os.mp4')
     await bot.send_video(
         chat_id=message.chat.id,

@@ -154,6 +154,7 @@ def messenger_training_page():
     else:
         return render_template('messanger_training_advanced.html')
 
+
 @app.route('/public_services', methods=['POST'])
 @login_required
 def gosuslugi_training():
@@ -163,10 +164,12 @@ def gosuslugi_training():
     db_sess.commit()
     return jsonify({"status": "ok"})
 
+
 @app.route('/public_services', methods=['GET'])
 @login_required
 def gosuslugi_training_page():
     return render_template('public_services.html')
+
 
 @app.route('/public_services_pro', methods=['POST'])
 @login_required
@@ -176,6 +179,7 @@ def gosuslugi_training_pro():
     user.progress_advanced = user.progress_advanced[:2] + "1" + user.progress_advanced[3]
     db_sess.commit()
     return jsonify({"status": "ok"})
+
 
 @app.route('/public_services_pro', methods=['GET'])
 @login_required
@@ -263,10 +267,10 @@ def account():
         fourth = int(current_user.progress_advanced[3])
         levelrus = "Продвинутый"
     progress = str(round((basic.count('1') + advanced.count('1')) * 12.5)) + '%'
-    tasks = int(basic[0]) * 2 + int(basic[1]) * 3 + int(basic[2]) * 2 + int(basic[3]) * 4 + int(advanced[0]) * 4 + int(advanced[1]) * 4 + int(advanced[2]) * 3 + int(advanced[3]) * 7
+    tasks = int(basic[0]) * 2 + int(basic[1]) * 3 + int(basic[2]) * 2 + int(basic[3]) * 4 + int(advanced[0]) * 4 + int(
+        advanced[1]) * 4 + int(advanced[2]) * 3 + int(advanced[3]) * 7
     return render_template('account.html',
                            name=name, level=level, levelrus=levelrus, first=first, second=second, third=third,
                            fourth=fourth,
                            created_date=formatted_date, progress=progress, medals=medals, basic=basic,
                            advanced=advanced, tasks=tasks)
-
