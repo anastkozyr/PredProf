@@ -547,19 +547,15 @@
             <div class="row mb-5">
                 <div class="col-md-3 col-sm-6 mb-4">
                     <div class="stat-card">
-                        <div class="stat-number">{{ first + second + third + fourth }}</div>
+                        <div class="stat-number">{{ basic.count("1") + advanced.count("1") }}</div>
                         <div class="stat-label">Курсов пройдено</div>
                     </div>
                 </div>
 
                 <div class="col-md-3 col-sm-6 mb-4">
                     <div class="stat-card">
-                        {% if level == 'basic' %}
-                        <div class="stat-number">{{ first * 2 + second * 3 + third * 113 + fourth * 3 }}</div>
-                        {% else %}
-                        <div class="stat-number">{{ first * 6 + second * 4 + third * 113 + fourth * 4 }}</div>
-                        {% endif %}
-                        <div class="stat-label">Заданий выполнено(поменять!!!)</div>
+                        <div class="stat-number">{{ int(basic[0]) * 2 + int(basic[1]) * 3 + int(basic[2]) * 2 + int(basic[3]) * 4 + int(advanced[0]) * 4 + int(advanced[1]) * 4 + int(advanced[2]) * 3 + int(advanced[3]) * 7 }}</div>
+                        <div class="stat-label">Заданий выполнено</div>
                     </div>
                 </div>
 
