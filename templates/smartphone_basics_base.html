@@ -555,6 +555,13 @@
         let powerCount = 0;
         const totalTasks = 2;
 
+        function completeTraining() {
+            if (tasksCompleted === totalTasks) {
+            // Перенаправить на страницу обновления прогресса
+               fetch("/smartphone_basics_base", {method: "POST"});
+            }
+        }
+
         // Функция для форматирования даты
         function formatDate(date) {
             const days = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
@@ -640,6 +647,7 @@
 
             // Если все задания выполнены
             if (tasksCompleted === totalTasks) {
+                completeTraining();
                 setTimeout(() => {
                     document.getElementById('complete-screen').classList.add('active');
                     document.getElementById('task' + currentTask).classList.remove('active');

@@ -517,6 +517,7 @@
             background: linear-gradient(135deg, #2c698d, #3a86ff);
             border: none;
             color: white;
+            text-decoration: none;
             border-radius: 25px;
             padding: 25px 50px;
             font-size: 24px;
@@ -920,7 +921,7 @@
                         <i class="bi bi-arrow-repeat"></i> НАЧАТЬ ЗАНОВО
                     </button>
                     <a href="{{ url_for('go_to_trainer') }}" class="trainer-btn">
-                        <i class="bi bi-arrow-right-circle"></i> ПЕРЕЙТИ НА ГЛАВНУЮ СТРАНИЦУ
+                        <i class="bi bi-arrow-right-circle"></i> ПЕРЕЙТИ НА ГЛАВНУЮ
                     </a>
                 </div>
             </div>
@@ -1075,6 +1076,13 @@
             }
         }
 
+        function completeTraining() {
+            if (tasksCompleted === totalTasks) {
+            // Перенаправить на страницу обновления прогресса
+               fetch("/smartphone_basics", {method: "POST"});
+            }
+        }
+
         // Завершить задание
         function completeTask(taskNum) {
             tasksCompleted++;
@@ -1085,6 +1093,7 @@
 
             // Если все задания выполнены
             if (tasksCompleted === totalTasks) {
+                completeTraining();
                 setTimeout(() => {
                     document.getElementById('complete-screen').classList.add('active');
                     document.getElementById('task' + currentTask).classList.remove('active');

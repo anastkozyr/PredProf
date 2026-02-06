@@ -1,0 +1,1728 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тренинг: Госуслуги - Основные услуги</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e6f7ff 0%, #e6f7ff 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: row;
+            gap: 40px;
+        }
+
+        /* Контейнер для телефона */
+        .phone-section {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .phone-container {
+            position: relative;
+            width: 380px;
+            height: 760px;
+            background: #111;
+            border-radius: 45px;
+            padding: 25px;
+            border: 12px solid #333;
+            box-shadow: 0 25px 75px rgba(0,0,0,0.5);
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: white;
+            border-radius: 25px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .phone-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 25px;
+        }
+
+        /* Кнопки для экранов */
+        .button-login, .button-login2, .button-start, .button-confirm, .button-continue, .button-select, .button-next {
+            position: absolute;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 18px;
+            font-weight: 600;
+            font-family: inherit;
+            z-index: 10;
+            background: linear-gradient(135deg, #007AFF, #00b4ff);
+            border: none;
+            color: white;
+            border-radius: 15px;
+            padding: 20px 30px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0, 122, 255, 0.3);
+        }
+
+        .button-login:hover, .button-login2:hover, .button-start:hover, .button-confirm:hover, .button-continue:hover, .button-select:hover, .button-next:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, #0056b3, #007AFF);
+            box-shadow: 0 12px 30px rgba(0, 122, 255, 0.4);
+        }
+
+        .button-login:active, .button-login2:active, .button-start:active, .button-confirm:active, .button-continue:active, .button-select:active, .button-next:active {
+            transform: translateY(0);
+            box-shadow: 0 5px 15px rgba(0, 122, 255, 0.3);
+        }
+
+        /* Кнопка ВОЙТИ */
+        .button-login {
+            bottom: 40px;
+            left: 10px;
+            right: 10px;
+        }
+
+        .button-login.active {
+            animation: pulse 1.5s infinite;
+            box-shadow: 0 0 25px rgba(0, 123, 255, 0.8);
+        }
+
+        /* Кнопка ЗАРЕГИСТРИРОВАТЬСЯ */
+        .button-login2 {
+            bottom: 100px;
+            left: 10px;
+            right: 10px;
+            background: transparent;
+            border: 3px solid #007AFF;
+            color: #007AFF;
+        }
+
+        .button-login2:hover {
+            background: #007AFF;
+            color: white;
+        }
+
+        /* Кнопка НАЧАТЬ */
+        .button-start {
+            bottom: 40px;
+            left: 10px;
+            right: 10px;
+        }
+
+        .button-start.active {
+            animation: pulse 1.5s infinite;
+            box-shadow: 0 0 25px rgba(0, 123, 255, 0.8);
+        }
+
+        /* Кнопка ПОДТВЕРДИТЬ */
+        .button-confirm {
+            bottom: 40px;
+            left: 10px;
+            right: 10px;
+        }
+
+        .button-confirm.active {
+            animation: pulse 1.5s infinite;
+            box-shadow: 0 0 25px rgba(0, 123, 255, 0.8);
+        }
+
+        /* Кнопка ПРОДОЛЖИТЬ */
+        .button-continue {
+            bottom: 40px;
+            left: 10px;
+            right: 10px;
+        }
+
+        .button-continue.active {
+            animation: pulse 1.5s infinite;
+            box-shadow: 0 0 25px rgba(0, 123, 255, 0.8);
+        }
+
+        /* Кнопка ВЫБРАТЬ */
+        .button-select {
+            bottom: 40px;
+            left: 10px;
+            right: 10px;
+        }
+
+        .button-select.active {
+            animation: pulse 1.5s infinite;
+            box-shadow: 0 0 25px rgba(0, 123, 255, 0.8);
+        }
+
+        /* Кнопка ДАЛЕЕ */
+        .button-next {
+            bottom: 40px;
+            left: 10px;
+            right: 10px;
+        }
+
+        .button-next.active {
+            animation: pulse 1.5s infinite;
+            box-shadow: 0 0 25px rgba(0, 123, 255, 0.8);
+        }
+
+        /* Поля ввода */
+        .login-form-overlay, .policy-form-overlay, .region-form-overlay, .doctor-form-overlay, .address-form-overlay, .date-form-overlay {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+        }
+
+        .form-input, .form-select {
+            position: absolute;
+            padding: 20px;
+            border: 3px solid #007AFF;
+            border-radius: 15px;
+            font-size: 18px;
+            background: white;
+            width: 85%;
+            left: 7.5%;
+        }
+
+        .form-input2, .form-select {
+            position: absolute;
+            padding: 20px;
+            border: 3px solid #007AFF;
+            border-radius: 15px;
+            font-size: 18px;
+            background: white;
+            width: 90%;
+            left: 5%;
+            top: 67%;
+            height: 6%;
+        }
+
+        .form-input3, .form-select {
+            position: absolute;
+            padding: 20px;
+            border: 3px solid #007AFF;
+            border-radius: 15px;
+            font-size: 18px;
+            background: white;
+            width: 85%;
+            left: 8.5%;
+            top: 15%;
+            height: 4%;
+        }
+
+        #phone-input {
+            top: 40%;
+        }
+
+        #password-input {
+            top: 52%;
+        }
+
+        #policy-input {
+            top: 36%;
+        }
+
+        #region-input {
+            top: 54%;
+        }
+
+        #doctor-select {
+            top: 36%;
+        }
+
+        #doctor-name-select {
+            top: 40%;
+        }
+
+        #address-input {
+            top: 22%;
+        }
+
+        .form-btn {
+            position: absolute;
+            padding: 20px;
+            background: linear-gradient(135deg, #007AFF, #00b4ff);
+            border: none;
+            border-radius: 15px;
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 85%;
+            left: 7.5%;
+            bottom: 40px;
+            box-shadow: 0 8px 25px rgba(0, 122, 255, 0.3);
+        }
+
+        .form-btn:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, #0056b3, #007AFF);
+            box-shadow: 0 12px 30px rgba(0, 122, 255, 0.4);
+        }
+
+        /* Кликабельные области */
+        .clickable-area {
+            position: absolute;
+            background: rgba(0, 123, 255, 0.3);
+            border: 3px solid #007bff;
+            border-radius: 15px;
+            pointer-events: all;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .clickable-area:hover {
+            background: rgba(0, 123, 255, 0.6);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 123, 255, 0.8);
+        }
+
+        .clickable-area.active {
+            animation: pulse 1.5s infinite;
+            box-shadow: 0 0 25px rgba(0, 123, 255, 0.8);
+        }
+
+        /* Координаты кликабельных областей для медицинской части */
+        #clickable-area-im4 {
+            top: 87%;
+            left: 19.2%;
+            width: 22%;
+            height: 10%;
+        }
+        #clickable-area-im14 {
+            top: 69%;
+            left: 20.2%;
+            width: 13%;
+            height: 17%;
+        }
+        #clickable-area-im15 {
+            top: 87%;
+            left: 25.2%;
+            width: 24%;
+            height: 7%;
+        }
+        #clickable-area-im5 {
+            top: 25%;
+            left: 3%;
+            width: 94%;
+            height: 8%;
+        }
+
+        #clickable-area-im6 {
+            top: 14%;
+            left: 3%;
+            width: 94%;
+            height: 8%;
+        }
+
+        #clickable-area-im8 {
+            top: 29%;
+            left: 4%;
+            width: 92%;
+            height: 7%;
+            background: rgba(0, 123, 255, 0.6);
+            border: 3px solid #007bff;
+        }
+
+        #clickable-area-im8:hover {
+            background: rgba(0, 123, 255, 0.6);
+        }
+
+        #clickable-area-im14 {
+            bottom: 40%;
+            left: 7%;
+            right: 15%;
+            height: 6%;
+            background: rgba(0, 123, 255, 0.6);
+            border: 3px solid #007bff;
+            font-size: 20px;
+        }
+
+        #clickable-area-im15 {
+            bottom: 40%;
+            left: 10%;
+            right: 10%;
+            height: 6%;
+            background: rgba(0, 123, 255, 0.6);
+            border: 3px solid #007bff;
+            font-size: 20px;
+        }
+
+        #clickable-area-im10 {
+            bottom: 40px;
+            left: 10px;
+            right: 10px;
+            height: 60px;
+        }
+
+        /* Новые кликабельные области для пенсии (im16-im20) */
+        #clickable-area-im16 {
+            top: 87%;
+            left: 19.2%;
+            width: 22%;
+            height: 10%;
+        }
+
+        #clickable-area-im17 {
+            top: 25%;
+            left: 5%;
+            width: 90%;
+            height: 8%;
+            background: rgba(40, 167, 69, 0.6);
+            border: 3px solid #28a745;
+            font-size: 20px;
+        }
+
+        #clickable-area-im18 {
+            top: 40%;
+            left: 5%;
+            width: 90%;
+            height: 12%;
+            background: rgba(40, 167, 69, 0.6);
+            border: 3px solid #28a745;
+            font-size: 18px;
+        }
+
+        #clickable-area-im19 {
+            top: 60%;
+            left: 5%;
+            width: 90%;
+            height: 10%;
+            background: rgba(40, 167, 69, 0.6);
+            border: 3px solid #28a745;
+            font-size: 20px;
+        }
+
+        #clickable-area-im20 {
+            bottom: 40%;
+            left: 10%;
+            right: 10%;
+            height: 8%;
+            background: rgba(40, 167, 69, 0.6);
+            border: 3px solid #28a745;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(0, 123, 255, 1);
+                transform: scale(1.05);
+            }
+            100% {
+                box-shadow: 0 0 15px rgba(0, 123, 255, 0.5);
+                transform: scale(1);
+            }
+        }
+
+        /* Стиль для финального экрана с успешной записью */
+        .success-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            text-align: center;
+            display: none;
+        }
+
+        .success-screen.active {
+            display: flex;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .success-icon {
+            font-size: 80px;
+            margin-bottom: 30px;
+            color: #007AFF;
+        }
+
+        .success-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .success-message {
+            font-size: 24px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .success-details {
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            padding: 25px;
+            border-radius: 20px;
+            margin-top: 30px;
+            max-width: 90%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Скрыть элементы */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Тренинг панель */
+        .training-section {
+            flex: 1;
+            max-width: 600px;
+        }
+
+        .training-panel {
+            background: white;
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 25px 75px rgba(0,0,0,0.2);
+            height: 100%;
+        }
+
+        .training-title {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            height: 12px;
+            background: #eee;
+            border-radius: 6px;
+            margin: 30px 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #007AFF, #00b4ff);
+            width: 0%;
+            transition: width 0.5s;
+        }
+
+        .task {
+            margin-bottom: 40px;
+            display: none;
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 30px;
+        }
+
+        .task.active {
+            display: block;
+            border: 3px solid #007AFF;
+            box-shadow: 0 5px 20px rgba(0, 122, 255, 0.1);
+        }
+
+        .task-number {
+            background: #007AFF;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .task-title {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .task-description {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            font-size: 20px;
+            line-height: 1.6;
+            border: 2px solid #eee;
+        }
+
+        /* Большая кнопка помощи */
+        .help-btn-big {
+            background: linear-gradient(135deg, #7ea7cc, #3a86ff);
+            color: white;
+            border: none;
+            padding: 25px 40px;
+            border-radius: 15px;
+            cursor: pointer;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            width: 100%;
+            font-size: 22px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .help-btn-big:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, #2c698d, #3a86ff);
+        }
+
+        .help-btn-big i {
+            font-size: 28px;
+        }
+
+        .help-content-big {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 25px;
+            display: none;
+            border: 3px solid #007AFF;
+            font-size: 20px;
+            line-height: 1.8;
+        }
+
+        .help-content-big.active {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .help-step {
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 4px solid #007AFF;
+            padding: 10px 15px;
+        }
+
+        .next-btn {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            border: none;
+            padding: 25px 50px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 30px;
+            display: none;
+            width: 100%;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.3);
+        }
+
+        .next-btn.active {
+            display: block;
+        }
+
+        .next-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(40, 167, 69, 0.4);
+        }
+
+        .complete-screen {
+            text-align: center;
+            display: none;
+            padding: 40px;
+        }
+
+        .complete-screen.active {
+            display: block;
+        }
+
+        .complete-icon {
+            font-size: 80px;
+            color: #28a745;
+            margin-bottom: 30px;
+        }
+
+        .score {
+            font-size: 60px;
+            font-weight: bold;
+            color: #333;
+            margin: 30px 0;
+        }
+
+        /* Уведомления */
+        .notification {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 30px;
+            z-index: 1000;
+            display: none;
+            font-size: 18px;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .notification.error {
+            background: rgba(220, 53, 69, 0.9);
+        }
+
+        .notification.success {
+            background: rgba(40, 167, 69, 0.9);
+        }
+
+        .notification.info {
+            background: rgba(23, 162, 184, 0.9);
+        }
+
+        .trainer-btn {
+            background: linear-gradient(135deg, #2c698d, #3a86ff);
+            border: none;
+            color: white;
+            border-radius: 25px;
+            padding: 25px 50px;
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 40px;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 25px rgba(44, 105, 141, 0.3);
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .trainer-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(44, 105, 141, 0.4);
+        }
+
+        /* Адаптивность */
+        @media (max-width: 1200px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+                gap: 30px;
+            }
+
+            .phone-container {
+                transform: scale(0.9);
+            }
+
+            .training-section {
+                max-width: 100%;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .phone-container {
+                transform: scale(0.8);
+            }
+
+            .training-panel {
+                padding: 25px;
+            }
+
+            .task-title {
+                font-size: 24px;
+            }
+
+            .task-description {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- Телефон -->
+    <div class="phone-section">
+        <div class="phone-container">
+            <div class="phone-screen">
+                <img id="phone-img" src="{{ url_for('images_files', filename='gosuslugi/im1.jpg') }}" alt="Приложение госуслуги" class="phone-img">
+
+                <!-- Форма входа -->
+                <div id="login-form" class="login-form-overlay">
+                    <input type="text" id="phone-input" class="form-input" placeholder="Телефон или СНИЛС">
+                    <input type="password" id="password-input" class="form-input" placeholder="Пароль">
+                    <button id="submit-login-btn" class="form-btn">
+                        Войти
+                    </button>
+                </div>
+
+                <!-- Форма для ввода региона -->
+                <div id="region-form" class="region-form-overlay">
+                    <input type="text" id="region-input" class="form-input2" placeholder="Введите регион (Москва)">
+                    <button id="submit-region-btn" class="form-btn">
+                        Продолжить
+                    </button>
+                </div>
+
+                <!-- Форма для ввода полиса -->
+                <div id="policy-form" class="policy-form-overlay">
+                    <input type="text" id="policy-input" class="form-input3" placeholder="Введите номер полиса ОМС">
+                    <button id="submit-policy-btn" class="form-btn">
+                        Продолжить
+                    </button>
+                </div>
+
+                <!-- Форма для выбора врача -->
+                <div id="doctor-form" class="doctor-form-overlay">
+                    <select id="doctor-select" class="form-select">
+                        <option value="">Выберите врача</option>
+                        <option value="терапевт">Терапевт</option>
+                        <option value="офтальмолог">Офтальмолог</option>
+                        <option value="хирург">Хирург</option>
+                        <option value="отоларинголог">Отоларинголог</option>
+                    </select>
+                    <button id="submit-doctor-btn" class="form-btn">
+                        Продолжить
+                    </button>
+                </div>
+
+                <!-- Форма для выбора ФИО врача -->
+                <div id="doctor-name-form" class="doctor-form-overlay">
+                    <select id="doctor-name-select" class="form-select">
+                        <option value="">Выберите врача</option>
+                        <option value="Иванов И.П.">Иванов И.П.</option>
+                        <option value="Петрова А.В.">Петрова А.В.</option>
+                        <option value="Сидоров С.М.">Сидоров С.М.</option>
+                        <option value="Кузнецова О.Л.">Кузнецова О.Л.</option>
+                    </select>
+                    <button id="submit-doctor-name-btn" class="form-btn">
+                        Продолжить
+                    </button>
+                </div>
+
+                <!-- Форма для ввода адреса больницы -->
+                <div id="address-form" class="address-form-overlay">
+                    <input type="text" id="address-input" class="form-input" placeholder="Введите адрес больницы">
+                    <button id="submit-address-btn" class="form-btn">
+                        Выбрать
+                    </button>
+                </div>
+
+                <!-- ЭКРАН УСПЕШНОЙ ЗАПИСИ К ВРАЧУ -->
+                <div id="success-screen" class="success-screen">
+                    <div class="success-icon" style="color: #007AFF;">
+                        <i class="bi bi-check-circle-fill"></i>
+                    </div>
+                    <h1 class="success-title" style="color: #333; margin-bottom: 40px;">
+                        ЗАПИСЬ ОФОРМЛЕНА
+                    </h1>
+                    <div style="text-align: center; padding: 30px; background: #f8f9fa; border-radius: 20px; max-width: 90%;">
+                        <h2 style="font-size: 26px; color: #333; margin-bottom: 25px; font-weight: 600;">
+                            Вы успешно записались к офтальмологу
+                        </h2>
+                        <div style="font-size: 24px; margin-bottom: 15px; color: #333;">
+                            <strong>Дата:</strong> 16 февраля
+                        </div>
+                        <div style="font-size: 24px; margin-bottom: 25px; color: #333;">
+                            <strong>Время:</strong> 13:40
+                        </div>
+                        <p style="font-size: 18px; color: #666; margin-top: 20px; font-style: italic;">
+                            Приходите за 10-15 минут до назначенного времени
+                        </p>
+                    </div>
+                </div>
+
+                <!-- ЭКРАН УСПЕШНОЙ ЗАЯВКИ НА ПЕНСИЮ -->
+                <div id="pension-success-screen" class="success-screen">
+                    <div class="success-icon" style="color: #28a745;">
+                        <i class="bi bi-cash-stack"></i>
+                    </div>
+                    <h1 class="success-title" style="color: #333; margin-bottom: 40px;">
+                        ЗАЯВКА НА ПЕНСИЮ ОФОРМЛЕНА
+                    </h1>
+                    <div style="text-align: center; padding: 30px; background: #f8f9fa; border-radius: 20px; max-width: 90%;">
+                        <h2 style="font-size: 26px; color: #333; margin-bottom: 25px; font-weight: 600;">
+                            Заявление на назначение пенсии принято
+                        </h2>
+                        <div style="font-size: 24px; margin-bottom: 15px; color: #333;">
+                            <strong>Номер заявления:</strong> П-2024-876543
+                        </div>
+                        <div style="font-size: 24px; margin-bottom: 25px; color: #333;">
+                            <strong>Статус:</strong> На рассмотрении
+                        </div>
+                        <p style="font-size: 18px; color: #666; margin-top: 20px; font-style: italic;">
+                            Решение будет направлено в личный кабинет в течение 10 рабочих дней
+                        </p>
+                    </div>
+                </div>
+
+                <!-- ФИНАЛЬНЫЙ ЭКРАН ТРЕНИНГА -->
+                <div id="final-success-screen" class="success-screen">
+                    <div class="success-icon" style="color: #ffc107;">
+                        <i class="bi bi-trophy-fill"></i>
+                    </div>
+                    <h1 class="success-title" style="color: #333; margin-bottom: 40px;">
+                        ТРЕНИНГ ЗАВЕРШЕН!
+                    </h1>
+                    <div style="text-align: center; padding: 30px; background: #f8f9fa; border-radius: 20px; max-width: 90%;">
+                        <h2 style="font-size: 26px; color: #333; margin-bottom: 25px; font-weight: 600;">
+                            Поздравляем с успешным завершением тренинга!
+                        </h2>
+                        <div style="font-size: 24px; margin-bottom: 15px; color: #333;">
+                            <strong>Выполнено заданий:</strong> 3/3
+                        </div>
+                        <div style="font-size: 24px; margin-bottom: 25px; color: #333;">
+                            <strong>Результат:</strong> Отлично!
+                        </div>
+                        <p style="font-size: 18px; color: #666; margin-top: 20px; font-style: italic;">
+                            Теперь вы умеете пользоваться основными услугами Госуслуг
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Кнопка Войти - видна только на первом экране -->
+                <button type="button" id="login-btn" class="button-login active" onclick="showLoginForm()">
+                    Войти
+                </button>
+
+                <!-- Кнопка Зарегистрироваться - видна только на первом экране -->
+                <button type="button" id="register-btn" class="button-login2"
+                        onclick="showRegistrationError()">
+                    Зарегистрироваться
+                </button>
+
+                <!-- Кнопки для разных экранов -->
+                <button type="button" id="start-btn" class="button-start hidden" onclick="handleStartButton()">
+                    Начать
+                </button>
+
+                <button type="button" id="continue-btn" class="button-continue hidden" onclick="handleContinueButton()">
+                    Продолжить
+                </button>
+
+                <button type="button" id="select-btn" class="button-select hidden" onclick="handleSelectButton()">
+                    Выбрать
+                </button>
+
+                <button type="button" id="next-btn-phone" class="button-next hidden" onclick="handleNextButton()">
+                    Далее
+                </button>
+
+                <!-- Кликабельные области для медицинской части -->
+                <div id="clickable-area-im4" class="clickable-area hidden" onclick="goToImage('im5')"></div>
+                <div id="clickable-area-im5" class="clickable-area hidden" onclick="goToImage('im6')"></div>
+                <div id="clickable-area-im6" class="clickable-area hidden" onclick="goToImage('im7')"></div>
+                <div id="clickable-area-im8" class="clickable-area hidden" onclick="selectYourself()"></div>
+                <div id="clickable-area-im14" class="clickable-area hidden" onclick="handleIm14Click()"></div>
+                <div id="clickable-area-im15" class="clickable-area hidden" onclick="handleIm15Click()"></div>
+                <div id="clickable-area-im10" class="clickable-area hidden" onclick="showRegionForm()">Продолжить</div>
+
+                <!-- Новые кликабельные области для пенсии (im16-im20) -->
+                <div id="clickable-area-im16" class="clickable-area hidden" onclick="goToImage('im17')"></div>
+
+                <div id="clickable-area-im17" class="clickable-area hidden" onclick="goToImage('im18')">
+                    Назначение пенсии по возрасту
+                </div>
+
+                <div id="clickable-area-im18" class="clickable-area hidden" onclick="goToImage('im19')">
+                    Подать заявление на пенсию
+                </div>
+
+                <div id="clickable-area-im19" class="clickable-area hidden" onclick="goToImage('im20')">
+                    Подтвердить данные
+                </div>
+
+                <div id="clickable-area-im20" class="clickable-area hidden" onclick="handleIm20Click()">
+                    Отправить заявление
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Тренинг панель -->
+    <div class="training-section">
+        <div class="training-panel">
+            <h1 class="training-title"><i class="bi bi-phone"></i> Тренинг: Основные услуги Госуслуги</h1>
+
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+
+            <!-- Задание 1: Войти в аккаунт -->
+            <div id="task1" class="task active">
+                <div class="task-number">1</div>
+                <h2 class="task-title">Войти в аккаунт Госуслуги</h2>
+                <div class="task-description">
+                    <p><strong>Задача:</strong> Войдите в личный кабинет Госуслуг</p>
+                    <p><strong>Внимание:</strong> Не нажимайте "Зарегистрироваться"! Только "Войти"</p>
+                    <p><strong>Данные для входа:</strong></p>
+                    <p>• Телефон: <strong>+7 900 123-45-67</strong></p>
+                    <p>• Пароль: <strong>gosuslugi123</strong></p>
+                </div>
+                <button class="help-btn-big" onclick="toggleHelp(1)">
+                    <i class="bi bi-question-circle"></i> ПОМОЩЬ
+                </button>
+                <div id="help1" class="help-content-big">
+                    <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
+                    <div class="help-step">1. Нажмите на пульсирующую кнопку <strong>"Войти"</strong> внизу экрана</div>
+                    <div class="help-step">2. Введите в верхнее поле: <strong>+7 900 123-45-67</strong></div>
+                    <div class="help-step">3. Введите в нижнее поле: <strong>gosuslugi123</strong></div>
+                    <div class="help-step">4. Нажмите синюю кнопку <strong>"Войти"</strong> внизу экрана</div>
+                    <p style="margin-top: 20px; color: #dc3545; font-weight: bold;">
+                        <i class="bi bi-exclamation-triangle"></i> Не нажимайте "Зарегистрироваться" - это ошибка!
+                    </p>
+                </div>
+            </div>
+
+            <!-- Задание 2: Записаться к врачу -->
+            <div id="task2" class="task">
+                <div class="task-number">2</div>
+                <h2 class="task-title">Записаться к врачу</h2>
+                <div class="task-description">
+                    <p><strong>Задача:</strong> Запишитесь на прием к офтальмологу</p>
+                    <p><strong>Шаги:</strong></p>
+                    <ol style="padding-left: 20px; font-size: 18px;">
+                        <li>Нажмите на кнопку "Мои услуги"</li>
+                        <li>Выберите категориу "Здоровье"</li>
+                        <li>Нажмите "Записаться ко врачу"</li>
+                        <li>Нажмите "Начать"</li>
+                        <li>Выберите "Себя" как пациента</li>
+                        <li>Введите регион "Москва"</li>
+                        <li>Введите полис ОМС: <strong>12345678901234567</strong></li>
+                        <li>Выберите врача "офтальмолог"</li>
+                        <li>Выберите врача "Иванов И.П."</li>
+                        <li>Введите адрес больницы</li>
+                        <li>Выберите дату и время (нажмите "Выбрать время")</li>
+                    </ol>
+                    <p style="margin-top: 20px; color: #17a2b8; font-weight: bold;">
+                        <i class="bi bi-info-circle"></i> После выбора времени произойдет автоматический переход к заданию 3
+                    </p>
+                </div>
+                <button class="help-btn-big" onclick="toggleHelp(2)">
+                    <i class="bi bi-question-circle"></i> ПОМОЩЬ
+                </button>
+                <div id="help2" class="help-content-big">
+                    <p><strong>ОСНОВНЫЕ ЭТАПЫ:</strong></p>
+                    <div class="help-step">1. После входа нажмите на кнопку <strong>"Мои услуги"</strong></div>
+                    <div class="help-step">2. Выберите раздел <strong>"Здоровье"</strong></div>
+                    <div class="help-step">3. Нажмите <strong>"Записаться ко врачу"</strong></div>
+                    <div class="help-step">4. Следуйте инструкциям, заполняя все формы</div>
+                    <div class="help-step">5. Для полиса ОМС используйте: <strong>12345678901234567</strong></div>
+                    <div class="help-step">6. Выберите врача <strong>"офтальмолог"</strong></div>
+                    <div class="help-step">7. После выбора времени начнется задание 3</div>
+                </div>
+            </div>
+
+            <!-- Задание 3: Оформить пенсию -->
+            <div id="task3" class="task">
+                <div class="task-number">3</div>
+                <h2 class="task-title">Оформить пенсию</h2>
+                <div class="task-description">
+                    <p><strong>Задача:</strong> Подать заявление на назначение пенсии по возрасту</p>
+                    <p><strong>Шаги:</strong></p>
+                    <ol style="padding-left: 20px; font-size: 18px;">
+                        <li>Нажмите на кнопку "Мои услуги" (внизу экрана)</li>
+                        <li>Выберите раздел "Пенсия и пособия"</li>
+                        <li>Нажмите "Назначение пенсии по возрасту"</li>
+                        <li>Нажмите "Подать заявление на пенсию"</li>
+                        <li>Подтвердите свои данные</li>
+                        <li>Нажмите "Отправить заявление"</li>
+                    </ol>
+                    <p style="margin-top: 20px; color: #28a745; font-weight: bold;">
+                        <i class="bi bi-info-circle"></i> После отправки заявления тренинг будет завершен
+                    </p>
+                </div>
+                <button class="help-btn-big" onclick="toggleHelp(3)">
+                    <i class="bi bi-question-circle"></i> ПОМОЩЬ
+                </button>
+                <div id="help3" class="help-content-big">
+                    <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
+                    <div class="help-step">1. На главном экране услуг нажмите кнопку <strong>"Мои услуги"</strong></div>
+                    <div class="help-step">2. Выберите раздел <strong>"Пенсия и пособия"</strong></div>
+                    <div class="help-step">3. Нажмите <strong>"Назначение пенсии по возрасту"</strong></div>
+                    <div class="help-step">4. Нажмите кнопку <strong>"Подать заявление на пенсию"</strong></div>
+                    <div class="help-step">5. Подтвердите данные и отправьте заявление</div>
+                    <div class="help-step">6. После этого тренинг будет завершен</div>
+                </div>
+            </div>
+
+            <button id="next-btn" class="next-btn" onclick="nextTask()">
+                СЛЕДУЮЩЕЕ ЗАДАНИЕ <i class="bi bi-arrow-right"></i>
+            </button>
+
+            <div id="complete-screen" class="complete-screen">
+                <div class="complete-icon"><i class="bi bi-trophy-fill"></i></div>
+                <h2 style="font-size: 36px; margin-bottom: 20px;">ТРЕНИНГ ЗАВЕРШЕН!</h2>
+                <div class="score" id="score">3/3</div>
+                <p style="font-size: 24px; color: #666; margin-bottom: 30px;">
+                    Поздравляем! Вы успешно освоили основные услуги Госуслуг
+                </p>
+                <button class="next-btn" onclick="restartTraining()">
+                    <i class="bi bi-arrow-repeat"></i> НАЧАТЬ ЗАНОВО
+                </button>
+                <div style="margin-top: 30px;">
+                    <a href="{{ url_for('go_to_trainer') }}" class="trainer-btn">
+                        <i class="bi bi-arrow-right-circle"></i> НА ГЛАВНУЮ СТРАНИЦУ
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Уведомление -->
+<div id="notification" class="notification"></div>
+
+<script>
+    // Переменные
+    let currentTask = 1;
+    let tasksCompleted = 0;
+    const totalTasks = 3;
+
+    // Состояния выполнения заданий
+    const taskCompleted = Array(totalTasks + 1).fill(false);
+
+    // Показать ошибку регистрации
+    function showRegistrationError() {
+        showNotification('Ошибка! Задание: "Войти в аккаунт". Нажмите кнопку "Войти"', 'error');
+        document.getElementById('login-btn').classList.add('active');
+        setTimeout(() => {
+            document.getElementById('login-btn').classList.remove('active');
+        }, 2000);
+    }
+
+    // Показать форму входа
+    function showLoginForm() {
+        document.getElementById('phone-img').src = "{{ url_for('images_files', filename='gosuslugi/im2.jpg') }}";
+        hideAllClickableAreas();
+        hideAllBlueButtons();
+        document.getElementById('login-btn').classList.add('hidden');
+        document.getElementById('register-btn').classList.add('hidden');
+        document.getElementById('login-form').style.display = 'block';
+
+        document.getElementById('submit-login-btn').onclick = function() {
+            const phone = document.getElementById('phone-input').value.trim();
+            const password = document.getElementById('password-input').value.trim();
+
+            if ((phone === '+7 900 123-45-67' || phone === '+7900123-45-67' || phone === '+79001234567') && password === 'gosuslugi123') {
+                document.getElementById('phone-img').src = "{{ url_for('images_files', filename='gosuslugi/im4.jpg') }}";
+                document.getElementById('login-form').style.display = 'none';
+
+                if (currentTask === 1 && !taskCompleted[1]) {
+                    completeTask(1);
+                    showNotification('Вход выполнен успешно! Задание 1 завершено.', 'success');
+
+                    setTimeout(() => {
+                        showClickableArea('im4');
+                        showNotification('Нажмите на кнопку "Мои услуги" для задания 2');
+                    }, 500);
+                }
+            } else {
+                showNotification('Неверные данные. Используйте: +7 900 123-45-67 / gosuslugi123', 'error');
+            }
+        };
+
+        document.getElementById('password-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('submit-login-btn').click();
+            }
+        });
+
+        showNotification('Введите данные для входа в систему');
+    }
+
+    // Функция перехода к следующему изображению
+    function goToImage(nextImage) {
+        const currentSrc = document.getElementById('phone-img').src;
+        const currentImage = getCurrentImageName(currentSrc);
+
+        hideClickableArea(currentImage);
+        hideAllBlueButtons();
+        hideAllForms();
+        document.getElementById('success-screen').classList.remove('active');
+        document.getElementById('pension-success-screen').classList.remove('active');
+        document.getElementById('final-success-screen').classList.remove('active');
+
+        document.getElementById('phone-img').src = `{{ url_for('images_files', filename='gosuslugi/') }}${nextImage}.jpg`;
+
+        setTimeout(() => {
+            switch(nextImage) {
+                case 'im4':
+                    showClickableArea('im4');
+                    showNotification('Нажмите на кнопку "Мои услуги"');
+                    break;
+                case 'im5':
+                    showClickableArea('im5');
+                    showNotification('Нажмите на раздел "Здоровье"');
+                    break;
+                case 'im6':
+                    showClickableArea('im6');
+                    showNotification('Нажмите на "Записаться ко врачу"');
+                    break;
+                case 'im7':
+                    document.getElementById('start-btn').classList.remove('hidden');
+                    document.getElementById('start-btn').classList.add('active');
+                    showNotification('Нажмите на синюю кнопку "Начать"');
+                    break;
+                case 'im8':
+                    showClickableArea('im8');
+                    showNotification('Нажмите на зеленую кнопку "Себя"');
+                    break;
+                case 'im9':
+                    setTimeout(() => {
+                        showRegionForm();
+                    }, 500);
+                    break;
+                case 'im10':
+                    setTimeout(() => {
+                        showPolicyForm();
+                    }, 500);
+                    break;
+                case 'im11':
+                    setTimeout(() => {
+                        showDoctorForm();
+                    }, 500);
+                    break;
+                case 'im12':
+                    setTimeout(() => {
+                        showDoctorNameForm();
+                    }, 500);
+                    break;
+                case 'im13':
+                    setTimeout(() => {
+                        showAddressForm();
+                    }, 500);
+                    break;
+                case 'im14':
+                    setTimeout(() => {
+                        showClickableArea('im14');
+                        showNotification('Нажмите "Выбрать время" для завершения записи');
+                    }, 500);
+                    break;
+                case 'im15':
+                    // Пропускаем im15 - сразу переходим к заданию 3
+                    setTimeout(() => {
+                        showNotification('Запись к врачу завершена! Переходим к заданию 3...', 'success');
+                        setTimeout(() => {
+                            startTask3();
+                        }, 1500);
+                    }, 500);
+                    break;
+                case 'im16':
+                    setTimeout(() => {
+                        showClickableArea('im16');
+                        showNotification('Нажмите на кнопку "Мои услуги" для задания 3');
+                    }, 500);
+                    break;
+                case 'im17':
+                    setTimeout(() => {
+                        showClickableArea('im17');
+                        showNotification('Нажмите "Назначение пенсии по возрасту"');
+                    }, 500);
+                    break;
+                case 'im18':
+                    setTimeout(() => {
+                        showClickableArea('im18');
+                        showNotification('Нажмите "Подать заявление на пенсию"');
+                    }, 500);
+                    break;
+                case 'im19':
+                    setTimeout(() => {
+                        showClickableArea('im19');
+                        showNotification('Нажмите "Подтвердить данные"');
+                    }, 500);
+                    break;
+                case 'im20':
+                    setTimeout(() => {
+                        showClickableArea('im20');
+                        showNotification('Нажмите "Отправить заявление" для завершения тренинга');
+                    }, 500);
+                    break;
+            }
+        }, 500);
+    }
+
+    // Обработка кнопки "Начать" на im7
+    function handleStartButton() {
+        document.getElementById('start-btn').classList.add('hidden');
+        document.getElementById('start-btn').classList.remove('active');
+
+        setTimeout(() => {
+            goToImage('im8');
+            showNotification('Выберите "Себя" в качестве пациента');
+        }, 500);
+    }
+
+    // Выбор "Себя" на im8
+    function selectYourself() {
+        hideClickableArea('im8');
+        setTimeout(() => {
+            goToImage('im9');
+            showNotification('Введите регион "Москва"');
+        }, 500);
+    }
+
+    // Обработка клика на im14 (выбор времени)
+    function handleIm14Click() {
+        hideClickableArea('im14');
+
+        if (currentTask === 2 && !taskCompleted[2]) {
+            completeTask(2);
+            showNotification('Время выбрано! Задание 2 завершено. Переходим к заданию 3...', 'success');
+
+            // Автоматический переход к заданию 3 через 1.5 секунды
+            setTimeout(() => {
+                startTask3();
+            }, 1500);
+        }
+    }
+
+    // Начать задание 3 (после завершения задания 2)
+    function startTask3() {
+        // Переходим на im16 (главный экран услуг для задания 3)
+        document.getElementById('phone-img').src = "{{ url_for('images_files', filename='gosuslugi/im4.jpg') }}";
+
+        setTimeout(() => {
+            showClickableArea('im16');
+            showNotification('Нажмите на кнопку "Мои услуги" для задания 3: Оформление пенсии');
+        }, 500);
+    }
+
+    // Обработка клика на im20 (отправка заявления на пенсию)
+    function handleIm20Click() {
+        hideClickableArea('im20');
+        document.getElementById('phone-img').style.display = 'none';
+        document.getElementById('pension-success-screen').classList.add('active');
+
+        if (currentTask === 3 && !taskCompleted[3]) {
+            completeTask(3);
+            showNotification('Заявление на пенсию успешно подано! Задание 3 завершено.', 'success');
+
+            // Через 3 секунды показываем финальный экран тренинга
+            setTimeout(() => {
+                document.getElementById('pension-success-screen').classList.remove('active');
+                document.getElementById('final-success-screen').classList.add('active');
+
+                // Показываем экран завершения в тренинг-панели
+                setTimeout(() => {
+                    document.getElementById('complete-screen').classList.add('active');
+                    document.getElementById('task' + totalTasks).classList.remove('active');
+                    document.getElementById('next-btn').classList.remove('active');
+                    document.getElementById('score').textContent = totalTasks + '/' + totalTasks;
+                }, 1000);
+            }, 3000);
+        }
+    }
+
+    // Показать форму для региона
+    function showRegionForm() {
+        document.getElementById('region-form').style.display = 'block';
+
+        document.getElementById('submit-region-btn').onclick = function() {
+            const region = document.getElementById('region-input').value.trim();
+
+            if (region.toLowerCase() === 'москва') {
+                document.getElementById('region-form').style.display = 'none';
+                setTimeout(() => {
+                    goToImage('im10');
+                }, 500);
+            } else {
+                showNotification('Неверный регион. Введите: Москва', 'error');
+            }
+        };
+
+        document.getElementById('region-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('submit-region-btn').click();
+            }
+        });
+    }
+
+    // Показать форму для полиса
+    function showPolicyForm() {
+        document.getElementById('policy-form').style.display = 'block';
+
+        document.getElementById('submit-policy-btn').onclick = function() {
+            const policy = document.getElementById('policy-input').value.trim();
+
+            if (policy === '12345678901234567') {
+                document.getElementById('policy-form').style.display = 'none';
+                setTimeout(() => {
+                    goToImage('im11');
+                }, 500);
+            } else {
+                showNotification('Неверный номер полиса. Используйте: 12345678901234567', 'error');
+            }
+        };
+
+        document.getElementById('policy-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('submit-policy-btn').click();
+            }
+        });
+    }
+
+    // Показать форму для выбора врача
+    function showDoctorForm() {
+        document.getElementById('doctor-form').style.display = 'block';
+
+        document.getElementById('submit-doctor-btn').onclick = function() {
+            const doctor = document.getElementById('doctor-select').value;
+
+            if (doctor === 'офтальмолог') {
+                document.getElementById('doctor-form').style.display = 'none';
+                setTimeout(() => {
+                    goToImage('im12');
+                }, 500);
+            } else {
+                showNotification('Неверный выбор. Выберите "офтальмолог"', 'error');
+            }
+        };
+    }
+
+    // Показать форму для выбора ФИО врача
+    function showDoctorNameForm() {
+        document.getElementById('doctor-name-form').style.display = 'block';
+
+        document.getElementById('submit-doctor-name-btn').onclick = function() {
+            const doctorName = document.getElementById('doctor-name-select').value;
+
+            if (doctorName === 'Иванов И.П.') {
+                document.getElementById('doctor-name-form').style.display = 'none';
+                setTimeout(() => {
+                    goToImage('im13');
+                }, 500);
+            } else {
+                showNotification('Неверный выбор. Выберите "Иванов И.П."', 'error');
+            }
+        };
+    }
+
+    // Показать форму для адреса
+    function showAddressForm() {
+        document.getElementById('address-form').style.display = 'block';
+
+        document.getElementById('submit-address-btn').onclick = function() {
+            const address = document.getElementById('address-input').value.trim();
+
+            if (address.length > 5) {
+                document.getElementById('address-form').style.display = 'none';
+                setTimeout(() => {
+                    goToImage('im14');
+                }, 500);
+            } else {
+                showNotification('Введите корректный адрес больницы', 'error');
+            }
+        };
+
+        document.getElementById('address-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('submit-address-btn').click();
+            }
+        });
+    }
+
+    // Получить имя текущего изображения из src
+    function getCurrentImageName(src) {
+        const match = src.match(/im\d+/);
+        return match ? match[0] : '';
+    }
+
+    // Показать кликабельную область для конкретного изображения
+    function showClickableArea(imageName) {
+        const elementId = `clickable-area-${imageName}`;
+        const element = document.getElementById(elementId);
+        if (element) {
+            element.classList.remove('hidden');
+            element.classList.add('active');
+        }
+    }
+
+    // Скрыть кликабельную область для конкретного изображения
+    function hideClickableArea(imageName) {
+        const elementId = `clickable-area-${imageName}`;
+        const element = document.getElementById(elementId);
+        if (element) {
+            element.classList.add('hidden');
+            element.classList.remove('active');
+        }
+    }
+
+    // Скрыть все кликабельные области
+    function hideAllClickableAreas() {
+        document.querySelectorAll('.clickable-area').forEach(area => {
+            area.classList.add('hidden');
+            area.classList.remove('active');
+        });
+    }
+
+    // Скрыть все синие кнопки
+    function hideAllBlueButtons() {
+        document.getElementById('start-btn').classList.add('hidden');
+        document.getElementById('continue-btn').classList.add('hidden');
+        document.getElementById('select-btn').classList.add('hidden');
+        document.getElementById('next-btn-phone').classList.add('hidden');
+        document.getElementById('login-btn').classList.add('hidden');
+        document.getElementById('register-btn').classList.add('hidden');
+    }
+
+    // Скрыть все формы
+    function hideAllForms() {
+        document.getElementById('login-form').style.display = 'none';
+        document.getElementById('region-form').style.display = 'none';
+        document.getElementById('policy-form').style.display = 'none';
+        document.getElementById('doctor-form').style.display = 'none';
+        document.getElementById('doctor-name-form').style.display = 'none';
+        document.getElementById('address-form').style.display = 'none';
+    }
+
+    function completeTraining() {
+        if (tasksCompleted === totalTasks) {
+            fetch("/public_services_pro", {method: "POST"});
+        }
+    }
+
+    // Завершить задание
+    function completeTask(taskNum) {
+        if (!taskCompleted[taskNum]) {
+            taskCompleted[taskNum] = true;
+            tasksCompleted++;
+            updateProgress();
+
+            document.getElementById('next-btn').classList.add('active');
+            showNotification('Задание ' + taskNum + ' выполнено!', 'success');
+
+            if (tasksCompleted === totalTasks) {
+                completeTraining();
+            }
+        }
+    }
+
+    // Следующее задание
+    function nextTask() {
+        document.getElementById('task' + currentTask).classList.remove('active');
+        document.getElementById('next-btn').classList.remove('active');
+        document.querySelectorAll('.help-content-big').forEach(help => {
+            help.classList.remove('active');
+        });
+
+        currentTask++;
+
+        if (currentTask <= totalTasks) {
+            document.getElementById('task' + currentTask).classList.add('active');
+
+            const currentSrc = document.getElementById('phone-img').src;
+            const currentImage = getCurrentImageName(currentSrc);
+
+            const taskToImageMap = {
+                1: '',
+                2: 'im4',
+                3: 'im4'
+            };
+
+            const expectedImage = taskToImageMap[currentTask];
+
+            if (currentImage === expectedImage || (currentTask === 1 && currentImage === 'im1')) {
+                setTimeout(() => {
+                    switch(currentTask) {
+                        case 1:
+                            document.getElementById('login-btn').classList.remove('hidden');
+                            document.getElementById('login-btn').classList.add('active');
+                            document.getElementById('register-btn').classList.remove('hidden');
+                            showNotification('Нажмите на пульсирующую кнопку "Войти"');
+                            break;
+                        case 2:
+                            if (currentImage === 'im4') {
+                                showClickableArea('im4');
+                                showNotification('Нажмите на кнопку "Мои услуги" для задания 2');
+                            } else {
+                                document.getElementById('phone-img').src = "{{ url_for('images_files', filename='gosuslugi/im4.jpg') }}";
+                                setTimeout(() => {
+                                    showClickableArea('im4');
+                                    showNotification('Нажмите на кнопку "Мои услуги" для задания 2');
+                                }, 500);
+                            }
+                            break;
+                        case 3:
+                            if (taskCompleted[2]) {
+                                // Если задание 2 уже выполнено, показываем задание 3
+                                if (currentImage === 'im4') {
+                                    showClickableArea('im16');
+                                    showNotification('Нажмите на кнопку "Мои услуги" для задания 3');
+                                } else {
+                                    document.getElementById('phone-img').src = "{{ url_for('images_files', filename='gosuslugi/im4.jpg') }}";
+                                    setTimeout(() => {
+                                        showClickableArea('im16');
+                                        showNotification('Нажмите на кнопку "Мои услуги" для задания 3');
+                                    }, 500);
+                                }
+                            } else {
+                                showNotification('Сначала завершите задание 2: Записаться к врачу', 'info');
+                            }
+                            break;
+                    }
+                }, 500);
+            }
+        }
+    }
+
+    // Обновить прогресс
+    function updateProgress() {
+        const progress = (tasksCompleted / totalTasks) * 100;
+        document.getElementById('progress').style.width = progress + '%';
+    }
+
+    // Показать/скрыть помощь
+    function toggleHelp(taskNum) {
+        const help = document.getElementById('help' + taskNum);
+        help.classList.toggle('active');
+    }
+
+    // Показать уведомление
+    function showNotification(message, type = '') {
+        const notification = document.getElementById('notification');
+        notification.textContent = message;
+        notification.className = 'notification';
+        if (type) {
+            notification.classList.add(type);
+        }
+        notification.style.display = 'block';
+
+        setTimeout(() => {
+            notification.style.display = 'none';
+        }, 3000);
+    }
+
+    // Начать заново
+    function restartTraining() {
+        currentTask = 1;
+        tasksCompleted = 0;
+
+        for (let i = 1; i <= totalTasks; i++) {
+            taskCompleted[i] = false;
+        }
+
+        document.getElementById('complete-screen').classList.remove('active');
+        document.getElementById('success-screen').classList.remove('active');
+        document.getElementById('pension-success-screen').classList.remove('active');
+        document.getElementById('final-success-screen').classList.remove('active');
+        document.getElementById('phone-img').style.display = 'block';
+
+        document.querySelectorAll('.task').forEach(task => {
+            task.classList.remove('active');
+        });
+        document.getElementById('task1').classList.add('active');
+
+        document.getElementById('next-btn').classList.remove('active');
+
+        document.querySelectorAll('.help-content-big').forEach(help => {
+            help.classList.remove('active');
+        });
+
+        document.getElementById('phone-img').src = "{{ url_for('images_files', filename='gosuslugi/im1.jpg') }}";
+
+        hideAllForms();
+
+        document.getElementById('login-btn').classList.remove('hidden');
+        document.getElementById('login-btn').classList.add('active');
+        document.getElementById('register-btn').classList.remove('hidden');
+
+        hideAllBlueButtons();
+        hideAllClickableAreas();
+
+        document.getElementById('phone-input').value = '';
+        document.getElementById('password-input').value = '';
+        document.getElementById('region-input').value = '';
+        document.getElementById('policy-input').value = '';
+        document.getElementById('doctor-select').value = '';
+        document.getElementById('doctor-name-select').value = '';
+        document.getElementById('address-input').value = '';
+
+        updateProgress();
+        showNotification('Тренинг начат заново. Удачи!');
+    }
+
+    // Инициализация
+    document.addEventListener('DOMContentLoaded', function() {
+        showNotification('Тренинг готов к работе! Начните с задания 1.');
+
+        document.getElementById('password-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('submit-login-btn').click();
+            }
+        });
+
+        document.getElementById('region-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('submit-region-btn').click();
+            }
+        });
+
+        document.getElementById('policy-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('submit-policy-btn').click();
+            }
+        });
+
+        document.getElementById('address-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('submit-address-btn').click();
+            }
+        });
+    });
+</script>
+</body>
+</html>

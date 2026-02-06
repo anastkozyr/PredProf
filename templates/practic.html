@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Прямоугольники - Digital Navigator</title>
+    <title>Курсы - Digital Navigator</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     <style>
@@ -207,9 +207,15 @@
                             <div class="rectangle-content">
                                 Изучите основные функции смартфона: настройки, звонки, сообщения и многое другое
                             </div>
-                            <a href="{{ url_for('buttons') }}" class="start-button">
+                            {% if user_level == 'basic' %}
+                            <a href="{{ url_for('smartphone_basics_base') }}" class="start-button">
                                 Начать обучение
                             </a>
+                            {% else %}
+                            <a href="{{ url_for('smartphone_basics') }}" class="start-button">
+                                Начать обучение
+                            </a>
+                            {% endif %}
                         </div>
 
                         <!-- Второй прямоугольник -->
@@ -235,9 +241,15 @@
                             <div class="rectangle-content">
                                 Освойте портал Госуслуг: запись к врачу, оплата налогов, получение документов
                             </div>
+                            {% if user_level == 'basic' %}
                             <a href="{{ url_for('gosuslugi_training') }}" class="start-button">
                                 Начать обучение
                             </a>
+                            {% else %}
+                            <a href="{{ url_for('gosuslugi_training_pro') }}" class="start-button">
+                                Начать обучение
+                            </a>
+                            {% endif %}
                         </div>
 
                         <!-- Четвертый прямоугольник -->
@@ -249,9 +261,15 @@
                             <div class="rectangle-content">
                                 Научитесь безопасно совершать покупки в интернете, сравнивать цены и выбирать товары
                             </div>
+                            {% if user_level == 'basic' %}
+                            <a href="{{ url_for('online_shopping_basic') }}" class="start-button">
+                                Начать обучение
+                            </a>
+                            {% else %}
                             <a href="{{ url_for('online_shopping') }}" class="start-button">
                                 Начать обучение
                             </a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
