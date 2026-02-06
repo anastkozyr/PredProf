@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from aiogram import Bot, Dispatcher, F
 from aiogram.filters import CommandStart
 from aiogram.types import (
@@ -22,6 +24,8 @@ task_2 = KeyboardButton(text='MAX')
 task_3 = KeyboardButton(text='Госуслуги')
 task_4 = KeyboardButton(text='Пятерочка')
 
+BASE_DIR = Path(__file__).parent
+
 keyboard = ReplyKeyboardMarkup(keyboard=[[button_1, button_2]], resize_keyboard=True)
 tasks_keyboard = ReplyKeyboardMarkup(keyboard=[[task_1, task_2, task_3, task_4]], resize_keyboard=True)
 
@@ -45,7 +49,7 @@ async def process_yes_answer(message: Message):
 @dp.message(F.text == 'Узнать, как пользоваться сайтом')
 async def process_no_answer(message: Message):
     # ПОМЕНЯТЬ НА НУЖНОЕ ВИДЕО
-    video = FSInputFile(path='/Users/ulanasuhova/Documents/GitHub/PredProf/bot/videos/os.mp4')
+    video = FSInputFile(path=f'{BASE_DIR}/videos/os.mp4')
     await bot.send_video(
         chat_id=message.chat.id,
         video=video,
@@ -57,7 +61,7 @@ async def process_no_answer(message: Message):
 @dp.message(F.text == 'Основы смартфона')
 async def os_video(message: Message):
     # ПОМЕНЯТЬ НА НУЖНОЕ ВИДЕО
-    video = FSInputFile(path='/Users/ulanasuhova/Documents/GitHub/PredProf/bot/videos/os.mp4')
+    video = FSInputFile(path=f'{BASE_DIR}/videos/os.mp4')
     await bot.send_video(
         chat_id=message.chat.id,
         video=video,
@@ -69,7 +73,7 @@ async def os_video(message: Message):
 @dp.message(F.text == 'MAX')
 async def max_video(message: Message):
     #ПОМЕНЯТЬ НА НУЖНОЕ ВИДЕО
-    video = FSInputFile(path='/Users/ulanasuhova/Documents/GitHub/PredProf/bot/videos/os.mp4')
+    video = FSInputFile(path=f'{BASE_DIR}/videos/os.mp4')
     await bot.send_video(
         chat_id=message.chat.id,
         video=video,
@@ -81,7 +85,7 @@ async def max_video(message: Message):
 @dp.message(F.text == 'Госуслуги')
 async def gos_video(message: Message):
     # ПОМЕНЯТЬ НА НУЖНОЕ ВИДЕО
-    video = FSInputFile(path='/Users/ulanasuhova/Documents/GitHub/PredProf/bot/videos/os.mp4')
+    video = FSInputFile(path=f'{BASE_DIR}/videos/os.mp4')
     await bot.send_video(
         chat_id=message.chat.id,
         video=video,
@@ -93,7 +97,7 @@ async def gos_video(message: Message):
 @dp.message(F.text == 'Пятерочка')
 async def five_video(message: Message):
     # ПОМЕНЯТЬ НА НУЖНОЕ ВИДЕО
-    video = FSInputFile(path='/Users/ulanasuhova/Documents/GitHub/PredProf/bot/videos/os.mp4')
+    video = FSInputFile(path=f'{BASE_DIR}/videos/os.mp4')
     await bot.send_video(
         chat_id=message.chat.id,
         video=video,
