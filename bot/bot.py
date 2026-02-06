@@ -49,60 +49,75 @@ async def process_yes_answer(message: Message):
 @dp.message(F.text == 'Узнать, как пользоваться сайтом')
 async def process_no_answer(message: Message):
     # ПОМЕНЯТЬ НА НУЖНОЕ ВИДЕО
+    await message.answer(
+        text='Отправляем видео...',
+        reply_markup=keyboard
+    )
     video = FSInputFile(path=f'{BASE_DIR}/videos/os.mp4')
     await bot.send_video(
         chat_id=message.chat.id,
         video=video,
-        caption='Видеоинструкция по использованию сайта',
-        reply_markup=ReplyKeyboardRemove()
+        caption='Видеоинструкция по использованию сайта'
     )
 
 
 @dp.message(F.text == 'Основы смартфона')
 async def os_video(message: Message):
     # ПОМЕНЯТЬ НА НУЖНОЕ ВИДЕО
+    await message.answer(
+        text='Отправляем видео...',
+        reply_markup=keyboard
+    )
     video = FSInputFile(path=f'{BASE_DIR}/videos/os.mp4')
     await bot.send_video(
         chat_id=message.chat.id,
         video=video,
-        caption='Видеоинструкция по основам смартфона',
-        reply_markup=ReplyKeyboardRemove()
+        caption='Видеоинструкция по основам смартфона'
     )
 
 
 @dp.message(F.text == 'MAX')
 async def max_video(message: Message):
     # ПОМЕНЯТЬ НА НУЖНОЕ ВИДЕО
+    await message.answer(
+        text='Отправляем видео...',
+        reply_markup=keyboard
+    )
     video = FSInputFile(path=f'{BASE_DIR}/videos/os.mp4')
     await bot.send_video(
         chat_id=message.chat.id,
         video=video,
-        caption='Видеоинструкция по MAX',
-        reply_markup=ReplyKeyboardRemove()
+        caption='Видеоинструкция по MAX'
     )
 
 
 @dp.message(F.text == 'Госуслуги')
 async def gos_video(message: Message):
     # ПОМЕНЯТЬ НА НУЖНОЕ ВИДЕО
+    await message.answer(
+        text='Отправляем видео...',
+        reply_markup=keyboard
+    )
     video = FSInputFile(path=f'{BASE_DIR}/videos/os.mp4')
     await bot.send_video(
         chat_id=message.chat.id,
         video=video,
-        caption='Видеоинструкция по Госуслугам',
-        reply_markup=ReplyKeyboardRemove()
+        caption='Видеоинструкция по Госуслугам'
     )
 
 
 @dp.message(F.text == 'Пятерочка')
 async def five_video(message: Message):
     # ПОМЕНЯТЬ НА НУЖНОЕ ВИДЕО
+    await message.answer(
+        text='Отправляем видео...',
+        reply_markup=keyboard
+    )
     video = FSInputFile(path=f'{BASE_DIR}/videos/os.mp4')
     await bot.send_video(
         chat_id=message.chat.id,
         video=video,
-        caption='Видеоинструкция по Пятерочке',
-        reply_markup=ReplyKeyboardRemove()
+        caption='Видеоинструкция по Пятерочке'
     )
 
 
