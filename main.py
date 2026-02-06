@@ -1,5 +1,4 @@
-from flask import Flask, render_template, send_from_directory, redirect, request, flash, session, \
-    url_for  # ← добавили request!
+from flask import Flask, render_template, send_from_directory, redirect, request  # ← добавили request!
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from data import db_session
 from data.users import User
@@ -14,7 +13,6 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 
-
 @login_manager.user_loader
 def load_user(user_id):
     db_sess = db_session.create_session()
@@ -23,11 +21,9 @@ def load_user(user_id):
     finally:
         db_sess.close()
 
-
 @app.route('/')
 def start_page():
     return render_template('base.html')
-
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -38,13 +34,13 @@ def register():
         try:
             if db_sess.query(User).filter(User.name == form.name.data).first():
                 return render_template('register.html',
-                                       form=form,
-                                       message="Пользователь с таким именем уже существует")
+                                     form=form,
+                                     message="Пользователь с таким именем уже существует")
 
             user = User(
                 name=form.name.data,
                 # email больше не обязателен
-                level=form.level.data  # Поле level
+                level=form.level.data # Поле level
             )
             user.set_password(form.password.data)
 
@@ -55,7 +51,6 @@ def register():
             db_sess.close()
 
     return render_template('register.html', form=form)
-
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -72,7 +67,7 @@ def login():
 
             return render_template('login.html',
                                    message="Неправильное имя пользователя или пароль",
-                                   form=form)
+                                    form=form)
         finally:
             db_sess.close()
 
@@ -85,17 +80,14 @@ def logout():
     logout_user()
     return redirect("/")
 
-
 @app.route('/images/<path:filename>')
 def images_files(filename):
     return send_from_directory('images', filename)
-
 
 @app.route('/go-to-trainer')
 @login_required
 def go_to_trainer():
     return render_template('practic.html')
-
 
 @app.route('/smartphone_basics')
 @login_required
@@ -103,49 +95,25 @@ def smartphone_basics():
     user_level = current_user.level
     return render_template('smartphone_basics.html', user_level=user_level)
 
-
-@app.route('/smartphone_basics_base')
-@login_required
-def smartphone_basics_base():
-    user_level = current_user.level
-    return render_template('smartphone_basics_base.html', user_level=user_level)
-
-
 @app.route('/messenger_training')
 @login_required
 def messenger_training():
     return render_template('messenger_training.html')
-
 
 @app.route('/public-services')
 @login_required
 def gosuslugi_training():
     return render_template('public_services.html')
 
-
-@app.route('/teory_smartphone-services')
-@login_required
-def teory_smartphone():
-    return render_template('teory_smartphone.html')
-
-
 @app.route('/online_shopping')
 @login_required
 def online_shopping():
-    return render_template('online_shopping_pro.html')
-
+    return render_template('online_shopping_basic.html')
 
 @app.route('/buttons')
 @login_required
 def buttons():
-    user_level = current_user.level
-    return render_template('buttons.html', user_level=user_level)
-
-
-@app.route('/account')
-@login_required
-def account():
-    return render_template('account.html')
+    return render_template('buttons.html')
 
 if __name__ == '__main__':
     app.run(debug=True, port=8028, host='127.0.0.1')
