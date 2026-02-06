@@ -24,10 +24,16 @@ task_2 = KeyboardButton(text='MAX')
 task_3 = KeyboardButton(text='Госуслуги')
 task_4 = KeyboardButton(text='Пятерочка')
 
+help_1 = KeyboardButton(text='Задание не переходит на следующее')
+help_2 = KeyboardButton(text='Сменить уровень обучения')
+help_3 = KeyboardButton(text='Выйти из аккаунта')
+help_4 = KeyboardButton(text='Другой вопрос')
+
 BASE_DIR = Path(__file__).parent
 
 keyboard = ReplyKeyboardMarkup(keyboard=[[button_1, button_2]], resize_keyboard=True)
 tasks_keyboard = ReplyKeyboardMarkup(keyboard=[[task_1, task_2, task_3, task_4]], resize_keyboard=True)
+help_keyboard = ReplyKeyboardMarkup(keyboard=[[help_1, help_2, help_3, help_4]], resize_keyboard=True)
 
 
 @dp.message(CommandStart())
@@ -118,6 +124,42 @@ async def five_video(message: Message):
         chat_id=message.chat.id,
         video=video,
         caption='Видеоинструкция по Пятерочке'
+    )
+
+
+@dp.message(F.text == 'Задание не переходит на следующее')
+async def help_with_path(message: Message):
+    # ПОМЕНЯТЬ НА НУЖНОЕ ВИДЕО
+    await message.answer(
+        text='Попробуйте выйти из тренинга и пройти его заново. Обратите внимание, что после выполнения каждого задания появляется кнопка "Следующее задание". Её нужно нажать, чтобы тренинг продолжился корректно. ',
+        reply_markup=keyboard
+    )
+
+
+@dp.message(F.text == 'Сменить уровень обучения')
+async def help_change_level(message: Message):
+    # ПОМЕНЯТЬ НА НУЖНОЕ ВИДЕО
+    await message.answer(
+        text='Чтобы сменить уровень обучения, вернитесь к выбору тренинга и нажмите кнопку "Посмотреть профиль" в правом верхнем углу. В открывшемся профиле есть кнопки выбора уровня, используйте их. Выбранный уровень будет подсвечиваться, поменять его можно в любое время.',
+        reply_markup=keyboard
+    )
+
+
+@dp.message(F.text == 'Выйти из аккаунта')
+async def help_logout(message: Message):
+    # ПОМЕНЯТЬ НА НУЖНОЕ ВИДЕО
+    await message.answer(
+        text='Чтобы выйти из аккаунта, вернитесь к выбору тренинга и нажмите кнопку "Посмотреть профиль" в правом верхнем углу. В открывшемся профиле пролистните страницу вниз. Там вы найдете кнопку "Выйти из профиля", используйте её.',
+        reply_markup=keyboard
+    )
+
+
+@dp.message(F.text == 'Другой вопрос')
+async def other_question(message: Message):
+    # ПОМЕНЯТЬ НА НУЖНОЕ ВИДЕО
+    await message.answer(
+        text='Напишите свой вопрос...',
+        reply_markup=keyboard
     )
 
 
