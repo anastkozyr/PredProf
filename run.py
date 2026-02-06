@@ -23,3 +23,7 @@ if __name__ == '__main__':
 
     time.sleep(3)
     start_telegram_bot()
+
+
+
+#ffmpeg -i os.mp4 -vcodec libx264 -crf 28 -preset ultrafast -vf scale=640:-1 -acodec aac -b:a 64k -movflags +faststart -y os_fast.mp4
