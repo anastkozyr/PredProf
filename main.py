@@ -1,5 +1,5 @@
 from flask import Flask, render_template, send_from_directory, redirect, request, flash, session, \
-    url_for, jsonify
+    url_for  # ← добавили request!
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from data import db_session
 from data.users import User
@@ -129,28 +129,9 @@ def teory_smartphone():
     return render_template('teory_smartphone.html')
 
 
-@app.route('/online_shopping_basic', methods=['POST'])
-@login_required
-def online_shopping_basic():
-    db_sess = db_session.create_session()
-    user = db_sess.query(User).filter(User.id == current_user.id).first()
-    user.progress_basic = user.progress_basic[:3] + "1"
-    db_sess.commit()
-    return jsonify({"status": "ok"})
-
-@app.route('/online_shopping_basic', methods=['GET'])
-@login_required
-def online_shopping_basic_page():
-    return render_template('online_shopping_basic.html')
-
-@app.route('/online_shopping_pro', methods=['POST'])
+@app.route('/online_shopping')
 @login_required
 def online_shopping():
-    return render_template('online_shopping_pro.html')
-
-@app.route('/online_shopping_pro', methods=['GET'])
-@login_required
-def online_shopping_page():
     return render_template('online_shopping_pro.html')
 
 
@@ -165,9 +146,6 @@ def buttons():
 @login_required
 def account():
     return render_template('account.html')
-
-
-
 
 if __name__ == '__main__':
     app.run(debug=True, port=8028, host='127.0.0.1')
