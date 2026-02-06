@@ -383,48 +383,49 @@
         /* Новые кликабельные области для пенсии (im16-im20) */
         #clickable-area-im16 {
             top: 87%;
-            left: 19.2%;
+            left: 76.2%;
             width: 22%;
             height: 10%;
         }
 
         #clickable-area-im17 {
-            top: 25%;
-            left: 5%;
-            width: 90%;
-            height: 8%;
-            background: rgba(40, 167, 69, 0.6);
-            border: 3px solid #28a745;
+            top: 60%;
+            left: 4%;
+            width: 93%;
+            height: 9%;
+            background: rgba(0, 123, 255, 0.6);
+            border: 3px solid #007bff;
             font-size: 20px;
         }
 
         #clickable-area-im18 {
-            top: 40%;
+            top: 70%;
             left: 5%;
-            width: 90%;
-            height: 12%;
-            background: rgba(40, 167, 69, 0.6);
-            border: 3px solid #28a745;
+            width: 92%;
+            height: 7%;
+            background: rgba(0, 123, 255, 0.6);
+            border: 3px solid #007bff;
             font-size: 18px;
         }
 
         #clickable-area-im19 {
-            top: 60%;
+            top: 82%;
             left: 5%;
             width: 90%;
-            height: 10%;
-            background: rgba(40, 167, 69, 0.6);
-            border: 3px solid #28a745;
+            height: 7%;
+            background: rgba(0, 123, 255, 0.6);
+            border: 3px solid #007bff;
             font-size: 20px;
         }
 
         #clickable-area-im20 {
-            bottom: 40%;
-            left: 10%;
-            right: 10%;
+            bottom: 80%;
+            left: 81%;
+            right: 1%;
             height: 8%;
-            background: rgba(40, 167, 69, 0.6);
-            border: 3px solid #28a745;
+            width: 17%;
+            background: rgba(0, 123, 255, 0.6);
+            border: 3px solid #007bff;
             font-size: 22px;
             font-weight: bold;
         }
@@ -971,10 +972,9 @@
                 <div id="clickable-area-im10" class="clickable-area hidden" onclick="showRegionForm()">Продолжить</div>
 
                 <!-- Новые кликабельные области для пенсии (im16-im20) -->
-                <div id="clickable-area-im16" class="clickable-area hidden" onclick="goToImage('im17')"></div>
+                <div id="clickable-area-im16" class="clickable-area hidden" onclick="handleIm16Click()"></div>
 
                 <div id="clickable-area-im17" class="clickable-area hidden" onclick="goToImage('im18')">
-                    Назначение пенсии по возрасту
                 </div>
 
                 <div id="clickable-area-im18" class="clickable-area hidden" onclick="goToImage('im19')">
@@ -982,11 +982,11 @@
                 </div>
 
                 <div id="clickable-area-im19" class="clickable-area hidden" onclick="goToImage('im20')">
-                    Подтвердить данные
+                    Разрешить
                 </div>
 
                 <div id="clickable-area-im20" class="clickable-area hidden" onclick="handleIm20Click()">
-                    Отправить заявление
+
                 </div>
             </div>
         </div>
@@ -1007,7 +1007,6 @@
                 <h2 class="task-title">Войти в аккаунт Госуслуги</h2>
                 <div class="task-description">
                     <p><strong>Задача:</strong> Войдите в личный кабинет Госуслуг</p>
-                    <p><strong>Внимание:</strong> Не нажимайте "Зарегистрироваться"! Только "Войти"</p>
                     <p><strong>Данные для входа:</strong></p>
                     <p>• Телефон: <strong>+7 900 123-45-67</strong></p>
                     <p>• Пароль: <strong>gosuslugi123</strong></p>
@@ -1033,10 +1032,23 @@
                 <h2 class="task-title">Записаться к врачу</h2>
                 <div class="task-description">
                     <p><strong>Задача:</strong> Запишитесь на прием к офтальмологу</p>
-                    <p><strong>Шаги:</strong></p>
+
                     <ol style="padding-left: 20px; font-size: 18px;">
-                        <li>Нажмите на кнопку "Мои услуги"</li>
-                        <li>Выберите категориу "Здоровье"</li>
+                        <li>Введите регион "Москва"</li>
+                        <li>Введите полис ОМС: <strong>12345678901234567</strong></li>
+                        <li>Выберите врача "офтальмолог"</li>
+                        <li>Выберите врача "Иванов И.П."</li>
+                        <li>Введите адрес больницы "ул. Ленина, д. 10"</li>
+                        <li>Выберите дату и время (16 февраля 13:40)</li>
+                    </ol>
+                </div>
+                <button class="help-btn-big" onclick="toggleHelp(2)">
+                    <i class="bi bi-question-circle"></i> ПОМОЩЬ
+                </button>
+                <div id="help2" class="help-content-big">
+                    <p><strong>ОСНОВНЫЕ ЭТАПЫ:</strong></p>
+                    <li>Нажмите на кнопку "Мои услуги"</li>
+                        <li>Выберите категорию "Здоровье"</li>
                         <li>Нажмите "Записаться ко врачу"</li>
                         <li>Нажмите "Начать"</li>
                         <li>Выберите "Себя" как пациента</li>
@@ -1044,58 +1056,35 @@
                         <li>Введите полис ОМС: <strong>12345678901234567</strong></li>
                         <li>Выберите врача "офтальмолог"</li>
                         <li>Выберите врача "Иванов И.П."</li>
-                        <li>Введите адрес больницы</li>
-                        <li>Выберите дату и время (нажмите "Выбрать время")</li>
-                    </ol>
-                    <p style="margin-top: 20px; color: #17a2b8; font-weight: bold;">
-                        <i class="bi bi-info-circle"></i> После выбора времени произойдет автоматический переход к заданию 3
-                    </p>
-                </div>
-                <button class="help-btn-big" onclick="toggleHelp(2)">
-                    <i class="bi bi-question-circle"></i> ПОМОЩЬ
-                </button>
-                <div id="help2" class="help-content-big">
-                    <p><strong>ОСНОВНЫЕ ЭТАПЫ:</strong></p>
-                    <div class="help-step">1. После входа нажмите на кнопку <strong>"Мои услуги"</strong></div>
-                    <div class="help-step">2. Выберите раздел <strong>"Здоровье"</strong></div>
-                    <div class="help-step">3. Нажмите <strong>"Записаться ко врачу"</strong></div>
-                    <div class="help-step">4. Следуйте инструкциям, заполняя все формы</div>
-                    <div class="help-step">5. Для полиса ОМС используйте: <strong>12345678901234567</strong></div>
-                    <div class="help-step">6. Выберите врача <strong>"офтальмолог"</strong></div>
-                    <div class="help-step">7. После выбора времени начнется задание 3</div>
+                        <li>Введите адрес больницы  "ул. Ленина, д. 10"</li>
+                        <li>Выберите дату 16 февраля</li>
+                        <li>Выберите время 13:40</li>
                 </div>
             </div>
 
             <!-- Задание 3: Оформить пенсию -->
             <div id="task3" class="task">
                 <div class="task-number">3</div>
-                <h2 class="task-title">Оформить пенсию</h2>
+                <h2 class="task-title">Оформить электронное свидетельство пенсионера</h2>
                 <div class="task-description">
-                    <p><strong>Задача:</strong> Подать заявление на назначение пенсии по возрасту</p>
-                    <p><strong>Шаги:</strong></p>
+                    <p><strong>Задача:</strong>Оформить электронное свидетельство пенсионера</p>
+
                     <ol style="padding-left: 20px; font-size: 18px;">
-                        <li>Нажмите на кнопку "Мои услуги" (внизу экрана)</li>
-                        <li>Выберите раздел "Пенсия и пособия"</li>
-                        <li>Нажмите "Назначение пенсии по возрасту"</li>
-                        <li>Нажмите "Подать заявление на пенсию"</li>
-                        <li>Подтвердите свои данные</li>
-                        <li>Нажмите "Отправить заявление"</li>
+
                     </ol>
-                    <p style="margin-top: 20px; color: #28a745; font-weight: bold;">
-                        <i class="bi bi-info-circle"></i> После отправки заявления тренинг будет завершен
-                    </p>
                 </div>
                 <button class="help-btn-big" onclick="toggleHelp(3)">
                     <i class="bi bi-question-circle"></i> ПОМОЩЬ
                 </button>
                 <div id="help3" class="help-content-big">
                     <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
-                    <div class="help-step">1. На главном экране услуг нажмите кнопку <strong>"Мои услуги"</strong></div>
-                    <div class="help-step">2. Выберите раздел <strong>"Пенсия и пособия"</strong></div>
-                    <div class="help-step">3. Нажмите <strong>"Назначение пенсии по возрасту"</strong></div>
-                    <div class="help-step">4. Нажмите кнопку <strong>"Подать заявление на пенсию"</strong></div>
-                    <div class="help-step">5. Подтвердите данные и отправьте заявление</div>
-                    <div class="help-step">6. После этого тренинг будет завершен</div>
+                    <li>Нажмите на кнопку "Документы" (внизу экрана)</li>
+                        <li>Выберите раздел "Работа и пенсия"</li>
+                        <li>Найдите раздел "Электронное свидетельство пенсионера"</li>
+                        <li>Нажмите "Запросить"</li>
+                        <li>Подтвердите свои данные (нажмите кнопку "Разрешить")</li>
+                        <li>Дальше будет проходить поиск данных в СФР</li>
+                        <li>Нажмите на крестик, после обновления страницы у Вас появится электронное свидетельство пенсионера</li>
                 </div>
             </div>
 
@@ -1253,7 +1242,7 @@
                     }, 500);
                     break;
                 case 'im15':
-                    // Пропускаем im15 - сразу переходим к заданию 3
+                    showClickableArea('im15');
                     setTimeout(() => {
                         showNotification('Запись к врачу завершена! Переходим к заданию 3...', 'success');
                         setTimeout(() => {
@@ -1276,7 +1265,7 @@
                 case 'im18':
                     setTimeout(() => {
                         showClickableArea('im18');
-                        showNotification('Нажмите "Подать заявление на пенсию"');
+                        showNotification('Нажмите "Запросить"');
                     }, 500);
                     break;
                 case 'im19':
@@ -1317,18 +1306,36 @@
 
     // Обработка клика на im14 (выбор времени)
     function handleIm14Click() {
-        hideClickableArea('im14');
+    hideClickableArea('im14');
 
-        if (currentTask === 2 && !taskCompleted[2]) {
-            completeTask(2);
-            showNotification('Время выбрано! Задание 2 завершено. Переходим к заданию 3...', 'success');
+    setTimeout(() => {
+        goToImage('im15');
+    }, 500);
+}
 
-            // Автоматический переход к заданию 3 через 1.5 секунды
-            setTimeout(() => {
-                startTask3();
-            }, 1500);
-        }
+    function handleIm15Click() {
+    hideClickableArea('im15');
+
+    if (currentTask === 2 && !taskCompleted[2]) {
+        completeTask(2);
+        showNotification('Время выбрано! Задание 2 завершено. Переходим к заданию 3...', 'success');
+
+        // Автоматический переход к заданию 3 через 1.5 секунды
+        setTimeout(() => {
+            startTask3();
+        }, 1500);
     }
+}
+    // Обработка клика на im16 (кнопка "Мои услуги" для задания 3)
+function handleIm16Click() {
+    // Скрываем кнопку im16 сразу после клика
+    hideClickableArea('im16');
+
+    setTimeout(() => {
+        // Переходим на следующий экран
+        goToImage('im17');
+    }, 500);
+}
 
     // Начать задание 3 (после завершения задания 2)
     function startTask3() {
@@ -1349,7 +1356,7 @@
 
         if (currentTask === 3 && !taskCompleted[3]) {
             completeTask(3);
-            showNotification('Заявление на пенсию успешно подано! Задание 3 завершено.', 'success');
+            showNotification('Заявление успешно подано! Задание 3 завершено.', 'success');
 
             // Через 3 секунды показываем финальный экран тренинга
             setTimeout(() => {
@@ -1600,12 +1607,12 @@
                             if (taskCompleted[2]) {
                                 // Если задание 2 уже выполнено, показываем задание 3
                                 if (currentImage === 'im4') {
-                                    showClickableArea('im16');
+
                                     showNotification('Нажмите на кнопку "Мои услуги" для задания 3');
                                 } else {
                                     document.getElementById('phone-img').src = "{{ url_for('images_files', filename='gosuslugi/im4.jpg') }}";
                                     setTimeout(() => {
-                                        showClickableArea('im16');
+
                                         showNotification('Нажмите на кнопку "Мои услуги" для задания 3');
                                     }, 500);
                                 }
