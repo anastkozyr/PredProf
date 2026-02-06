@@ -270,6 +270,3 @@ def account():
                            created_date=formatted_date, progress=progress, medals=medals, basic=basic,
                            advanced=advanced, tasks=tasks)
 
-
-if __name__ == '__main__':
-    app.run(debug=True, port=8028, host='127.0.0.1')
