@@ -1,4 +1,3 @@
-// gos_training_basic.js - ОЗВУЧКА с кнопкой управления для базовых госуслуг
 let audioUnlocked = false;
 let soundEnabled = false;
 const soundPlayer = new Audio();
@@ -79,10 +78,9 @@ function enableSound() {
     statusIndicator.innerHTML = '🔊 Озвучка включена';
     statusIndicator.style.display = 'block';
 
-    // Воспроизводим текущее задание
+    // Воспроизводим текущее задание при ВКЛЮЧЕНИИ
     playCurrentTaskSound();
 
-    // Скрываем статус через 3 секунды
     setTimeout(() => {
         statusIndicator.style.display = 'none';
     }, 3000);
@@ -101,11 +99,9 @@ function disableSound() {
     statusIndicator.innerHTML = '🔇 Озвучка выключена';
     statusIndicator.style.display = 'block';
 
-    // Останавливаем воспроизведение
     soundPlayer.pause();
     soundPlayer.currentTime = 0;
 
-    // Скрываем статус через 3 секунды
     setTimeout(() => {
         statusIndicator.style.display = 'none';
     }, 3000);
@@ -125,7 +121,7 @@ function unlockAudio() {
             soundPlayer.pause();
             soundPlayer.currentTime = 0;
             soundPlayer.volume = 1;
-            enableSound(); // Автоматически включаем озвучку после разблокировки
+            enableSound(); // Автоматически включаем озвучку
         })
         .catch(() => {
             showNotification('Нажмите на кнопку "Озвучить тренинг" для включения звука');
@@ -160,13 +156,11 @@ const originalRestartTraining = window.restartTraining;
 const originalCompleteTraining = window.completeTraining;
 const originalShowNotification = window.showNotification;
 
-// Переопределяем showNotification для красивого отображения
+// Переопределяем showNotification
 window.showNotification = function(message, type = '') {
     if (originalShowNotification) {
         originalShowNotification(message, type);
     }
-
-    // Также выводим в консоль для отладки
     console.log('Notification:', message);
 };
 
@@ -177,12 +171,8 @@ window.completeTask = function(taskNum) {
         originalCompleteTask(taskNum);
     }
 
-    // Воспроизводим звук следующего задания при завершении
-    if (soundEnabled && taskNum === 1) {
-        setTimeout(() => {
-            playSound('gos_task2.mp3');
-        }, 1000);
-    }
+    // НЕ воспроизводим звук следующего задания здесь!
+    // Звук следующего задания будет в nextTask()
 };
 
 window.nextTask = function() {
@@ -191,10 +181,10 @@ window.nextTask = function() {
         originalNextTask();
     }
 
-    // Воспроизводим звук нового задания
+    // Воспроизводим звук нового задания ПОСЛЕ нажатия кнопки
     if (soundEnabled) {
         setTimeout(() => {
-            playCurrentTaskSound();
+            playCurrentTaskSound(); // Звук текущего задания
         }, 500);
     }
 };
@@ -230,8 +220,10 @@ window.restartTraining = function() {
 };
 
 window.completeTraining = function() {
-    // Воспроизводим финальный звук (всегда, независимо от настроек)
-    playSound('gos_final.mp3');
+    // Воспроизводим финальный звук ТОЛЬКО если озвучка включена
+    if (audioUnlocked) {
+        playSound('gos_final.mp3');
+    }
 
     // Вызываем оригинальную функцию
     if (originalCompleteTraining) {
@@ -239,7 +231,7 @@ window.completeTraining = function() {
     }
 };
 
-// Автоматическая разблокировка аудио при первом клике
+// Автоматическая разблокировка аудио
 function setupAudioUnlock() {
     const loginButton = document.getElementById('login-btn');
     const registerButton = document.getElementById('register-btn');

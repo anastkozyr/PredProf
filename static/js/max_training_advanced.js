@@ -12,7 +12,7 @@ let memberButtonsClicked = {
     second: false
 };
 
-// Добавляем переменные для озвучки
+// Переменные для озвучки
 let audioUnlocked = false;
 let soundEnabled = false;
 const soundPlayer = new Audio();
@@ -95,10 +95,8 @@ function enableSound() {
     statusIndicator.innerHTML = '🔊 Озвучка включена';
     statusIndicator.style.display = 'block';
 
-    // Воспроизводим текущее задание
     playCurrentTaskSound();
 
-    // Скрываем статус через 3 секунды
     setTimeout(() => {
         statusIndicator.style.display = 'none';
     }, 3000);
@@ -117,11 +115,9 @@ function disableSound() {
     statusIndicator.innerHTML = '🔇 Озвучка выключена';
     statusIndicator.style.display = 'block';
 
-    // Останавливаем воспроизведение
     soundPlayer.pause();
     soundPlayer.currentTime = 0;
 
-    // Скрываем статус через 3 секунды
     setTimeout(() => {
         statusIndicator.style.display = 'none';
     }, 3000);
@@ -141,7 +137,7 @@ function unlockAudio() {
             soundPlayer.pause();
             soundPlayer.currentTime = 0;
             soundPlayer.volume = 1;
-            enableSound(); // Автоматически включаем озвучку после разблокировки
+            enableSound();
         })
         .catch(() => {
             showNotification('Нажмите на кнопку "Озвучить тренинг" для включения звука');
@@ -172,7 +168,6 @@ function playCurrentTaskSound() {
     }
 }
 
-// Координаты
 const screenConfigs = {
     'start_page.jpeg': {
         areas: [
@@ -329,22 +324,35 @@ const screenConfigs = {
     }
 };
 
-// Загрузка данных пользователя
+// Ищем оригинальную функцию completeTraining и переопределяем ее
+const originalCompleteTraining = window.completeTraining;
+
+window.completeTraining = function() {
+    // Воспроизводим финальный звук если озвучка включена
+    if (audioUnlocked) {
+        playSound('max_final.mp3');
+    }
+
+    // Вызываем оригинальную функцию
+    if (originalCompleteTraining) {
+        originalCompleteTraining();
+    }
+};
+
 document.addEventListener('DOMContentLoaded', function() {
     loadUserData();
     loadScreen('start_page.jpeg');
 
-    // Создаем кнопку управления звуком
     createSoundControl();
-
-    // Настраиваем авторазблокировку
     setupAudioUnlock();
 });
 
-// Настройка авторазблокировки аудио
 function setupAudioUnlock() {
-    // Авторазблокировка при клике на экран приложения
     const appScreen = document.getElementById('appScreen');
+    const interactiveOverlay = document.getElementById('interactiveOverlay');
+    const helpButtons = document.querySelectorAll('.help-btn-big');
+    const nextButton = document.getElementById('next-btn');
+
     if (appScreen) {
         appScreen.addEventListener('click', function() {
             if (!audioUnlocked) {
@@ -353,8 +361,6 @@ function setupAudioUnlock() {
         }, { once: true });
     }
 
-    // Авторазблокировка при клике на интерактивную область
-    const interactiveOverlay = document.getElementById('interactiveOverlay');
     if (interactiveOverlay) {
         interactiveOverlay.addEventListener('click', function() {
             if (!audioUnlocked) {
@@ -363,8 +369,6 @@ function setupAudioUnlock() {
         }, { once: true });
     }
 
-    // Авторазблокировка при клике на кнопки помощи
-    const helpButtons = document.querySelectorAll('.help-btn-big');
     if (helpButtons.length > 0) {
         helpButtons.forEach(btn => {
             btn.addEventListener('click', function() {
@@ -375,8 +379,6 @@ function setupAudioUnlock() {
         });
     }
 
-    // Авторазблокировка при клике на кнопку "Следующее задание"
-    const nextButton = document.getElementById('next-btn');
     if (nextButton) {
         nextButton.addEventListener('click', function() {
             if (!audioUnlocked) {
@@ -386,7 +388,6 @@ function setupAudioUnlock() {
     }
 }
 
-// Загрузка данных пользователя
 async function loadUserData() {
     try {
         const response = await fetch('/api/get-user-level');
@@ -401,7 +402,6 @@ async function loadUserData() {
     }
 }
 
-// Загрузка экрана с фотографией
 function loadScreen(imageName) {
     currentImage = imageName;
 
@@ -411,7 +411,6 @@ function loadScreen(imageName) {
 
     const config = screenConfigs[imageName];
 
-    // Загружаем фотографию
     document.getElementById('appScreen').innerHTML =
         `<img src="/images/max/${imageName}" alt="Экран приложения"
               onload="initClickableAreas()">`;
@@ -484,7 +483,6 @@ function addMessageInputField() {
         }
     });
 
-    // Разблокировка аудио при фокусе на поле ввода
     inputField.addEventListener('focus', function() {
         if (!audioUnlocked) {
             unlockAudio();
@@ -537,7 +535,6 @@ function addNameInput() {
         }
     });
 
-    // Разблокировка аудио при фокусе на поле ввода
     inputField.addEventListener('focus', function() {
         if (!audioUnlocked) {
             unlockAudio();
@@ -624,7 +621,6 @@ function initClickableAreas() {
             clickableArea.id = area.id;
 
             clickableArea.onclick = () => {
-                // Разблокируем аудио при клике
                 if (!audioUnlocked) {
                     unlockAudio();
                 }
@@ -821,20 +817,7 @@ async function completeTask(taskNum) {
     document.getElementById('next-btn').classList.add('active');
     showNotification(`Задание ${taskNum} выполнено!`);
 
-    // Воспроизводим звук следующего задания или финальный
-    if (soundEnabled) {
-        setTimeout(() => {
-            if (taskNum === 1) {
-                playSound('task_2.mp3');
-            } else if (taskNum === 2) {
-                playSound('task_3.mp3');
-            } else if (taskNum === 3) {
-                playSound('task_4.mp3');
-            } else if (taskNum === 4) {
-                playSound('max_final.mp3');
-            }
-        }, 500);
-    }
+
 
     if (tasksCompleted === totalTasks) {
         completeTraining();
@@ -867,28 +850,23 @@ function nextTask() {
         switch(currentTask) {
             case 1:
                 loadScreen('start_page.jpeg');
-                if (soundEnabled) {
-                    playSound('task_1.mp3');
-                }
                 break;
             case 2:
                 loadScreen('hello_sticker.jpeg');
-                if (soundEnabled) {
-                    playSound('task_2.mp3');
-                }
                 break;
             case 3:
                 loadScreen('hello_text.jpeg');
-                if (soundEnabled) {
-                    playSound('task_3.mp3');
-                }
                 break;
             case 4:
                 loadScreen('final.jpeg');
-                if (soundEnabled) {
-                    playSound('task_4.mp3');
-                }
                 break;
+        }
+
+        // Воспроизводим звук нового задания ПОСЛЕ нажатия кнопки
+        if (soundEnabled) {
+            setTimeout(() => {
+                playCurrentTaskSound();
+            }, 500);
         }
     }
 }
@@ -904,6 +882,7 @@ function toggleHelp(taskNum) {
     const help = document.getElementById('help' + taskNum);
     help.classList.toggle('active');
 
+    // Звук помощи
     if (soundEnabled) {
         if (taskNum == 1) {
             playSound('help_1.mp3');
