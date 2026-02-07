@@ -8,7 +8,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 def start_flask():
     from main import app
-    app.run(debug=True, port=8028, host='127.0.0.1', use_reloader=False)
+    app.run(host='0.0.0.0')
 
 
 def start_telegram_bot():
