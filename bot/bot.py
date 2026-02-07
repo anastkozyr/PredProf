@@ -158,7 +158,7 @@ async def other_question(message: Message):
 
     await message.answer(
         text='Напишите свой вопрос, я передам его специалисту...',
-        reply_markup=keyboard
+        reply_markup=ReplyKeyboardRemove()
     )
 
 @dp.message(F.text & ~F.text.starstwith('/'))
