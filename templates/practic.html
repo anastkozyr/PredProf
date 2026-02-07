@@ -35,6 +35,14 @@
             border: 1px solid #a8d5e5;
         }
 
+        .bot-container {
+            max-width: 60%;
+            margin: 50px auto;
+            padding: 10px;
+            background: #e6f7ff;
+            border-radius: 25px;
+        }
+
         .page-title {
             color: #1a4d6e;
             font-weight: 700;
@@ -118,7 +126,34 @@
             text-decoration: none;
         }
 
-        /* Стили для кнопки аккаунта */
+
+        .account-btn-text {
+            background: linear-gradient(135deg, #2c698d, #2c698d);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: 600;
+            padding: 12px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 122, 255, 0.3);
+            transition: all 0.3s;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .account-btn-text:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 122, 255, 0.4);
+            background: linear-gradient(135deg, #2c698d, #2c698d);
+            color: white;
+            text-decoration: none;
+        }
+
+
         .account-btn-container {
             position: fixed;
             top: 20px;
@@ -126,28 +161,32 @@
             z-index: 1000;
         }
 
-        .account-btn {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #007AFF, #00b4ff);
-            border: none;
-            border-radius: 50%;
-            color: white;
-            cursor: pointer;
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 5px 15px rgba(0, 122, 255, 0.3);
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-
         .account-btn:hover {
             transform: scale(1.1);
             box-shadow: 0 8px 20px rgba(0, 122, 255, 0.4);
         }
+        @media (max-width: 768px) {
+    .account-btn-text {
+        padding: 10px 15px;
+        font-size: 20px;
+    }
 
+    .account-btn-container {
+        top: 10px;
+        right: 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .account-btn-text {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+
+    .account-btn-text i {
+        margin-right: 4px;
+    }
+}
         @media (max-width: 992px) {
             .rectangle-container {
                 flex-wrap: wrap;
@@ -178,10 +217,10 @@
 <body>
     <!-- Кнопка аккаунта (исправлена) -->
     <div class="account-btn-container">
-        <a href="{{ url_for('account') }}" class="account-btn">
-            <i class="bi bi-person"></i>
-        </a>
-    </div>
+    <a href="{{ url_for('account') }}" class="account-btn-text">
+        <i class="bi bi-person me-2"></i>Перейти в аккаунт
+    </a>
+</div>
 
     <nav class="navbar navbar-expand-lg py-3">
         <div class="container-fluid">
@@ -274,6 +313,13 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="bot-container">
+        <div class="row justify-content-center">
+            <a href="https://t.me/digital_navigator_predprof_bot?start=web" class="account-btn-text">
+                Перейти в бота-помощника
+            </a>
         </div>
     </div>
 

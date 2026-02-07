@@ -1,6 +1,128 @@
+// max_training_basic.js - скрипт тренинга Макса с озвучкой
+let currentTask = 1;
+let tasksCompleted = 0;
+let totalTasks = 3;
+let currentImage = 'start_page.jpeg';
+let stickerSent = false;
+let messageSent = false;
+let modalAction = null;
+
+// Добавляем переменные для озвучки
 let audioUnlocked = false;
+let soundEnabled = false;
 const soundPlayer = new Audio();
 soundPlayer.volume = 1;
+
+// Создаем кнопку управления озвучкой
+function createSoundControl() {
+    const soundControl = document.createElement('div');
+    soundControl.id = 'soundControl';
+    soundControl.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    `;
+
+    const soundBtn = document.createElement('button');
+    soundBtn.id = 'soundToggleBtn';
+    soundBtn.innerHTML = '<i class="bi bi-volume-up"></i> Озвучить тренинг';
+    soundBtn.style.cssText = `
+        background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+        transition: all 0.3s;
+    `;
+
+    const statusIndicator = document.createElement('div');
+    statusIndicator.id = 'soundStatus';
+    statusIndicator.innerHTML = '🔇 Озвучка выключена';
+    statusIndicator.style.cssText = `
+        background: rgba(75, 85, 99, 0.9);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 14px;
+        display: none;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    `;
+
+    soundBtn.onclick = function() {
+        if (!soundEnabled) {
+            enableSound();
+        } else {
+            disableSound();
+        }
+    };
+
+    soundControl.appendChild(soundBtn);
+    soundControl.appendChild(statusIndicator);
+    document.body.appendChild(soundControl);
+}
+
+function enableSound() {
+    if (!audioUnlocked) {
+        unlockAudio();
+        return;
+    }
+
+    soundEnabled = true;
+    const soundBtn = document.getElementById('soundToggleBtn');
+    const statusIndicator = document.getElementById('soundStatus');
+
+    soundBtn.innerHTML = '<i class="bi bi-volume-mute"></i> Выключить озвучку';
+    soundBtn.style.background = 'linear-gradient(135deg, #28a745, #20c997)';
+
+    statusIndicator.innerHTML = '🔊 Озвучка включена';
+    statusIndicator.style.display = 'block';
+
+    // Воспроизводим текущее задание
+    playCurrentTaskSound();
+
+    // Скрываем статус через 3 секунды
+    setTimeout(() => {
+        statusIndicator.style.display = 'none';
+    }, 3000);
+
+    showNotification('Озвучка включена');
+}
+
+function disableSound() {
+    soundEnabled = false;
+    const soundBtn = document.getElementById('soundToggleBtn');
+    const statusIndicator = document.getElementById('soundStatus');
+
+    soundBtn.innerHTML = '<i class="bi bi-volume-up"></i> Озвучить тренинг';
+    soundBtn.style.background = 'linear-gradient(135deg, #8b5cf6, #a78bfa)';
+
+    statusIndicator.innerHTML = '🔇 Озвучка выключена';
+    statusIndicator.style.display = 'block';
+
+    // Останавливаем воспроизведение
+    soundPlayer.pause();
+    soundPlayer.currentTime = 0;
+
+    // Скрываем статус через 3 секунды
+    setTimeout(() => {
+        statusIndicator.style.display = 'none';
+    }, 3000);
+
+    showNotification('Озвучка выключена');
+}
 
 function unlockAudio() {
     if (audioUnlocked) return;
@@ -14,36 +136,44 @@ function unlockAudio() {
             soundPlayer.pause();
             soundPlayer.currentTime = 0;
             soundPlayer.volume = 1;
-
-            const config = screenConfigs[currentImage];
-            if (config && config.sound) {
-                playSound(config.sound);
-            }
+            enableSound(); // Автоматически включаем озвучку после разблокировки
         })
-        .catch(() => {});
+        .catch(() => {
+            showNotification('Нажмите на кнопку "Озвучить тренинг" для включения звука');
+        });
 }
 
-document.addEventListener('click', unlockAudio, { once: true });
-document.addEventListener('touchstart', unlockAudio, { once: true });
+function playSound(soundName) {
+    if (!soundEnabled || !audioUnlocked) return;
 
+    soundPlayer.src = `/static/sounds/max/${soundName}`;
+    soundPlayer.currentTime = 0;
+    soundPlayer.play().catch(err => {
+        console.warn('Sound play blocked:', err);
+    });
+}
 
-let currentTask = 1;
-let tasksCompleted = 0;
-let totalTasks = 3;
-let currentImage = 'start_page.jpeg';
-let stickerSent = false;
-let messageSent = false;
-let modalAction = null;
+function playCurrentTaskSound() {
+    if (!soundEnabled) return;
+
+    if (currentTask === 1) {
+        playSound('task_1.mp3');
+    } else if (currentTask === 2) {
+        playSound('task_2.mp3');
+    } else if (currentTask === 3) {
+        playSound('task_3.mp3');
+    }
+}
 
 const screenConfigs = {
     'start_page.jpeg': {
         areas: [
             {
                 id: 'contact-btn',
-                top: '87%',     // Внизу экрана
-                left: '3%',     // Слева
-                width: '18%',   // Ширина
-                height: '8%',   // Высота
+                top: '87%',
+                left: '3%',
+                width: '18%',
+                height: '8%',
                 action: 'openContacts'
             }
         ],
@@ -116,19 +246,62 @@ const screenConfigs = {
     }
 };
 
-function playSound(soundName) {
-    soundPlayer.src = `/static/sounds/max/${soundName}`;
-    soundPlayer.currentTime = 0;
-    soundPlayer.play().catch(err => {
-        console.warn('Sound play blocked:', err);
-    });
-}
-
 // Загрузка данных пользователя
 document.addEventListener('DOMContentLoaded', function() {
     loadUserData();
     loadScreen('start_page.jpeg');
+
+    // Создаем кнопку управления звуком
+    createSoundControl();
+
+    // Настраиваем авторазблокировку
+    setupAudioUnlock();
 });
+
+// Настройка авторазблокировки аудио
+function setupAudioUnlock() {
+    // Авторазблокировка при клике на экран приложения
+    const appScreen = document.getElementById('appScreen');
+    if (appScreen) {
+        appScreen.addEventListener('click', function() {
+            if (!audioUnlocked) {
+                unlockAudio();
+            }
+        }, { once: true });
+    }
+
+    // Авторазблокировка при клике на интерактивную область
+    const interactiveOverlay = document.getElementById('interactiveOverlay');
+    if (interactiveOverlay) {
+        interactiveOverlay.addEventListener('click', function() {
+            if (!audioUnlocked) {
+                unlockAudio();
+            }
+        }, { once: true });
+    }
+
+    // Авторазблокировка при клике на кнопки помощи
+    const helpButtons = document.querySelectorAll('.help-btn-big');
+    if (helpButtons.length > 0) {
+        helpButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (!audioUnlocked) {
+                    unlockAudio();
+                }
+            }, { once: true });
+        });
+    }
+
+    // Авторазблокировка при клике на кнопку "Следующее задание"
+    const nextButton = document.getElementById('next-btn');
+    if (nextButton) {
+        nextButton.addEventListener('click', function() {
+            if (!audioUnlocked) {
+                unlockAudio();
+            }
+        }, { once: true });
+    }
+}
 
 // Загрузка данных пользователя
 async function loadUserData() {
@@ -141,7 +314,7 @@ async function loadUserData() {
             document.getElementById('userStatus').classList.add('active');
         }
     } catch (error) {
-        console.error('Ошибка загрузки данных:', error);
+        console.error('Ошибка загрузка данных:', error);
     }
 }
 
@@ -220,6 +393,13 @@ function addMessageInputField() {
         }
     });
 
+    // Разблокировка аудио при фокусе на поле ввода
+    inputField.addEventListener('focus', function() {
+        if (!audioUnlocked) {
+            unlockAudio();
+        }
+    });
+
     inputContainer.appendChild(inputField);
     inputContainer.appendChild(sendButton);
 
@@ -279,7 +459,13 @@ function initClickableAreas() {
             clickableArea.style.height = area.height;
             clickableArea.id = area.id;
 
-            clickableArea.onclick = () => handleAreaClick(area.action);
+            clickableArea.onclick = () => {
+                // Разблокируем аудио при клике
+                if (!audioUnlocked) {
+                    unlockAudio();
+                }
+                handleAreaClick(area.action);
+            };
 
             document.getElementById('interactiveOverlay').appendChild(clickableArea);
         });
@@ -369,6 +555,19 @@ async function completeTask(taskNum) {
     document.getElementById('next-btn').classList.add('active');
     showNotification(`Задание ${taskNum} выполнено!`);
 
+    // Воспроизводим звук следующего задания
+    if (soundEnabled) {
+        setTimeout(() => {
+            if (taskNum === 1) {
+                playSound('task_2.mp3');
+            } else if (taskNum === 2) {
+                playSound('task_3.mp3');
+            } else if (taskNum === 3) {
+                playSound('max_final.mp3');
+            }
+        }, 500);
+    }
+
     if (tasksCompleted === totalTasks) {
         completeTraining();
         setTimeout(() => {
@@ -399,15 +598,21 @@ function nextTask() {
         switch(currentTask) {
             case 1:
                 loadScreen('start_page.jpeg');
-                playSound('task_1.mp3');
+                if (soundEnabled) {
+                    playSound('task_1.mp3');
+                }
                 break;
             case 2:
                 loadScreen('hello_sticker.jpeg');
-                playSound('task_2.mp3');
+                if (soundEnabled) {
+                    playSound('task_2.mp3');
+                }
                 break;
             case 3:
                 loadScreen('hello_text.jpeg');
-                playSound('task_3.mp3');
+                if (soundEnabled) {
+                    playSound('task_3.mp3');
+                }
                 break;
         }
     }
@@ -422,12 +627,16 @@ function updateProgress() {
 // Показать/скрыть помощь
 function toggleHelp(taskNum) {
     const help = document.getElementById('help' + taskNum);
-    if (taskNum == 1){
-        playSound('help_1.mp3')
-    }if (taskNum == 2){
-        playSound('help_2.mp3')
-    }if (taskNum == 3){
-        playSound('help_3.mp3')
+    if (soundEnabled) {
+        if (taskNum == 1){
+            playSound('help_1.mp3')
+        }
+        if (taskNum == 2){
+            playSound('help_2.mp3')
+        }
+        if (taskNum == 3){
+            playSound('help_3.mp3')
+        }
     }
     help.classList.toggle('active');
 }
@@ -466,6 +675,13 @@ async function restartTraining() {
     updateProgress();
     await saveProgress('reset');
     showNotification('Тренинг начат заново!');
+
+    // Воспроизводим звук первого задания при рестарте
+    if (soundEnabled) {
+        setTimeout(() => {
+            playSound('task_1.mp3');
+        }, 500);
+    }
 }
 
 // Поддержка клавиши Enter в модальном окне
