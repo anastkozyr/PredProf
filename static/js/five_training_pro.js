@@ -1,10 +1,9 @@
-// five_training_pro.js - ОЗВУЧКА с кнопкой управления для профильной Пятерочки (7 заданий)
+// five_training_pro.js - ОЗВУЧКА с кнопкой управления для профильной Пятерочки
 let audioUnlocked = false;
 let soundEnabled = false;
 const soundPlayer = new Audio();
 soundPlayer.volume = 1;
 
-// Создаем кнопку управления озвучкой
 function createSoundControl() {
     const soundControl = document.createElement('div');
     soundControl.id = 'soundControl';
@@ -79,10 +78,8 @@ function enableSound() {
     statusIndicator.innerHTML = '🔊 Озвучка включена';
     statusIndicator.style.display = 'block';
 
-    // Воспроизводим текущее задание
     playCurrentTaskSound();
 
-    // Скрываем статус через 3 секунды
     setTimeout(() => {
         statusIndicator.style.display = 'none';
     }, 3000);
@@ -101,11 +98,9 @@ function disableSound() {
     statusIndicator.innerHTML = '🔇 Озвучка выключена';
     statusIndicator.style.display = 'block';
 
-    // Останавливаем воспроизведение
     soundPlayer.pause();
     soundPlayer.currentTime = 0;
 
-    // Скрываем статус через 3 секунды
     setTimeout(() => {
         statusIndicator.style.display = 'none';
     }, 3000);
@@ -125,7 +120,7 @@ function unlockAudio() {
             soundPlayer.pause();
             soundPlayer.currentTime = 0;
             soundPlayer.volume = 1;
-            enableSound(); // Автоматически включаем озвучку после разблокировки
+            enableSound();
         })
         .catch(() => {
             showNotification('Нажмите на кнопку "Озвучить тренинг" для включения звука');
@@ -170,7 +165,6 @@ function playCurrentTaskSound() {
     }
 }
 
-// Сохраняем оригинальные функции
 const originalCompleteTask = window.completeTask;
 const originalNextTask = window.nextTask;
 const originalToggleHelp = window.toggleHelp;
@@ -179,31 +173,23 @@ const originalShowNotification = window.showNotification;
 const originalHandleAreaClick = window.handleAreaClick;
 const originalInitClickableAreas = window.initClickableAreas;
 
-// Переопределяем showNotification для красивого отображения
 window.showNotification = function(message) {
     if (originalShowNotification) {
         originalShowNotification(message);
     }
-
-    // Также выводим в консоль для отладки
     console.log('Notification:', message);
 };
 
-// Переопределяем функции для добавления озвучки
 window.completeTask = function(taskNum) {
-    // Вызываем оригинальную функцию
     if (originalCompleteTask) {
         originalCompleteTask(taskNum);
     }
 
-    // Воспроизводим звук завершения тренинга при последнем задании
     if (soundEnabled && taskNum === 7) {
         setTimeout(() => {
             playSound('five_final.mp3');
         }, 1000);
-    }
-    // Воспроизводим звук следующего задания при завершении
-    else if (soundEnabled) {
+    } else if (soundEnabled) {
         setTimeout(() => {
             switch(taskNum) {
                 case 1:
@@ -230,12 +216,10 @@ window.completeTask = function(taskNum) {
 };
 
 window.nextTask = function() {
-    // Вызываем оригинальную функцию
     if (originalNextTask) {
         originalNextTask();
     }
 
-    // Воспроизводим звук нового задания
     if (soundEnabled) {
         setTimeout(() => {
             playCurrentTaskSound();
@@ -244,12 +228,10 @@ window.nextTask = function() {
 };
 
 window.toggleHelp = function(taskNum) {
-    // Вызываем оригинальную функцию
     if (originalToggleHelp) {
         originalToggleHelp(taskNum);
     }
 
-    // Воспроизводим звук подсказки
     if (soundEnabled) {
         switch(taskNum) {
             case 1:
@@ -278,12 +260,10 @@ window.toggleHelp = function(taskNum) {
 };
 
 window.restartTraining = function() {
-    // Вызываем оригинальную функцию
     if (originalRestartTraining) {
         originalRestartTraining();
     }
 
-    // Воспроизводим звук первого задания при рестарте
     if (soundEnabled) {
         setTimeout(() => {
             playSound('five_pro_task1.mp3');
@@ -291,26 +271,21 @@ window.restartTraining = function() {
     }
 };
 
-// Дополнительно переопределяем функции для разблокировки аудио
 window.handleAreaClick = function(action, value) {
-    // Разблокируем аудио при клике
     if (!audioUnlocked) {
         unlockAudio();
     }
 
-    // Вызываем оригинальную функцию
     if (originalHandleAreaClick) {
         originalHandleAreaClick(action, value);
     }
 };
 
 window.initClickableAreas = function() {
-    // Вызываем оригинальную функцию
     if (originalInitClickableAreas) {
         originalInitClickableAreas();
     }
 
-    // Добавляем обработчики разблокировки ко всем кликабельным областям
     const clickableAreas = document.querySelectorAll('.clickable-area, .input-area');
     clickableAreas.forEach(area => {
         area.addEventListener('click', function() {
@@ -321,14 +296,12 @@ window.initClickableAreas = function() {
     });
 };
 
-// Автоматическая разблокировка аудио при первом клике
 function setupAudioUnlock() {
     const appScreen = document.getElementById('appScreen');
     const interactiveOverlay = document.getElementById('interactiveOverlay');
     const helpButtons = document.querySelectorAll('.help-btn-big');
     const nextButton = document.getElementById('next-btn');
 
-    // Авторазблокировка при клике на экран приложения
     if (appScreen) {
         appScreen.addEventListener('click', function() {
             if (!audioUnlocked) {
@@ -337,7 +310,6 @@ function setupAudioUnlock() {
         }, { once: true });
     }
 
-    // Авторазблокировка при клике на интерактивную область
     if (interactiveOverlay) {
         interactiveOverlay.addEventListener('click', function() {
             if (!audioUnlocked) {
@@ -346,7 +318,6 @@ function setupAudioUnlock() {
         }, { once: true });
     }
 
-    // Авторазблокировка при клике на кнопки помощи
     if (helpButtons.length > 0) {
         helpButtons.forEach(btn => {
             btn.addEventListener('click', function() {
@@ -357,7 +328,6 @@ function setupAudioUnlock() {
         });
     }
 
-    // Авторазблокировка при клике на кнопку "Следующее задание"
     if (nextButton) {
         nextButton.addEventListener('click', function() {
             if (!audioUnlocked) {
@@ -367,15 +337,10 @@ function setupAudioUnlock() {
     }
 }
 
-// Инициализация при загрузке
 document.addEventListener('DOMContentLoaded', function() {
-    // Создаем кнопку управления звуком
     createSoundControl();
-
-    // Настраиваем авторазблокировку
     setupAudioUnlock();
 
-    // Показываем инструкцию
     setTimeout(() => {
         const statusIndicator = document.getElementById('soundStatus');
         statusIndicator.innerHTML = '🎧 Нажмите "Озвучить тренинг" для включения звука';
@@ -387,6 +352,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 1000);
 });
 
-// Экспортируем функции для использования в других скриптах
 window.playSound = playSound;
 window.playCurrentTaskSound = playCurrentTaskSound;

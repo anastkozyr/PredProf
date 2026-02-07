@@ -1,4 +1,3 @@
-// max_training_advanced.js - скрипт тренинга Макса (профильный) с озвучкой
 let currentTask = 1;
 let tasksCompleted = 0;
 let totalTasks = 4;
@@ -11,7 +10,7 @@ let memberButtonsClicked = {
     second: false
 };
 
-// Добавляем переменные для озвучки
+// Переменные для озвучки
 let audioUnlocked = false;
 let soundEnabled = false;
 const soundPlayer = new Audio();
@@ -94,10 +93,8 @@ function enableSound() {
     statusIndicator.innerHTML = '🔊 Озвучка включена';
     statusIndicator.style.display = 'block';
 
-    // Воспроизводим текущее задание
     playCurrentTaskSound();
 
-    // Скрываем статус через 3 секунды
     setTimeout(() => {
         statusIndicator.style.display = 'none';
     }, 3000);
@@ -116,11 +113,9 @@ function disableSound() {
     statusIndicator.innerHTML = '🔇 Озвучка выключена';
     statusIndicator.style.display = 'block';
 
-    // Останавливаем воспроизведение
     soundPlayer.pause();
     soundPlayer.currentTime = 0;
 
-    // Скрываем статус через 3 секунды
     setTimeout(() => {
         statusIndicator.style.display = 'none';
     }, 3000);
@@ -140,7 +135,7 @@ function unlockAudio() {
             soundPlayer.pause();
             soundPlayer.currentTime = 0;
             soundPlayer.volume = 1;
-            enableSound(); // Автоматически включаем озвучку после разблокировки
+            enableSound();
         })
         .catch(() => {
             showNotification('Нажмите на кнопку "Озвучить тренинг" для включения звука');
@@ -171,7 +166,6 @@ function playCurrentTaskSound() {
     }
 }
 
-// Координаты
 const screenConfigs = {
     'start_page.jpeg': {
         areas: [
@@ -328,22 +322,20 @@ const screenConfigs = {
     }
 };
 
-// Загрузка данных пользователя
 document.addEventListener('DOMContentLoaded', function() {
     loadUserData();
     loadScreen('start_page.jpeg');
 
-    // Создаем кнопку управления звуком
     createSoundControl();
-
-    // Настраиваем авторазблокировку
     setupAudioUnlock();
 });
 
-// Настройка авторазблокировки аудио
 function setupAudioUnlock() {
-    // Авторазблокировка при клике на экран приложения
     const appScreen = document.getElementById('appScreen');
+    const interactiveOverlay = document.getElementById('interactiveOverlay');
+    const helpButtons = document.querySelectorAll('.help-btn-big');
+    const nextButton = document.getElementById('next-btn');
+
     if (appScreen) {
         appScreen.addEventListener('click', function() {
             if (!audioUnlocked) {
@@ -352,8 +344,6 @@ function setupAudioUnlock() {
         }, { once: true });
     }
 
-    // Авторазблокировка при клике на интерактивную область
-    const interactiveOverlay = document.getElementById('interactiveOverlay');
     if (interactiveOverlay) {
         interactiveOverlay.addEventListener('click', function() {
             if (!audioUnlocked) {
@@ -362,8 +352,6 @@ function setupAudioUnlock() {
         }, { once: true });
     }
 
-    // Авторазблокировка при клике на кнопки помощи
-    const helpButtons = document.querySelectorAll('.help-btn-big');
     if (helpButtons.length > 0) {
         helpButtons.forEach(btn => {
             btn.addEventListener('click', function() {
@@ -374,8 +362,6 @@ function setupAudioUnlock() {
         });
     }
 
-    // Авторазблокировка при клике на кнопку "Следующее задание"
-    const nextButton = document.getElementById('next-btn');
     if (nextButton) {
         nextButton.addEventListener('click', function() {
             if (!audioUnlocked) {
@@ -385,7 +371,6 @@ function setupAudioUnlock() {
     }
 }
 
-// Загрузка данных пользователя
 async function loadUserData() {
     try {
         const response = await fetch('/api/get-user-level');
@@ -400,7 +385,6 @@ async function loadUserData() {
     }
 }
 
-// Загрузка экрана с фотографией
 function loadScreen(imageName) {
     currentImage = imageName;
 
@@ -410,7 +394,7 @@ function loadScreen(imageName) {
 
     const config = screenConfigs[imageName];
 
-    // Загружаем фотографию
+    // ТОЛЬКО загрузка изображения
     document.getElementById('appScreen').innerHTML =
         `<img src="/images/max/${imageName}" alt="Экран приложения"
               onload="initClickableAreas()">`;
@@ -423,7 +407,6 @@ function loadScreen(imageName) {
     }
 }
 
-// Добавить поле для ввода сообщения
 function addMessageInputField() {
     const inputContainer = document.createElement('div');
     inputContainer.id = 'messageInputContainer';
@@ -476,14 +459,12 @@ function addMessageInputField() {
         sendTextMessage();
     };
 
-    // Поддержка Enter для отправки
     inputField.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
             sendTextMessage();
         }
     });
 
-    // Разблокировка аудио при фокусе на поле ввода
     inputField.addEventListener('focus', function() {
         if (!audioUnlocked) {
             unlockAudio();
@@ -495,7 +476,6 @@ function addMessageInputField() {
 
     document.getElementById('appScreen').appendChild(inputContainer);
 
-    // Фокусируем поле ввода
     setTimeout(() => {
         inputField.focus();
     }, 300);
@@ -536,7 +516,6 @@ function addNameInput() {
         }
     });
 
-    // Разблокировка аудио при фокусе на поле ввода
     inputField.addEventListener('focus', function() {
         if (!audioUnlocked) {
             unlockAudio();
@@ -551,7 +530,6 @@ function addNameInput() {
     }, 300);
 }
 
-// Отправить текстовое сообщение
 function sendTextMessage() {
     const messageInput = document.getElementById('messageInput');
     const message = messageInput.value.trim();
@@ -563,11 +541,10 @@ function sendTextMessage() {
             container.remove();
         }
 
-        // Переключаем на следующий экран
         setTimeout(() => {
             loadScreen('hello_text.jpeg');
             if (currentTask === 2) {
-                completeTask(2);
+                completeTask(2); // ЗВУК ТОЛЬКО ЗДЕСЬ
             }
         }, 10);
     } else {
@@ -587,7 +564,6 @@ function CreateName() {
             container.remove();
         }
 
-        // Переключаем на следующий экран
         setTimeout(() => {
             loadScreen('new_chat.jpeg');
         }, 10);
@@ -597,7 +573,6 @@ function CreateName() {
     }
 }
 
-// Инициализация кликабельных областей после загрузки изображения
 function initClickableAreas() {
     const config = screenConfigs[currentImage];
 
@@ -606,10 +581,8 @@ function initClickableAreas() {
         return;
     }
 
-    // Очищаем старые области
     document.getElementById('interactiveOverlay').innerHTML = '';
 
-    // Добавляем новые области
     if (config && config.areas) {
         config.areas.forEach(area => {
             const clickableArea = document.createElement('div');
@@ -623,7 +596,6 @@ function initClickableAreas() {
             clickableArea.id = area.id;
 
             clickableArea.onclick = () => {
-                // Разблокируем аудио при клике
                 if (!audioUnlocked) {
                     unlockAudio();
                 }
@@ -725,7 +697,7 @@ function handleAreaClick(action) {
             stickerSent = true;
             loadScreen('hello_sticker.jpeg');
             if (currentTask === 1) {
-                completeTask(1);
+                completeTask(1); // ЗВУК ТОЛЬКО ЗДЕСЬ
             }
             showNotification('Перейдите к следующему заданию');
             break;
@@ -752,7 +724,7 @@ function handleAreaClick(action) {
         case 'sharePhoto':
             loadScreen('final.jpeg');
             if (currentTask === 3) {
-                completeTask(3);
+                completeTask(3); // ЗВУК ТОЛЬКО ЗДЕСЬ
             }
             showNotification('Перейдите к следующему заданию');
             break;
@@ -780,14 +752,13 @@ function handleAreaClick(action) {
         case 'CompleteTrain':
             loadScreen('final_advanced.jpeg');
             if (currentTask === 4) {
-                completeTask(4);
+                completeTask(4); // ЗВУК ТОЛЬКО ЗДЕСЬ
             }
             showNotification('Тренинг завершен');
             break;
     }
 }
 
-// Сохранение прогресса
 async function saveProgress(taskId) {
     try {
         await fetch('/api/save-progress', {
@@ -820,7 +791,7 @@ async function completeTask(taskNum) {
     document.getElementById('next-btn').classList.add('active');
     showNotification(`Задание ${taskNum} выполнено!`);
 
-    // Воспроизводим звук следующего задания или финальный
+    // Воспроизводим звук следующего задания при завершении
     if (soundEnabled) {
         setTimeout(() => {
             if (taskNum === 1) {
@@ -832,7 +803,7 @@ async function completeTask(taskNum) {
             } else if (taskNum === 4) {
                 playSound('max_final.mp3');
             }
-        }, 500);
+        }, 1000);
     }
 
     if (tasksCompleted === totalTasks) {
@@ -861,37 +832,24 @@ function nextTask() {
         document.getElementById('task' + currentTask).classList.add('active');
         showNotification(`Начато задание ${currentTask}`);
 
-        // Обновляем экран в зависимости от задания
+        // Обновляем экран в зависимости от задания (БЕЗ ЗВУКА)
         switch(currentTask) {
             case 1:
                 loadScreen('start_page.jpeg');
-                if (soundEnabled) {
-                    playSound('task_1.mp3');
-                }
                 break;
             case 2:
                 loadScreen('hello_sticker.jpeg');
-                if (soundEnabled) {
-                    playSound('task_2.mp3');
-                }
                 break;
             case 3:
                 loadScreen('hello_text.jpeg');
-                if (soundEnabled) {
-                    playSound('task_3.mp3');
-                }
                 break;
             case 4:
                 loadScreen('final.jpeg');
-                if (soundEnabled) {
-                    playSound('task_4.mp3');
-                }
                 break;
         }
     }
 }
 
-// Обновить прогресс
 function updateProgress() {
     const progress = (tasksCompleted / totalTasks) * 100;
     document.getElementById('progress').style.width = progress + '%';
@@ -902,6 +860,7 @@ function toggleHelp(taskNum) {
     const help = document.getElementById('help' + taskNum);
     help.classList.toggle('active');
 
+    // Звук помощи ВСЕГДА при нажатии помощи
     if (soundEnabled) {
         if (taskNum == 1) {
             playSound('help_1.mp3');
@@ -956,7 +915,6 @@ async function restartTraining() {
     await saveProgress('reset');
     showNotification('Тренинг начат заново!');
 
-    // Воспроизводим звук первого задания при рестарте
     if (soundEnabled) {
         setTimeout(() => {
             playSound('task_1.mp3');
@@ -964,7 +922,6 @@ async function restartTraining() {
     }
 }
 
-// Поддержка клавиши Enter в модальном окне
 document.getElementById('inputField').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         // Для других модальных окон
