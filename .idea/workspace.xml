@@ -4,20 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5423f298-9750-4c02-8302-b1b3867beef4" name="Changes" comment="звуки">
-      <change afterPath="$PROJECT_DIR$/static/js/five_training_basic.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/js/five_training_pro.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/js/gos_training_pro.js" afterDir="false" />
+    <list default="true" id="5423f298-9750-4c02-8302-b1b3867beef4" name="Changes" comment="готовы звуки">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/users.db" beforeDir="false" afterPath="$PROJECT_DIR$/db/users.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/max_training_advanced.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/max_training_advanced.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/max_training_basic.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/max_training_basic.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/sounds/five_basic/five_task1_help.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/static/sounds/five_basic/five_task1_help.mp3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/messanger_training_advanced.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/messanger_training_advanced.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/messenger_training_basic.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/messenger_training_basic.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/online_shopping_basic.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/online_shopping_basic.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/online_shopping_pro.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/online_shopping_pro.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/public_services_pro.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/public_services_pro.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,12 +105,21 @@
       <option name="project" value="LOCAL" />
       <updated>1770374510068</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="готовы звуки">
+      <option name="closed" value="true" />
+      <created>1770400092568</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1770400092568</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="неполная озвучка и все работает" />
     <MESSAGE value="звуки" />
-    <option name="LAST_COMMIT_MESSAGE" value="звуки" />
+    <MESSAGE value="готовы звуки" />
+    <option name="LAST_COMMIT_MESSAGE" value="готовы звуки" />
   </component>
 </project>
