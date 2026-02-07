@@ -161,7 +161,7 @@ async def other_question(message: Message):
         reply_markup=ReplyKeyboardRemove()
     )
 
-@dp.message(F.text & ~F.text.starstwith('/'))
+@dp.message(F.text & ~F.text.startswith('/'))
 async def question(message: Message):
     if message.chat.id not in waiting:
         return
