@@ -333,7 +333,7 @@
             padding: 15px 30px;
             border-radius: 10px;
             cursor: pointer;
-            font-size: 41px;
+            font-size: 30px;
             margin-top: 20px;
             display: none;
             width: 100%;
@@ -501,6 +501,71 @@
         .training-panel h2 {
             color: #374151;
         }
+
+        .account-btn-text {
+            background: linear-gradient(135deg, #2c698d, #2c698d);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: 600;
+            padding: 12px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 122, 255, 0.3);
+            transition: all 0.3s;
+            text-decoration: none;
+            white-space: nowrap;
+            margin-top: 20px;
+        }
+
+        .account-btn-text:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 122, 255, 0.4);
+            background: linear-gradient(135deg, #2c698d, #2c698d);
+            color: white;
+            text-decoration: none;
+        }
+
+        .return-btn {
+            background: linear-gradient(135deg, #2c698d, #2c698d);
+            border: none;
+            color: white;
+            border-radius: 25px;
+            padding: 15px 30px;
+            font-size: 30px;
+            font-weight: bold;
+            margin-top: 20px;
+            width: 100%;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
+        }
+
+        /* Если нужно специфичное для кнопки с hide-on-complete */
+        .return-btn.hide-on-complete {
+            /* Здесь можно добавить специфичные стили */
+            border: 2px solid #2c698d; /* например */
+        }
+
+        .return-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 122, 255, 0.4);
+            background: linear-gradient(135deg, #1e4d6b, #2c698d);
+        }
+
+        /* Иконка внутри кнопки */
+        .return-btn i {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+
     </style>
 </head>
 <body>
@@ -557,13 +622,14 @@
                     <p>Через вкладку "Контакты" отправьте приветственный стикер контакту "Евгения Соседка"</p>
                 </div>
                 <button class="help-btn-big" onclick="toggleHelp(1)">
-                    <i class="bi bi-question-circle"></i> Помощь
+                    <i class="bi bi-question-circle"></i> ПОМОЩЬ
                 </button>
                 <div id="help1" class="help-content">
                     <p><strong>Как выполнить:</strong></p>
                     <p>1. На панели внизу экрана нажмите контакты</p>
                     <p>2. Из списка нажмите на контакт "Евгения Соседка"</p>
                     <p>3. В открывшемся чате нажмите на приветственный стикер</p>
+                    <a href="https://t.me/digital_navigator_predprof_bot?start=web" class="account-btn-text">Перейти в бота-помощника</a>
                 </div>
             </div>
 
@@ -574,13 +640,14 @@
                     <p>Отправьте сообщение "Добрый вечер"</p>
                 </div>
                 <button class="help-btn-big" onclick="toggleHelp(2)">
-                    <i class="bi bi-question-circle"></i> Помощь
+                    <i class="bi bi-question-circle"></i> ПОМОЩЬ
                 </button>
                 <div id="help2" class="help-content">
                     <p><strong>Как выполнить:</strong></p>
                     <p>1. Нажмите внизу экрана на область для отправки сообщения</p>
                     <p>2. Введите "Добрый вечер"</p>
                     <p>3. Нажмите Enter или кнопку отправки</p>
+                    <a href="https://t.me/digital_navigator_predprof_bot?start=web" class="account-btn-text">Перейти в бота-помощника</a>
                 </div>
             </div>
 
@@ -591,20 +658,21 @@
                     <p>Отправьте контакту фото из галереи</p>
                 </div>
                 <button class="help-btn-big" onclick="toggleHelp(3)">
-                    <i class="bi bi-question-circle"></i> Помощь
+                    <i class="bi bi-question-circle"></i> ПОМОЩЬ
                 </button>
                 <div id="help3" class="help-content">
                     <p><strong>Как выполнить:</strong></p>
                     <p>1. Нажмите на "скрепку" внизу экрана</p>
                     <p>2. Найдите нужное фото и нажмите на него</p>
                     <p>3. В открывшемся при нажатии окне нажмите кнопку отправки (телеграмма внизу экрана)</p>
+                    <a href="https://t.me/digital_navigator_predprof_bot?start=web" class="account-btn-text">Перейти в бота-помощника</a>
                 </div>
             </div>
 
             <button id="next-btn" class="next-btn" onclick="nextTask()">
-                Следующее задание <i class="bi bi-arrow-right"></i>
+                СЛЕДУЮЩЕЕ ЗАДАНИЕ <i class="bi bi-arrow-right"></i>
             </button>
-
+            <a href="{{ url_for('go_to_trainer') }}" class="return-btn hide-on-complete"><i class="bi bi-arrow-right-circle"></i> Вернуться в каталог курсов</a>
             <div id="complete-screen" class="complete-screen">
                 <div class="complete-icon"><i class="bi bi-trophy-fill"></i></div>
                 <h2>Тренинг завершен!</h2>

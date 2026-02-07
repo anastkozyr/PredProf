@@ -320,7 +320,7 @@
         }
 
         .training-title {
-            font-size: 32px;
+            font-size: 35px;
             color: #333;
             margin-bottom: 20px;
             text-align: center;
@@ -371,7 +371,7 @@
         }
 
         .task-title {
-            font-size: 28px;
+            font-size: 30px;
             color: #333;
             margin-bottom: 20px;
             font-weight: bold;
@@ -382,7 +382,7 @@
             padding: 25px;
             border-radius: 15px;
             margin-bottom: 30px;
-            font-size: 20px;
+            font-size: 25px;
             line-height: 1.6;
             border: 2px solid #eee;
         }
@@ -400,7 +400,7 @@
             justify-content: center;
             gap: 15px;
             width: 100%;
-            font-size: 22px;
+            font-size: 40px;
             font-weight: bold;
             transition: all 0.3s;
         }
@@ -421,7 +421,7 @@
             margin-top: 25px;
             display: none;
             border: 3px solid #007AFF;
-            font-size: 20px;
+            font-size: 30px;
             line-height: 1.8;
         }
 
@@ -455,7 +455,7 @@
             padding: 25px 50px;
             border-radius: 15px;
             cursor: pointer;
-            font-size: 24px;
+            font-size: 30px;
             font-weight: bold;
             margin-top: 30px;
             display: none;
@@ -477,6 +477,7 @@
             text-align: center;
             display: none;
             padding: 40px;
+            font-size: 30px;
         }
 
         .complete-screen.active {
@@ -484,13 +485,13 @@
         }
 
         .complete-icon {
-            font-size: 80px;
+            font-size: 60px;
             color: #28a745;
             margin-bottom: 30px;
         }
 
         .score {
-            font-size: 60px;
+            font-size: 48px;
             font-weight: bold;
             color: #333;
             margin: 30px 0;
@@ -514,24 +515,23 @@
         }
 
         .trainer-btn {
-            background: linear-gradient(135deg, #2c698d, #3a86ff);
+            background: #007AFF;
             border: none;
             color: white;
-            text-decoration: none;
             border-radius: 25px;
-            padding: 25px 50px;
-            font-size: 24px;
+            padding: 15px 30px;
+            font-size: 35px;
             font-weight: bold;
-            margin-top: 40px;
+            margin-top: 20px;
             width: 100%;
             cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 8px 25px rgba(44, 105, 141, 0.3);
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
         }
 
         .trainer-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(44, 105, 141, 0.4);
+            background-color: #1c00d4;
         }
 
         /* Адаптивность */
@@ -569,6 +569,94 @@
                 font-size: 18px;
             }
         }
+        .return-btn {
+            background: linear-gradient(135deg, #2c698d, #2c698d);
+            border: none;
+            color: white;
+            border-radius: 25px;
+            padding: 15px 30px;
+            font-size: 30px;
+            font-weight: bold;
+            margin-top: 20px;
+            width: 100%;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
+        }
+
+        .return-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 122, 255, 0.4);
+            background: linear-gradient(135deg, #2c698d, #2c698d);
+        }
+
+        .account-btn-text {
+            background: linear-gradient(135deg, #2c698d, #2c698d);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: 600;
+            padding: 12px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 122, 255, 0.3);
+            transition: all 0.3s;
+            text-decoration: none;
+            white-space: nowrap;
+            margin-top: 20px;
+        }
+
+        .account-btn-text:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 122, 255, 0.4);
+            background: linear-gradient(135deg, #2c698d, #2c698d);
+            color: white;
+            text-decoration: none;
+        }
+
+        .return-btn {
+            background: linear-gradient(135deg, #2c698d, #2c698d);
+            border: none;
+            color: white;
+            border-radius: 25px;
+            padding: 15px 30px;
+            font-size: 30px;
+            font-weight: bold;
+            margin-top: 20px;
+            width: 100%;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
+        }
+
+        /* Если нужно специфичное для кнопки с hide-on-complete */
+        .return-btn.hide-on-complete {
+            /* Здесь можно добавить специфичные стили */
+            border: 2px solid #2c698d; /* например */
+        }
+
+        .return-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 122, 255, 0.4);
+            background: linear-gradient(135deg, #1e4d6b, #2c698d);
+        }
+
+        /* Иконка внутри кнопки */
+        .return-btn i {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+
     </style>
 </head>
 <body>
@@ -835,6 +923,7 @@
                         <p style="margin-top: 20px; color: #007AFF; font-weight: bold;">
                             <i class="bi bi-lightbulb"></i> После успешного подключения задание будет выполнено автоматически
                         </p>
+                        <a href="https://t.me/digital_navigator_predprof_bot?start=web" class="account-btn-text">Перейти в бота-помощника</a>
                     </div>
                 </div>
 
@@ -858,6 +947,7 @@
                         <p style="margin-top: 20px; color: #007AFF; font-weight: bold;">
                             <i class="bi bi-lightbulb"></i> Кнопки находятся сбоку от черного телефона
                         </p>
+                        <a href="https://t.me/digital_navigator_predprof_bot?start=web" class="account-btn-text">Перейти в бота-помощника</a>
                     </div>
                 </div>
 
@@ -879,6 +969,7 @@
                         <p style="margin-top: 20px; color: #007AFF; font-weight: bold;">
                             <i class="bi bi-lightbulb"></i> Нужно сделать 2 нажатия: первое блокирует, второе разблокирует
                         </p>
+                        <a href="https://t.me/digital_navigator_predprof_bot?start=web" class="account-btn-text">Перейти в бота-помощника</a>
                     </div>
                 </div>
 
@@ -890,7 +981,7 @@
                         <p><strong>Задача:</strong> Найдите и скачайте приложение Telegram через магазин приложений</p>
                     </div>
                     <button class="help-btn-big" onclick="toggleHelp(4)">
-                        <i class="bi bi-question-circle"></i> КАК ЭТО СДЕЛАТЬ?
+                        <i class="bi bi-question-circle"></i> ПОМОЩЬ
                     </button>
                     <div id="help4" class="help-content-big">
                         <p><strong>ШАГ ЗА ШАГОМ:</strong></p>
@@ -902,13 +993,14 @@
                         <p style="margin-top: 20px; color: #28a745; font-weight: bold;">
                             <i class="bi bi-lightbulb"></i> Просто введите "Telegram" в поиске и нажмите скачать!
                         </p>
+                        <a href="https://t.me/digital_navigator_predprof_bot?start=web" class="account-btn-text">Перейти в бота-помощника</a>
                     </div>
                 </div>
 
                 <button id="next-btn" class="next-btn" onclick="nextTask()">
                     СЛЕДУЮЩЕЕ ЗАДАНИЕ <i class="bi bi-arrow-right"></i>
                 </button>
-
+                <a href="{{ url_for('go_to_trainer') }}" class="return-btn hide-on-complete"><i class="bi bi-arrow-right-circle"></i> Вернуться в каталог курсов</a>
                 <!-- Экран завершения -->
                 <div id="complete-screen" class="complete-screen">
                     <div class="complete-icon"><i class="bi bi-trophy-fill"></i></div>
@@ -921,7 +1013,7 @@
                         <i class="bi bi-arrow-repeat"></i> НАЧАТЬ ЗАНОВО
                     </button>
                     <a href="{{ url_for('go_to_trainer') }}" class="trainer-btn">
-                        <i class="bi bi-arrow-right-circle"></i> ПЕРЕЙТИ НА ГЛАВНУЮ
+                        <i class="bi bi-arrow-right-circle"></i> На главную страницу
                     </a>
                 </div>
             </div>
@@ -940,6 +1032,7 @@
         let volumeDownCount = 0;
         let powerCount = 0;
         const totalTasks = 4;
+        const buttonsToHide = document.querySelectorAll('.hide-on-complete');
 
         // Показать экран телефона
         function showScreen(screen) {
@@ -1099,6 +1192,7 @@
                     document.getElementById('task' + currentTask).classList.remove('active');
                     document.getElementById('next-btn').classList.remove('active');
                     document.getElementById('score').textContent = totalTasks + '/' + totalTasks;
+                    buttonsToHide.forEach(button => {button.style.display = 'none';});
                 }, 1000);
             }
         }

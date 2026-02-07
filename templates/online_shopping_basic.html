@@ -225,7 +225,7 @@
         }
 
         .training-title {
-            font-size: 40px;
+            font-size: 35px;
             color: #333;
             margin-bottom: 10px;
             text-align: center;
@@ -281,7 +281,7 @@
         .task-description {
             color: #000000;
             margin-bottom: 30px;
-            font-size: 20px;
+            font-size: 25px;
         }
 
         /* Большая кнопка помощи */
@@ -298,7 +298,7 @@
             justify-content: center;
             gap: 15px;
             width: 100%;
-            font-size: 36px;
+            font-size: 40px;
             font-weight: bold;
             transition: all 0.3s;
             box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
@@ -335,7 +335,7 @@
             padding: 15px 30px;
             border-radius: 10px;
             cursor: pointer;
-            font-size: 41px;
+            font-size: 30px;
             margin-top: 20px;
             display: none;
             width: 100%;
@@ -369,7 +369,7 @@
         }
 
         .score {
-            font-size: 60px;
+            font-size: 48px;
             font-weight: bold;
             color: #333;
             margin: 20px 0;
@@ -396,7 +396,7 @@
             color: white;
             border-radius: 25px;
             padding: 15px 30px;
-            font-size: 50px;
+            font-size: 35px;
             font-weight: bold;
             margin-top: 20px;
             width: 100%;
@@ -473,6 +473,69 @@
             font-size: 12px;
             z-index: 1000;
         }
+
+        .account-btn-text {
+            background: linear-gradient(135deg, #2c698d, #2c698d);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: 600;
+            padding: 12px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 122, 255, 0.3);
+            transition: all 0.3s;
+            text-decoration: none;
+            white-space: nowrap;
+            margin-top: 20px;
+        }
+
+        .account-btn-text:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 122, 255, 0.4);
+            background: linear-gradient(135deg, #2c698d, #2c698d);
+            color: white;
+            text-decoration: none;
+        }
+
+        .return-btn {
+            background: linear-gradient(135deg, #2c698d, #2c698d);
+            border: none;
+            color: white;
+            border-radius: 25px;
+            padding: 15px 30px;
+            font-size: 30px;
+            font-weight: bold;
+            margin-top: 20px;
+            width: 100%;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
+        }
+
+        .return-btn.hide-on-complete {
+            border: 2px solid #2c698d;
+        }
+
+        .return-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 122, 255, 0.4);
+            background: linear-gradient(135deg, #1e4d6b, #2c698d);
+        }
+
+        /* Иконка внутри кнопки */
+        .return-btn i {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+
     </style>
 </head>
 <body>
@@ -531,6 +594,7 @@
                         <p style="margin-top: 20px; color: #007AFF; font-weight: bold;">
                             <i class="bi bi-lightbulb"></i> Кнопки пульсируют тонкой черной окантовкой
                         </p>
+                        <a href="https://t.me/digital_navigator_predprof_bot?start=web" class="account-btn-text">Перейти в бота-помощника</a>
                     </div>
                 </div>
 
@@ -553,6 +617,7 @@
                         <p style="margin-top: 20px; color: #007AFF; font-weight: bold;">
                             <i class="bi bi-lightbulb"></i> Кнопки пульсируют тонкой черной окантовкой
                         </p>
+                        <a href="https://t.me/digital_navigator_predprof_bot?start=web" class="account-btn-text">Перейти в бота-помощника</a>
                     </div>
                 </div>
 
@@ -574,6 +639,7 @@
                         <p style="margin-top: 20px; color: #007AFF; font-weight: bold;">
                             <i class="bi bi-lightbulb"></i> Кнопки пульсируют тонкой черной окантовкой
                         </p>
+                        <a href="https://t.me/digital_navigator_predprof_bot?start=web" class="account-btn-text">Перейти в бота-помощника</a>
                     </div>
                 </div>
 
@@ -594,16 +660,17 @@
                         <p style="margin-top: 20px; color: #007AFF; font-weight: bold;">
                             <i class="bi bi-lightbulb"></i> Кнопки пульсируют тонкой черной окантовкой
                         </p>
+                        <a href="https://t.me/digital_navigator_predprof_bot?start=web" class="account-btn-text">Перейти в бота-помощника</a>
                     </div>
                 </div>
 
                 <button id="next-btn" class="next-btn" onclick="nextTask()">
-                    Следующее задание <i class="bi bi-arrow-right"></i>
+                    СЛЕДУЮЩЕЕ ЗАДАНИЕ <i class="bi bi-arrow-right"></i>
                 </button>
-
+                <a href="{{ url_for('go_to_trainer') }}" class="return-btn hide-on-complete"><i class="bi bi-arrow-right-circle"></i> Вернуться в каталог курсов</a>
                 <div id="complete-screen" class="complete-screen">
                     <div class="complete-icon"><i class="bi bi-trophy-fill"></i></div>
-                    <h2>Тренинг завершен!</h2>
+                    <h2>ТРЕНИНГ ЗАВЕРШЕН!</h2>
                     <div class="score" id="score">0/4</div>
                     <p>Поздравляем! Вы научились делать покупки в приложении!</p>
                     <button class="next-btn" onclick="restartTraining()" style="background: #6c757d;">
@@ -629,6 +696,7 @@
         let breadAdded = false;
         let porridgeAdded = false;
         let modalAction = null;
+        const buttonsToHide = document.querySelectorAll('.hide-on-complete');
 
         // Отслеживаем, на каких экранах мы уже были для каждого задания
         let visitedScreens = {
@@ -1060,6 +1128,7 @@
                     document.getElementById('next-btn').classList.remove('active');
                     document.getElementById('score').textContent = `${totalTasks}/${totalTasks}`;
                     saveProgress('final');
+                    buttonsToHide.forEach(button => {button.style.display = 'none';});
                 }, 1000);
             }
         }

@@ -527,7 +527,7 @@
         }
 
         .training-title {
-            font-size: 32px;
+            font-size: 35px;
             color: #333;
             margin-bottom: 20px;
             text-align: center;
@@ -578,7 +578,7 @@
         }
 
         .task-title {
-            font-size: 28px;
+            font-size: 30px;
             color: #333;
             margin-bottom: 20px;
             font-weight: bold;
@@ -589,7 +589,7 @@
             padding: 25px;
             border-radius: 15px;
             margin-bottom: 30px;
-            font-size: 20px;
+            font-size: 25px;
             line-height: 1.6;
             border: 2px solid #eee;
         }
@@ -608,7 +608,7 @@
             justify-content: center;
             gap: 15px;
             width: 100%;
-            font-size: 22px;
+            font-size: 40px;
             font-weight: bold;
             transition: all 0.3s;
         }
@@ -629,7 +629,7 @@
             margin-top: 25px;
             display: none;
             border: 3px solid #007AFF;
-            font-size: 20px;
+            font-size: 30px;
             line-height: 1.8;
         }
 
@@ -663,7 +663,7 @@
             padding: 25px 50px;
             border-radius: 15px;
             cursor: pointer;
-            font-size: 24px;
+            font-size: 30px;
             font-weight: bold;
             margin-top: 30px;
             display: none;
@@ -685,6 +685,7 @@
             text-align: center;
             display: none;
             padding: 40px;
+            font-size: 30px;
         }
 
         .complete-screen.active {
@@ -692,13 +693,13 @@
         }
 
         .complete-icon {
-            font-size: 80px;
+            font-size: 60px;
             color: #28a745;
             margin-bottom: 30px;
         }
 
         .score {
-            font-size: 60px;
+            font-size: 48px;
             font-weight: bold;
             color: #333;
             margin: 30px 0;
@@ -734,26 +735,23 @@
         }
 
         .trainer-btn {
-            background: linear-gradient(135deg, #2c698d, #3a86ff);
+            background: #007AFF;
             border: none;
             color: white;
             border-radius: 25px;
-            padding: 25px 50px;
-            font-size: 24px;
+            padding: 15px 30px;
+            font-size: 35px;
             font-weight: bold;
-            margin-top: 40px;
+            margin-top: 20px;
             width: 100%;
             cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 8px 25px rgba(44, 105, 141, 0.3);
             text-decoration: none;
             display: inline-block;
             text-align: center;
         }
 
         .trainer-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(44, 105, 141, 0.4);
+            background-color: #1c00d4;
         }
 
         /* Адаптивность */
@@ -791,6 +789,70 @@
                 font-size: 18px;
             }
         }
+        .account-btn-text {
+            background: linear-gradient(135deg, #2c698d, #2c698d);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: 600;
+            padding: 12px 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 122, 255, 0.3);
+            transition: all 0.3s;
+            text-decoration: none;
+            white-space: nowrap;
+            margin-top: 20px;
+        }
+
+        .account-btn-text:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 122, 255, 0.4);
+            background: linear-gradient(135deg, #2c698d, #2c698d);
+            color: white;
+            text-decoration: none;
+        }
+
+        .return-btn {
+            background: linear-gradient(135deg, #2c698d, #2c698d);
+            border: none;
+            color: white;
+            border-radius: 25px;
+            padding: 15px 30px;
+            font-size: 30px;
+            font-weight: bold;
+            margin-top: 20px;
+            width: 100%;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.2);
+        }
+
+        /* Если нужно специфичное для кнопки с hide-on-complete */
+        .return-btn.hide-on-complete {
+            /* Здесь можно добавить специфичные стили */
+            border: 2px solid #2c698d; /* например */
+        }
+
+        .return-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 122, 255, 0.4);
+            background: linear-gradient(135deg, #1e4d6b, #2c698d);
+        }
+
+        /* Иконка внутри кнопки */
+        .return-btn i {
+            margin-right: 10px;
+            font-size: 28px;
+        }
+
     </style>
 </head>
 <body>
@@ -1023,6 +1085,7 @@
                     <p style="margin-top: 20px; color: #dc3545; font-weight: bold;">
                         <i class="bi bi-exclamation-triangle"></i> Не нажимайте "Зарегистрироваться" - это ошибка!
                     </p>
+                    <a href="https://t.me/digital_navigator_predprof_bot?start=web" class="account-btn-text">Перейти в бота-помощника</a>
                 </div>
             </div>
 
@@ -1059,6 +1122,7 @@
                         <li>Введите адрес больницы  "ул. Ленина, д. 10"</li>
                         <li>Выберите дату 16 февраля</li>
                         <li>Выберите время 13:40</li>
+                    <a href="https://t.me/digital_navigator_predprof_bot?start=web" class="account-btn-text">Перейти в бота-помощника</a>
                 </div>
             </div>
 
@@ -1067,7 +1131,7 @@
                 <div class="task-number">3</div>
                 <h2 class="task-title">Оформить электронное свидетельство пенсионера</h2>
                 <div class="task-description">
-                    <p><strong>Задача:</strong>Оформить электронное свидетельство пенсионера</p>
+                    <p><strong>Задача:</strong> Оформить электронное свидетельство пенсионера</p>
 
                     <ol style="padding-left: 20px; font-size: 18px;">
 
@@ -1085,13 +1149,14 @@
                         <li>Подтвердите свои данные (нажмите кнопку "Разрешить")</li>
                         <li>Дальше будет проходить поиск данных в СФР</li>
                         <li>Нажмите на крестик, после обновления страницы у Вас появится электронное свидетельство пенсионера</li>
+                    <a href="https://t.me/digital_navigator_predprof_bot?start=web" class="account-btn-text">Перейти в бота-помощника</a>
                 </div>
             </div>
 
             <button id="next-btn" class="next-btn" onclick="nextTask()">
                 СЛЕДУЮЩЕЕ ЗАДАНИЕ <i class="bi bi-arrow-right"></i>
             </button>
-
+            <a href="{{ url_for('go_to_trainer') }}" class="return-btn hide-on-complete"><i class="bi bi-arrow-right-circle"></i> Вернуться в каталог курсов</a>
             <div id="complete-screen" class="complete-screen">
                 <div class="complete-icon"><i class="bi bi-trophy-fill"></i></div>
                 <h2 style="font-size: 36px; margin-bottom: 20px;">ТРЕНИНГ ЗАВЕРШЕН!</h2>
@@ -1104,7 +1169,7 @@
                 </button>
                 <div style="margin-top: 30px;">
                     <a href="{{ url_for('go_to_trainer') }}" class="trainer-btn">
-                        <i class="bi bi-arrow-right-circle"></i> НА ГЛАВНУЮ СТРАНИЦУ
+                        <i class="bi bi-arrow-right-circle"></i> На главную страницу
                     </a>
                 </div>
             </div>
@@ -1120,6 +1185,7 @@
     let currentTask = 1;
     let tasksCompleted = 0;
     const totalTasks = 3;
+    const buttonsToHide = document.querySelectorAll('.hide-on-complete');
 
     // Состояния выполнения заданий
     const taskCompleted = Array(totalTasks + 1).fill(false);
@@ -1358,8 +1424,10 @@ function handleIm16Click() {
             completeTask(3);
             showNotification('Заявление успешно подано! Задание 3 завершено.', 'success');
 
+
             // Через 3 секунды показываем финальный экран тренинга
             setTimeout(() => {
+            buttonsToHide.forEach(button => {button.style.display = 'none';});
                 document.getElementById('pension-success-screen').classList.remove('active');
                 document.getElementById('final-success-screen').classList.add('active');
 

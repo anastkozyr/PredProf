@@ -1,4 +1,4 @@
-// max_training_advanced.js - скрипт тренинга Макса (профильный) с озвучкой
+  // max_training_advanced.js - скрипт тренинга Макса (профильный) с озвучкой
 let currentTask = 1;
 let tasksCompleted = 0;
 let totalTasks = 4;
@@ -6,6 +6,7 @@ let currentImage = 'start_page.jpeg';
 let stickerSent = false;
 let messageSent = false;
 let modalAction = null;
+const buttonsToHide = document.querySelectorAll('.hide-on-complete');
 let memberButtonsClicked = {
     first: false,
     second: false
@@ -843,6 +844,7 @@ async function completeTask(taskNum) {
             document.getElementById('next-btn').classList.remove('active');
             document.getElementById('score').textContent = `${totalTasks}/${totalTasks}`;
             saveProgress('final');
+            buttonsToHide.forEach(button => {button.style.display = 'none';});
         }, 10);
     }
 }
