@@ -78,7 +78,6 @@ function enableSound() {
     statusIndicator.innerHTML = '🔊 Озвучка включена';
     statusIndicator.style.display = 'block';
 
-    // Воспроизводим текущее задание
     playCurrentTaskSound();
 
     setTimeout(() => {
@@ -160,6 +159,20 @@ const originalRestartTraining = window.restartTraining;
 const originalShowNotification = window.showNotification;
 const originalHandleAreaClick = window.handleAreaClick;
 const originalInitClickableAreas = window.initClickableAreas;
+const originalCompleteTraining = window.completeTraining;
+
+// Ищем оригинальную функцию completeTraining и переопределяем ее
+window.completeTraining = function() {
+    // Воспроизводим финальный звук если озвучка включена
+    if (audioUnlocked) {
+        playSound('five_final.mp3');
+    }
+
+    // Вызываем оригинальную функцию
+    if (originalCompleteTraining) {
+        originalCompleteTraining();
+    }
+};
 
 window.showNotification = function(message) {
     if (originalShowNotification) {
@@ -173,18 +186,8 @@ window.completeTask = function(taskNum) {
         originalCompleteTask(taskNum);
     }
 
-    // Воспроизводим звук следующего задания при завершении
-    if (soundEnabled) {
-        setTimeout(() => {
-            if (taskNum === 1) {
-                playSound('five_task2.mp3');
-            } else if (taskNum === 2) {
-                playSound('five_task3.mp3');
-            } else if (taskNum === 3) {
-                playSound('five_task4.mp3');
-            }
-        }, 1000);
-    }
+    // НЕ воспроизводим звук следующего задания здесь!
+    // Звук следующего задания будет в nextTask()
 };
 
 window.nextTask = function() {
@@ -192,7 +195,7 @@ window.nextTask = function() {
         originalNextTask();
     }
 
-    // Воспроизводим звук нового задания
+    // Воспроизводим звук нового задания ПОСЛЕ нажатия кнопки
     if (soundEnabled) {
         setTimeout(() => {
             playCurrentTaskSound();

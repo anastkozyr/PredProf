@@ -1,4 +1,3 @@
-// five_training_pro.js - ОЗВУЧКА с кнопкой управления для профильной Пятерочки
 let audioUnlocked = false;
 let soundEnabled = false;
 const soundPlayer = new Audio();
@@ -165,6 +164,7 @@ function playCurrentTaskSound() {
     }
 }
 
+// Сохраняем оригинальные функции
 const originalCompleteTask = window.completeTask;
 const originalNextTask = window.nextTask;
 const originalToggleHelp = window.toggleHelp;
@@ -172,6 +172,20 @@ const originalRestartTraining = window.restartTraining;
 const originalShowNotification = window.showNotification;
 const originalHandleAreaClick = window.handleAreaClick;
 const originalInitClickableAreas = window.initClickableAreas;
+const originalCompleteTraining = window.completeTraining;
+
+// Ищем оригинальную функцию completeTraining и переопределяем ее
+window.completeTraining = function() {
+    // Воспроизводим финальный звук если озвучка включена
+    if (audioUnlocked) {
+        playSound('five_final.mp3');
+    }
+
+    // Вызываем оригинальную функцию
+    if (originalCompleteTraining) {
+        originalCompleteTraining();
+    }
+};
 
 window.showNotification = function(message) {
     if (originalShowNotification) {
@@ -185,34 +199,8 @@ window.completeTask = function(taskNum) {
         originalCompleteTask(taskNum);
     }
 
-    if (soundEnabled && taskNum === 7) {
-        setTimeout(() => {
-            playSound('five_final.mp3');
-        }, 1000);
-    } else if (soundEnabled) {
-        setTimeout(() => {
-            switch(taskNum) {
-                case 1:
-                    playSound('five_pro_task2.mp3');
-                    break;
-                case 2:
-                    playSound('five_pro_task3.mp3');
-                    break;
-                case 3:
-                    playSound('five_pro_task4.mp3');
-                    break;
-                case 4:
-                    playSound('five_pro_task5.mp3');
-                    break;
-                case 5:
-                    playSound('five_pro_task6.mp3');
-                    break;
-                case 6:
-                    playSound('five_pro_task7.mp3');
-                    break;
-            }
-        }, 1000);
-    }
+    // НЕ воспроизводим звук следующего задания здесь!
+    // Финальный звук будет в completeTraining()
 };
 
 window.nextTask = function() {
@@ -220,6 +208,7 @@ window.nextTask = function() {
         originalNextTask();
     }
 
+    // Воспроизводим звук нового задания ПОСЛЕ нажатия кнопки
     if (soundEnabled) {
         setTimeout(() => {
             playCurrentTaskSound();

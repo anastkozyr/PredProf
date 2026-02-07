@@ -171,17 +171,8 @@ window.completeTask = function(taskNum) {
         originalCompleteTask(taskNum);
     }
 
-    if (soundEnabled) {
-        setTimeout(() => {
-            if (taskNum === 1) {
-                playSound('os_pro_task2.mp3'); // При завершении 1 → звук 2
-            } else if (taskNum === 2) {
-                playSound('os_pro_task3.mp3'); // При завершении 2 → звук 3
-            } else if (taskNum === 3) {
-                playSound('os_pro_task4.mp3'); // При завершении 3 → звук 4
-            }
-        }, 1000);
-    }
+    // НЕ воспроизводим звук следующего задания здесь!
+    // Звук следующего задания будет в nextTask()
 };
 
 window.nextTask = function() {
@@ -189,9 +180,10 @@ window.nextTask = function() {
         originalNextTask();
     }
 
+    // Воспроизводим звук нового задания ПОСЛЕ нажатия кнопки
     if (soundEnabled) {
         setTimeout(() => {
-            playCurrentTaskSound();
+            playCurrentTaskSound(); // Звук текущего задания
         }, 500);
     }
 };

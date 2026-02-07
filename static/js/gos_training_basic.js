@@ -171,12 +171,8 @@ window.completeTask = function(taskNum) {
         originalCompleteTask(taskNum);
     }
 
-    // Воспроизводим звук следующего задания при завершении
-    if (soundEnabled && taskNum === 1) {
-        setTimeout(() => {
-            playSound('gos_task2.mp3'); // При завершении 1 → звук 2
-        }, 1000);
-    }
+    // НЕ воспроизводим звук следующего задания здесь!
+    // Звук следующего задания будет в nextTask()
 };
 
 window.nextTask = function() {
@@ -185,7 +181,7 @@ window.nextTask = function() {
         originalNextTask();
     }
 
-    // Воспроизводим звук нового задания
+    // Воспроизводим звук нового задания ПОСЛЕ нажатия кнопки
     if (soundEnabled) {
         setTimeout(() => {
             playCurrentTaskSound(); // Звук текущего задания

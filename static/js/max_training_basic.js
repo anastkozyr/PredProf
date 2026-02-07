@@ -88,7 +88,6 @@ function enableSound() {
     statusIndicator.innerHTML = '🔊 Озвучка включена';
     statusIndicator.style.display = 'block';
 
-    // Воспроизводим текущее задание при ВКЛЮЧЕНИИ
     playCurrentTaskSound();
 
     setTimeout(() => {
@@ -131,7 +130,7 @@ function unlockAudio() {
             soundPlayer.pause();
             soundPlayer.currentTime = 0;
             soundPlayer.volume = 1;
-            enableSound(); // Автоматически включаем после разблокировки
+            enableSound();
         })
         .catch(() => {
             showNotification('Нажмите на кнопку "Озвучить тренинг" для включения звука');
@@ -309,7 +308,6 @@ function loadScreen(imageName) {
     currentImage = imageName;
     const config = screenConfigs[imageName];
 
-    // ТОЛЬКО загрузка изображения, БЕЗ звука
     document.getElementById('appScreen').innerHTML =
         `<img src="/images/max/${imageName}" alt="Экран приложения"
               onload="initClickableAreas()">`;
@@ -409,7 +407,7 @@ function sendTextMessage() {
         setTimeout(() => {
             loadScreen('hello_text.jpeg');
             if (currentTask === 2) {
-                completeTask(2); // ЗВУК ТОЛЬКО ЗДЕСЬ
+                completeTask(2);
             }
         }, 10);
     } else {
@@ -463,7 +461,7 @@ function handleAreaClick(action) {
             stickerSent = true;
             loadScreen('hello_sticker.jpeg');
             if (currentTask === 1) {
-                completeTask(1); // ЗВУК ТОЛЬКО ЗДЕСЬ
+                completeTask(1);
             }
             showNotification('Перейдите к следующему заданию');
             break;
@@ -490,7 +488,7 @@ function handleAreaClick(action) {
         case 'sharePhoto':
             loadScreen('final.jpeg');
             if (currentTask === 3) {
-                completeTask(3); // ЗВУК ТОЛЬКО ЗДЕСЬ
+                completeTask(3);
             }
             showNotification('Тренинг успешно пройден!');
             break;
@@ -513,11 +511,20 @@ async function saveProgress(taskId) {
     }
 }
 
-function completeTraining() {
-    if (tasksCompleted === totalTasks) {
-        fetch("/messenger_training", {method: "POST"});
+// Ищем оригинальную функцию completeTraining и переопределяем ее
+const originalCompleteTraining = window.completeTraining;
+
+window.completeTraining = function() {
+    // Воспроизводим финальный звук если озвучка включена
+    if (audioUnlocked) {
+        playSound('max_final.mp3');
     }
-}
+
+    // Вызываем оригинальную функцию
+    if (originalCompleteTraining) {
+        originalCompleteTraining();
+    }
+};
 
 // Завершить задание
 async function completeTask(taskNum) {
@@ -529,18 +536,8 @@ async function completeTask(taskNum) {
     document.getElementById('next-btn').classList.add('active');
     showNotification(`Задание ${taskNum} выполнено!`);
 
-    // Воспроизводим звук следующего задания при завершении
-    if (soundEnabled) {
-        setTimeout(() => {
-            if (taskNum === 1) {
-                playSound('task_2.mp3'); // При завершении 1 → звук 2
-            } else if (taskNum === 2) {
-                playSound('task_3.mp3'); // При завершении 2 → звук 3
-            } else if (taskNum === 3) {
-                playSound('max_final.mp3'); // При завершении 3 → финальный
-            }
-        }, 1000);
-    }
+    // НЕ воспроизводим звук следующего задания здесь!
+    // Звук следующего задания будет в nextTask()
 
     if (tasksCompleted === totalTasks) {
         completeTraining();
@@ -568,7 +565,7 @@ function nextTask() {
         document.getElementById('task' + currentTask).classList.add('active');
         showNotification(`Начато задание ${currentTask}`);
 
-        // Обновляем экран в зависимости от задания (БЕЗ ЗВУКА)
+        // Обновляем экран в зависимости от задания
         switch(currentTask) {
             case 1:
                 loadScreen('start_page.jpeg');
@@ -581,7 +578,12 @@ function nextTask() {
                 break;
         }
 
-        // Звук проиграется сам при playCurrentTaskSound() если озвучка включена
+        // Воспроизводим звук нового задания ПОСЛЕ нажатия кнопки
+        if (soundEnabled) {
+            setTimeout(() => {
+                playCurrentTaskSound();
+            }, 500);
+        }
     }
 }
 
@@ -595,7 +597,7 @@ function toggleHelp(taskNum) {
     const help = document.getElementById('help' + taskNum);
     help.classList.toggle('active');
 
-    // Звук помощи ВСЕГДА при нажатии помощи
+    // Звук помощи
     if (soundEnabled) {
         if (taskNum == 1) {
             playSound('help_1.mp3');

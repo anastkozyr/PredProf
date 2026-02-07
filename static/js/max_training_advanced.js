@@ -1,14 +1,9 @@
 let currentTask = 1;
 let tasksCompleted = 0;
-let totalTasks = 4;
+let totalTasks = 3;
 let currentImage = 'start_page.jpeg';
 let stickerSent = false;
 let messageSent = false;
-let modalAction = null;
-let memberButtonsClicked = {
-    first: false,
-    second: false
-};
 
 // Переменные для озвучки
 let audioUnlocked = false;
@@ -161,8 +156,6 @@ function playCurrentTaskSound() {
         playSound('task_2.mp3');
     } else if (currentTask === 3) {
         playSound('task_3.mp3');
-    } else if (currentTask === 4) {
-        playSound('task_4.mp3');
     }
 }
 
@@ -177,7 +170,7 @@ const screenConfigs = {
                 height: '8%',
                 action: 'openContacts'
             }
-        ]
+        ],
     },
     'contacts.jpeg': {
         areas: [
@@ -216,7 +209,7 @@ const screenConfigs = {
                 height: '5%',
                 action: 'sendPhoto'
             }
-        ]
+        ],
     },
     'gallery.jpeg': {
         areas: [
@@ -243,85 +236,11 @@ const screenConfigs = {
         ]
     },
     'final.jpeg': {
-        areas: [
-            {
-                id: 'final-basic',
-                top: '1%',
-                left: '0%',
-                width: '10%',
-                height: '5%',
-                action: 'Back'
-            }
-        ]
-    },
-    'start.jpeg': {
-        areas: [
-            {
-                id: 'start-advanced',
-                top: '1%',
-                left: '90%',
-                width: '10%',
-                height: '5%',
-                action: 'Plus'
-            }
-        ]
-    },
-    'new.jpeg': {
-        areas: [
-            {
-                id: 'new-chat',
-                top: '7%',
-                left: '2%',
-                width: '80%',
-                height: '5%',
-                action: 'CreateChat'
-            }
-        ]
-    },
-    'choose_members.jpeg': {
-        areas: []
-    },
-    'rename.jpeg': {
-        areas: [
-            {
-                id: 'rename-chat',
-                top: '46%',
-                left: '0%',
-                width: '98%',
-                height: '7%',
-                action: 'CreateName'
-            }
-        ]
-    },
-    'new_chat.jpeg': {
-        areas: [
-            {
-                id: 'choose-sticker',
-                top: '89%',
-                left: '0%',
-                width: '10%',
-                height: '5%',
-                action: 'ShowStickers'
-            }
-        ]
-    },
-    'choose_sticker.jpeg': {
-        areas: [
-            {
-                id: 'choose-sticker',
-                top: '70%',
-                left: '0%',
-                width: '20%',
-                height: '15%',
-                action: 'CompleteTrain'
-            }
-        ]
-    },
-    'final_advanced.jpeg': {
         areas: []
     }
 };
 
+// Загрузка данных пользователя
 document.addEventListener('DOMContentLoaded', function() {
     loadUserData();
     loadScreen('start_page.jpeg');
@@ -381,29 +300,20 @@ async function loadUserData() {
             document.getElementById('userStatus').classList.add('active');
         }
     } catch (error) {
-        console.error('Ошибка загрузки данных:', error);
+        console.error('Ошибка загрузка данных:', error);
     }
 }
 
 function loadScreen(imageName) {
     currentImage = imageName;
-
-    if (imageName === 'choose_members.jpeg') {
-        memberButtonsClicked = { first: false, second: false };
-    }
-
     const config = screenConfigs[imageName];
 
-    // ТОЛЬКО загрузка изображения
     document.getElementById('appScreen').innerHTML =
         `<img src="/images/max/${imageName}" alt="Экран приложения"
               onload="initClickableAreas()">`;
 
     if (imageName === 'hello_sticker.jpeg') {
         addMessageInputField();
-    }
-    if (imageName === 'rename.jpeg'){
-        addNameInput();
     }
 }
 
@@ -481,61 +391,14 @@ function addMessageInputField() {
     }, 300);
 }
 
-function addNameInput() {
-    const inputContainer = document.createElement('div');
-    inputContainer.id = 'InputName';
-    inputContainer.style.cssText = `
-        position: absolute;
-        bottom: 65%;
-        left: 2%;
-        width: 95%;
-        display: flex;
-        gap: 10px;
-        z-index: 200;
-        pointer-events: all;
-    `;
-
-    const inputField = document.createElement('input');
-    inputField.id = 'nameInput';
-    inputField.type = 'text';
-    inputField.placeholder = 'Введите название...';
-    inputField.style.cssText = `
-        flex: 1;
-        padding: 12px 15px;
-        border: 2px solid #5e72e4;
-        border-radius: 25px;
-        font-size: 16px;
-        background: rgba(255, 255, 255, 0.95);
-        outline: none;
-        box-shadow: 0 4px 15px rgba(94, 114, 228, 0.2);
-    `;
-
-    inputField.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            CreateName();
-        }
-    });
-
-    inputField.addEventListener('focus', function() {
-        if (!audioUnlocked) {
-            unlockAudio();
-        }
-    });
-
-    inputContainer.appendChild(inputField);
-    document.getElementById('appScreen').appendChild(inputContainer);
-
-    setTimeout(() => {
-        inputField.focus();
-    }, 300);
-}
-
 function sendTextMessage() {
     const messageInput = document.getElementById('messageInput');
     const message = messageInput.value.trim();
 
     if (message.toLowerCase() === 'добрый вечер') {
         messageSent = true;
+        showNotification('Перейдите к следующему заданию');
+
         const container = document.getElementById('messageInputContainer');
         if (container) {
             container.remove();
@@ -544,7 +407,7 @@ function sendTextMessage() {
         setTimeout(() => {
             loadScreen('hello_text.jpeg');
             if (currentTask === 2) {
-                completeTask(2); // ЗВУК ТОЛЬКО ЗДЕСЬ
+                completeTask(2);
             }
         }, 10);
     } else {
@@ -553,33 +416,8 @@ function sendTextMessage() {
     }
 }
 
-function CreateName() {
-    const messageInput = document.getElementById('nameInput');
-    const message = messageInput.value.trim();
-
-    if (message.toLowerCase() === 'день рождения') {
-        messageSent = true;
-        const container = document.getElementById('InputName');
-        if (container) {
-            container.remove();
-        }
-
-        setTimeout(() => {
-            loadScreen('new_chat.jpeg');
-        }, 10);
-    } else {
-        showNotification('Назовите группу "День рождения"');
-        messageInput.focus();
-    }
-}
-
 function initClickableAreas() {
     const config = screenConfigs[currentImage];
-
-    if (currentImage === 'choose_members.jpeg') {
-        initChooseMembersAreas();
-        return;
-    }
 
     document.getElementById('interactiveOverlay').innerHTML = '';
 
@@ -607,80 +445,6 @@ function initClickableAreas() {
     }
 }
 
-function initChooseMembersAreas() {
-    document.getElementById('interactiveOverlay').innerHTML = '';
-
-    const firstButton = document.createElement('div');
-    firstButton.className = 'clickable-area active';
-    firstButton.innerHTML = '';
-    firstButton.style.top = '15%';
-    firstButton.style.left = '1%';
-    firstButton.style.width = '10%';
-    firstButton.style.height = '5%';
-    firstButton.id = 'first-member-btn';
-    firstButton.onclick = () => {
-        if (!audioUnlocked) {
-            unlockAudio();
-        }
-        handleFirstMemberButton();
-    };
-
-    const secondButton = document.createElement('div');
-    secondButton.className = 'clickable-area active';
-    secondButton.innerHTML = '';
-    secondButton.style.top = '38%';
-    secondButton.style.left = '0%';
-    secondButton.style.width = '10%';
-    secondButton.style.height = '5%';
-    secondButton.id = 'second-member-btn';
-    secondButton.onclick = () => {
-        if (!audioUnlocked) {
-            unlockAudio();
-        }
-        handleSecondMemberButton();
-    };
-
-    document.getElementById('interactiveOverlay').appendChild(firstButton);
-    document.getElementById('interactiveOverlay').appendChild(secondButton);
-
-    if (memberButtonsClicked.first && memberButtonsClicked.second) {
-        const thirdButton = document.createElement('div');
-        thirdButton.className = 'clickable-area active';
-        thirdButton.innerHTML = '';
-        thirdButton.style.top = '86%';
-        thirdButton.style.left = '2%';
-        thirdButton.style.width = '95%';
-        thirdButton.style.height = '7%';
-        thirdButton.id = 'third-member-btn';
-        thirdButton.onclick = () => {
-            if (!audioUnlocked) {
-                unlockAudio();
-            }
-            handleThirdMemberButton();
-        };
-
-        document.getElementById('interactiveOverlay').appendChild(thirdButton);
-    }
-}
-
-function handleFirstMemberButton() {
-    memberButtonsClicked.first = true;
-    if (memberButtonsClicked.first && memberButtonsClicked.second) {
-        initChooseMembersAreas();
-    }
-}
-
-function handleSecondMemberButton() {
-    memberButtonsClicked.second = true;
-    if (memberButtonsClicked.first && memberButtonsClicked.second) {
-        initChooseMembersAreas();
-    }
-}
-
-function handleThirdMemberButton() {
-    loadScreen('rename.jpeg');
-}
-
 function handleAreaClick(action) {
     console.log('Клик по области:', action);
 
@@ -697,7 +461,7 @@ function handleAreaClick(action) {
             stickerSent = true;
             loadScreen('hello_sticker.jpeg');
             if (currentTask === 1) {
-                completeTask(1); // ЗВУК ТОЛЬКО ЗДЕСЬ
+                completeTask(1);
             }
             showNotification('Перейдите к следующему заданию');
             break;
@@ -724,37 +488,9 @@ function handleAreaClick(action) {
         case 'sharePhoto':
             loadScreen('final.jpeg');
             if (currentTask === 3) {
-                completeTask(3); // ЗВУК ТОЛЬКО ЗДЕСЬ
+                completeTask(3);
             }
-            showNotification('Перейдите к следующему заданию');
-            break;
-
-        case 'Plus':
-            loadScreen('new.jpeg');
-            break;
-
-        case 'CreateChat':
-            loadScreen('choose_members.jpeg');
-            break;
-
-        case 'Back':
-            loadScreen('start.jpeg');
-            break;
-
-        case 'CreateName':
-            CreateName();
-            break;
-
-        case 'ShowStickers':
-            loadScreen('choose_sticker.jpeg');
-            break;
-
-        case 'CompleteTrain':
-            loadScreen('final_advanced.jpeg');
-            if (currentTask === 4) {
-                completeTask(4); // ЗВУК ТОЛЬКО ЗДЕСЬ
-            }
-            showNotification('Тренинг завершен');
+            showNotification('Тренинг успешно пройден!');
             break;
     }
 }
@@ -775,11 +511,20 @@ async function saveProgress(taskId) {
     }
 }
 
-function completeTraining() {
-    if (tasksCompleted === totalTasks) {
-        fetch("/messenger_training", {method: "POST"});
+// Ищем оригинальную функцию completeTraining и переопределяем ее
+const originalCompleteTraining = window.completeTraining;
+
+window.completeTraining = function() {
+    // Воспроизводим финальный звук если озвучка включена
+    if (audioUnlocked) {
+        playSound('max_final.mp3');
     }
-}
+
+    // Вызываем оригинальную функцию
+    if (originalCompleteTraining) {
+        originalCompleteTraining();
+    }
+};
 
 // Завершить задание
 async function completeTask(taskNum) {
@@ -791,20 +536,8 @@ async function completeTask(taskNum) {
     document.getElementById('next-btn').classList.add('active');
     showNotification(`Задание ${taskNum} выполнено!`);
 
-    // Воспроизводим звук следующего задания при завершении
-    if (soundEnabled) {
-        setTimeout(() => {
-            if (taskNum === 1) {
-                playSound('task_2.mp3');
-            } else if (taskNum === 2) {
-                playSound('task_3.mp3');
-            } else if (taskNum === 3) {
-                playSound('task_4.mp3');
-            } else if (taskNum === 4) {
-                playSound('max_final.mp3');
-            }
-        }, 1000);
-    }
+    // НЕ воспроизводим звук следующего задания здесь!
+    // Звук следующего задания будет в nextTask()
 
     if (tasksCompleted === totalTasks) {
         completeTraining();
@@ -832,7 +565,7 @@ function nextTask() {
         document.getElementById('task' + currentTask).classList.add('active');
         showNotification(`Начато задание ${currentTask}`);
 
-        // Обновляем экран в зависимости от задания (БЕЗ ЗВУКА)
+        // Обновляем экран в зависимости от задания
         switch(currentTask) {
             case 1:
                 loadScreen('start_page.jpeg');
@@ -843,9 +576,13 @@ function nextTask() {
             case 3:
                 loadScreen('hello_text.jpeg');
                 break;
-            case 4:
-                loadScreen('final.jpeg');
-                break;
+        }
+
+        // Воспроизводим звук нового задания ПОСЛЕ нажатия кнопки
+        if (soundEnabled) {
+            setTimeout(() => {
+                playCurrentTaskSound();
+            }, 500);
         }
     }
 }
@@ -860,7 +597,7 @@ function toggleHelp(taskNum) {
     const help = document.getElementById('help' + taskNum);
     help.classList.toggle('active');
 
-    // Звук помощи ВСЕГДА при нажатии помощи
+    // Звук помощи
     if (soundEnabled) {
         if (taskNum == 1) {
             playSound('help_1.mp3');
@@ -868,8 +605,6 @@ function toggleHelp(taskNum) {
             playSound('help_2.mp3');
         } else if (taskNum == 3) {
             playSound('help_3.mp3');
-        } else if (taskNum == 4) {
-            playSound('help_4.mp3');
         }
     }
 }
@@ -888,16 +623,10 @@ async function restartTraining() {
     tasksCompleted = 0;
     stickerSent = false;
     messageSent = false;
-    memberButtonsClicked = { first: false, second: false };
 
     const inputContainer = document.getElementById('messageInputContainer');
     if (inputContainer) {
         inputContainer.remove();
-    }
-
-    const nameContainer = document.getElementById('InputName');
-    if (nameContainer) {
-        nameContainer.remove();
     }
 
     document.getElementById('complete-screen').classList.remove('active');
@@ -915,6 +644,7 @@ async function restartTraining() {
     await saveProgress('reset');
     showNotification('Тренинг начат заново!');
 
+    // Воспроизводим звук первого задания при рестарте
     if (soundEnabled) {
         setTimeout(() => {
             playSound('task_1.mp3');
