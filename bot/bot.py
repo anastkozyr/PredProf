@@ -16,6 +16,10 @@ bot = Bot(token=bot_token)
 
 dp = Dispatcher()
 
+waiting = set()
+ADMIN_CHAT_ID = 2034513673
+to_admin = {}
+
 button_1 = KeyboardButton(text='В задании, которое сейчас прохожу')
 button_2 = KeyboardButton(text='Узнать, как пользоваться сайтом')
 
@@ -150,14 +154,51 @@ async def help_logout(message: Message):
 
 @dp.message(F.text == 'Другой вопрос')
 async def other_question(message: Message):
-    # ПОМЕНЯТЬ НА НУЖНОЕ ВИДЕО
+    waiting.add(message.chat.id)
+
     await message.answer(
-        text='Напишите свой вопрос...',
+        text='Напишите свой вопрос, я передам его специалисту...',
+        reply_markup=ReplyKeyboardRemove()
+    )
+
+@dp.message(F.text & ~F.text.startswith('/'))
+async def question(message: Message):
+    if message.chat.id not in waiting:
+        return
+    waiting.remove(message.chat.id)
+
+    admin_message = await bot.send_message(
+        ADMIN_CHAT_ID,
+        f'новый вопрос от пользователя\n'
+        f'ID: {message.chat.id}\n'
+        f'вопрос: {message.text}'
+    )
+    to_admin[admin_message.message_id] = message.chat.id
+
+    await message.answer(
+        text='Спасибо, на Ваш вопрос скоро ответят!',
         reply_markup=keyboard
     )
 
 
+@dp.message(F.reply_to_message)
+async def admin_reply(message: Message):
+    if message.chat.id != ADMIN_CHAT_ID:
+        return
+    replied = message.reply_to_message
+    if replied.message_id not in to_admin:
+        return
+    user_id = to_admin.pop(replied.message_id)
+
+    await bot.send_message(
+        user_id,
+        f'Ответ специалиста: \n{message.text}'
+    )
+    await bot.send_message(ADMIN_CHAT_ID, 'ответ оправлен')
+
+
 async def run_bot():
+    await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
 
 
