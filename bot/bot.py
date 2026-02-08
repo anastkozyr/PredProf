@@ -170,7 +170,7 @@ async def question(message: Message):
     admin_message = await bot.send_message(
         ADMIN_CHAT_ID,
         f'новый вопрос от пользователя\n'
-        f'ID: {message.chat.id}\n'
+        f'ID: {message.chat.id}\n {message.from_user.full_name}\n'
         f'вопрос: {message.text}'
     )
     to_admin[admin_message.message_id] = message.chat.id
@@ -187,13 +187,17 @@ async def admin_reply(message: Message):
         return
     replied = message.reply_to_message
     if replied.message_id not in to_admin:
+        await message.answer('это не вопрос пользователя')
         return
-    user_id = to_admin.pop(replied.message_id)
+    user_id = to_admin[replied.message_id]
 
-    await bot.send_message(
-        user_id,
-        f'Ответ специалиста: \n{message.text}'
-    )
+    if message.text:
+        await bot.send_message(
+            user_id,
+            f'Ответ специалиста: \n{message.text}'
+        )
+    elif message.photo:
+        await bot.send_photo(user_id, photo=message.photo[-1].file_id, caption=message.caption or "Ответ специалиста")
     await bot.send_message(ADMIN_CHAT_ID, 'ответ оправлен')
 
 
