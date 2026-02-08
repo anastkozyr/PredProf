@@ -8,7 +8,8 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 def start_flask():
     from main import app
-    app.run(debug=True, port=8028, host='127.0.0.1', use_reloader=False)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host='0.0.0.0', port=port)
 
 
 def start_telegram_bot():
@@ -21,7 +22,7 @@ if __name__ == '__main__':
     flask_thread.start()
     import time
 
-    time.sleep(3)
+    time.sleep(5)
     start_telegram_bot()
 
 
