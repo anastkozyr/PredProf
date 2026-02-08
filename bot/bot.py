@@ -93,7 +93,7 @@ async def os_video_basic(message: Message):
         text='Отправляем видео...',
         reply_markup=keyboard
     )
-    video = ''
+    video = 'BAACAgIAAxkBAAICK2mIten_z01no19JC4zA6r4m63_RAAJUlwAC8LBJSGGeubfb3U58OgQ'
     await bot.send_video(
         chat_id=message.chat.id,
         video=video,
@@ -107,7 +107,7 @@ async def os_video(message: Message):
         text='Отправляем видео...',
         reply_markup=keyboard
     )
-    video = ''
+    video = 'BAACAgIAAxkBAAICLGmIthqcRirqqAjWdD8NQvHwNOyiAAJXlwAC8LBJSB5rE4qzovGBOgQ'
     await bot.send_video(
         chat_id=message.chat.id,
         video=video,
@@ -121,7 +121,7 @@ async def max_video_basic(message: Message):
         text='Отправляем видео...',
         reply_markup=keyboard
     )
-    video = ''
+    video = 'BAACAgIAAxkBAAICX2mIxlzr9GQoeSklbywpkQoTAp7NAAIjmQAC8LBJSLyvrt-mNjagOgQ'
     await bot.send_video(
         chat_id=message.chat.id,
         video=video,
@@ -135,7 +135,7 @@ async def max_video(message: Message):
         text='Отправляем видео...',
         reply_markup=keyboard
     )
-    video = ''
+    video = 'BAACAgIAAxkBAAICXGmIvy-Zb-dhCl01gbPajKqIjtfmAAJ0mAAC8LBJSHWXuMRB1ktwOgQ'
     await bot.send_video(
         chat_id=message.chat.id,
         video=video,
@@ -143,13 +143,13 @@ async def max_video(message: Message):
     )
 
 @dp.message(F.text == 'Госуслуги, базовый уровень')
-async def gos_video(message: Message):
+async def gos_video_basic(message: Message):
     # ПОМЕНЯТЬ НА НУЖНОЕ ВИДЕО
     await message.answer(
         text='Отправляем видео...',
         reply_markup=keyboard
     )
-    video = ''
+    video = 'BAACAgIAAxkBAAICXmmIxgeVSoncy5ZtV1Q7oXoqsTXFAAIUmQAC8LBJSIVs-NueZygoOgQ'
     await bot.send_video(
         chat_id=message.chat.id,
         video=video,
@@ -163,7 +163,7 @@ async def gos_video(message: Message):
         text='Отправляем видео...',
         reply_markup=keyboard
     )
-    video = ''
+    video = 'BAACAgIAAxkBAAICVWmIvjdF6JT85f311qRQXCf_d9J4AAJWmAAC8LBJSNSnlkxgbaZAOgQ'
     await bot.send_video(
         chat_id=message.chat.id,
         video=video,
@@ -178,7 +178,7 @@ async def five_video_basic(message: Message):
         text='Отправляем видео...',
         reply_markup=keyboard
     )
-    video = ''
+    video = 'BAACAgIAAxkBAAICTmmIvOv52X-E1BwyygRhPERGj7LCAAIomAAC8LBJSMAX3XBR9OVhOgQ'
     await bot.send_video(
         chat_id=message.chat.id,
         video=video,
@@ -192,7 +192,7 @@ async def five_video(message: Message):
         text='Отправляем видео...',
         reply_markup=keyboard
     )
-    video = ''
+    video = 'BAACAgIAAxkBAAICaGmIy6mK5Ux5WsYWbsREAcEluyJ2AAJ9mQAC8LBJSNu-6RIHwxZbOgQ'
     await bot.send_video(
         chat_id=message.chat.id,
         video=video,
@@ -226,9 +226,6 @@ async def help_logout(message: Message):
         reply_markup=keyboard
     )
 
-@dp.message(F.video)
-async def get_video_id(message: Message):
-    print(message.video.file_id)
 
 @dp.message(F.text == 'Другой вопрос')
 async def other_question(message: Message):
