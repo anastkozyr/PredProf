@@ -23,10 +23,18 @@ to_admin = {}
 button_1 = KeyboardButton(text='В задании, которое сейчас прохожу')
 button_2 = KeyboardButton(text='Узнать, как пользоваться сайтом')
 
-task_1 = KeyboardButton(text='Основы смартфона')
-task_2 = KeyboardButton(text='MAX')
-task_3 = KeyboardButton(text='Госуслуги')
-task_4 = KeyboardButton(text='Пятерочка')
+level_1 = KeyboardButton(text='Базовый')
+level_2 = KeyboardButton(text='Расширенный')
+
+task_1 = KeyboardButton(text='Основы смартфона, базовый уровень')
+task_2 = KeyboardButton(text='MAX, базовый уровень')
+task_3 = KeyboardButton(text='Госуслуги, базовый уровень')
+task_4 = KeyboardButton(text='Пятерочка, базовый уровень')
+
+adv_1 = KeyboardButton(text='Основы смартфона, расширенный уровень')
+adv_2 = KeyboardButton(text='MAX, расширенный уровень')
+adv_3 = KeyboardButton(text='Госуслуги, расширенный уровень')
+adv_4 = KeyboardButton(text='Пятерочка, расширенный уровень')
 
 help_1 = KeyboardButton(text='Задание не переходит на следующее')
 help_2 = KeyboardButton(text='Сменить уровень обучения')
@@ -38,7 +46,8 @@ BASE_DIR = Path(__file__).parent
 keyboard = ReplyKeyboardMarkup(keyboard=[[button_1, button_2]], resize_keyboard=True)
 tasks_keyboard = ReplyKeyboardMarkup(keyboard=[[task_1, task_2, task_3, task_4]], resize_keyboard=True)
 help_keyboard = ReplyKeyboardMarkup(keyboard=[[help_1, help_2, help_3, help_4]], resize_keyboard=True)
-
+level_keyboard = ReplyKeyboardMarkup(keyboard=[[level_1, level_2]], resize_keyboard=True)
+adv_keyboard = ReplyKeyboardMarkup(keyboard=[[adv_1, adv_2, adv_3, adv_4]], resize_keyboard=True)
 
 @dp.message(CommandStart())
 async def start_command(message: Message):
@@ -51,10 +60,23 @@ async def start_command(message: Message):
 @dp.message(F.text == 'В задании, которое сейчас прохожу')
 async def process_yes_answer(message: Message):
     await message.answer(
+        text='На каком вы уровне обучения?',
+        reply_markup=level_keyboard
+    )
+
+@dp.message(F.text == 'Базовый')
+async def process_yes_answer_basic(message: Message):
+    await message.answer(
         text='С каким заданием возникают трудности?',
         reply_markup=tasks_keyboard
     )
 
+@dp.message(F.text == 'Расширенный')
+async def process_yes_answer(message: Message):
+    await message.answer(
+        text='С каким заданием возникают трудности?',
+        reply_markup=adv_keyboard
+    )
 
 @dp.message(F.text == 'Узнать, как пользоваться сайтом')
 async def process_no_answer(message: Message):
@@ -65,63 +87,116 @@ async def process_no_answer(message: Message):
     )
 
 
-@dp.message(F.text == 'Основы смартфона')
+@dp.message(F.text == 'Основы смартфона, базовый уровень')
+async def os_video_basic(message: Message):
+    await message.answer(
+        text='Отправляем видео...',
+        reply_markup=keyboard
+    )
+    video = ''
+    await bot.send_video(
+        chat_id=message.chat.id,
+        video=video,
+        caption='Видеоинструкция по основам смартфона для базового уровня'
+    )
+
+
+@dp.message(F.text == 'Основы смартфона, расширенный уровень')
 async def os_video(message: Message):
+    await message.answer(
+        text='Отправляем видео...',
+        reply_markup=keyboard
+    )
+    video = ''
+    await bot.send_video(
+        chat_id=message.chat.id,
+        video=video,
+        caption='Видеоинструкция по основам смартфона для расширенного уровня'
+    )
+
+@dp.message(F.text == 'MAX, базовый уровень')
+async def max_video_basic(message: Message):
     # ПОМЕНЯТЬ НА НУЖНОЕ ВИДЕО
     await message.answer(
         text='Отправляем видео...',
         reply_markup=keyboard
     )
-    video = FSInputFile(path=f'{BASE_DIR}/videos/os.mp4')
+    video = ''
     await bot.send_video(
         chat_id=message.chat.id,
         video=video,
-        caption='Видеоинструкция по основам смартфона'
+        caption='Видеоинструкция по MAX для базового уровня'
     )
 
-
-@dp.message(F.text == 'MAX')
+@dp.message(F.text == 'MAX, расширенный уровень')
 async def max_video(message: Message):
     # ПОМЕНЯТЬ НА НУЖНОЕ ВИДЕО
     await message.answer(
         text='Отправляем видео...',
         reply_markup=keyboard
     )
-    video = FSInputFile(path=f'{BASE_DIR}/videos/os.mp4')
+    video = ''
     await bot.send_video(
         chat_id=message.chat.id,
         video=video,
-        caption='Видеоинструкция по MAX'
+        caption='Видеоинструкция по MAX для расширенного уровня'
     )
 
-
-@dp.message(F.text == 'Госуслуги')
+@dp.message(F.text == 'Госуслуги, базовый уровень')
 async def gos_video(message: Message):
     # ПОМЕНЯТЬ НА НУЖНОЕ ВИДЕО
     await message.answer(
         text='Отправляем видео...',
         reply_markup=keyboard
     )
-    video = FSInputFile(path=f'{BASE_DIR}/videos/os.mp4')
+    video = ''
     await bot.send_video(
         chat_id=message.chat.id,
         video=video,
-        caption='Видеоинструкция по Госуслугам'
+        caption='Видеоинструкция по Госуслугам для базового уровня'
+    )
+
+@dp.message(F.text == 'Госуслуги, расширенный уровень')
+async def gos_video(message: Message):
+    # ПОМЕНЯТЬ НА НУЖНОЕ ВИДЕО
+    await message.answer(
+        text='Отправляем видео...',
+        reply_markup=keyboard
+    )
+    video = ''
+    await bot.send_video(
+        chat_id=message.chat.id,
+        video=video,
+        caption='Видеоинструкция по Госуслугам для расширенного уровня'
     )
 
 
-@dp.message(F.text == 'Пятерочка')
+@dp.message(F.text == 'Пятерочка, базовый уровень')
+async def five_video_basic(message: Message):
+    # ПОМЕНЯТЬ НА НУЖНОЕ ВИДЕО
+    await message.answer(
+        text='Отправляем видео...',
+        reply_markup=keyboard
+    )
+    video = ''
+    await bot.send_video(
+        chat_id=message.chat.id,
+        video=video,
+        caption='Видеоинструкция по Пятерочке для базового уровня'
+    )
+
+@dp.message(F.text == 'Пятерочка, расширенный уровень')
 async def five_video(message: Message):
     # ПОМЕНЯТЬ НА НУЖНОЕ ВИДЕО
     await message.answer(
         text='Отправляем видео...',
         reply_markup=keyboard
     )
-    video = FSInputFile(path=f'{BASE_DIR}/videos/os.mp4')
+    video = ''
     await bot.send_video(
         chat_id=message.chat.id,
         video=video,
-        caption='Видеоинструкция по Пятерочке'
+        caption='Видеоинструкция по Пятерочке для расширенного уровня'
     )
 
 
@@ -151,6 +226,9 @@ async def help_logout(message: Message):
         reply_markup=keyboard
     )
 
+@dp.message(F.video)
+async def get_video_id(message: Message):
+    print(message.video.file_id)
 
 @dp.message(F.text == 'Другой вопрос')
 async def other_question(message: Message):
