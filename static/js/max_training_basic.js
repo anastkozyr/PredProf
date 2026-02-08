@@ -520,6 +520,12 @@ async function saveProgress(taskId) {
     }
 }
 
+async function completeTrainingtodb() {
+    if (tasksCompleted === totalTasks) {
+        fetch("/messenger_training", {method: "POST"});
+    }
+}
+
 // Ищем оригинальную функцию completeTraining и переопределяем ее
 const originalCompleteTraining = window.completeTraining;
 
@@ -550,6 +556,7 @@ async function completeTask(taskNum) {
 
     if (tasksCompleted === totalTasks) {
         completeTraining();
+        completeTrainingtodb();
         setTimeout(() => {
             document.getElementById('complete-screen').classList.add('active');
             document.getElementById('task' + currentTask).classList.remove('active');
