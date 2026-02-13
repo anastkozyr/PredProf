@@ -5,7 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5423f298-9750-4c02-8302-b1b3867beef4" name="Changes" comment="исправленный звук">
+      <change beforePath="$PROJECT_DIR$/.idea/PredProf.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/PredProf.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/users.db" beforeDir="false" afterPath="$PROJECT_DIR$/db/users.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/images/max/gallery.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/images/max/gallery.jpeg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/max_training_advanced.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/max_training_advanced.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/max_training_basic.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/max_training_basic.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/sounds/max/help_1.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/static/sounds/max/help_1.mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/sounds/max/help_2.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/static/sounds/max/help_2.mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/sounds/max/help_3.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/static/sounds/max/help_3.mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/sounds/max/help_4.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/static/sounds/max/help_4.mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/sounds/max/max_final.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/static/sounds/max/max_final.mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/sounds/max/task_1.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/static/sounds/max/task_1.mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/sounds/max/task_2.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/static/sounds/max/task_2.mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/sounds/max/task_3.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/static/sounds/max/task_3.mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/sounds/max/task_4.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/static/sounds/max/task_4.mp3" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,13 +56,14 @@
     "Python.run.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "veronika",
-    "last_opened_file_path": "C:/Users/leono/Documents/GitHub/PredProf",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/leono/Documents/GitHub/PredProf/images/max",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\leono\Documents\GitHub\PredProf\images\max" />
       <recent name="C:\Users\leono\Documents\GitHub\PredProf\images\five" />
     </key>
     <key name="MoveFile.RECENT_KEYS">

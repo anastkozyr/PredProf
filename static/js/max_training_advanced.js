@@ -212,10 +212,10 @@ const screenConfigs = {
         areas: [
             {
                 id: 'send-photo',
-                top: '90%',
-                left: '70%',
-                width: '7%',
-                height: '5%',
+                top: '88.5%',
+                left: '67%',
+                width: '13%',
+                height: '6%',
                 action: 'sendPhoto'
             }
         ]
@@ -224,10 +224,10 @@ const screenConfigs = {
         areas: [
             {
                 id: 'choose-photo',
-                top: '37%',
-                left: '0%',
-                width: '33%',
-                height: '18%',
+                top: '38%',
+                left: '30%',
+                width: '42%',
+                height: '20%',
                 action: 'choosePhoto'
             }
         ]
@@ -261,7 +261,7 @@ const screenConfigs = {
             {
                 id: 'start-advanced',
                 top: '1%',
-                left: '90%',
+                left: '89%',
                 width: '10%',
                 height: '5%',
                 action: 'Plus'
@@ -272,10 +272,10 @@ const screenConfigs = {
         areas: [
             {
                 id: 'new-chat',
-                top: '7%',
-                left: '2%',
+                top: '6%',
+                left: '1%',
                 width: '80%',
-                height: '5%',
+                height: '6%',
                 action: 'CreateChat'
             }
         ]
@@ -313,8 +313,8 @@ const screenConfigs = {
                 id: 'choose-sticker',
                 top: '70%',
                 left: '0%',
-                width: '20%',
-                height: '15%',
+                width: '23%',
+                height: '18%',
                 action: 'CompleteTrain'
             }
         ]

@@ -210,10 +210,10 @@ const screenConfigs = {
         areas: [
             {
                 id: 'send-photo',
-                top: '90%',
-                left: '70%',
-                width: '7%',
-                height: '5%',
+                top: '88.5%',
+                left: '67%',
+                width: '13%',
+                height: '6%',
                 action: 'sendPhoto'
             }
         ],
@@ -222,10 +222,10 @@ const screenConfigs = {
         areas: [
             {
                 id: 'choose-photo',
-                top: '37%',
-                left: '0%',
-                width: '33%',
-                height: '18%',
+                top: '38%',
+                left: '30%',
+                width: '42%',
+                height: '20%',
                 action: 'choosePhoto'
             }
         ]
@@ -234,10 +234,10 @@ const screenConfigs = {
         areas: [
             {
                 id: 'send-photo',
-                top: '89%',
-                left: '90%',
-                width: '10%',
-                height: '5%',
+                top: '88.5%',
+                left: '91%',
+                width: '11%',
+                height: '5.5%',
                 action: 'sharePhoto'
             }
         ]
