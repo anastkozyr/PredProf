@@ -236,12 +236,8 @@ async def other_question(message: Message):
         reply_markup=ReplyKeyboardRemove()
     )
 
-@dp.message(F.text & ~F.text.startswith('/'))
+@dp.message(F.text & ~F.text.startswith('/') & ~F.text.startswith('+'))
 async def question(message: Message):
-    if message.chat.id not in waiting:
-        return
-    waiting.remove(message.chat.id)
-
     admin_message = await bot.send_message(
         ADMIN_CHAT_ID,
         f'новый вопрос от пользователя\n'
@@ -256,24 +252,17 @@ async def question(message: Message):
     )
 
 
-@dp.message(F.reply_to_message)
-async def admin_reply(message: Message):
+@dp.message(F.text & F.text.startswith('+'))
+async def admin_send(message: Message):
     if message.chat.id != ADMIN_CHAT_ID:
         return
-    replied = message.reply_to_message
-    if replied.message_id not in to_admin:
-        await message.answer('это не вопрос пользователя')
-        return
-    user_id = to_admin[replied.message_id]
-
-    if message.text:
-        await bot.send_message(
-            user_id,
-            f'Ответ специалиста: \n{message.text}'
-        )
-    elif message.photo:
-        await bot.send_photo(user_id, photo=message.photo[-1].file_id, caption=message.caption or "Ответ специалиста")
-    await bot.send_message(ADMIN_CHAT_ID, 'ответ оправлен')
+    text = message.text[1:]
+    if ':' in text:
+        s = text.split(':', 1)
+        user_id = s[0].strip()
+        reply = s[1].strip()
+        await bot.send_message(user_id, f'Ответ специалиста: \n{reply}')
+        await message.answer("Ответ отправлен")
 
 
 async def run_bot():

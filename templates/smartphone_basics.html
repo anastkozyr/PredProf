@@ -12,7 +12,26 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+        .black-screen {
+            background: #000;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
 
+        .black-screen i {
+            font-size: 60px;
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        .black-screen p {
+            font-size: 24px;
+            text-align: center;
+            padding: 0 20px;
+        }
         body {
             background: linear-gradient(135deg, #e6f7ff 0%, #e6f7ff 100%);
             min-height: 100vh;
@@ -884,9 +903,7 @@
                     <!-- Черный экран блокировки -->
                     <div id="black-screen" class="screen black-screen">
                         <div style="text-align: center;">
-                            <i class="bi bi-phone" style="font-size: 60px; margin-bottom: 20px;"></i>
-                            <p style="font-size: 24px;">Телефон заблокирован</p>
-                            <p style="font-size: 18px; margin-top: 10px;">Нажмите кнопку питания для разблокировки</p>
+
                         </div>
                     </div>
                 </div>
@@ -1024,310 +1041,369 @@
     <div id="notification" class="notification"></div>
 
     <script>
-        // Переменные
-        let currentTask = 1;
-        let tasksCompleted = 0;
-        let screenLocked = false;
-        let volumeUpCount = 0;
-        let volumeDownCount = 0;
-        let powerCount = 0;
-        const totalTasks = 4;
-        const buttonsToHide = document.querySelectorAll('.hide-on-complete');
+    // Переменные
+    let currentTask = 1;
+    let tasksCompleted = 0;
+    let screenLocked = false;
+    let volumeUpCount = 0;
+    let volumeDownCount = 0;
+    let powerCount = 0;
+    const totalTasks = 4;
+    const buttonsToHide = document.querySelectorAll('.hide-on-complete');
 
-        // Показать экран телефона
-        function showScreen(screen) {
-            // Скрыть все экраны
-            document.querySelectorAll('.screen').forEach(s => {
-                s.classList.remove('active');
-            });
+    // Флаги для блокировки кнопок
+    let volumeButtonsEnabled = false; // Кнопки громкости доступны только для задания 2
+    let powerButtonEnabled = false; // Кнопка питания доступна только для задания 3
+    let task2Completed = false; // Флаг выполнения задания 2
+    let task3Completed = false; // Флаг выполнения задания 3
 
-            // Показать нужный экран
-            document.getElementById(screen + '-screen').classList.add('active');
+    // Показать экран телефона
+    function showScreen(screen) {
+        // Скрыть все экраны
+        document.querySelectorAll('.screen').forEach(s => {
+            s.classList.remove('active');
+        });
 
-            // Обновить активные вкладки в навбаре
-            updateNavBar(screen);
+        // Показать нужный экран
+        document.getElementById(screen + '-screen').classList.add('active');
 
-            // Проверить задание 1 (подключение к Wi-Fi)
-            if (screen === 'wifi' && currentTask === 1) {
-                showNotification('Откройте настройки Wi-Fi и подключитесь к сети');
-            }
+        // Обновить активные вкладки в навбаре
+        updateNavBar(screen);
 
-            // Проверить задание 4 (открытие магазина)
-            if (screen === 'appstore' && currentTask === 4) {
-                showNotification('Введите "Telegram" в поле поиска и нажмите поиск');
-            }
+        // Проверить задание 1 (подключение к Wi-Fi)
+        if (screen === 'wifi' && currentTask === 1) {
+            showNotification('Откройте настройки Wi-Fi и подключитесь к сети');
         }
 
-        // Обновить навигационную панель
-        function updateNavBar(activeScreen) {
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-
-            if (activeScreen === 'home') {
-                document.querySelector('.nav-item:nth-child(1)').classList.add('active');
-            } else if (activeScreen === 'settings') {
-                document.querySelector('.nav-item:nth-child(2)').classList.add('active');
-            } else if (activeScreen === 'appstore') {
-                document.querySelector('.nav-item:nth-child(3)').classList.add('active');
-            }
+        // Проверить задание 4 (открытие магазина)
+        if (screen === 'appstore' && currentTask === 4) {
+            showNotification('Введите "Telegram" в поле поиска и нажмите поиск');
         }
+    }
 
-        // Поиск приложения
-        function searchApp() {
-            const searchInput = document.getElementById('search-input');
-            const query = searchInput.value.trim().toLowerCase();
+    // Обновить навигационную панель
+    function updateNavBar(activeScreen) {
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.classList.remove('active');
+        });
 
-            if (query === 'telegram') {
-                showScreen('search-result');
-                showNotification('Найдено приложение Telegram. Нажмите кнопку "Скачать"');
-
-                // Проверить задание 4
-                if (currentTask === 4) {
-                    // Не завершаем задание сразу, нужно еще нажать скачать
-                    showNotification('Теперь нажмите большую зеленую кнопку "Скачать"');
-                }
-            } else if (query === '') {
-                showNotification('Введите название приложения для поиска');
-            } else {
-                showNotification('Введите "Telegram" для выполнения задания');
-                searchInput.value = 'Telegram';
-            }
+        if (activeScreen === 'home') {
+            document.querySelector('.nav-item:nth-child(1)').classList.add('active');
+        } else if (activeScreen === 'settings') {
+            document.querySelector('.nav-item:nth-child(2)').classList.add('active');
+        } else if (activeScreen === 'appstore') {
+            document.querySelector('.nav-item:nth-child(3)').classList.add('active');
         }
+    }
 
-        // Скачать Telegram
-        function downloadTelegram() {
+    // Поиск приложения
+    function searchApp() {
+        const searchInput = document.getElementById('search-input');
+        const query = searchInput.value.trim().toLowerCase();
+
+        if (query === 'telegram') {
+            showScreen('search-result');
+            showNotification('Найдено приложение Telegram. Нажмите кнопку "Скачать"');
+
+            // Проверить задание 4
             if (currentTask === 4) {
-                completeTask(4);
-                showNotification('Telegram успешно скачивается!');
-                document.getElementById('telegram-download-btn').innerHTML = '<i class="bi bi-check-circle"></i> СКАЧИВАНИЕ НАЧАТО';
-                document.getElementById('telegram-download-btn').style.background = '#6c757d';
-                document.getElementById('telegram-download-btn').disabled = true;
+                // Не завершаем задание сразу, нужно еще нажать скачать
+                showNotification('Теперь нажмите большую зеленую кнопку "Скачать"');
             }
+        } else if (query === '') {
+            showNotification('Введите название приложения для поиска');
+        } else {
+            showNotification('Введите "Telegram" для выполнения задания');
+            searchInput.value = 'Telegram';
         }
+    }
 
-        // Обновить Wi-Fi
-        function refreshWifi() {
-            showNotification('Сканирование Wi-Fi сетей...');
+    // Скачать Telegram
+    function downloadTelegram() {
+        if (currentTask === 4) {
+            completeTask(4);
+            showNotification('Telegram успешно скачивается!');
+            document.getElementById('telegram-download-btn').innerHTML = '<i class="bi bi-check-circle"></i> СКАЧИВАНИЕ НАЧАТО';
+            document.getElementById('telegram-download-btn').style.background = '#6c757d';
+            document.getElementById('telegram-download-btn').disabled = true;
         }
+    }
 
-        // Подключиться к Wi-Fi
-        function connectToWifi() {
-            showScreen('connect');
-        }
+    // Обновить Wi-Fi
+    function refreshWifi() {
+        showNotification('Сканирование Wi-Fi сетей...');
+    }
 
-        // Подключить Wi-Fi с паролем
-        function connectWifi() {
-            const password = document.getElementById('wifi-password').value;
-            if (password === '12345678' && currentTask === 1) {
-                completeTask(1);
-                showNotification('Wi-Fi подключен успешно!');
-                setTimeout(() => {
-                    showScreen('home');
-                }, 1500);
-            } else {
-                showNotification('Неверный пароль! Попробуйте: 12345678');
-            }
-        }
+    // Подключиться к Wi-Fi
+    function connectToWifi() {
+        showScreen('connect');
+    }
 
-        // Кнопки телефона
-        function pressVolumeUp() {
-            volumeUpCount++;
-            showNotification('Громкость увеличена');
-
-            if (currentTask === 2 && volumeUpCount >= 2 && volumeDownCount >= 1) {
-                completeTask(2);
-            }
-        }
-
-        function pressVolumeDown() {
-            volumeDownCount++;
-            showNotification('Громкость уменьшена');
-
-            if (currentTask === 2 && volumeUpCount >= 2 && volumeDownCount >= 1) {
-                completeTask(2);
-            }
-        }
-
-        function pressPower() {
-            powerCount++;
-
-            if (screenLocked) {
-                // Разблокировать
-                screenLocked = false;
-                showScreen('home');
-                showNotification('Экран разблокирован');
-
-                if (currentTask === 3 && powerCount >= 2) {
-                    completeTask(3);
-                }
-            } else {
-                // Заблокировать
-                screenLocked = true;
-                showScreen('black');
-                showNotification('Экран заблокирован');
-            }
-        }
-
-        function completeTraining() {
-            if (tasksCompleted === totalTasks) {
-            // Перенаправить на страницу обновления прогресса
-               fetch("/smartphone_basics", {method: "POST"});
-            }
-        }
-
-        // Завершить задание
-        function completeTask(taskNum) {
-            tasksCompleted++;
-            updateProgress();
-
-            document.getElementById('next-btn').classList.add('active');
-            showNotification('Задание ' + taskNum + ' выполнено! Нажмите "Следующее задание"');
-
-            // Если все задания выполнены
-            if (tasksCompleted === totalTasks) {
-                completeTraining();
-                setTimeout(() => {
-                    document.getElementById('complete-screen').classList.add('active');
-                    document.getElementById('task' + currentTask).classList.remove('active');
-                    document.getElementById('next-btn').classList.remove('active');
-                    document.getElementById('score').textContent = totalTasks + '/' + totalTasks;
-                    buttonsToHide.forEach(button => {button.style.display = 'none';});
-                }, 1000);
-            }
-        }
-
-        // Следующее задание
-        function nextTask() {
-            // Скрыть текущее задание
-            document.getElementById('task' + currentTask).classList.remove('active');
-
-            // Скрыть кнопку
-            document.getElementById('next-btn').classList.remove('active');
-
-            // Скрыть все подсказки
-            document.querySelectorAll('.help-content-big').forEach(help => {
-                help.classList.remove('active');
-            });
-
-            // Перейти к следующему заданию
-            currentTask++;
-
-            // Сбросить счетчики для кнопок
-            if (currentTask === 2) {
-                volumeUpCount = 0;
-                volumeDownCount = 0;
-            } else if (currentTask === 3) {
-                powerCount = 0;
-            }
-
-            // Показать новое задание
-            if (currentTask <= totalTasks) {
-                document.getElementById('task' + currentTask).classList.add('active');
-
-                // Показать подсказку для нового задания
-                if (currentTask === 2) {
-                    showNotification('Задание 2: Используйте кнопки громкости на левой стороне телефона');
-                } else if (currentTask === 3) {
-                    showNotification('Задание 3: Используйте кнопку питания на правой стороне телефона');
-                } else if (currentTask === 4) {
-                    showNotification('Задание 4: Скачайте Telegram через магазин приложений');
-                }
-            }
-        }
-
-        // Обновить прогресс
-        function updateProgress() {
-            const progress = (tasksCompleted / totalTasks) * 100;
-            document.getElementById('progress').style.width = progress + '%';
-        }
-
-        // Показать/скрыть помощь
-        function toggleHelp(taskNum) {
-            const help = document.getElementById('help' + taskNum);
-            help.classList.toggle('active');
-        }
-
-        // Показать уведомление
-        function showNotification(message) {
-            const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.style.display = 'block';
-
+    // Подключить Wi-Fi с паролем
+    function connectWifi() {
+        const password = document.getElementById('wifi-password').value;
+        if (password === '12345678' && currentTask === 1) {
+            completeTask(1);
+            showNotification('Wi-Fi подключен успешно!');
             setTimeout(() => {
-                notification.style.display = 'none';
-            }, 3000);
+                showScreen('home');
+            }, 1500);
+        } else {
+            showNotification('Неверный пароль! Попробуйте: 12345678');
+        }
+    }
+
+    // Кнопки телефона - ГРОМКОСТЬ
+    function pressVolumeUp() {
+        // Разрешаем нажатие ТОЛЬКО для задания 2
+        if (currentTask !== 2) {
+            return; // Игнорируем нажатие на других заданиях
         }
 
-        // Начать заново
-        function restartTraining() {
-            currentTask = 1;
-            tasksCompleted = 0;
+        volumeUpCount++;
+        showNotification('Громкость увеличена');
+
+        if (volumeUpCount >= 2 && volumeDownCount >= 1 && !task2Completed) {
+            completeTask(2);
+            task2Completed = true;
+        }
+    }
+
+    function pressVolumeDown() {
+        // Разрешаем нажатие ТОЛЬКО для задания 2
+        if (currentTask !== 2) {
+            return; // Игнорируем нажатие на других заданиях
+        }
+
+        volumeDownCount++;
+        showNotification('Громкость уменьшена');
+
+        if (volumeUpCount >= 2 && volumeDownCount >= 1 && !task2Completed) {
+            completeTask(2);
+            task2Completed = true;
+        }
+    }
+
+    // Кнопка телефона - ПИТАНИЕ
+    function pressPower() {
+        // Разрешаем нажатие ТОЛЬКО для задания 3
+        if (currentTask !== 3) {
+            return; // Игнорируем нажатие на других заданиях
+        }
+
+        powerCount++;
+
+        if (screenLocked) {
+            // Разблокировать
             screenLocked = false;
+            showScreen('home');
+            showNotification('Экран разблокирован');
+
+            if (powerCount >= 2 && !task3Completed) {
+                completeTask(3);
+                task3Completed = true;
+            }
+        } else {
+            // Заблокировать
+            screenLocked = true;
+            showScreen('black');
+            showNotification('Экран заблокирован');
+        }
+    }
+
+    function completeTraining() {
+        if (tasksCompleted === totalTasks) {
+            // Перенаправить на страницу обновления прогресса
+            fetch("/smartphone_basics", {method: "POST"});
+        }
+    }
+
+    // Завершить задание
+    function completeTask(taskNum) {
+        tasksCompleted++;
+        updateProgress();
+
+        document.getElementById('next-btn').classList.add('active');
+        showNotification('Задание ' + taskNum + ' выполнено! Нажмите "Следующее задание"');
+
+        // Если все задания выполнены
+        if (tasksCompleted === totalTasks) {
+            completeTraining();
+            setTimeout(() => {
+                document.getElementById('complete-screen').classList.add('active');
+                document.getElementById('task' + currentTask).classList.remove('active');
+                document.getElementById('next-btn').classList.remove('active');
+                document.getElementById('score').textContent = totalTasks + '/' + totalTasks;
+                buttonsToHide.forEach(button => {button.style.display = 'none';});
+            }, 1000);
+        }
+    }
+
+    // Следующее задание
+    function nextTask() {
+        // Скрыть текущее задание
+        document.getElementById('task' + currentTask).classList.remove('active');
+
+        // Скрыть кнопку
+        document.getElementById('next-btn').classList.remove('active');
+
+        // Скрыть все подсказки
+        document.querySelectorAll('.help-content-big').forEach(help => {
+            help.classList.remove('active');
+        });
+
+        // Перейти к следующему заданию
+        currentTask++;
+
+        // Сбросить счетчики и настроить доступность кнопок
+        if (currentTask === 1) {
             volumeUpCount = 0;
             volumeDownCount = 0;
             powerCount = 0;
+            task2Completed = false;
+            task3Completed = false;
+            volumeButtonsEnabled = false; // Отключаем кнопки громкости
+            powerButtonEnabled = false;   // Отключаем кнопку питания
+        } else if (currentTask === 2) {
+            volumeUpCount = 0;
+            volumeDownCount = 0;
+            task2Completed = false;
+            volumeButtonsEnabled = true;  // Включаем кнопки громкости
+            powerButtonEnabled = false;   // Отключаем кнопку питания
+        } else if (currentTask === 3) {
+            powerCount = 0;
+            task3Completed = false;
+            volumeButtonsEnabled = false; // Отключаем кнопки громкости
+            powerButtonEnabled = true;    // Включаем кнопку питания
+        } else if (currentTask === 4) {
+            volumeButtonsEnabled = false; // Отключаем все кнопки
+            powerButtonEnabled = false;
 
-            // Скрыть экран завершения
-            document.getElementById('complete-screen').classList.remove('active');
-
-            // Показать первое задание
-            document.querySelectorAll('.task').forEach(task => {
-                task.classList.remove('active');
-            });
-            document.getElementById('task1').classList.add('active');
-
-            // Скрыть кнопку
-            document.getElementById('next-btn').classList.remove('active');
-
-            // Скрыть все подсказки
-            document.querySelectorAll('.help-content-big').forEach(help => {
-                help.classList.remove('active');
-            });
-
-            // Сбросить телефон
-            showScreen('home');
-
-            // Сбросить кнопку скачивания
+            // Сброс кнопки скачивания Telegram
             const downloadBtn = document.getElementById('telegram-download-btn');
             if (downloadBtn) {
                 downloadBtn.innerHTML = '<i class="bi bi-download"></i> СКАЧАТЬ TELEGRAM';
                 downloadBtn.style.background = '#28a745';
                 downloadBtn.disabled = false;
             }
-
-            // Обновить прогресс
-            updateProgress();
-
-            showNotification('Тренинг начат заново. Удачи!');
         }
 
-        // Обновлять время
-        function updateTime() {
-            const now = new Date();
-            const time = now.getHours().toString().padStart(2, '0') + ':' +
-                         now.getMinutes().toString().padStart(2, '0');
-            document.querySelectorAll('.time').forEach(el => {
-                el.textContent = time;
-            });
-        }
+        // Показать новое задание
+        if (currentTask <= totalTasks) {
+            document.getElementById('task' + currentTask).classList.add('active');
 
-        // Поддержка Enter в поле поиска
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('search-input');
-            if (searchInput) {
-                searchInput.addEventListener('keypress', function(e) {
-                    if (e.key === 'Enter') {
-                        searchApp();
-                    }
-                });
+            // Показать подсказку для нового задания
+            if (currentTask === 2) {
+                showNotification('Задание 2: Используйте кнопки громкости на левой стороне телефона');
+            } else if (currentTask === 3) {
+                showNotification('Задание 3: Используйте кнопку питания на правой стороне телефона');
+            } else if (currentTask === 4) {
+                showNotification('Задание 4: Скачайте Telegram через магазин приложений');
             }
+        }
+    }
+
+    // Обновить прогресс
+    function updateProgress() {
+        const progress = (tasksCompleted / totalTasks) * 100;
+        document.getElementById('progress').style.width = progress + '%';
+    }
+
+    // Показать/скрыть помощь
+    function toggleHelp(taskNum) {
+        const help = document.getElementById('help' + taskNum);
+        help.classList.toggle('active');
+    }
+
+    // Показать уведомление
+    function showNotification(message) {
+        const notification = document.getElementById('notification');
+        notification.textContent = message;
+        notification.style.display = 'block';
+
+        setTimeout(() => {
+            notification.style.display = 'none';
+        }, 3000);
+    }
+
+    // Начать заново
+    function restartTraining() {
+        currentTask = 1;
+        tasksCompleted = 0;
+        screenLocked = false;
+        volumeUpCount = 0;
+        volumeDownCount = 0;
+        powerCount = 0;
+        task2Completed = false;
+        task3Completed = false;
+
+        // Отключаем все кнопки на 1 задании
+        volumeButtonsEnabled = false;
+        powerButtonEnabled = false;
+
+        // Скрыть экран завершения
+        document.getElementById('complete-screen').classList.remove('active');
+
+        // Показать первое задание
+        document.querySelectorAll('.task').forEach(task => {
+            task.classList.remove('active');
+        });
+        document.getElementById('task1').classList.add('active');
+
+        // Скрыть кнопку
+        document.getElementById('next-btn').classList.remove('active');
+
+        // Скрыть все подсказки
+        document.querySelectorAll('.help-content-big').forEach(help => {
+            help.classList.remove('active');
         });
 
-        // Запустить
+        // Сбросить телефон
+        showScreen('home');
+
+        // Сбросить кнопку скачивания
+        const downloadBtn = document.getElementById('telegram-download-btn');
+        if (downloadBtn) {
+            downloadBtn.innerHTML = '<i class="bi bi-download"></i> СКАЧАТЬ TELEGRAM';
+            downloadBtn.style.background = '#28a745';
+            downloadBtn.disabled = false;
+        }
+
+        // Обновить прогресс
+        updateProgress();
+
+        showNotification('Тренинг начат заново. Удачи!');
+    }
+
+    // Обновлять время
+    function updateTime() {
+        const now = new Date();
+        const time = now.getHours().toString().padStart(2, '0') + ':' +
+                     now.getMinutes().toString().padStart(2, '0');
+        document.querySelectorAll('.time').forEach(el => {
+            el.textContent = time;
+        });
+    }
+
+    // Поддержка Enter в поле поиска
+    document.addEventListener('DOMContentLoaded', function() {
         updateTime();
         setInterval(updateTime, 60000);
-    </script>
+
+        // Инициализация состояния кнопок
+        volumeButtonsEnabled = false;
+        powerButtonEnabled = false;
+
+        const searchInput = document.getElementById('search-input');
+        if (searchInput) {
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchApp();
+                }
+            });
+        }
+    });
+</script>
     <script src="/static/js/os_training_pro.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </body>
