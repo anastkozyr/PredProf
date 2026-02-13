@@ -393,11 +393,27 @@
             left: 4%;
             width: 93%;
             height: 9%;
-            background: rgba(0, 123, 255, 0.6);
-            border: 3px solid #007bff;
-            font-size: 20px;
-        }
 
+        }
+        /* Добавьте в раздел стилей */
+.clickable-area.blue-button {
+    background: #007AFF !important;
+    border: none !important;
+    border-radius: 15px !important;
+    color: white !important;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 25px rgba(0, 122, 255, 0.3);
+    animation: none !important; /* Отключает пульсацию */
+}
+
+.clickable-area.blue-button:hover {
+    transform: translateY(-2px);
+    background: #0056b3 !important;
+    box-shadow: 0 12px 30px rgba(0, 122, 255, 0.4);
+}
         #clickable-area-im18 {
             top: 70%;
             left: 5%;
@@ -771,7 +787,25 @@
                 width: 100%;
             }
         }
+        /* Добавьте в раздел стилей */
+.clickable-area.blue-button {
+    background: #007AFF !important;
+    border: none !important;
+    border-radius: 15px !important;
+    color: white !important;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 25px rgba(0, 122, 255, 0.3);
+    animation: none !important; /* Отключает пульсацию */
+}
 
+.clickable-area.blue-button:hover {
+    transform: translateY(-2px);
+    background: #0056b3 !important;
+    box-shadow: 0 12px 30px rgba(0, 122, 255, 0.4);
+}
         @media (max-width: 768px) {
             .phone-container {
                 transform: scale(0.8);
@@ -1039,11 +1073,11 @@
                 <div id="clickable-area-im17" class="clickable-area hidden" onclick="goToImage('im18')">
                 </div>
 
-                <div id="clickable-area-im18" class="clickable-area hidden" onclick="goToImage('im19')">
-                    Подать заявление на пенсию
+                <div id="clickable-area-im18" class="clickable-area blue-button hidden" onclick="goToImage('im19')">
+                    Подать заявление
                 </div>
 
-                <div id="clickable-area-im19" class="clickable-area hidden" onclick="goToImage('im20')">
+                <div id="clickable-area-im19" class="clickable-area blue-button hidden" onclick="goToImage('im20')">
                     Разрешить
                 </div>
 
@@ -1325,25 +1359,25 @@
                 case 'im17':
                     setTimeout(() => {
                         showClickableArea('im17');
-                        showNotification('Нажмите "Назначение пенсии по возрасту"');
+                        showNotification('Нажмите "Работа и пенсия"');
                     }, 500);
                     break;
                 case 'im18':
                     setTimeout(() => {
                         showClickableArea('im18');
-                        showNotification('Нажмите "Запросить"');
+                        showNotification('Нажмите "Подать заявление"');
                     }, 500);
                     break;
                 case 'im19':
                     setTimeout(() => {
                         showClickableArea('im19');
-                        showNotification('Нажмите "Подтвердить данные"');
+                        showNotification('Нажмите "Разрешить"');
                     }, 500);
                     break;
                 case 'im20':
                     setTimeout(() => {
                         showClickableArea('im20');
-                        showNotification('Нажмите "Отправить заявление" для завершения тренинга');
+                        showNotification('Нажмите "крестик" для завершения тренинга');
                     }, 500);
                     break;
             }
@@ -1410,7 +1444,7 @@ function handleIm16Click() {
 
         setTimeout(() => {
             showClickableArea('im16');
-            showNotification('Нажмите на кнопку "Мои услуги" для задания 3: Оформление пенсии');
+            showNotification('Нажмите на кнопку "Мои услуги" для задания 3: Оформление электронного свидетельства пенсионера');
         }, 500);
     }
 
