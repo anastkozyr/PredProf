@@ -222,33 +222,7 @@ window.completeTraining = function() {
 };
 
 function setupAudioUnlock() {
-    const phoneButtons = document.querySelectorAll('.volume-up, .volume-down, .power-btn');
-    const trainingButtons = document.querySelectorAll('.help-btn-big, .next-btn');
-    const interactiveElements = document.querySelectorAll('.clickable-area, .app-screen');
-
-    phoneButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
-            if (!audioUnlocked) {
-                unlockAudio();
-            }
-        }, { once: true });
-    });
-
-    trainingButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
-            if (!audioUnlocked) {
-                unlockAudio();
-            }
-        }, { once: true });
-    });
-
-    interactiveElements.forEach(element => {
-        element.addEventListener('click', function() {
-            if (!audioUnlocked) {
-                unlockAudio();
-            }
-        }, { once: true });
-    });
+    // Функция больше не добавляет обработчики для разблокировки
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -264,4 +238,4 @@ document.addEventListener('DOMContentLoaded', function() {
             statusIndicator.style.display = 'none';
         }, 5000);
     }, 1000);
-});
+);

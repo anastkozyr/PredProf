@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5423f298-9750-4c02-8302-b1b3867beef4" name="Changes" comment="звук проф макс" />
+    <list default="true" id="5423f298-9750-4c02-8302-b1b3867beef4" name="Changes" comment="крупная база">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/five_training_basic.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/five_training_basic.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/five_training_pro.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/five_training_pro.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/gos_training_basic.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/gos_training_basic.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/gos_training_pro.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/gos_training_pro.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/max_training_advanced.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/max_training_advanced.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/max_training_basic.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/max_training_basic.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/os_training_basic.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/os_training_basic.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/os_training_pro.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/os_training_pro.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -19,12 +29,12 @@
     &quot;assignee&quot;: &quot;voroninav12&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/anastkozyr/PredProf.git&quot;,
-    &quot;accountId&quot;: &quot;65cdfd9c-4b48-4949-863c-36fbd57ee783&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/anastkozyr/PredProf.git",
+    "accountId": "abb63e77-4bad-49b8-a02f-c26f1362c8b3"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -33,17 +43,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.main.executor": "Run",
-    "Python.run.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "veronika",
-    "last_opened_file_path": "C:/Users/leono/Documents/GitHub/PredProf",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.run.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;veronika&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/leono/Documents/GitHub/PredProf&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\leono\Documents\GitHub\PredProf\images\five" />
@@ -107,10 +117,11 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-d9fa9deec7cb-d902c0275401-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-252.23892.515" />
+        <option value="bundled-python-sdk-fb887030ada0-aa17d162503b-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-243.21565.199" />
       </set>
     </attachedChunks>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="5423f298-9750-4c02-8302-b1b3867beef4" name="Changes" comment="" />
@@ -193,10 +204,10 @@
     <MESSAGE value="5467890-" />
     <MESSAGE value="почти норм базовая пятерочка" />
     <MESSAGE value="про" />
-    <MESSAGE value="крупная база" />
     <MESSAGE value="итоговая озвучка с переходами" />
     <MESSAGE value="исправленный звук" />
     <MESSAGE value="звук проф макс" />
-    <option name="LAST_COMMIT_MESSAGE" value="звук проф макс" />
+    <MESSAGE value="крупная база" />
+    <option name="LAST_COMMIT_MESSAGE" value="крупная база" />
   </component>
 </project>
