@@ -257,44 +257,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function setupAudioUnlock() {
-    const appScreen = document.getElementById('appScreen');
-    const interactiveOverlay = document.getElementById('interactiveOverlay');
-    const helpButtons = document.querySelectorAll('.help-btn-big');
-    const nextButton = document.getElementById('next-btn');
-
-    if (appScreen) {
-        appScreen.addEventListener('click', function() {
-            if (!audioUnlocked) {
-                unlockAudio();
-            }
-        }, { once: true });
-    }
-
-    if (interactiveOverlay) {
-        interactiveOverlay.addEventListener('click', function() {
-            if (!audioUnlocked) {
-                unlockAudio();
-            }
-        }, { once: true });
-    }
-
-    if (helpButtons.length > 0) {
-        helpButtons.forEach(btn => {
-            btn.addEventListener('click', function() {
-                if (!audioUnlocked) {
-                    unlockAudio();
-                }
-            }, { once: true });
-        });
-    }
-
-    if (nextButton) {
-        nextButton.addEventListener('click', function() {
-            if (!audioUnlocked) {
-                unlockAudio();
-            }
-        }, { once: true });
-    }
+    // Функция больше не добавляет обработчики для разблокировки
 }
 
 async function loadUserData() {
@@ -384,10 +347,9 @@ function addMessageInputField() {
         }
     });
 
+    // Убрана автоматическая разблокировка звука при фокусе
     inputField.addEventListener('focus', function() {
-        if (!audioUnlocked) {
-            unlockAudio();
-        }
+        // Ничего не делаем для звука
     });
 
     inputContainer.appendChild(inputField);
@@ -443,9 +405,7 @@ function initClickableAreas() {
             clickableArea.id = area.id;
 
             clickableArea.onclick = () => {
-                if (!audioUnlocked) {
-                    unlockAudio();
-                }
+                // Убрана автоматическая разблокировка звука
                 handleAreaClick(area.action);
             };
 

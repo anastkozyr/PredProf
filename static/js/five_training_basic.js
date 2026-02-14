@@ -234,10 +234,7 @@ window.restartTraining = function() {
 };
 
 window.handleAreaClick = function(action) {
-    if (!audioUnlocked) {
-        unlockAudio();
-    }
-
+    // Просто вызываем оригинальную функцию, без разблокировки звука
     if (originalHandleAreaClick) {
         originalHandleAreaClick(action);
     }
@@ -247,15 +244,6 @@ window.initClickableAreas = function() {
     if (originalInitClickableAreas) {
         originalInitClickableAreas();
     }
-
-    const clickableAreas = document.querySelectorAll('.clickable-area, .input-area');
-    clickableAreas.forEach(area => {
-        area.addEventListener('click', function() {
-            if (!audioUnlocked) {
-                unlockAudio();
-            }
-        }, { once: true });
-    });
 };
 
 function setupAudioUnlock() {
@@ -263,40 +251,6 @@ function setupAudioUnlock() {
     const interactiveOverlay = document.getElementById('interactiveOverlay');
     const helpButtons = document.querySelectorAll('.help-btn-big');
     const nextButton = document.getElementById('next-btn');
-
-    if (appScreen) {
-        appScreen.addEventListener('click', function() {
-            if (!audioUnlocked) {
-                unlockAudio();
-            }
-        }, { once: true });
-    }
-
-    if (interactiveOverlay) {
-        interactiveOverlay.addEventListener('click', function() {
-            if (!audioUnlocked) {
-                unlockAudio();
-            }
-        }, { once: true });
-    }
-
-    if (helpButtons.length > 0) {
-        helpButtons.forEach(btn => {
-            btn.addEventListener('click', function() {
-                if (!audioUnlocked) {
-                    unlockAudio();
-                }
-            }, { once: true });
-        });
-    }
-
-    if (nextButton) {
-        nextButton.addEventListener('click', function() {
-            if (!audioUnlocked) {
-                unlockAudio();
-            }
-        }, { once: true });
-    }
 }
 
 document.addEventListener('DOMContentLoaded', function() {

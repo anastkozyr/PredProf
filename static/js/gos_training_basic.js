@@ -233,62 +233,7 @@ window.completeTraining = function() {
 
 // Автоматическая разблокировка аудио
 function setupAudioUnlock() {
-    const loginButton = document.getElementById('login-btn');
-    const registerButton = document.getElementById('register-btn');
-    const clickableAreas = document.querySelectorAll('.clickable-area');
-    const formButtons = document.querySelectorAll('.form-btn, .button-start, .button-continue, .button-select, .button-next');
-    const helpButtons = document.querySelectorAll('.help-btn-big');
-    const nextButton = document.getElementById('next-btn');
-
-    if (loginButton) {
-        loginButton.addEventListener('click', function() {
-            if (!audioUnlocked) {
-                unlockAudio();
-            }
-        }, { once: true });
-    }
-
-    if (registerButton) {
-        registerButton.addEventListener('click', function() {
-            if (!audioUnlocked) {
-                unlockAudio();
-            }
-        }, { once: true });
-    }
-
-    clickableAreas.forEach(area => {
-        area.addEventListener('click', function() {
-            if (!audioUnlocked) {
-                unlockAudio();
-            }
-        }, { once: true });
-    });
-
-    formButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
-            if (!audioUnlocked) {
-                unlockAudio();
-            }
-        }, { once: true });
-    });
-
-    if (helpButtons.length > 0) {
-        helpButtons.forEach(btn => {
-            btn.addEventListener('click', function() {
-                if (!audioUnlocked) {
-                    unlockAudio();
-                }
-            }, { once: true });
-        });
-    }
-
-    if (nextButton) {
-        nextButton.addEventListener('click', function() {
-            if (!audioUnlocked) {
-                unlockAudio();
-            }
-        }, { once: true });
-    }
+    // Функция больше не добавляет обработчики для разблокировки
 }
 
 // Инициализация при загрузке
